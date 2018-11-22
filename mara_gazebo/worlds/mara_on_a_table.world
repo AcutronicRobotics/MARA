@@ -13,1130 +13,446 @@
       <shadows>false</shadows>
     </scene>
 
-    <physics type="ode">
-      <real_time_update_rate>1000.0</real_time_update_rate>
-      <max_step_size>0.001</max_step_size>
-      <real_time_factor>1</real_time_factor>
-      <ode>
-        <solver>
-          <type>quick</type>
-          <iters>150</iters>
-          <precon_iters>0</precon_iters>
-          <sor>1.400000</sor>
-          <use_dynamic_moi_rescaling>1</use_dynamic_moi_rescaling>
-        </solver>
-        <constraints>
-          <cfm>0.00001</cfm>
-          <erp>0.2</erp>
-          <contact_max_correcting_vel>2000.000000</contact_max_correcting_vel>
-          <contact_surface_layer>0.01000</contact_surface_layer>
-        </constraints>
-      </ode>
-    </physics>
+    <model name='mara'>
+      <link name='table'>
+        <pose frame=''>0 0 0.02 0 -0 0</pose>
+        <inertial>
+          <pose frame=''>0 -5e-06 0.68145 0 -0 0</pose>
+          <mass>7.033</mass>
+          <inertia>
+            <ixx>1.14783</ixx>
+            <ixy>-1e-05</ixy>
+            <ixz>-5.29396e-23</ixz>
+            <iyy>1.14782</iyy>
+            <iyz>-3.38813e-21</iyz>
+            <izz>1.29472</izz>
+          </inertia>
+        </inertial>
+        <collision name='table_collision'>
+          <pose frame=''>0 0 0.6 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>1.5 1 0.05</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name='table_fixed_joint_lump__base_link_collision_1'>
+          <pose frame=''>0 0 0.65 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/H-ROS_Robot_BASE.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='table_visual'>
+          <pose frame=''>0 0 0.6 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1.5 1 0.05</scale>
+              <uri>model://mara_description/urdf/table.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='table_visual_1'>
+          <pose frame=''>-0.65 -0.4 0.29 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.1 0.1 0.58</scale>
+              <uri>model://mara_description/urdf/table.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='table_visual_2'>
+          <pose frame=''>-0.65 0.4 0.29 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.1 0.1 0.58</scale>
+              <uri>model://mara_description/urdf/table.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='table_visual_3'>
+          <pose frame=''>0.65 -0.4 0.29 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.1 0.1 0.58</scale>
+              <uri>model://mara_description/urdf/table.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='table_visual_4'>
+          <pose frame=''>0.65 0.4 0.29 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.1 0.1 0.58</scale>
+              <uri>model://mara_description/urdf/table.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='table_fixed_joint_lump__base_link_visual_5'>
+          <pose frame=''>0 0 0.65 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/H-ROS_Robot_BASE.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+      </link>
+      <joint name='world_to_table_joint' type='fixed'>
+        <child>table</child>
+        <parent>world</parent>
+      </joint>
+      <link name='motor1_link'>
+        <pose frame=''>0 0 0.67625 0 -0 0</pose>
+        <inertial>
+          <pose frame=''>0 -5e-06 0.03145 0 -0 0</pose>
+          <mass>5.8</mass>
+          <inertia>
+            <ixx>0.101059</ixx>
+            <ixy>0.000211</ixy>
+            <ixz>-0.004</ixz>
+            <iyy>0.0938662</iyy>
+            <iyz>-0.0169854</iyz>
+            <izz>0.0144994</izz>
+          </inertia>
+        </inertial>
+        <collision name='motor1_link_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/H-ROS_Robot_mara1.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='motor1_link_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/H-ROS_Robot_mara1.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/White</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <self_collide>1</self_collide>
+      </link>
+      <joint name='motor1' type='revolute'>
+        <child>motor1_link</child>
+        <parent>table</parent>
+        <axis>
+          <xyz>0 0 -1</xyz>
+          <limit>
+            <lower>-2.3562</lower>
+            <upper>2.3562</upper>
+            <effort>330</effort>
+            <velocity>3.1416</velocity>
+          </limit>
+        </axis>
+      </joint>
+      <link name='motor2_link'>
+        <pose frame=''>0 -0.1005 0.83075 0 -0 0</pose>
+        <inertial>
+          <pose frame=''>0 -5e-06 0.03145 0 -0 0</pose>
+          <mass>1.03237</mass>
+          <inertia>
+            <ixx>0.0148652</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.01557</iyy>
+            <iyz>0.00071</iyz>
+            <izz>0.00092</izz>
+          </inertia>
+        </inertial>
+        <collision name='motor2_link_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/H-ROS_Robot_LINK1.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='motor2_link_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/H-ROS_Robot_LINK1.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Black</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <self_collide>1</self_collide>
+      </link>
+      <joint name='motor2' type='revolute'>
+        <child>motor2_link</child>
+        <parent>motor1_link</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-3.13</lower>
+            <upper>3.13</upper>
+            <effort>330</effort>
+            <velocity>3.1416</velocity>
+          </limit>
+        </axis>
+      </joint>
+      <link name='motor3_link'>
+        <pose frame=''>0 -0.101 1.03075 0 -0 0</pose>
+        <inertial>
+          <pose frame=''>0 -5e-06 0.03145 0 -0 0</pose>
+          <mass>3.8</mass>
+          <inertia>
+            <ixx>0.04517</ixx>
+            <ixy>2e-05</ixy>
+            <ixz>0</ixz>
+            <iyy>0.01587</iyy>
+            <iyz>0.01444</iyz>
+            <izz>0.03303</izz>
+          </inertia>
+        </inertial>
+        <collision name='motor3_link_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/H-ROS_Robot_mara2.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='motor3_link_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/H-ROS_Robot_mara2.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/White</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+      </link>
+      <joint name='motor3' type='revolute'>
+        <child>motor3_link</child>
+        <parent>motor2_link</parent>
+        <axis>
+          <xyz>0 -1 0</xyz>
+          <limit>
+            <lower>-3.13</lower>
+            <upper>3.13</upper>
+            <effort>330</effort>
+            <velocity>3.1416</velocity>
+          </limit>
+        </axis>
+      </joint>
+      <link name='motor4_link'>
+        <pose frame=''>0 -0.00101 1.16075 0 -0 0</pose>
+        <inertial>
+          <pose frame=''>0 -5e-06 0.03145 0 -0 0</pose>
+          <mass>1.1</mass>
+          <inertia>
+            <ixx>0.01464</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00895</iyy>
+            <iyz>-0.00631</iyz>
+            <izz>0.00725</izz>
+          </inertia>
+        </inertial>
+        <collision name='motor4_link_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/H-ROS_Robot_LINK2.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='motor4_link_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/H-ROS_Robot_LINK2.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Black</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+      </link>
+      <joint name='motor4' type='revolute'>
+        <child>motor4_link</child>
+        <parent>motor3_link</parent>
+        <axis>
+          <xyz>0 0 -1</xyz>
+          <limit>
+            <lower>-3.13</lower>
+            <upper>3.13</upper>
+            <effort>330</effort>
+            <velocity>3.1416</velocity>
+          </limit>
+        </axis>
+      </joint>
+      <link name='motor5_link'>
+        <pose frame=''>0 -0.098009 1.31981 0 -0 0</pose>
+        <inertial>
+          <pose frame=''>0 -5e-06 0.03145 0 -0 0</pose>
+          <mass>2.9</mass>
+          <inertia>
+            <ixx>0.03406</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.01066</iyy>
+            <iyz>0.00989</iyz>
+            <izz>0.02563</izz>
+          </inertia>
+        </inertial>
+        <collision name='motor5_link_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/H-ROS_Robot_mara3.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='motor5_link_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/H-ROS_Robot_mara3.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/White</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <self_collide>1</self_collide>
+      </link>
+      <joint name='motor5' type='revolute'>
+        <child>motor5_link</child>
+        <parent>motor4_link</parent>
+        <axis>
+          <xyz>0 -1 0</xyz>
+          <limit>
+            <lower>-3.13</lower>
+            <upper>3.13</upper>
+            <effort>330</effort>
+            <velocity>3.1416</velocity>
+          </limit>
+        </axis>
+      </joint>
+      <link name='motor6_link'>
+        <pose frame=''>0 -0.001009 1.44631 0 -0 0</pose>
+        <inertial>
+          <pose frame=''>0 -5e-06 0.03145 0 -0 0</pose>
+          <mass>2.9</mass>
+          <inertia>
+            <ixx>0.0005</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0005</iyy>
+            <iyz>0</iyz>
+            <izz>0.0003</izz>
+          </inertia>
+        </inertial>
+        <collision name='motor6_link_collision'>
+          <pose frame=''>0 0 0 0 -0 1.04667</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/gripper_support.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='motor6_link_visual'>
+          <pose frame=''>0 0 0 0 -0 1.04667</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://mara_description/meshes/gripper_support.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Black</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <self_collide>1</self_collide>
+      </link>
+      <joint name='motor6' type='revolute'>
+        <child>motor6_link</child>
+        <parent>motor5_link</parent>
+        <axis>
+          <xyz>0 0 -1</xyz>
+          <limit>
+            <lower>-3.13</lower>
+            <upper>3.13</upper>
+            <effort>330</effort>
+            <velocity>3.1416</velocity>
+          </limit>
+        </axis>
+      </joint>
+      <static>0</static>
 
-  <model name='mara'>
-    <link name='table'>
-      <pose frame=''>0 0 0.02 0 -0 0</pose>
-      <inertial>
-        <pose frame=''>0 -5e-06 0.68145 0 -0 0</pose>
-        <mass>7.033</mass>
-        <inertia>
-          <ixx>1.14783</ixx>
-          <ixy>-1e-05</ixy>
-          <ixz>-5.29396e-23</ixz>
-          <iyy>1.14782</iyy>
-          <iyz>-3.38813e-21</iyz>
-          <izz>1.29472</izz>
-        </inertia>
-      </inertial>
-      <collision name='table_collision'>
-        <pose frame=''>0 0 0.6 0 -0 0</pose>
-        <geometry>
-          <box>
-            <size>1.5 1 0.05</size>
-          </box>
-        </geometry>
-      </collision>
-      <collision name='table_fixed_joint_lump__base_link_collision_1'>
-        <pose frame=''>0 0 0.65 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/H-ROS_Robot_BASE.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <visual name='table_visual'>
-        <pose frame=''>0 0 0.6 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1.5 1 0.05</scale>
-            <uri>model://mara_description/urdf/table.obj</uri>
-          </mesh>
-        </geometry>
-      </visual>
-      <visual name='table_visual_1'>
-        <pose frame=''>-0.65 -0.4 0.29 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.1 0.1 0.58</scale>
-            <uri>model://mara_description/urdf/table.obj</uri>
-          </mesh>
-        </geometry>
-      </visual>
-      <visual name='table_visual_2'>
-        <pose frame=''>-0.65 0.4 0.29 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.1 0.1 0.58</scale>
-            <uri>model://mara_description/urdf/table.obj</uri>
-          </mesh>
-        </geometry>
-      </visual>
-      <visual name='table_visual_3'>
-        <pose frame=''>0.65 -0.4 0.29 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.1 0.1 0.58</scale>
-            <uri>model://mara_description/urdf/table.obj</uri>
-          </mesh>
-        </geometry>
-      </visual>
-      <visual name='table_visual_4'>
-        <pose frame=''>0.65 0.4 0.29 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.1 0.1 0.58</scale>
-            <uri>model://mara_description/urdf/table.obj</uri>
-          </mesh>
-        </geometry>
-      </visual>
-      <visual name='table_fixed_joint_lump__base_link_visual_5'>
-        <pose frame=''>0 0 0.65 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/H-ROS_Robot_BASE.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Grey</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>1</self_collide>
-    </link>
-    <joint name='world_to_table_joint' type='fixed'>
-      <child>table</child>
-      <parent>world</parent>
-    </joint>
-    <link name='motor1_link'>
-      <pose frame=''>0 0 0.67625 0 -0 0</pose>
-      <inertial>
-        <pose frame=''>0 -5e-06 0.03145 0 -0 0</pose>
-        <mass>5.8</mass>
-        <inertia>
-          <ixx>0.101059</ixx>
-          <ixy>0.000211</ixy>
-          <ixz>-0.004</ixz>
-          <iyy>0.0938662</iyy>
-          <iyz>-0.0169854</iyz>
-          <izz>0.0144994</izz>
-        </inertia>
-      </inertial>
-      <collision name='motor1_link_collision'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/H-ROS_Robot_mara1.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <visual name='motor1_link_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/H-ROS_Robot_mara1.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/White</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>1</self_collide>
-    </link>
-    <joint name='motor1' type='revolute'>
-      <child>motor1_link</child>
-      <parent>table</parent>
-      <axis>
-        <xyz>0 0 -1</xyz>
-        <limit>
-          <lower>-2.3562</lower>
-          <upper>2.3562</upper>
-          <effort>330</effort>
-          <velocity>3.1416</velocity>
-        </limit>
-        <dynamics>
-          <damping>0</damping>
-          <friction>0</friction>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='motor2_link'>
-      <pose frame=''>0 -0.1005 0.83075 0 -0 0</pose>
-      <inertial>
-        <pose frame=''>0 -5e-06 0.03145 0 -0 0</pose>
-        <mass>1.03237</mass>
-        <inertia>
-          <ixx>0.0148652</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.01557</iyy>
-          <iyz>0.00071</iyz>
-          <izz>0.00092</izz>
-        </inertia>
-      </inertial>
-      <collision name='motor2_link_collision'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/H-ROS_Robot_LINK1.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <visual name='motor2_link_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/H-ROS_Robot_LINK1.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Black</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>1</self_collide>
-    </link>
-    <joint name='motor2' type='revolute'>
-      <child>motor2_link</child>
-      <parent>motor1_link</parent>
-      <axis>
-        <xyz>0 1 0</xyz>
-        <limit>
-          <lower>-3.13</lower>
-          <upper>3.13</upper>
-          <effort>330</effort>
-          <velocity>3.1416</velocity>
-        </limit>
-        <dynamics>
-          <damping>0</damping>
-          <friction>0</friction>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='motor3_link'>
-      <pose frame=''>0 -0.101 1.03075 0 -0 0</pose>
-      <inertial>
-        <pose frame=''>0 -5e-06 0.03145 0 -0 0</pose>
-        <mass>3.8</mass>
-        <inertia>
-          <ixx>0.04517</ixx>
-          <ixy>2e-05</ixy>
-          <ixz>0</ixz>
-          <iyy>0.01587</iyy>
-          <iyz>0.01444</iyz>
-          <izz>0.03303</izz>
-        </inertia>
-      </inertial>
-      <collision name='motor3_link_collision'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/H-ROS_Robot_mara2.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <visual name='motor3_link_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/H-ROS_Robot_mara2.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/White</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>1</self_collide>
-    </link>
-    <joint name='motor3' type='revolute'>
-      <child>motor3_link</child>
-      <parent>motor2_link</parent>
-      <axis>
-        <xyz>0 -1 0</xyz>
-        <limit>
-          <lower>-3.13</lower>
-          <upper>3.13</upper>
-          <effort>330</effort>
-          <velocity>3.1416</velocity>
-        </limit>
-        <dynamics>
-          <damping>0</damping>
-          <friction>0</friction>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='motor4_link'>
-      <pose frame=''>0 -0.00101 1.16075 0 -0 0</pose>
-      <inertial>
-        <pose frame=''>0 -5e-06 0.03145 0 -0 0</pose>
-        <mass>1.1</mass>
-        <inertia>
-          <ixx>0.01464</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.00895</iyy>
-          <iyz>-0.00631</iyz>
-          <izz>0.00725</izz>
-        </inertia>
-      </inertial>
-      <collision name='motor4_link_collision'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/H-ROS_Robot_LINK2.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <visual name='motor4_link_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/H-ROS_Robot_LINK2.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Black</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>1</self_collide>
-    </link>
-    <joint name='motor4' type='revolute'>
-      <child>motor4_link</child>
-      <parent>motor3_link</parent>
-      <axis>
-        <xyz>0 0 -1</xyz>
-        <limit>
-          <lower>-3.13</lower>
-          <upper>3.13</upper>
-          <effort>330</effort>
-          <velocity>3.1416</velocity>
-        </limit>
-        <dynamics>
-          <damping>0</damping>
-          <friction>0</friction>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='motor5_link'>
-      <pose frame=''>0 -0.098009 1.31981 0 -0 0</pose>
-      <inertial>
-        <pose frame=''>0 -5e-06 0.03145 0 -0 0</pose>
-        <mass>2.9</mass>
-        <inertia>
-          <ixx>0.03406</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.01066</iyy>
-          <iyz>0.00989</iyz>
-          <izz>0.02563</izz>
-        </inertia>
-      </inertial>
-      <collision name='motor5_link_collision'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/H-ROS_Robot_mara3.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <visual name='motor5_link_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/H-ROS_Robot_mara3.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/White</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>1</self_collide>
-    </link>
-    <joint name='motor5' type='revolute'>
-      <child>motor5_link</child>
-      <parent>motor4_link</parent>
-      <axis>
-        <xyz>0 -1 0</xyz>
-        <limit>
-          <lower>-3.13</lower>
-          <upper>3.13</upper>
-          <effort>330</effort>
-          <velocity>3.1416</velocity>
-        </limit>
-        <dynamics>
-          <damping>0</damping>
-          <friction>0</friction>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='motor6_link'>
-      <pose frame=''>0 -0.001009 1.44631 0 -0 0</pose>
-      <inertial>
-        <pose frame=''>0 -5e-06 0.035344 0 -0 0</pose>
-        <mass>3.12652</mass>
-        <inertia>
-          <ixx>0.00130707</ixx>
-          <ixy>-4.2442e-10</ixy>
-          <ixz>-2.9069e-10</ixz>
-          <iyy>0.00128534</iyy>
-          <iyz>-3.4402e-08</iyz>
-          <izz>0.00043478</izz>
-        </inertia>
-      </inertial>
-      <collision name='motor6_link_collision'>
-        <pose frame=''>0 0 0 0 -0 1.04667</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/gripper_support.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <collision name='motor6_link_fixed_joint_lump__robotiq_arg2f_base_link_collision_1'>
-        <pose frame=''>0 0 0.05375 0 -0 1.57</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/GRIPPER_base_axis.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <visual name='motor6_link_visual'>
-        <pose frame=''>0 0 0 0 -0 1.04667</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mara_description/meshes/gripper_support.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Black</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <visual name='motor6_link_fixed_joint_lump__robotiq_arg2f_base_link_visual_1'>
-        <pose frame=''>0 0 0.05375 0 -0 1.57</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/GRIPPER_base_axis.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Grey</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <velocity_decay/>
-      <velocity_decay/>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>1</self_collide>
-    </link>
-    <joint name='motor6' type='revolute'>
-      <child>motor6_link</child>
-      <parent>motor5_link</parent>
-      <axis>
-        <xyz>0 0 -1</xyz>
-        <limit>
-          <lower>-3.13</lower>
-          <upper>3.13</upper>
-          <effort>330</effort>
-          <velocity>3.1416</velocity>
-        </limit>
-        <dynamics>
-          <damping>0</damping>
-          <friction>0</friction>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='left_inner_knuckle'>
-      <pose frame=''>0 -0.013709 1.56148 2.2958 -0 0</pose>
-      <inertial>
-        <pose frame=''>0.000123 0.050785 0.00104 0 -0 0</pose>
-        <mass>0.0271177</mass>
-        <inertia>
-          <ixx>2.6191e-05</ixx>
-          <ixy>-2.43617e-07</ixy>
-          <ixz>-6.3779e-09</ixz>
-          <iyy>2.82702e-06</iyy>
-          <iyz>-5.37201e-07</iyz>
-          <izz>2.83696e-05</izz>
-        </inertia>
-      </inertial>
-      <visual name='left_inner_knuckle_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_inner_knuckle.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Grey</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>0</self_collide>
-    </link>
-    <joint name='left_inner_knuckle_joint' type='revolute'>
-      <child>left_inner_knuckle</child>
-      <parent>motor6_link</parent>
-      <axis>
-        <xyz>-1 0 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>0.8757</upper>
-          <effort>1000</effort>
-          <velocity>2</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='left_outer_knuckle'>
-      <pose frame=''>0 -0.03161 1.55496 2.2958 -0 0</pose>
-      <inertial>
-        <pose frame=''>-0.0002 0.019944 0.029225 0 -0 0</pose>
-        <mass>0.00853198</mass>
-        <inertia>
-          <ixx>2.89328e-06</ixx>
-          <ixy>-1.57935e-19</ixy>
-          <ixz>-1.9398e-19</ixz>
-          <iyy>1.8672e-06</iyy>
-          <iyz>-1.21859e-06</iyz>
-          <izz>1.21905e-06</izz>
-        </inertia>
-      </inertial>
-      <collision name='left_outer_knuckle_collision'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_outer_knuckle.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <visual name='left_outer_knuckle_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_outer_knuckle.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Grey</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>1</self_collide>
-    </link>
-    <joint name='left_outer_knuckle_joint' type='revolute'>
-      <child>left_outer_knuckle</child>
-      <parent>motor6_link</parent>
-      <axis>
-        <xyz>-1 0 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>0.775</upper>
-          <effort>1000</effort>
-          <velocity>2</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='left_outer_finger'>
-      <pose frame=''>0 -0.063155 1.55136 2.2958 -0 0</pose>
-      <inertial>
-        <pose frame=''>0.000301 0.037391 -0.020803 0 -0 0</pose>
-        <mass>0.0226142</mass>
-        <inertia>
-          <ixx>1.52518e-05</ixx>
-          <ixy>9.76583e-10</ixy>
-          <ixz>-5.43839e-10</ixz>
-          <iyy>6.17694e-06</iyy>
-          <iyz>6.78636e-06</iyz>
-          <izz>1.16495e-05</izz>
-        </inertia>
-      </inertial>
-      <collision name='left_outer_finger_collision'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_outer_finger.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <visual name='left_outer_finger_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_outer_finger.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Grey</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>1</self_collide>
-    </link>
-    <joint name='left_outer_finger_joint' type='revolute'>
-      <child>left_outer_finger</child>
-      <parent>left_outer_knuckle</parent>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-2</lower>
-          <upper>2</upper>
-          <effort>1000</effort>
-          <velocity>2</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='left_inner_finger'>
-      <pose frame=''>0 -0.096247 1.63127 1.5708 -0 0</pose>
-      <inertial>
-        <pose frame=''>0.0003 0.016008 -0.013695 0 -0 0</pose>
-        <mass>0.0104003</mass>
-        <inertia>
-          <ixx>2.71909e-06</ixx>
-          <ixy>1.35402e-21</ixy>
-          <ixz>-7.18173e-22</ixz>
-          <iyy>7.691e-07</iyy>
-          <iyz>6.74715e-07</iyz>
-          <izz>2.30315e-06</izz>
-        </inertia>
-      </inertial>
-      <collision name='left_inner_finger_collision'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_inner_finger.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <visual name='left_inner_finger_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_inner_finger.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Grey</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>0</self_collide>
-    </link>
-    <joint name='left_inner_finger_joint' type='revolute'>
-      <child>left_inner_finger</child>
-      <parent>left_outer_finger</parent>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>0.8757</upper>
-          <effort>1000</effort>
-          <velocity>2</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='right_inner_knuckle'>
-      <pose frame=''>0 0.011691 1.56148 2.2958 0 -3.14</pose>
-      <inertial>
-        <pose frame=''>0.000123 0.050785 0.00104 0 -0 0</pose>
-        <mass>0.0271177</mass>
-        <inertia>
-          <ixx>2.6191e-05</ixx>
-          <ixy>-2.43617e-07</ixy>
-          <ixz>-6.3779e-09</ixz>
-          <iyy>2.82702e-06</iyy>
-          <iyz>-5.37201e-07</iyz>
-          <izz>2.83696e-05</izz>
-        </inertia>
-      </inertial>
-      <visual name='right_inner_knuckle_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_inner_knuckle.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Grey</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>0</self_collide>
-    </link>
-    <joint name='right_inner_knuckle_joint' type='revolute'>
-      <child>right_inner_knuckle</child>
-      <parent>motor6_link</parent>
-      <axis>
-        <xyz>0.999999 0.001593 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>0.8757</upper>
-          <effort>1000</effort>
-          <velocity>2</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='right_outer_knuckle'>
-      <pose frame=''>0 0.029592 1.55496 2.2958 -0 3.14</pose>
-      <inertial>
-        <pose frame=''>-0.0002 0.019944 0.029225 0 -0 0</pose>
-        <mass>0.00853198</mass>
-        <inertia>
-          <ixx>2.89328e-06</ixx>
-          <ixy>-1.57935e-19</ixy>
-          <ixz>-1.9398e-19</ixz>
-          <iyy>1.8672e-06</iyy>
-          <iyz>-1.21859e-06</iyz>
-          <izz>1.21905e-06</izz>
-        </inertia>
-      </inertial>
-      <collision name='right_outer_knuckle_collision'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_outer_knuckle.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <visual name='right_outer_knuckle_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_outer_knuckle.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Grey</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>1</self_collide>
-    </link>
-    <joint name='right_outer_knuckle_joint' type='revolute'>
-      <child>right_outer_knuckle</child>
-      <parent>motor6_link</parent>
-      <axis>
-        <xyz>0.999999 -0.001593 -0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>0.775</upper>
-          <effort>1000</effort>
-          <velocity>2</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='right_outer_finger'>
-      <pose frame=''>5e-05 0.061137 1.55136 2.2958 -0 3.14</pose>
-      <inertial>
-        <pose frame=''>0.000301 0.037391 -0.020803 0 -0 0</pose>
-        <mass>0.0226142</mass>
-        <inertia>
-          <ixx>1.52518e-05</ixx>
-          <ixy>9.76583e-10</ixy>
-          <ixz>-5.43839e-10</ixz>
-          <iyy>6.17694e-06</iyy>
-          <iyz>6.78636e-06</iyz>
-          <izz>1.16495e-05</izz>
-        </inertia>
-      </inertial>
-      <collision name='right_outer_finger_collision'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_outer_finger.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <visual name='right_outer_finger_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_outer_finger.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Grey</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>1</self_collide>
-    </link>
-    <joint name='right_outer_finger_joint' type='revolute'>
-      <child>right_outer_finger</child>
-      <parent>right_outer_knuckle</parent>
-      <axis>
-        <xyz>0.999999 -0.001593 -0</xyz>
-        <limit>
-          <lower>-2</lower>
-          <upper>2</upper>
-          <effort>1000</effort>
-          <velocity>2</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='right_inner_finger'>
-      <pose frame=''>0.000103 0.094229 1.63127 1.5708 -0 3.14</pose>
-      <inertial>
-        <pose frame=''>0.0003 0.016008 -0.013695 0 -0 0</pose>
-        <mass>0.0104003</mass>
-        <inertia>
-          <ixx>2.71909e-06</ixx>
-          <ixy>1.35402e-21</ixy>
-          <ixz>-7.18173e-22</ixz>
-          <iyy>7.691e-07</iyy>
-          <iyz>6.74715e-07</iyz>
-          <izz>2.30315e-06</izz>
-        </inertia>
-      </inertial>
-      <collision name='right_inner_finger_collision'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_inner_finger.stl</uri>
-          </mesh>
-        </geometry>
-        <surface>
-          <contact>
-            <ode/>
-          </contact>
-          <friction>
-            <ode/>
-          </friction>
-        </surface>
-      </collision>
-      <visual name='right_inner_finger_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://robotiq_arg2f_model_visualization/meshes/robotiq_arg2f_140_inner_finger.stl</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Grey</name>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-          </script>
-        </material>
-      </visual>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>0</self_collide>
-    </link>
-    <joint name='right_inner_finger_joint' type='revolute'>
-      <child>right_inner_finger</child>
-      <parent>right_outer_finger</parent>
-      <axis>
-        <xyz>-0.999999 0.001593 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>0.8757</upper>
-          <effort>1000</effort>
-          <velocity>2</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <static>0</static>
-    <joint name='left_inner_finger_knuckle_joint' type='revolute'>
-      <pose frame=''>0 0.006 -0.018 0 -0 0</pose>
-      <parent>robot::left_inner_knuckle</parent>
-      <child>robot::left_inner_finger</child>
-      <axis>
-        <xyz>0 1 0</xyz>
-        <limit>
-          <lower>-0.6</lower>
-          <upper>0.6</upper>
-          <velocity>2</velocity>
-          <effort>1000</effort>
-        </limit>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <joint name='right_inner_finger_knuckle_joint' type='revolute'>
-      <pose frame=''>0 0.006 -0.018 0 -0 0</pose>
-      <parent>robot::right_inner_knuckle</parent>
-      <child>robot::right_inner_finger</child>
-      <axis>
-        <xyz>0 1 0</xyz>
-        <limit>
-          <lower>-0.6</lower>
-          <upper>0.6</upper>
-          <velocity>2</velocity>
-          <effort>1000</effort>
-        </limit>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
     <plugin name="mara_joint_state" filename="libgazebo_ros_joint_state_publisher.so">
 		<ros>
 			<!-- <namespace>/mara</namespace> -->
@@ -1149,16 +465,35 @@
 		<joint_name>motor4</joint_name>
 		<joint_name>motor5</joint_name>
     <joint_name>motor6</joint_name>
-    <joint_name>left_inner_finger</joint_name>
-    <joint_name>left_outer_finger</joint_name>
-    <joint_name>right_inner_finger</joint_name>
-    <joint_name>right_outer_finger</joint_name>
-
-    <joint_name>left_inner_knuckle</joint_name>
-    <joint_name>left_outer_knuckle</joint_name>
-    <joint_name>right_inner_knuckle</joint_name>
-    <joint_name>right_outer_knuckle</joint_name>
 	</plugin>
+
+  <plugin name="hros_actuation_servomotor_000000000001" filename="libmara_gazebo_joint_plugin.so">
+    <ros>
+      <!-- <namespace>/tb3</namespace> -->
+    </ros>
+
+    <axis1>motor2</axis1>
+    <axis2>motor1</axis2>
+  </plugin>
+
+  <plugin name="hros_actuation_servomotor_000000000002" filename="libmara_gazebo_joint_plugin.so">
+    <ros>
+      <!-- <namespace>/tb3</namespace> -->
+    </ros>
+
+    <axis1>motor3</axis1>
+    <axis2>motor4</axis2>
+  </plugin>
+
+  <plugin name="hros_actuation_servomotor_000000000003" filename="libmara_gazebo_joint_plugin.so">
+    <ros>
+      <!-- <namespace>/tb3</namespace> -->
+    </ros>
+
+    <axis1>motor5</axis1>
+    <axis2>motor6</axis2>
+  </plugin>
+
 
   </model>
   </world>
