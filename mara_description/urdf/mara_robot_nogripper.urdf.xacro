@@ -6,15 +6,15 @@
   <xacro:include filename="$(find mara_description)/urdf/common.gazebo.xacro" />
 
   <!-- mara -->
-  <xacro:include filename="$(find mara_description)/urdf/mara_nogripper.urdf.xacro" />
+  <xacro:include filename="$(find mara_description)/urdf/mara.urdf.xacro" />
 
-  <xacro:include filename="$(find mara_description)/urdf/camera_top.urdf.xacro" />
+  <!-- robotiq 140 gripper -->
+  <xacro:include filename="$(find mara_description)/urdf/robotiq_gripper.urdf.xacro" />
 
   <xacro:include filename="$(find mara_description)/urdf/table.urdf.xacro" />
 
   <!-- arm -->
   <xacro:mara_robot prefix="" joint_limited="false"/>
-  <xacro:mara_camera_top prefix="" />
   <xacro:table prefix="" />
 
   <link name="world" />
