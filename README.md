@@ -1,120 +1,54 @@
 # modular articulated arm - mara
 
-## Install 
+## Install
 
+### Install ROS 2.0
 
-### Install ROS kinetic
+Install ROS 2.0 following the official instructions: [source](https://index.ros.org/doc/ros2/Linux-Development-Setup/) [debian packages](https://index.ros.org/doc/ros2/Linux-Install-Debians/).
 
-Install ROS kinetic (desktop-full) following the official [instructions](http://wiki.ros.org/kinetic/Installation/Ubuntu).
-
-
-### Create mara ROS workspace
-
+## Create mara ROS 2.0 workspace
 Create a ROS workspace, for example:
 
 ```
-$ mkdir -p ~/catkin_ws/src
-$ cd ~/catkin_ws/
-$ catkin_make
+mkdir -p ~/ros2_mara_ws/src
+cd ~/ros2_mara_ws/src
+git clone https://github.com/erlerobot/mara -b ros2
 ```
 
-Clone MARA repository in the workspace:
+## Compile
 
 ```
-$ git clone https://github.com/erlerobot/mara/tree/master
+cd ~/ros2_mara_ws && colcon build --merge-install  
 ```
 
-### Add packages to the workspace source
+## Launch
 
-In the src folder add the following extra packages:
-
-
-Add general-message-pkgs:   
-    
-```
-$ git clone  https://github.com/JenniferBuehler/general-message-pkgs
-```
-
-Add ros-industrial core pkgs:
+Terminal 1:
 
 ```
-$ git clone https://github.com/ros-industrial/industrial_core
+source ~/ros2_mara_ws/install/setup.bash
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/ros2_mara_ws/src/mara
+gazebo --verbose ~/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_camera_top.urdf -s libgazebo_ros_init.so
 ```
 
-Add Cartesian Path Planner MoveIt Plug-in pckg:
+Terminal 2:
 
 ```
-$ git clone -b indigo-devel https://github.com/ros-industrial-consortium/fermi/
+source ~/ros2_mara_ws/install/setup.bash
+ros2 launch mara_bringup mara_bringup.launch.py
 ```
 
-
-Add descartes Cartesian Path Planner:
-
-```
-$ git clone https://github.com/ros-industrial-consortium/descartes
-```
-
-
-### Install dependencies:
-
-
-Install controller-manager:
+Terminal 3
 
 ```
-$ sudo apt install ros-kinetic-controller-manager
+source ~/ros2_mara_ws/install/setup.bash
+rviz2
 ```
 
-Install gazebo 9 following the official [instructions](http://gazebosim.org/tutorials?tut=ros_installing).
+## Others
 
-Install gazebo ros packgages:
-
-```
-$ sudo apt-get install ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control
-
-$ sudo apt install ros-kinetic-gazebo9-ros ros-kinetic-gazebo9-plugins ros-kinetic-gazebo9-ros-control
-```
-
-Install `ros_control` controllers:
+Convert URDF into sdf
 
 ```
-$ sudo apt-get install ros-kinetic-joint-state-controller ros-kinetic-joint-trajectory-controller
-```
-
-Install moveit!:
-
-```
-$ sudo apt-get install ros-kinetic-moveit
-```
-
-### Build workspace
-
-Source in the workspace:
-
-```
-$ cd ~/catkin_ws/src
-$ source /opt/ros/kinetic/setup.bash
-$ catkin_init_workspace
-$ cd ..
-$ catkin_make
-```
-
-## MoveIt! with a simulated mara
-
-#### Gazebo
-
-```
-$ roslaunch mara_gazebo mara.launch--> NO
-$ roslaunch mara_gazebo mara_demo_camera_top.launch
-$ roslaunch mara_gazebo mara_demo_camera_side.launch
-```
-
-#### MoveIT
-
-```
-$ roslaunch mara_moveit_config mara_moveit_planning_execution.launch sim:=true
-```
-
-#### RVIZ
-```
-$ roslaunch mara_moveit_config moveit_rviz.launch config:=true
+gz sdf -p /home/erle/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_camera_top.urdf > my_sdf.sdf
 ```
