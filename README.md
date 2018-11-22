@@ -27,8 +27,24 @@ Terminal 1:
 
 ```
 source ~/ros2_mara_ws/install/setup.bash
+source /usr/share/gazebo/setup.bash
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/ros2_mara_ws/src/mara
+export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:~/ros2_mara_ws/src/mara/mara_gazebo_plugins/build/'
 gazebo --verbose ~/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_camera_top.urdf -s libgazebo_ros_init.so
+```
+or
+```
+source ~/ros2_mara_ws/install/setup.bash
+source /usr/share/gazebo/setup.bash
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/ros2_mara_ws/src/mara
+export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:~/ros2_mara_ws/src/mara/mara_gazebo_plugins/build/'
+gazebo --verbose -s libgazebo_ros_factory.so
+```
+this option needs to spawn the model
+```
+source ~/ros2_mara_ws/install/setup.bash
+cd ~/ros2_mara_ws/src/mara/mara_utils_scripts
+python3 spawn_entity.py
 ```
 
 Terminal 2:
@@ -50,5 +66,6 @@ rviz2
 Convert URDF into sdf
 
 ```
-gz sdf -p /home/erle/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_camera_top.urdf > my_sdf.sdf
+xacro --inorder /home/erle/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_camera_top.urdf.xacro -o /home/erle/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_camera_top.urdf
+gz sdf -p /home/erle/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_camera_top.urdf > mara_robot_camera_top.sdf
 ```
