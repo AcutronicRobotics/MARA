@@ -27,17 +27,17 @@ Terminal 1:
 
 ```
 source ~/ros2_mara_ws/install/setup.bash
-source /usr/share/gazebo/setup.bash
+source /usr/share/gazebo/setup.sh
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/ros2_mara_ws/src/mara
-export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:~/ros2_mara_ws/src/mara/mara_gazebo_plugins/build/'
-gazebo --verbose ~/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_camera_top.urdf -s libgazebo_ros_init.so
+export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:~/ros2_mara_ws/src/mara/mara_gazebo_plugins/build/
+gazebo --verbose /home/erle/ros2_mara_ws/src/mara/mara_gazebo/worlds/mara_on_a_table.world -s libgazebo_ros_init.so
 ```
 or
 ```
 source ~/ros2_mara_ws/install/setup.bash
-source /usr/share/gazebo/setup.bash
+source /usr/share/gazebo/setup.sh
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/ros2_mara_ws/src/mara
-export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:~/ros2_mara_ws/src/mara/mara_gazebo_plugins/build/'
+export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:~/ros2_mara_ws/src/mara/mara_gazebo_plugins/build/
 gazebo --verbose -s libgazebo_ros_factory.so
 ```
 this option needs to spawn the model
@@ -48,6 +48,8 @@ python3 spawn_entity.py
 ```
 
 Terminal 2:
+
+Publishing robot model
 
 ```
 source ~/ros2_mara_ws/install/setup.bash
