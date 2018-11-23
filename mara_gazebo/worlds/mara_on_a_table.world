@@ -168,6 +168,59 @@
           </material>
         </visual>
         <self_collide>1</self_collide>
+
+        <sensor name="my_imu" type="imu">
+          <always_on>true</always_on>
+          <update_rate>30</update_rate>
+          <imu>
+            <angular_velocity>
+              <x>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                </noise>
+              </x>
+              <y>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                </noise>
+              </y>
+              <z>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                </noise>
+              </z>
+            </angular_velocity>
+            <linear_acceleration>
+              <x>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                </noise>
+              </x>
+              <y>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                </noise>
+              </y>
+              <z>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                </noise>
+              </z>
+            </linear_acceleration>
+          </imu>
+          <plugin name="hros_actuation_servomotor_000000000001" filename="libgazebo_ros_imu_sensor.so">
+            <ros>
+              <namespace>/hros_actuation_servomotor_000000000001</namespace>
+              <argument>~/out:=imu</argument>
+            </ros>
+          </plugin>
+        </sensor>
       </link>
       <joint name='motor1' type='revolute'>
         <child>motor1_link</child>
@@ -274,8 +327,60 @@
           </material>
         </visual>
         <gravity>1</gravity>
-        <velocity_decay/>
         <self_collide>1</self_collide>
+        <sensor name="my_imu" type="imu">
+          <pose frame=''>0 0 0 0 3.14 0</pose>
+          <always_on>true</always_on>
+          <update_rate>30</update_rate>
+          <imu>
+            <angular_velocity>
+              <x>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                </noise>
+              </x>
+              <y>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                </noise>
+              </y>
+              <z>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                </noise>
+              </z>
+            </angular_velocity>
+            <linear_acceleration>
+              <x>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                </noise>
+              </x>
+              <y>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                </noise>
+              </y>
+              <z>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                </noise>
+              </z>
+            </linear_acceleration>
+          </imu>
+          <plugin name="hros_actuation_servomotor_000000000002" filename="libgazebo_ros_imu_sensor.so">
+            <ros>
+              <namespace>/hros_actuation_servomotor_000000000002</namespace>
+              <argument>~/out:=imu</argument>
+            </ros>
+          </plugin>
+        </sensor>
       </link>
       <joint name='motor3' type='revolute'>
         <child>motor3_link</child>
@@ -384,6 +489,59 @@
           </material>
         </visual>
         <self_collide>1</self_collide>
+        <sensor name="my_imu" type="imu">
+          <always_on>true</always_on>
+          <update_rate>30</update_rate>
+          <pose frame=''>0 0 0 0 3.14 0</pose>
+          <imu>
+            <angular_velocity>
+              <x>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                </noise>
+              </x>
+              <y>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                </noise>
+              </y>
+              <z>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                </noise>
+              </z>
+            </angular_velocity>
+            <linear_acceleration>
+              <x>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                </noise>
+              </x>
+              <y>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                </noise>
+              </y>
+              <z>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                </noise>
+              </z>
+            </linear_acceleration>
+          </imu>
+          <plugin name="hros_actuation_servomotor_000000000003" filename="libgazebo_ros_imu_sensor.so">
+            <ros>
+              <namespace>/hros_actuation_servomotor_000000000003</namespace>
+              <argument>~/out:=imu</argument>
+            </ros>
+          </plugin>
+        </sensor>
       </link>
       <joint name='motor5' type='revolute'>
         <child>motor5_link</child>
