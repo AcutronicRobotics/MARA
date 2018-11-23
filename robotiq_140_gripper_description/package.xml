@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>robotiq_arg2f_model_visualization</name>
+  <name>robotiq_140_gripper_description</name>
   <version>0.0.1</version>
   <description>
-    3D models of the robotiq for simulation and visualization
+    3D models of the robotiq 140 gripper for simulation and visualization
   </description>
   <license>Apache 2.0</license>
   <author email="ahcorde@erlerobotics.com">Alejandro Hernandez</author>
