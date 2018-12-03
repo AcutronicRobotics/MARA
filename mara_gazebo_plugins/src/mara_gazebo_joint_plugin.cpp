@@ -286,50 +286,12 @@ void MARAGazeboPluginRos::Reset()
 
 void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _info)
 {
-  // // Update encoder even if we're going to skip this update
-  // if (odom_source_ == ENCODER) {
-  //   UpdateOdometryEncoder(_info.simTime);
-  // }
-  //
+
   double seconds_since_last_update = (_info.simTime - last_update_time_).Double();
 
   if (seconds_since_last_update < update_period_) {
     return;
   }
-
-  // // Current speed
-  // double current_speed[2];
-  // current_speed[LEFT] = joints_[LEFT]->GetVelocity(0) * (wheel_diameter_ / 2.0);
-  // current_speed[RIGHT] = joints_[RIGHT]->GetVelocity(0) * (wheel_diameter_ / 2.0);
-  //
-  // // If max_accel == 0, or target speed is reached
-  // if (max_wheel_accel_ == 0 ||
-  //   (fabs(desired_wheel_speed_[LEFT] - current_speed[LEFT]) < 0.01) ||
-  //   (fabs(desired_wheel_speed_[RIGHT] - current_speed[RIGHT]) < 0.01))
-  // {
-  //   joints_[LEFT]->SetParam("vel", 0, desired_wheel_speed_[LEFT] / (wheel_diameter_ / 2.0));
-  //   joints_[RIGHT]->SetParam("vel", 0, desired_wheel_speed_[RIGHT] / (wheel_diameter_ / 2.0));
-  // } else {
-  //   if (desired_wheel_speed_[LEFT] >= current_speed[LEFT]) {
-  //     wheel_speed_instr_[LEFT] += fmin(desired_wheel_speed_[LEFT] - current_speed[LEFT],
-  //         max_wheel_accel_ * seconds_since_last_update);
-  //   } else {
-  //     wheel_speed_instr_[LEFT] += fmax(desired_wheel_speed_[LEFT] - current_speed[LEFT],
-  //         -max_wheel_accel_ * seconds_since_last_update);
-  //   }
-  //
-  //   if (desired_wheel_speed_[RIGHT] > current_speed[RIGHT]) {
-  //     wheel_speed_instr_[RIGHT] += fmin(desired_wheel_speed_[RIGHT] - current_speed[RIGHT],
-  //         max_wheel_accel_ * seconds_since_last_update);
-  //   } else {
-  //     wheel_speed_instr_[RIGHT] += fmax(desired_wheel_speed_[RIGHT] - current_speed[RIGHT],
-  //         -max_wheel_accel_ * seconds_since_last_update);
-  //   }
-  //
-  //   joints_[LEFT]->SetParam("vel", 0, wheel_speed_instr_[LEFT] / (wheel_diameter_ / 2.0));
-  //   joints_[RIGHT]->SetParam("vel", 0, wheel_speed_instr_[RIGHT] / (wheel_diameter_ / 2.0));
-  // }
-  //
 
   if(!executing_axis1 && trajectories_position_axis1.size()>0){
     index_trajectory_axis1 = 0;
@@ -360,7 +322,6 @@ void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _in
       index_trajectory_axis2 = 0;
     }
   }
-  // RCLCPP_ERROR(ros_node_->get_logger(), "goal_position_axis1_rad %d", goal_position_axis1_rad);
 
   joints_[MARAGazeboPluginRosPrivate::AXIS1]->SetPosition(0, goal_position_axis1_rad, false);
   joints_[MARAGazeboPluginRosPrivate::AXIS2]->SetPosition(0, goal_position_axis2_rad, false);
