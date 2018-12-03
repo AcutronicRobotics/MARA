@@ -361,7 +361,6 @@ void MARAGazeboPluginRosPrivate::timer_status_msgs()
   gazebo::common::Time cur_time = model_->GetWorld()->SimTime();
   status_msg.header.stamp.sec = cur_time.sec;
   status_msg.header.stamp.nanosec = cur_time.nsec;
-  // netdata->update(status_msg);
   status_pub->publish(status_msg);
 }
 
