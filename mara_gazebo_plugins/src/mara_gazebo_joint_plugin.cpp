@@ -14,12 +14,14 @@ MARAGazeboPluginRos::~MARAGazeboPluginRos()
 
 void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
 {
+  gazebo::common::Time cur_time = model_->GetWorld()->SimTime();
+
   hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo motor_state_msg;
-  // motor_state_msg.header.stamp =  gazebo_ros::Convert<builtin_interfaces::msg::Time>()
+  motor_state_msg.header.stamp.sec = cur_time.sec;
+  motor_state_msg.header.stamp.nanosec = cur_time.nsec;
   motor_state_msg.position = joints_[MARAGazeboPluginRosPrivate::AXIS1]->Position(0);
   motor_state_msg.velocity = joints_[MARAGazeboPluginRosPrivate::AXIS1]->GetVelocity(0);
   motor_state_msg.effort = joints_[MARAGazeboPluginRosPrivate::AXIS1]->GetForce(0);
-  // motor_state_msg.joint_name = "hans_motor";
   motor_state_msg.goal = goal_position_axis1_rad;
   motor_state_msg.error = (goal_position_axis1_rad - motor_state_msg.position);
   motor_state_msg.load = 0;
@@ -28,11 +30,11 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
   motor_state_axis1_pub->publish(motor_state_msg);
 
   hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo motor_state_msg_axis2;
-  // motor_state_msg_axis2.header.stamp = clock_ros.now();
+  motor_state_msg_axis2.header.stamp.sec = cur_time.sec;
+  motor_state_msg_axis2.header.stamp.nanosec = cur_time.nsec;
   motor_state_msg_axis2.position = joints_[MARAGazeboPluginRosPrivate::AXIS2]->Position(0);
   motor_state_msg_axis2.velocity = joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetVelocity(0);
   motor_state_msg_axis2.effort = joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetForce(0);
-  // motor_state_msg_axis2.joint_name = "hans_motor_axis2";
   motor_state_msg_axis2.goal =  goal_position_axis2_rad;
   motor_state_msg_axis2.error = (goal_position_axis2_rad - motor_state_msg_axis2.position);
   motor_state_msg_axis2.load = 0;
@@ -331,27 +333,35 @@ void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _in
 
 void MARAGazeboPluginRosPrivate::timer_info_msgs()
 {
-  // hrim_generic_msgs::msg::ID info_msg;
-  // // info_msg.header.stamp = clock_ros.now();
-  // info_msg.device_kind_id = hrim_generic_msgs::msg::ID::HRIM_SENSOR;
-  // info_msg.hros_version = "Ardent";
-  // info_msg.hrim_version = "Anboto";
-  // info_pub->publish(info_msg);
+  hrim_generic_msgs::msg::ID info_msg;
+  gazebo::common::Time cur_time = model_->GetWorld()->SimTime();
+  info_msg.header.stamp.sec = cur_time.sec;
+  info_msg.header.stamp.nanosec = cur_time.nsec;
+  info_msg.device_kind_id = hrim_generic_msgs::msg::ID::HRIM_SENSOR;
+  info_msg.hros_version = "Ardent";
+  info_msg.hrim_version = "Anboto";
+  info_pub->publish(info_msg);
 }
+
 void MARAGazeboPluginRosPrivate::timer_power_msgs()
 {
   hrim_generic_msgs::msg::Power power_msg;
-  // power_msg.header.stamp = clock_ros.now();
+  gazebo::common::Time cur_time = model_->GetWorld()->SimTime();
+  power_msg.header.stamp.sec = cur_time.sec;
+  power_msg.header.stamp.nanosec = cur_time.nsec;
   power_msg.voltage = 48.0;
   power_msg.current_consumption = 0.1;
   power_msg.power_consumption = power_msg.current_consumption*power_msg.voltage;
   power_pub->publish(power_msg);
 }
+
 void MARAGazeboPluginRosPrivate::timer_status_msgs()
 {
   hrim_generic_msgs::msg::Status status_msg;
+  gazebo::common::Time cur_time = model_->GetWorld()->SimTime();
+  status_msg.header.stamp.sec = cur_time.sec;
+  status_msg.header.stamp.nanosec = cur_time.nsec;
   // netdata->update(status_msg);
-  // status_msg.header.stamp = clock_ros.now();
   status_pub->publish(status_msg);
 }
 
