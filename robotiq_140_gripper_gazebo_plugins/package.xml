@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>mara_gazebo_plugins</name>
+  <name>robotiq_140_gripper_gazebo_plugin</name>
   <version>0.0.1</version>
   <description>
-    MARA Gazebo plugins
+    robotiq 140 Gazebo plugin
   </description>
 
-  <license>BSD, Apache 2.0</license>
+  <license>All rights reserved</license>
 
   <author email="ahcorde@erlerobotics.com">Alejandro Hernandez</author>
   <maintainer email="ahcorde@erlerobotics.com">Alejandro Hernandez</maintainer>
@@ -19,9 +19,7 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <depend>geometry_msgs</depend>
-  <depend>nav_msgs</depend>
-  <depend>sensor_msgs</depend>
-  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
   <depend>tf2_geometry_msgs</depend>
   <depend>tf2_ros</depend>
 

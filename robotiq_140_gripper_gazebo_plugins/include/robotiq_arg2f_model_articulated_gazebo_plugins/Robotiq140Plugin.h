@@ -19,23 +19,16 @@
 #ifndef GAZEBO_ROBOTIQ_HAND_PLUGIN_HH
 #define GAZEBO_ROBOTIQ_HAND_PLUGIN_HH
 
-#include <gazebo_plugins/PubQueue.h>
-#include <ros/advertise_options.h>
-#include <ros/callback_queue.h>
-#include <ros/ros.h>
-#include <ros/subscribe_options.h>
-#include <sensor_msgs/JointState.h>
 #include <string>
 #include <vector>
-#include <boost/scoped_ptr.hpp>
-#include <boost/thread/mutex.hpp>
+
+// Gazebo
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/common/Time.hh>
 #include <gazebo/physics/physics.hh>
-// Gazebo
-#include <gazebo_plugins/gazebo_ros_utils.h>
+#include <gazebo_ros/node.hpp>
 
-#include <std_srvs/Empty.h>
+#include <std_srvs/srv/empty.hpp>
 
 // Boost
 #include <boost/thread.hpp>
@@ -47,7 +40,10 @@ namespace gazebo
   class RobotiqHandPlugin : public gazebo::ModelPlugin
   {
 
-    bool gripper_service(std_srvs::Empty::Request  &req, std_srvs::Empty::Response &res);
+    void gripper_service(const std::shared_ptr<rmw_request_id_t> request_header,
+          const std::shared_ptr<std_srvs::srv::Empty::Request> request,
+          std::shared_ptr<std_srvs::srv::Empty::Response> response);
+          
     /// \brief Constructor.
     public: RobotiqHandPlugin();
 
@@ -63,8 +59,6 @@ namespace gazebo
     public: void Load(gazebo::physics::ModelPtr _parent, sdf::ElementPtr _sdf);
 
     public: void UpdateStates();
-
-    private: ros::NodeHandle* rosnode_;
 
     /// \brief World pointer.
     private: gazebo::physics::WorldPtr world;
@@ -104,10 +98,6 @@ namespace gazebo
     int sentido = 1;
     int count = 0;
 
-    boost::thread callback_queue_thread_;
-    ros::CallbackQueue queue_;
-    void QueueThread();
-
     double kp = 20.0;
     double ki = 5.0;
     double kd = 0.2;
@@ -115,7 +105,10 @@ namespace gazebo
     double imax = 0.0;
     double cmdmax = 10.0;
     double cmdmin = -10.0;
-    ros::ServiceServer service1;
+
+    /// A pointer to the GazeboROS node.
+    gazebo_ros::Node::SharedPtr ros_node_;
+    rclcpp::Service<std_srvs::srv::Empty>::SharedPtr srv_;
   };
 }
 #endif  // GAZEBO_ROBOTIQ_HAND_PLUGIN_HH

@@ -1,32 +1,7 @@
-/*
- * Copyright 2014 Open Source Robotics Foundation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
-*/
-/*
-    This file has been modified from the original, by Devon Ash
-*/
-
-#include <ros/ros.h>
 #include <string>
 #include <vector>
 
-#include <gazebo/common/Plugin.hh>
-#include <gazebo/common/Time.hh>
-// #include <gazebo/math/Angle.hh>
-#include <gazebo/physics/physics.hh>
-#include <robotiq_arg2f_model_articulated_gazebo_plugins/Robotiq140Plugin.h>
+#include "robotiq_arg2f_model_articulated_gazebo_plugins/Robotiq140Plugin.h"
 
 namespace gazebo
   {
@@ -73,20 +48,11 @@ namespace gazebo
       static_cast<uint8_t>(round(255.0 * relAngle.Radian() / range.Radian()));
   }
 
-
-  bool RobotiqHandPlugin::gripper_service(std_srvs::Empty::Request  &req,
-           std_srvs::Empty::Response &res)
+  void RobotiqHandPlugin::gripper_service(const std::shared_ptr<rmw_request_id_t> request_header,
+        const std::shared_ptr<std_srvs::srv::Empty::Request> request,
+        std::shared_ptr<std_srvs::srv::Empty::Response> response)
   {
-
-    rosnode_->getParam( "kp_gripper", kp );
-    rosnode_->getParam( "ki_gripper", ki );
-    rosnode_->getParam( "kd_gripper", kd );
-
-    rosnode_->getParam( "imin_gripper", imin );
-    rosnode_->getParam( "imax_gripper", imax );
-
-    rosnode_->getParam( "cmdmin_gripper", cmdmin );
-    rosnode_->getParam( "cmdmax_gripper", cmdmax );
+    (void)request_header;
 
     posePID_left_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
     posePID_left_inner_knuckle.SetCmd(0.0);
@@ -116,8 +82,6 @@ namespace gazebo
           << "\tCmdMin: " << posePID_left_inner_knuckle.GetCmdMin() << std::endl
           << "\tCmdMax: " << posePID_left_inner_knuckle.GetCmdMax() << std::endl
           << std::endl;
-
-    return true;
   }
 
 
@@ -125,6 +89,8 @@ namespace gazebo
   void RobotiqHandPlugin::Load(gazebo::physics::ModelPtr _parent,
                                sdf::ElementPtr _sdf)
   {
+    // Initialize ROS node
+    ros_node_ = gazebo_ros::Node::Get(_sdf);
 
     std::string robot_namespace_ = "";
     if (_sdf->HasElement("robotNamespace"))
@@ -132,24 +98,86 @@ namespace gazebo
     else{
       printf("No robotNamespace\n");
     }
-    rosnode_ = new ros::NodeHandle();
-    // Check that ROS has been initialized
-    if(!ros::isInitialized()){
-      ROS_ERROR("A ROS node for Gazebo has not been initialized, unable to load plugin.");
-      return;
-    }
 
-    rosnode_->getParam( "kp_gripper", kp );
-    rosnode_->getParam( "ki_gripper", ki );
-    rosnode_->getParam( "kd_gripper", kd );
+    ros_node_->set_parameters({
+      rclcpp::Parameter("kp_gripper", kp),
+      rclcpp::Parameter("ki_gripper", ki),
+      rclcpp::Parameter("kd_gripper", kd),
+      rclcpp::Parameter("imin_gripper", imin),
+      rclcpp::Parameter("imax_gripper", imax),
+      rclcpp::Parameter("cmdmin_gripper", cmdmin),
+      rclcpp::Parameter("cmdmax_gripper", cmdmax)
+    });
 
-    rosnode_->getParam( "imin_gripper", imin );
-    rosnode_->getParam( "imax_gripper", imax );
+    auto param_change_callback =
+    [this](std::vector<rclcpp::Parameter> parameters) -> rcl_interfaces::msg::SetParametersResult
+    {
+      auto result = rcl_interfaces::msg::SetParametersResult();
+      result.successful = true;
+      for (auto parameter : parameters) {
+        rclcpp::ParameterType parameter_type = parameter.get_type();
 
-    rosnode_->getParam( "cmdmin_gripper", cmdmin );
-    rosnode_->getParam( "cmdmax_gripper", cmdmax );
+        int error = 0;
 
-    printf("kp %.2f\n", kp);
+        if(!parameter.get_name().compare("kp_gripper")){
+          if (rclcpp::ParameterType::PARAMETER_DOUBLE == parameter_type) {
+            this->kp = parameter.as_double();
+          }else{
+            error = 1;
+          }
+        }else if(!parameter.get_name().compare("ki_gripper")){
+          if (rclcpp::ParameterType::PARAMETER_DOUBLE == parameter_type) {
+            this->ki = parameter.as_double();
+          }else{
+            error = 1;
+          }
+        }else if(!parameter.get_name().compare("kd_gripper")){
+          if (rclcpp::ParameterType::PARAMETER_DOUBLE == parameter_type) {
+            this->kd = parameter.as_double();
+          }else{
+            error = 1;
+          }
+        }else if(!parameter.get_name().compare("imin_gripper")){
+          if (rclcpp::ParameterType::PARAMETER_DOUBLE == parameter_type) {
+            this->imin = parameter.as_double();
+          }else{
+            error = 1;
+          }
+        }else if(!parameter.get_name().compare("imax_gripper")){
+          if (rclcpp::ParameterType::PARAMETER_DOUBLE == parameter_type) {
+            this->imax = parameter.as_double();
+          }else{
+            error = 1;
+          }
+        }else if(!parameter.get_name().compare("cmdmin_gripper")){
+          if (rclcpp::ParameterType::PARAMETER_DOUBLE == parameter_type) {
+            this->cmdmin = parameter.as_double();
+          }else{
+            error = 1;
+          }
+        }else if(!parameter.get_name().compare("cmdmax_gripper")){
+          if (rclcpp::ParameterType::PARAMETER_DOUBLE == parameter_type) {
+            this->cmdmax = parameter.as_double();
+          }else{
+            error = 1;
+          }
+        }else{
+          error = 2;
+        }
+
+        if(error==1){
+          RCLCPP_INFO(ros_node_->get_logger(),
+            "requested value for parameter '%s' is not the right type",
+            parameter.get_name().c_str());
+            result.successful = false;
+        }
+        if(error==2){
+          RCLCPP_INFO(ros_node_->get_logger(), "Parameter %s doesn't exit",   parameter.get_name().c_str());
+          result.successful = false;
+        }
+      }
+    };
+    ros_node_->register_param_change_callback(param_change_callback);
 
     printf("RobotiqHandPlugin::Load\n");
     gzerr << "RobotiqHandPlugin::Load" << std::endl;
@@ -166,7 +194,7 @@ namespace gazebo
 
     gzerr<< "_sdf description " << _sdf->GetDescription() << std::endl;
 
-    for(int i = 0; i < model->GetJoints().size(); i++){
+    for(unsigned int i = 0; i < model->GetJoints().size(); i++){
         gzerr << this->model->GetJoints()[i]->GetScopedName() << std::endl;
     }
 
@@ -199,13 +227,12 @@ namespace gazebo
 
     this->lastControllerUpdateTime = this->world->SimTime();
 
-    ros::AdvertiseServiceOptions aso1 =
-                ros::AdvertiseServiceOptions::create<std_srvs::Empty>(
-                "open_gripper", boost::bind(&RobotiqHandPlugin::gripper_service,
-                this, _1, _2), ros::VoidPtr(), &queue_);
+    std::function<void( std::shared_ptr<rmw_request_id_t>,
+                        const std::shared_ptr<std_srvs::srv::Empty::Request>,
+                        std::shared_ptr<std_srvs::srv::Empty::Response>)> cb_fingercontrol_function = std::bind(
+          &RobotiqHandPlugin::gripper_service, this, std::placeholders::_1,  std::placeholders::_2,  std::placeholders::_3);
 
-    service1 = rosnode_->advertiseService(aso1);
-    this->callback_queue_thread_ = boost::thread ( boost::bind ( &RobotiqHandPlugin::QueueThread, this ) );
+    srv_ = ros_node_->create_service<std_srvs::srv::Empty>("open_gripper", cb_fingercontrol_function);
 
     // Connect to gazebo world update.
     this->updateConnection =
@@ -214,15 +241,6 @@ namespace gazebo
 
     sentido = -1;
 
-  }
-
-  void RobotiqHandPlugin::QueueThread()
-  {
-    double timeout = 0.01;
-
-    while ( rosnode_->ok() ) {
-        queue_.callAvailable ( ros::WallDuration ( timeout ) );
-    }
   }
 
   void RobotiqHandPlugin::UpdateStates()
