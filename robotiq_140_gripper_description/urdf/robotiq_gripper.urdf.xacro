@@ -383,7 +383,7 @@
         </axis>
       </joint>
 
-      <plugin filename="libRobotiq140Plugin.so" name="robotiq_arg2f_gazebo_plugins"/>
+      <plugin filename="librobotiq_140_gripper_gazebo_plugin.so" name="robotiq_arg2f_gazebo_plugins"/>
       <plugin filename="libgazebo_grasp_fix.so" name="gazebo_grasp_fix">
         <arm>
           <arm_name>robot</arm_name>
