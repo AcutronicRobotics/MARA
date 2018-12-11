@@ -14,6 +14,17 @@ This repository provides Gazebo ROS 2.0 support for [MARA](https://acutronicrobo
  - `robotiq_140_gripper_gazebo_plugins`: Robotiq 140 gripper Gazebo plugins for the gripper.
  - `mara_utils_scripts`: Some scripts to move the MARA or spawn the model.
 
+## Dependencies
+
+ - [gazebo_ros_pkgs](https://github.com/ros-simulation/gazebo_ros_pkgs) branch: `ros2`.
+ - [HRIM](https://github.com/erlerobot/HRIM/).
+ - [control_msgs](https://github.com/erlerobot/control_msgs) branch: `ardent`.
+ - [image_common](https://github.com/ros-perception/image_common) branch: `ros2`.
+
+## Example code
+
+ - [mara_examples](https://github.com/AcutronicRobotics/mara_examples.git)
+
 ## Install
 
 ### Install ROS 2.0
