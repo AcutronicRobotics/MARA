@@ -1,4 +1,18 @@
-# modular articulated arm - mara
+# MARA
+
+This repository provides Gazebo ROS 2.0 support for [MARA](https://acutronicrobotics.com/products/mara/).
+
+![](https://acutronicrobotics.com/docs/user/pages/02.Products/01.MARA/MARA2.jpg)
+
+## Packages
+
+ - `mara_bringup`: roslaunch scripts for starting the MARA.
+ - `mara_description`: 3D models of the MARA for simulation and visualization.
+ - `mara_gazebo`: Gazebo simulation package for the MARA.
+ - `mara_gazebo_plugins`: MARA Gazebo plugins for sensors and motors.
+ - `robotiq_140_gripper_description`: 3D models of the Robotiq 140 gripper for simulation and visualization.
+ - `robotiq_140_gripper_gazebo_plugins`: Robotiq 140 gripper Gazebo plugins for the gripper.
+ - `mara_utils_scripts`: Some scripts to move the MARA or spawn the model.
 
 ## Install
 
@@ -21,18 +35,16 @@ git clone https://github.com/erlerobot/mara -b ros2
 cd ~/ros2_mara_ws && colcon build --merge-install  
 ```
 
-## Launch
+## Usage with Gazebo Simulation
 
-Terminal 1:
+There are launch files available to bringup the MARA robot
 
-```
-source ~/ros2_mara_ws/install/setup.bash
-source /usr/share/gazebo/setup.sh
-export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/ros2_mara_ws/src/mara
-export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:~/ros2_mara_ws/src/mara/mara_gazebo_plugins/build/
-gazebo --verbose /home/erle/ros2_mara_ws/src/mara/mara_gazebo/worlds/mara_on_a_table.world -s libgazebo_ros_init.so
-```
-or
+Don't forget to source the correct setup shell files and use a new terminal for each command!
+
+### Terminal 1:
+
+To bring up the simulated robot in Gazebo:
+
 ```
 source ~/ros2_mara_ws/install/setup.bash
 source /usr/share/gazebo/setup.sh
@@ -40,14 +52,16 @@ export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/ros2_mara_ws/src/mara
 export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:~/ros2_mara_ws/src/mara/mara_gazebo_plugins/build/
 gazebo --verbose -s libgazebo_ros_factory.so
 ```
-this option needs to spawn the model
+
+### Terminal 2:
+
+Spawing the model:
+
 ```
 source ~/ros2_mara_ws/install/setup.bash
 cd ~/ros2_mara_ws/src/mara/mara_utils_scripts
 python3 spawn_entity.py
 ```
-
-Terminal 2:
 
 Publishing robot model
 
@@ -56,7 +70,7 @@ source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_bringup mara_bringup.launch.py
 ```
 
-Terminal 3
+### Terminal 3
 
 ```
 source ~/ros2_mara_ws/install/setup.bash
