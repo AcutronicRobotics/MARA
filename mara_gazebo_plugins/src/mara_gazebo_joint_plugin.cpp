@@ -46,17 +46,18 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
 void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
 {
   // create info topic
-  std::string topic_name_info = std::string(node_name) + "/ID";
+  std::string topic_name_info = std::string(node_name) + "/id";
 
   // Creating status topic name
-  std::string topic_name_status = std::string(node_name) + "/Status";
+  std::string topic_name_status = std::string(node_name) + "/status";
 
   // Creating power topic name
-  std::string topic_name_power = std::string(node_name) + "/Power";
+  std::string topic_name_power = std::string(node_name) + "/power";
 
   // Creating sim topic name
-  std::string topic_name_sim3d = std::string(node_name) + "/Module_3d";
-  std::string topic_name_simurdf = std::string(node_name) + "/Module_urdf";
+  std::string topic_name_sim3d = std::string(node_name) + "/module_3d";
+  std::string topic_name_simurdf = std::string(node_name) + "/module_urdf";
+  std::string topic_name_specs = std::string(node_name) + "/specs";
 
   impl_->info_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::ID>(topic_name_info);
 
@@ -80,8 +81,11 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
 
   impl_->sim_urdf_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::SimulationURDF>(topic_name_simurdf,
                 custom_qos_profile);
-
   RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_simurdf.c_str());
+
+  impl_->specs_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo>(topic_name_specs,
+                custom_qos_profile);
+  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_specs.c_str());
 
   impl_->timer_info_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_info_msgs, impl_.get()));
@@ -89,6 +93,9 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_status_msgs, impl_.get()));
   impl_->timer_power_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_power_msgs, impl_.get()));
+  impl_->timer_specs_ = impl_->ros_node_->create_wall_timer(
+      1s, std::bind(&MARAGazeboPluginRosPrivate::timer_specs_msgs, impl_.get()));
+
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
@@ -233,14 +240,14 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   RCLCPP_ERROR(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis2.c_str() );
 
   // Creating command topic name
-  std::string topic_command_state = std::string(node_name) + "/command";
+  std::string topic_command_state = std::string(node_name) + "/goal";
   impl_->command_sub_axis1_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state,
                                 std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis1, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
   RCLCPP_ERROR(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state.c_str() );
 
 
-  std::string topic_command_state_axis2 = std::string(node_name) + "2/command";
+  std::string topic_command_state_axis2 = std::string(node_name) + "2/goal";
   impl_->command_sub_axis2_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state_axis2,
                                 std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis2, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
@@ -362,6 +369,27 @@ void MARAGazeboPluginRosPrivate::timer_status_msgs()
   status_msg.header.stamp.sec = cur_time.sec;
   status_msg.header.stamp.nanosec = cur_time.nsec;
   status_pub->publish(status_msg);
+}
+
+void MARAGazeboPluginRosPrivate::timer_specs_msgs()
+{
+  hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo specs_msg;
+  gazebo::common::Time cur_time = model_->GetWorld()->SimTime();
+  specs_msg.header.stamp.sec = cur_time.sec;
+  specs_msg.header.stamp.nanosec = cur_time.nsec;
+  specs_msg.control_type = (uint8_t)hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo::CONTROL_TYPE_POSITION_VELOCITY;
+  specs_msg.range_min = -6.27; // multi-turn absolute +/-4 tuens
+  specs_msg.range_max = 6.27;
+  specs_msg.precision = 0.00008722222; // 0.005º
+
+  specs_msg.rated_speed = 1.46607657; // 14 RPM
+  specs_msg.reachable_speed = 1.46607657; // 14 RPM
+  specs_msg.rated_torque = 9; // 9-Nm
+  specs_msg.reachable_torque = 13; // 13-Nm
+
+  specs_msg.temperature_range_min  = -10.0; // -10º
+  specs_msg.temperature_range_max  = +50.0; // 50º
+  specs_pub->publish(specs_msg);
 }
 
 GZ_REGISTER_MODEL_PLUGIN(MARAGazeboPluginRos)

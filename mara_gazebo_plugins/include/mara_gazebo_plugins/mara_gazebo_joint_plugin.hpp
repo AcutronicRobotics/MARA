@@ -131,6 +131,7 @@ namespace gazebo_plugins
     std::shared_ptr<rclcpp::TimerBase> timer_info_;
     std::shared_ptr<rclcpp::TimerBase> timer_status_;
     std::shared_ptr<rclcpp::TimerBase> timer_power_;
+    std::shared_ptr<rclcpp::TimerBase> timer_specs_;
 
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::ID>> info_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::Status>> status_pub;
@@ -141,6 +142,7 @@ namespace gazebo_plugins
     void timer_info_msgs();
     void timer_power_msgs();
     void timer_status_msgs();
+    void timer_specs_msgs();
 
     // rclcpp::Clock clock_ros;
 
