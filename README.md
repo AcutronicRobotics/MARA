@@ -18,8 +18,10 @@ This repository provides Gazebo ROS 2.0 support for [MARA](https://acutronicrobo
 
  - [gazebo_ros_pkgs](https://github.com/ros-simulation/gazebo_ros_pkgs) branch: `ros2`.
  - [HRIM](https://github.com/erlerobot/HRIM/).
- - [control_msgs](https://github.com/erlerobot/control_msgs) branch: `ardent`.
+ - [control_msgs]( https://github.com/ros-controls/control_msgs) branch: `bouncy-devel`.
  - [image_common](https://github.com/ros-perception/image_common) branch: `ros2`.
+ - [vision_opencv](https://github.com/ros-perception/vision_opencv) branch: `ros2`
+ - sudo apt install python3-numpy
 
 ## Example code
 
