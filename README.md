@@ -18,7 +18,7 @@ This repository provides Gazebo ROS 2.0 support for [MARA](https://acutronicrobo
 
  - [gazebo_ros_pkgs](https://github.com/ros-simulation/gazebo_ros_pkgs) branch: `ros2`.
  - [HRIM](https://github.com/erlerobot/HRIM/).
- - [control_msgs]( https://github.com/ros-controls/control_msgs) branch: `bouncy-devel`.
+ - [control_msgs](https://github.com/ros-controls/control_msgs) branch: `bouncy-devel`.
  - [image_common](https://github.com/ros-perception/image_common) branch: `ros2`.
  - [vision_opencv](https://github.com/ros-perception/vision_opencv) branch: `ros2`
  - sudo apt install python3-numpy
@@ -36,16 +36,40 @@ Install ROS 2.0 following the official instructions: [source](https://index.ros.
 ## Create mara ROS 2.0 workspace
 Create a ROS workspace, for example:
 
-```
+```bash
 mkdir -p ~/ros2_mara_ws/src
 cd ~/ros2_mara_ws/src
 git clone https://github.com/AcutronicRobotics/MARA -b ros2
+git clone https://github.com/ros-simulation/gazebo_ros_pkgs -b ros2
+git clone https://github.com/erlerobot/HRIM/
+git clone https://github.com/ros-controls/control_msg -b bouncy-devel
+git clone https://github.com/ros-perception/image_common -b ros2
+git clone https://github.com/ros-perception/vision_opencv -b ros2
+sudo apt install python3-numpy
 ```
 
 ## Compile
 
+**Optional note**: If want to use MoveIT! you need to source ROS 1.0 environment variables. Typically if you have installed ROS `Kinetic` you need to source the following file:
+
+```bash
+source /opt/ros/kinetic/setup.bash
 ```
+
+Right now you can compile the code:
+
+```bash
 cd ~/ros2_mara_ws && colcon build --merge-install  
+```
+
+### MoveIT!
+
+```bash
+mkdir -p ~/ros_mara_ws/src
+cd ~/ros_mara_ws/src
+git clone https://github.com/AcutronicRobotics/MARA_ROS1
+cd ~/ros_mara_ws/
+catkin_make_isolated --install
 ```
 
 ## Usage with Gazebo Simulation
@@ -83,11 +107,76 @@ source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_bringup mara_bringup.launch.py
 ```
 
-### Terminal 3
+### RVIZ2
+
+To visualize the robot with RVIZ2, you should type the following instructions:
 
 ```
 source ~/ros2_mara_ws/install/setup.bash
 rviz2
+```
+
+### MoveIT!
+
+MoveIT! is not yet available for ROS 2.0. For now, if you want to use it with MARA we need to launch a set of nodes to create a bridge between ROS and ROS 2.0. It's quite complex to configure, please be pacient.
+
+#### ROS 2.0
+
+We need to launch in ROS 2.0 two nodes. One is the bridge between ROS and ROS 2.0 and the other one is the node that fetches all the state from the motors and create a topic called `/mara_controller/state`.
+
+##### Terminal 1:
+
+We need to run this node to create a bridge bewteen ROS and ROS 2.0. The topics that will be available are `/mara_controller/state`, `/joints_state` and `hros_actuation_servomotor_*********/trajectory`. Type the following command to run the bridge:
+
+```
+ros2 run individual_trajectories_bridge individual_trajectories_bridge -motors `ros2 pkg prefix individual_trajectories_bridge`/share/individual_trajectories_bridge/motors.yaml
+```
+
+##### Terminal 2:
+
+This ROS 2.0 node will fetch all the `hros_actuation_servomotor_*********/state` topics define in the config file and these topics data will be republish in a topic called `/mara_controller/state`. This node also will be subscribe to `/mara_controller/command` and it will republish the data in to the corresponding H-ROS topic `hros_actuation_servomotor_*********/goal`. To run this ROS 2.0 just type:
+
+```
+ros2 run hros_cognition_mara_components hros_cognition_mara_components -motors `ros2 pkg prefix hros_cognition_mara_components`/share/hros_cognition_mara_components/link_order.yaml
+```
+
+#### ROS
+
+Right now we need the nodes to run MoveIT!. We should execute the following nodes for setting up the `robot_description` parameter, a node that handles `follow_joint_trajectory` topic, the MoveIT nodes and finally RVIZ to move the robot.
+
+#### Terminal 1:
+
+This node will set the `robot_decription` parameter. MoveIT make use of this parameter to calculate the forward and inverse kinematics.
+
+```bash
+source ~/ros_mara_ws/install_isolated/setup.bash
+roslaunch mara_bringup mara_bringup.launch
+```
+#### Terminal 2:
+
+This node will handle the `follow_joint_trajectory` topic. This node is subscribed to this topic and it will republish the data in the corresponding `hros_actuation_servomotor_*********/trajectory`.
+
+```bash
+source ~/ros_mara_ws/install_isolated/setup.bash
+rosrun mara_bringup follow_joints_individual_trajectory.py
+```
+
+#### Terminal 3:
+
+This terminal will launch MoveIT.
+
+```bash
+source ~/ros_mara_ws/install_isolated/setup.bash
+roslaunch mara_moveit_config mara_moveit_planning_execution.launch
+```
+
+#### Terminal 4:
+
+If you want to use RVIZ to move the robot that we need to type the following instructions.
+
+```bash
+source ~/ros_mara_ws/install_isolated/setup.bash
+roslaunch mara_moveit_config moveit_rviz.launch config:=true
 ```
 
 ## Others
