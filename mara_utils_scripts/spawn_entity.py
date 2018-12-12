@@ -1,15 +1,19 @@
 from gazebo_msgs.srv import SpawnEntity
 
 import rclpy
-
+from ros2pkg.api import get_prefix_path
+import os
 
 def main(args=None):
     rclpy.init(args=args)
     node = rclpy.create_node('minimal_client')
     cli = node.create_client(SpawnEntity, '/spawn_entity')
 
+    prefix_path = get_prefix_path('mara_description')
+    assert os.path.isdir(prefix_path)
+
     content = ""
-    with open('/home/erle/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_camera_top.urdf', 'r') as content_file:
+    with open(prefix_path + "/share/mara_description/urdf/mara_robot_camera_top.urdf", 'r') as content_file:
         content = content_file.read()
 
     req = SpawnEntity.Request()
