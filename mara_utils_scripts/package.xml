@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
+  <name>mara_utils_scripts</name>
+  <version>0.0.1</version>
+  <description>MARA utils scripts</description>
+  <maintainer email="alex@erlerobotics.com">Alejandro Hernandez</maintainer>
+  <license>Apache License 2.0</license>
+  <author>Alejandro Hernandez</author>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <build_depend>rclcpp</build_depend>
+  <build_depend>hrim_actuator_rotaryservo_msgs</build_depend>
+
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>hrim_actuator_rotaryservo_msgs</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
