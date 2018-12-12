@@ -6,7 +6,7 @@
 -->
 
   <xacro:include filename="$(find mara_description)/urdf/mara.transmission.xacro" />
-  <xacro:include filename="$(find mara_description)/urdf/mara.gazebo.xacro" />
+  <xacro:include filename="$(find mara_description)/urdf/mara_gazebo.urdf.xacro" />
 
   <xacro:macro name="mara_robot"  params="prefix joint_limited">
 
