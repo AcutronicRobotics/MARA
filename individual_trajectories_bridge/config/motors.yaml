@@ -1,0 +1,7 @@
+motors:
+  - "/hros_actuation_servomotor_0000000000012/trajectory"
+  - "/hros_actuation_servomotor_000000000001/trajectory"
+  - "/hros_actuation_servomotor_000000000002/trajectory"
+  - "/hros_actuation_servomotor_0000000000022/trajectory"
+  - "/hros_actuation_servomotor_000000000003/trajectory"
+  - "/hros_actuation_servomotor_0000000000032/trajectory"
