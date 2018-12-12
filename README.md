@@ -39,7 +39,7 @@ Create a ROS workspace, for example:
 ```
 mkdir -p ~/ros2_mara_ws/src
 cd ~/ros2_mara_ws/src
-git clone https://github.com/erlerobot/mara -b ros2
+git clone https://github.com/AcutronicRobotics/MARA -b ros2
 ```
 
 ## Compile
@@ -61,8 +61,8 @@ To bring up the simulated robot in Gazebo:
 ```
 source ~/ros2_mara_ws/install/setup.bash
 source /usr/share/gazebo/setup.sh
-export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/ros2_mara_ws/src/mara
-export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:~/ros2_mara_ws/src/mara/mara_gazebo_plugins/build/
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/ros2_mara_ws/src/MARA
+export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:~/ros2_mara_ws/src/MARA/mara_gazebo_plugins/build/
 gazebo --verbose -s libgazebo_ros_factory.so
 ```
 
@@ -72,7 +72,7 @@ Spawing the model:
 
 ```
 source ~/ros2_mara_ws/install/setup.bash
-cd ~/ros2_mara_ws/src/mara/mara_utils_scripts
+cd ~/ros2_mara_ws/src/MARA/mara_utils_scripts
 python3 spawn_entity.py
 ```
 
@@ -95,6 +95,6 @@ rviz2
 Convert URDF into sdf
 
 ```
-xacro --inorder /home/erle/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_camera_top.urdf.xacro -o /home/erle/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_camera_top.urdf
-gz sdf -p /home/erle/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_camera_top.urdf > mara_robot_camera_top.sdf
+xacro --inorder /home/erle/ros2_mara_ws/src/MARA/mara_description/urdf/mara_robot_camera_top.urdf.xacro -o /home/erle/ros2_mara_ws/src/MARA/mara_description/urdf/mara_robot_camera_top.urdf
+gz sdf -p /home/erle/ros2_mara_ws/src/MARA/mara_description/urdf/mara_robot_camera_top.urdf > mara_robot_camera_top.sdf
 ```
