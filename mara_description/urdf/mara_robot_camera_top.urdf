@@ -556,7 +556,7 @@
   </gazebo>
   <link name="right_outer_finger">
     <inertial>
-      <origin rpy="0 0 0" xyz="-0.0002009,  0.0396149, -0.0161363"/>
+      <origin rpy="0 0 0" xyz="-0.0002009  0.0396149 -0.0161363"/>
       <mass value="0.022614240507152"/>
       <inertia ixx="1.52518312458174E-05" ixy="0" ixz="0" iyy="6.17694243867776E-06" iyz="0" izz="1.16494917907219E-05"/>
     </inertial>
