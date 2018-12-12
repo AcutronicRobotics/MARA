@@ -251,7 +251,7 @@
 
     <link name="right_outer_finger">
       <inertial>
-        <origin xyz="-0.0002009,  0.0396149, -0.0161363" rpy="0 0 0" />
+        <origin xyz="-0.0002009  0.0396149 -0.0161363" rpy="0 0 0" />
         <mass value="0.022614240507152" />
         <inertia
             ixx="1.52518312458174E-05"
@@ -383,7 +383,7 @@
         </axis>
       </joint>
 
-      <plugin filename="librobotiq_140_gripper_gazebo_plugin.so" name="robotiq_arg2f_gazebo_plugins"/>
+      <plugin filename="librobotiq_140_gripper_gazebo_plugin.so" name="hros_actuation_gripper_000000000004"/>
       <plugin filename="libgazebo_grasp_fix.so" name="gazebo_grasp_fix">
         <arm>
           <arm_name>robot</arm_name>
