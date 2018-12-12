@@ -73,7 +73,7 @@ namespace gazebo
       posePID_right_inner_knuckle.SetCmdMax(0);
     }
 
-    gzerr << "Position PID parameters for joints "  << std::endl
+    gzmsg << "Position PID parameters for joints "  << std::endl
           << "\tKP: "     << posePID_left_inner_knuckle.GetPGain()  << std::endl
           << "\tKI: "     << posePID_left_inner_knuckle.GetIGain()  << std::endl
           << "\tKD: "     << posePID_left_inner_knuckle.GetDGain()  << std::endl
@@ -180,7 +180,7 @@ namespace gazebo
     ros_node_->register_param_change_callback(param_change_callback);
 
     printf("RobotiqHandPlugin::Load\n");
-    gzerr << "RobotiqHandPlugin::Load" << std::endl;
+    gzmsg << "RobotiqHandPlugin::Load" << std::endl;
     this->model = _parent;
     this->world = this->model->GetWorld();
     this->sdf = _sdf;
@@ -190,12 +190,12 @@ namespace gazebo
       gzerr<< "Parent model is NULL! RobotiqHandPlugin could not be loaded."<< std::endl;
       return;
     }
-    gzerr<< "robot_namespace_ " << robot_namespace_ << std::endl;
+    gzmsg<< "robot_namespace_ " << robot_namespace_ << std::endl;
 
-    gzerr<< "_sdf description " << _sdf->GetDescription() << std::endl;
+    gzmsg<< "_sdf description " << _sdf->GetDescription() << std::endl;
 
     for(unsigned int i = 0; i < model->GetJoints().size(); i++){
-        gzerr << this->model->GetJoints()[i]->GetScopedName() << std::endl;
+        gzmsg << this->model->GetJoints()[i]->GetScopedName() << std::endl;
     }
 
     posePID_left_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
@@ -207,10 +207,10 @@ namespace gazebo
     if (!left_inner_knuckle_joint){
       gzthrow("could not find front left_inner_knuckle_joint\n");
     }
-    gzerr << "left_inner_knuckle_joint LowerLimit " << left_inner_knuckle_joint->LowerLimit(0) << std::endl;
-    gzerr << "left_inner_knuckle_joint UpperLimit " << left_inner_knuckle_joint->UpperLimit(0) << std::endl;
-    gzerr << "left_inner_knuckle_joint GetEffortLimit " << left_inner_knuckle_joint->GetEffortLimit(0) << std::endl;
-    gzerr << "left_inner_knuckle_joint GetVelocityLimit " << left_inner_knuckle_joint->GetVelocityLimit(0) << std::endl;
+    gzmsg << "left_inner_knuckle_joint LowerLimit " << left_inner_knuckle_joint->LowerLimit(0) << std::endl;
+    gzmsg << "left_inner_knuckle_joint UpperLimit " << left_inner_knuckle_joint->UpperLimit(0) << std::endl;
+    gzmsg << "left_inner_knuckle_joint GetEffortLimit " << left_inner_knuckle_joint->GetEffortLimit(0) << std::endl;
+    gzmsg << "left_inner_knuckle_joint GetVelocityLimit " << left_inner_knuckle_joint->GetVelocityLimit(0) << std::endl;
     posePID_left_inner_knuckle.SetCmdMin(-left_inner_knuckle_joint->GetEffortLimit(0));
     posePID_left_inner_knuckle.SetCmdMax(left_inner_knuckle_joint->GetEffortLimit(0));
 
@@ -218,10 +218,10 @@ namespace gazebo
     if (!right_inner_knuckle_joint){
       gzthrow("could not find front right_inner_knuckle_joint\n");
     }
-    gzerr << "right_inner_knuckle_joint LowerLimit " << right_inner_knuckle_joint->LowerLimit(0) << std::endl;
-    gzerr << "right_inner_knuckle_joint UpperLimit " << right_inner_knuckle_joint->UpperLimit(0) << std::endl;
-    gzerr << "right_inner_knuckle_joint GetEffortLimit " << right_inner_knuckle_joint->GetEffortLimit(0) << std::endl;
-    gzerr << "right_inner_knuckle_joint GetVelocityLimit " << right_inner_knuckle_joint->GetVelocityLimit(0) << std::endl;
+    gzmsg << "right_inner_knuckle_joint LowerLimit " << right_inner_knuckle_joint->LowerLimit(0) << std::endl;
+    gzmsg << "right_inner_knuckle_joint UpperLimit " << right_inner_knuckle_joint->UpperLimit(0) << std::endl;
+    gzmsg << "right_inner_knuckle_joint GetEffortLimit " << right_inner_knuckle_joint->GetEffortLimit(0) << std::endl;
+    gzmsg << "right_inner_knuckle_joint GetVelocityLimit " << right_inner_knuckle_joint->GetVelocityLimit(0) << std::endl;
     posePID_right_inner_knuckle.SetCmdMin(-right_inner_knuckle_joint->GetEffortLimit(0));
     posePID_right_inner_knuckle.SetCmdMax(right_inner_knuckle_joint->GetEffortLimit(0));
 
@@ -271,7 +271,7 @@ namespace gazebo
     double currentPose_right = right_inner_knuckle_joint->Position(0);
     double currentPose_left = left_inner_knuckle_joint->Position(0);
 
-    // gzerr << "targetPose: "  << targetPose << " currentPose: " << currentPose << std::endl;
+    // gzmsg << "targetPose: "  << targetPose << " currentPose: " << currentPose << std::endl;
 
     // Position error.
     double poseError_right = currentPose_right - targetPose_right;
@@ -281,8 +281,8 @@ namespace gazebo
     double torque_right = posePID_right_inner_knuckle.Update(poseError_right, _dt);
     double torque_left = posePID_left_inner_knuckle.Update(poseError_left, _dt);
 
-    // gzerr << "torque_right: "  << torque_right << " poseError_right: " << poseError_right << std::endl;
-    // gzerr << "torque_left: "  << torque_left << " poseError_left: " << poseError_left << std::endl;
+    // gzmsg << "torque_right: "  << torque_right << " poseError_right: " << poseError_right << std::endl;
+    // gzmsg << "torque_left: "  << torque_left << " poseError_left: " << poseError_left << std::endl;
 
     // Apply the PID command.
     right_inner_knuckle_joint->SetForce(0, torque_right);
