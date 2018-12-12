@@ -1,0 +1,7 @@
+motors:
+  - hros_actuation_servomotor_0000000000012
+  - hros_actuation_servomotor_000000000001
+  - hros_actuation_servomotor_000000000002
+  - hros_actuation_servomotor_0000000000022
+  - hros_actuation_servomotor_000000000003
+  - hros_actuation_servomotor_0000000000033
