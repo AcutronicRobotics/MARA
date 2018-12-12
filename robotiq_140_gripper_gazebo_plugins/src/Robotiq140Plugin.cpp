@@ -49,8 +49,8 @@ namespace gazebo
   }
 
   void RobotiqHandPlugin::gripper_service(const std::shared_ptr<rmw_request_id_t> request_header,
-        const std::shared_ptr<std_srvs::srv::Empty::Request> request,
-        std::shared_ptr<std_srvs::srv::Empty::Response> response)
+        const std::shared_ptr<hrim_actuator_gripper_srvs::srv::ControlFinger::Request> request,
+        std::shared_ptr<hrim_actuator_gripper_srvs::srv::ControlFinger::Response> response)
   {
     (void)request_header;
 
@@ -91,6 +91,11 @@ namespace gazebo
   {
     // Initialize ROS node
     ros_node_ = gazebo_ros::Node::Get(_sdf);
+
+    std::string node_name = _sdf->Get<std::string>("name");
+    RCLCPP_INFO(ros_node_->get_logger(), "name %s\n", node_name.c_str());
+
+    createGenericTopics(node_name);
 
     std::string robot_namespace_ = "";
     if (_sdf->HasElement("robotNamespace"))
@@ -228,11 +233,19 @@ namespace gazebo
     this->lastControllerUpdateTime = this->world->SimTime();
 
     std::function<void( std::shared_ptr<rmw_request_id_t>,
-                        const std::shared_ptr<std_srvs::srv::Empty::Request>,
-                        std::shared_ptr<std_srvs::srv::Empty::Response>)> cb_fingercontrol_function = std::bind(
+                        const std::shared_ptr<hrim_actuator_gripper_srvs::srv::ControlFinger::Request>,
+                        std::shared_ptr<hrim_actuator_gripper_srvs::srv::ControlFinger::Response>)> cb_fingercontrol_function = std::bind(
           &RobotiqHandPlugin::gripper_service, this, std::placeholders::_1,  std::placeholders::_2,  std::placeholders::_3);
 
-    srv_ = ros_node_->create_service<std_srvs::srv::Empty>("open_gripper", cb_fingercontrol_function);
+    srv_ = ros_node_->create_service<hrim_actuator_gripper_srvs::srv::ControlFinger>(node_name + "/open_gripper", cb_fingercontrol_function);
+
+    std::string topic_name_specs = std::string(node_name) + "/specs";
+    specs_pub = ros_node_->create_publisher<hrim_actuator_gripper_msgs::msg::SpecsFingerGripper>(topic_name_specs,
+                  rmw_qos_profile_default);
+
+    std::string topic_name_gripper_state = std::string(node_name) + "/specs";
+    gripper_state_pub = ros_node_->create_publisher<hrim_actuator_gripper_msgs::msg::StateFingerGripper>(topic_name_gripper_state,
+                  rmw_qos_profile_default);
 
     // Connect to gazebo world update.
     this->updateConnection =
@@ -287,6 +300,145 @@ namespace gazebo
     // Apply the PID command.
     right_inner_knuckle_joint->SetForce(0, torque_right);
     left_inner_knuckle_joint->SetForce(0, torque_left);
+  }
+
+  void RobotiqHandPlugin::createGenericTopics(std::string node_name)
+  {
+    // create info topic
+    std::string topic_name_info = std::string(node_name) + "/id";
+
+    // Creating status topic name
+    std::string topic_name_status = std::string(node_name) + "/status";
+
+    // Creating power topic name
+    std::string topic_name_power = std::string(node_name) + "/power";
+
+    // Creating sim topic name
+    std::string topic_name_sim3d = std::string(node_name) + "/module_3d";
+    std::string topic_name_simurdf = std::string(node_name) + "/module_urdf";
+    std::string topic_name_specs = std::string(node_name) + "/specs";
+    std::string topic_name_specs_comm = std::string(node_name) + "/specs_comm";
+    std::string topic_name_state_comm = std::string(node_name) + "/state_comm";
+
+    info_pub = ros_node_->create_publisher<hrim_generic_msgs::msg::ID>(topic_name_info);
+
+    RCLCPP_INFO(ros_node_->get_logger(), "creating %s publisher topic", topic_name_info.c_str());
+
+    power_pub = ros_node_->create_publisher<hrim_generic_msgs::msg::Power>(topic_name_power);
+    RCLCPP_INFO(ros_node_->get_logger(), "creating %s publisher topic", topic_name_power.c_str());
+
+    status_pub = ros_node_->create_publisher<hrim_generic_msgs::msg::Status>(topic_name_status);
+    RCLCPP_INFO(ros_node_->get_logger(), "creating %s publisher topic", topic_name_status.c_str());
+
+    rmw_qos_profile_t custom_qos_profile;
+    custom_qos_profile.depth = 1;
+    custom_qos_profile.history = RMW_QOS_POLICY_HISTORY_KEEP_ALL;
+    custom_qos_profile.reliability = RMW_QOS_POLICY_RELIABILITY_RELIABLE;
+    custom_qos_profile.durability = RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL;
+
+    sim3d_pub = ros_node_->create_publisher<hrim_generic_msgs::msg::Simulation3D>(topic_name_sim3d,
+                  custom_qos_profile);
+    RCLCPP_INFO(ros_node_->get_logger(), "creating %s publisher topic", topic_name_sim3d.c_str());
+
+    sim_urdf_pub = ros_node_->create_publisher<hrim_generic_msgs::msg::SimulationURDF>(topic_name_simurdf,
+                  custom_qos_profile);
+    RCLCPP_INFO(ros_node_->get_logger(), "creating %s publisher topic", topic_name_simurdf.c_str());
+
+    specs_pub = ros_node_->create_publisher<hrim_actuator_gripper_msgs::msg::SpecsFingerGripper>(topic_name_specs,
+                  rmw_qos_profile_default);
+    RCLCPP_INFO(ros_node_->get_logger(), "creating %s publisher topic", topic_name_specs.c_str());
+
+    state_comm_pub = ros_node_->create_publisher<hrim_generic_msgs::msg::StateCommunication>(topic_name_state_comm,
+                  rmw_qos_profile_default);
+    RCLCPP_ERROR(ros_node_->get_logger(), "creating %s publisher topic", topic_name_state_comm.c_str(),
+                  rmw_qos_profile_default);
+
+    specs_comm_pub = ros_node_->create_publisher<hrim_generic_msgs::msg::SpecsCommunication>(topic_name_specs_comm,
+                  rmw_qos_profile_default);
+    RCLCPP_ERROR(ros_node_->get_logger(), "creating %s publisher topic", topic_name_specs_comm.c_str());
+
+    timer_info_ = ros_node_->create_wall_timer(
+        1s, std::bind(&RobotiqHandPlugin::timer_info_msgs, this));
+    timer_status_ = ros_node_->create_wall_timer(
+        1s, std::bind(&RobotiqHandPlugin::timer_status_msgs, this));
+    timer_power_ = ros_node_->create_wall_timer(
+        1s, std::bind(&RobotiqHandPlugin::timer_power_msgs, this));
+    timer_specs_ = ros_node_->create_wall_timer(
+        1s, std::bind(&RobotiqHandPlugin::timer_specs_msgs, this));
+    timer_comm_ = ros_node_->create_wall_timer(
+        1s, std::bind(&RobotiqHandPlugin::timer_comm_msgs, this));
+  }
+
+  void RobotiqHandPlugin::timer_info_msgs()
+  {
+    hrim_generic_msgs::msg::ID info_msg;
+    gazebo::common::Time cur_time = this->model->GetWorld()->SimTime();
+    info_msg.header.stamp.sec = cur_time.sec;
+    info_msg.header.stamp.nanosec = cur_time.nsec;
+    info_msg.device_kind_id = hrim_generic_msgs::msg::ID::HRIM_SENSOR;
+    info_msg.hros_version = "Ardent";
+    info_msg.hrim_version = "Anboto";
+    info_pub->publish(info_msg);
+  }
+
+  void RobotiqHandPlugin::timer_power_msgs()
+  {
+    hrim_generic_msgs::msg::Power power_msg;
+    gazebo::common::Time cur_time = this->model->GetWorld()->SimTime();
+    power_msg.header.stamp.sec = cur_time.sec;
+    power_msg.header.stamp.nanosec = cur_time.nsec;
+    power_msg.voltage = 48.0;
+    power_msg.current_consumption = 0.1;
+    power_msg.power_consumption = power_msg.current_consumption*power_msg.voltage;
+    power_pub->publish(power_msg);
+  }
+
+  void RobotiqHandPlugin::timer_status_msgs()
+  {
+    hrim_generic_msgs::msg::Status status_msg;
+    gazebo::common::Time cur_time = this->model->GetWorld()->SimTime();
+    status_msg.header.stamp.sec = cur_time.sec;
+    status_msg.header.stamp.nanosec = cur_time.nsec;
+    status_pub->publish(status_msg);
+  }
+
+  void RobotiqHandPlugin::timer_specs_msgs()
+  {
+    hrim_actuator_gripper_msgs::msg::SpecsFingerGripper specs_msg;
+    gazebo::common::Time cur_time = this->model->GetWorld()->SimTime();
+    specs_msg.header.stamp.sec = cur_time.sec;
+    specs_msg.header.stamp.nanosec = cur_time.nsec;
+    specs_msg.min_force = MIN_FORCE; // Minimum gripping force [N]
+    specs_msg.max_force = MAX_FORCE; // Maximun gripping force [N]
+
+    specs_msg.max_payload = MAX_FORCE;   // Maximum recommended payload [kg]
+
+    specs_msg.min_speed = MIN_SPEED;  // Minimum closing speed [mm/s]
+    specs_msg.max_speed = MAX_SPEED;  // Maximum  closing speed [mm/s]
+
+    specs_msg.max_acceleration = MAX_ACCELERATION;
+
+    specs_msg.max_length = MAX_LENGHT; // Maximum permitted finger length [mm]
+    specs_msg.max_angle = MAX_ANGLE;  // Maximum permitted finger angle [rad]
+
+    specs_msg.repeatability = REPEATABILITY;
+
+    specs_pub->publish(specs_msg);
+  }
+
+  void RobotiqHandPlugin::timer_comm_msgs()
+  {
+    gazebo::common::Time cur_time = this->model->GetWorld()->SimTime();
+
+    hrim_generic_msgs::msg::StateCommunication state_comm_msg;
+    state_comm_msg.header.stamp.sec = cur_time.sec;
+    state_comm_msg.header.stamp.nanosec = cur_time.nsec;
+    state_comm_pub->publish(state_comm_msg);
+
+    hrim_generic_msgs::msg::SpecsCommunication specs_comm_msg;
+    specs_comm_msg.header.stamp.sec = cur_time.sec;
+    specs_comm_msg.header.stamp.nanosec = cur_time.nsec;
+    specs_comm_pub->publish(specs_comm_msg);
   }
 
   GZ_REGISTER_MODEL_PLUGIN(RobotiqHandPlugin)

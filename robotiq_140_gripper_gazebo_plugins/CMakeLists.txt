@@ -16,6 +16,8 @@ find_package(gazebo_dev REQUIRED)
 find_package(gazebo_ros REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_srvs REQUIRED)
+find_package(hrim_actuator_gripper_msgs REQUIRED)
+find_package(hrim_actuator_gripper_srvs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
@@ -43,6 +45,8 @@ ament_target_dependencies(${PROJECT_NAME}
   "tf2_geometry_msgs"
   "tf2_ros"
   "std_srvs"
+  "hrim_actuator_gripper_msgs"
+  "hrim_actuator_gripper_srvs"
 )
 
 ament_export_libraries(${PROJECT_NAME})

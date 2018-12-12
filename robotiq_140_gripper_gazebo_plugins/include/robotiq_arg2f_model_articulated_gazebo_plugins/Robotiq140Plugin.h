@@ -28,11 +28,39 @@
 #include <gazebo/physics/physics.hh>
 #include <gazebo_ros/node.hpp>
 
-#include <std_srvs/srv/empty.hpp>
+#include <hrim_actuator_gripper_msgs/msg/state_finger_gripper.hpp>
+#include <hrim_actuator_gripper_msgs/msg/specs_finger_gripper.hpp>
+#include <hrim_actuator_gripper_srvs/srv/control_finger.hpp>
+
+// HRIM messages
+#include <hrim_generic_msgs/msg/id.hpp>
+#include <hrim_generic_msgs/msg/status.hpp>
+#include <hrim_generic_msgs/msg/power.hpp>
+#include <hrim_generic_msgs/msg/simulation3_d.hpp>
+#include <hrim_generic_msgs/msg/simulation_urdf.hpp>
+#include <hrim_generic_msgs/msg/specs_communication.hpp>
+#include <hrim_generic_msgs/msg/state_communication.hpp>
+
+#define MIN_FORCE 10
+#define MAX_FORCE 125
+
+#define MAX_PAYLOAD 2.5
+
+#define MIN_SPEED 30
+#define MAX_SPEED 250
+
+#define MAX_ACCELERATION 0
+
+#define MAX_LENGHT 209
+#define MAX_ANGLE 0.87
+
+#define REPEATABILITY 0.08
 
 // Boost
 #include <boost/thread.hpp>
 #include <boost/bind.hpp>
+
+using namespace std::chrono_literals;
 
 /// \brief A plugin that implements the Robotiq 2-Finger Adaptative Gripper.
 namespace gazebo
@@ -41,9 +69,11 @@ namespace gazebo
   {
 
     void gripper_service(const std::shared_ptr<rmw_request_id_t> request_header,
-          const std::shared_ptr<std_srvs::srv::Empty::Request> request,
-          std::shared_ptr<std_srvs::srv::Empty::Response> response);
-          
+          const std::shared_ptr<hrim_actuator_gripper_srvs::srv::ControlFinger::Request> request,
+          std::shared_ptr<hrim_actuator_gripper_srvs::srv::ControlFinger::Response> response);
+
+    void createGenericTopics(std::string node_name);
+
     /// \brief Constructor.
     public: RobotiqHandPlugin();
 
@@ -108,7 +138,32 @@ namespace gazebo
 
     /// A pointer to the GazeboROS node.
     gazebo_ros::Node::SharedPtr ros_node_;
-    rclcpp::Service<std_srvs::srv::Empty>::SharedPtr srv_;
+    rclcpp::Service<hrim_actuator_gripper_srvs::srv::ControlFinger>::SharedPtr srv_;
+
+    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::ID>> info_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::Status>> status_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::Power>> power_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::Simulation3D>> sim3d_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::SimulationURDF>> sim_urdf_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::StateCommunication>> state_comm_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::SpecsCommunication>> specs_comm_pub;
+
+    std::shared_ptr<rclcpp::Publisher<hrim_actuator_gripper_msgs::msg::StateFingerGripper>> gripper_state_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_actuator_gripper_msgs::msg::SpecsFingerGripper>> specs_pub;
+
+
+    void timer_info_msgs();
+    void timer_power_msgs();
+    void timer_status_msgs();
+    void timer_specs_msgs();
+    void timer_comm_msgs();
+
+    std::shared_ptr<rclcpp::TimerBase> timer_info_;
+    std::shared_ptr<rclcpp::TimerBase> timer_status_;
+    std::shared_ptr<rclcpp::TimerBase> timer_power_;
+    std::shared_ptr<rclcpp::TimerBase> timer_specs_;
+    std::shared_ptr<rclcpp::TimerBase> timer_comm_;
+
   };
 }
 #endif  // GAZEBO_ROBOTIQ_HAND_PLUGIN_HH
