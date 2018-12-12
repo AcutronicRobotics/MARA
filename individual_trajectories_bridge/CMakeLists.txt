@@ -84,5 +84,11 @@ target_link_libraries(${PROJECT_NAME}
   ${YAML_CPP_LIBRARIES}
 )
 
+install(
+  PROGRAMS
+  config/motors.yaml
+  DESTINATION share/${PROJECT_NAME}
+)
+
 install(TARGETS ${PROJECT_NAME}
   DESTINATION lib/${PROJECT_NAME})

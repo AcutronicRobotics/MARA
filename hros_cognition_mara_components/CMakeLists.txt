@@ -61,4 +61,10 @@ install(  TARGETS
             lib/${PROJECT_NAME}
 )
 
+install(
+  PROGRAMS
+  config/link_order.yaml
+  DESTINATION share/${PROJECT_NAME}
+)
+
 ament_package()
