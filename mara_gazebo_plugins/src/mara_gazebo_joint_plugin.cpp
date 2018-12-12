@@ -58,6 +58,8 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
   std::string topic_name_sim3d = std::string(node_name) + "/module_3d";
   std::string topic_name_simurdf = std::string(node_name) + "/module_urdf";
   std::string topic_name_specs = std::string(node_name) + "/specs";
+  std::string topic_name_specs_comm = std::string(node_name) + "/specs_comm";
+  std::string topic_name_state_comm = std::string(node_name) + "/state_comm";
 
   impl_->info_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::ID>(topic_name_info);
 
@@ -87,6 +89,14 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
                 custom_qos_profile);
   RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_specs.c_str());
 
+  impl_->state_comm_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::StateCommunication>(topic_name_state_comm,
+                custom_qos_profile);
+  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_state_comm.c_str());
+
+  impl_->specs_comm_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::SpecsCommunication>(topic_name_specs_comm,
+                custom_qos_profile);
+  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_specs_comm.c_str());
+
   impl_->timer_info_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_info_msgs, impl_.get()));
   impl_->timer_status_ = impl_->ros_node_->create_wall_timer(
@@ -95,7 +105,8 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_power_msgs, impl_.get()));
   impl_->timer_specs_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_specs_msgs, impl_.get()));
-
+  impl_->timer_comm_ = impl_->ros_node_->create_wall_timer(
+      1s, std::bind(&MARAGazeboPluginRosPrivate::timer_comm_msgs, impl_.get()));
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
@@ -127,12 +138,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotar
       for(double t = start_time; t < end_time; t+= 0.001 ){
         trajectories_position_axis1.push_back(interpolation_pos(t));
         trajectories_velocities_axis1.push_back(interpolation_vel(t));
-        // RCLCPP_ERROR(ros_node_->get_logger(), "t: %.5f\tpos %.5f\tvel: %.5f\n",
-        //                                       t,
-        //                                       interpolation_pos(t),
-        //                                       interpolation_vel(t));
       }
-      // RCLCPP_ERROR(ros_node_->get_logger(), "commandCallback_axis1 \n");
     }
   }
 }
@@ -167,24 +173,77 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotar
       for(double t = start_time; t < end_time; t+= 0.001 ){
         trajectories_position_axis2.push_back(interpolation_pos(t));
         trajectories_velocities_axis2.push_back(interpolation_vel(t));
-        // RCLCPP_ERROR(ros_node_->get_logger(), "t: %.5f\tpos %.5f\tvel: %.5f\n",
-        //                                       t,
-        //                                       interpolation_pos(t),
-        //                                       interpolation_vel(t));
       }
-      // RCLCPP_ERROR(ros_node_->get_logger(), "commandCallback_axis1 \n");
     }
   }
 }
 
 void MARAGazeboPluginRosPrivate::trajectoryAxis1Callback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg)
 {
+  if(!executing_axis1){
+    std::vector<double> X(msg->points.size()), Y_vel(msg->points.size()), Y_pos(msg->points.size());
+    for(unsigned int point = 0; point < msg->points.size(); point++){
+      double start_time = msg->points[point].time_from_start.sec +
+                          msg->points[point].time_from_start.nanosec/NSEC_PER_SECOND;
+      Y_vel[point] =  msg->points[point].velocities[0];
+      Y_pos[point] =  msg->points[point].positions[0];
+      X[point] = start_time;
+    }
+    double start_time = 0;
+    double end_time = msg->points[msg->points.size()-1].time_from_start.sec +
+                      msg->points[msg->points.size()-1].time_from_start.nanosec/NSEC_PER_SECOND;
 
+    tk::spline interpolation_vel, interpolation_pos;
+    if(!interpolation_vel.set_points(X, Y_vel))
+      return;
+    if(!interpolation_pos.set_points(X, Y_pos))
+      return;
+
+    int index_x = 1;
+    for(double t = start_time; t < end_time; t+=0.001 ){
+
+      double time_point = msg->points[index_x].time_from_start.sec +
+                          msg->points[index_x].time_from_start.nanosec/NSEC_PER_SECOND;
+      if(t > time_point)
+        index_x++;
+      trajectories_position_axis1.push_back(interpolation_pos(t));
+      trajectories_velocities_axis1.push_back(interpolation_vel(t));
+    }
+  }
 }
 
 void MARAGazeboPluginRosPrivate::trajectoryAxis2Callback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg)
 {
+  if(!executing_axis2){
+    std::vector<double> X(msg->points.size()), Y_vel(msg->points.size()), Y_pos(msg->points.size());
+    for(unsigned int point = 0; point < msg->points.size(); point++){
+      double start_time = msg->points[point].time_from_start.sec +
+                          msg->points[point].time_from_start.nanosec/NSEC_PER_SECOND;
+      Y_vel[point] =  msg->points[point].velocities[0];
+      Y_pos[point] =  msg->points[point].positions[0];
+      X[point] = start_time;
+    }
+    double start_time = 0;
+    double end_time = msg->points[msg->points.size()-1].time_from_start.sec +
+                      msg->points[msg->points.size()-1].time_from_start.nanosec/NSEC_PER_SECOND;
 
+    tk::spline interpolation_vel, interpolation_pos;
+    if(!interpolation_vel.set_points(X, Y_vel))
+      return;
+    if(!interpolation_pos.set_points(X, Y_pos))
+      return;
+
+    int index_x = 1;
+    for(double t=start_time; t < end_time; t+=0.001 ){
+
+      double time_point = msg->points[index_x].time_from_start.sec +
+                          msg->points[index_x].time_from_start.nanosec/NSEC_PER_SECOND;
+      if(t > time_point)
+        index_x++;
+      trajectories_position_axis2.push_back(interpolation_pos(t));
+      trajectories_velocities_axis2.push_back(interpolation_vel(t));
+    }
+  }
 }
 
 void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr _sdf)
@@ -390,6 +449,22 @@ void MARAGazeboPluginRosPrivate::timer_specs_msgs()
   specs_msg.temperature_range_min  = -10.0; // -10º
   specs_msg.temperature_range_max  = +50.0; // 50º
   specs_pub->publish(specs_msg);
+}
+
+void MARAGazeboPluginRosPrivate::timer_comm_msgs()
+{
+  gazebo::common::Time cur_time = model_->GetWorld()->SimTime();
+
+  hrim_generic_msgs::msg::StateCommunication state_comm_msg;
+  state_comm_msg.header.stamp.sec = cur_time.sec;
+  state_comm_msg.header.stamp.nanosec = cur_time.nsec;
+  state_comm_pub->publish(state_comm_msg);
+
+  hrim_generic_msgs::msg::SpecsCommunication specs_comm_msg;
+  specs_comm_msg.header.stamp.sec = cur_time.sec;
+  specs_comm_msg.header.stamp.nanosec = cur_time.nsec;
+  specs_comm_pub->publish(specs_comm_msg);
+
 }
 
 GZ_REGISTER_MODEL_PLUGIN(MARAGazeboPluginRos)
