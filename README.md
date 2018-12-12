@@ -96,8 +96,7 @@ Spawing the model:
 
 ```
 source ~/ros2_mara_ws/install/setup.bash
-cd ~/ros2_mara_ws/src/MARA/mara_utils_scripts
-python3 spawn_entity.py
+ros2 run mara_brinup spawn_entity.py
 ```
 
 Publishing robot model
