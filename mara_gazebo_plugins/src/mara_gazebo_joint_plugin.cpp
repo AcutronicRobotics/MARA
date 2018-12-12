@@ -61,13 +61,13 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
 
   impl_->info_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::ID>(topic_name_info);
 
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_info.c_str());
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_info.c_str());
 
   impl_->power_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::Power>(topic_name_power);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_power.c_str());
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_power.c_str());
 
   impl_->status_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::Status>(topic_name_status);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_status.c_str());
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_status.c_str());
 
   rmw_qos_profile_t custom_qos_profile;
   custom_qos_profile.depth = 1;
@@ -77,15 +77,15 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
 
   impl_->sim3d_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::Simulation3D>(topic_name_sim3d,
                 custom_qos_profile);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_sim3d.c_str());
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_sim3d.c_str());
 
   impl_->sim_urdf_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::SimulationURDF>(topic_name_simurdf,
                 custom_qos_profile);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_simurdf.c_str());
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_simurdf.c_str());
 
   impl_->specs_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo>(topic_name_specs,
                 custom_qos_profile);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_specs.c_str());
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_specs.c_str());
 
   impl_->timer_info_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_info_msgs, impl_.get()));
@@ -127,12 +127,12 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotar
       for(double t = start_time; t < end_time; t+= 0.001 ){
         trajectories_position_axis1.push_back(interpolation_pos(t));
         trajectories_velocities_axis1.push_back(interpolation_vel(t));
-        // RCLCPP_ERROR(ros_node_->get_logger(), "t: %.5f\tpos %.5f\tvel: %.5f\n",
+        // RCLCPP_INFO(ros_node_->get_logger(), "t: %.5f\tpos %.5f\tvel: %.5f\n",
         //                                       t,
         //                                       interpolation_pos(t),
         //                                       interpolation_vel(t));
       }
-      // RCLCPP_ERROR(ros_node_->get_logger(), "commandCallback_axis1 \n");
+      // RCLCPP_INFO(ros_node_->get_logger(), "commandCallback_axis1 \n");
     }
   }
 }
@@ -167,12 +167,12 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotar
       for(double t = start_time; t < end_time; t+= 0.001 ){
         trajectories_position_axis2.push_back(interpolation_pos(t));
         trajectories_velocities_axis2.push_back(interpolation_vel(t));
-        // RCLCPP_ERROR(ros_node_->get_logger(), "t: %.5f\tpos %.5f\tvel: %.5f\n",
+        // RCLCPP_INFO(ros_node_->get_logger(), "t: %.5f\tpos %.5f\tvel: %.5f\n",
         //                                       t,
         //                                       interpolation_pos(t),
         //                                       interpolation_vel(t));
       }
-      // RCLCPP_ERROR(ros_node_->get_logger(), "commandCallback_axis1 \n");
+      // RCLCPP_INFO(ros_node_->get_logger(), "commandCallback_axis1 \n");
     }
   }
 }
@@ -206,7 +206,7 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   impl_->goal_position_axis2_rad = 0;
 
   std::string node_name = _sdf->Get<std::string>("name");
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "name %s\n", node_name.c_str());
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "name %s\n", node_name.c_str());
 
   createGenericTopics(node_name);
 
@@ -232,26 +232,26 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   std::string topic_name_motor_state = std::string(node_name) + "/state";
   impl_->motor_state_axis1_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(topic_name_motor_state,
                         rmw_qos_profile_sensor_data);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state.c_str() );
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state.c_str() );
 
   std::string topic_name_motor_state_axis2 = std::string(node_name) + "2/state";
   impl_->motor_state_axis2_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(topic_name_motor_state_axis2,
                         rmw_qos_profile_sensor_data);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis2.c_str() );
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis2.c_str() );
 
   // Creating command topic name
   std::string topic_command_state = std::string(node_name) + "/goal";
   impl_->command_sub_axis1_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state,
                                 std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis1, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state.c_str() );
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state.c_str() );
 
 
   std::string topic_command_state_axis2 = std::string(node_name) + "2/goal";
   impl_->command_sub_axis2_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state_axis2,
                                 std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis2, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state.c_str() );
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state.c_str() );
 
 
   std::string topic_trajectory_axis1 = std::string(node_name) + "/trajectory";
@@ -259,7 +259,7 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
          topic_trajectory_axis1,
          std::bind(&MARAGazeboPluginRosPrivate::trajectoryAxis1Callback, impl_.get(), std::placeholders::_1),
          rmw_qos_profile_sensor_data);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "Creating topic %s", topic_trajectory_axis1.c_str() );
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_trajectory_axis1.c_str() );
 
   std::string topic_trajectory_axis2 = std::string(node_name) + "2/trajectory";
 
@@ -267,7 +267,7 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
           topic_trajectory_axis2,
           std::bind(&MARAGazeboPluginRosPrivate::trajectoryAxis2Callback, impl_.get(), std::placeholders::_1),
           rmw_qos_profile_sensor_data);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "Creating topic %s", topic_trajectory_axis2.c_str() );
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_trajectory_axis2.c_str() );
 
   // Update rate
   auto update_rate = _sdf->Get<double>("update_rate", 1000.0).first;
@@ -276,7 +276,7 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   } else {
     impl_->update_period_ = 0.0;
   }
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "Update rate: %.4f\n", impl_->update_period_);
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Update rate: %.4f\n", impl_->update_period_);
 
   impl_->last_update_time_ = _model->GetWorld()->SimTime();
 
