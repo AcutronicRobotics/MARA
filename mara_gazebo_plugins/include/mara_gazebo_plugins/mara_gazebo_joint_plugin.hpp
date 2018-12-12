@@ -54,6 +54,8 @@
 #include "hrim_generic_msgs/msg/power.hpp"
 #include "hrim_generic_msgs/msg/simulation3_d.hpp"
 #include "hrim_generic_msgs/msg/simulation_urdf.hpp"
+#include "hrim_generic_msgs/msg/specs_communication.hpp"
+#include "hrim_generic_msgs/msg/state_communication.hpp"
 
 #include <string>
 #include <vector>
@@ -61,6 +63,8 @@
 #include <chrono>
 
 #include <mara_gazebo_plugins/spline.hpp>
+
+static const double NSEC_PER_SECOND = 1e+9;
 
 using namespace std::chrono_literals;
 
@@ -132,17 +136,21 @@ namespace gazebo_plugins
     std::shared_ptr<rclcpp::TimerBase> timer_status_;
     std::shared_ptr<rclcpp::TimerBase> timer_power_;
     std::shared_ptr<rclcpp::TimerBase> timer_specs_;
+    std::shared_ptr<rclcpp::TimerBase> timer_comm_;
 
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::ID>> info_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::Status>> status_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::Power>> power_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::Simulation3D>> sim3d_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::SimulationURDF>> sim_urdf_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::StateCommunication>> state_comm_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::SpecsCommunication>> specs_comm_pub;
 
     void timer_info_msgs();
     void timer_power_msgs();
     void timer_status_msgs();
     void timer_specs_msgs();
+    void timer_comm_msgs();
 
     // rclcpp::Clock clock_ros;
 

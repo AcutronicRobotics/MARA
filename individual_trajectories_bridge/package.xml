@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>individual_trajectories_bridge</name>
+  <version>0.0.2</version>
+  <description>H-ROS individual trajectories bridge between ROS 1 and ROS 2</description>
+  <maintainer email="alex@erlerobotics.com">Alejandro Hernández</maintainer>
+  <license>All rights reserved</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <build_depend>rclcpp</build_depend>
+  <build_depend>rmw_implementation_cmake</build_depend>
+  <build_depend>control_msgs</build_depend>
+  <build_depend>trajectory_msgs</build_depend>
+
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>control_msgs</exec_depend>
+  <exec_depend>trajectory_msgs</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
