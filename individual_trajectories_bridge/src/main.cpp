@@ -139,7 +139,7 @@ int main(int argc, char * argv[])
   }
 
   auto sub_servoMotorGoal = ros2_node->create_subscription<control_msgs::msg::JointTrajectoryControllerState>(
-      "/mara_controller/stateMotor", motorStateCallback, rmw_qos_profile_sensor_data);
+      "/mara_controller/state", motorStateCallback, rmw_qos_profile_sensor_data);
 
   //////////////////////////////////////////////////////////////////////////7
   // ROS 1 asynchronous spinner
