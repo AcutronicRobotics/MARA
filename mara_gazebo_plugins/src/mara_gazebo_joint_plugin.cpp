@@ -83,6 +83,8 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
                 custom_qos_profile);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_sim3d.c_str());
 
+  impl_->publish3DModels();
+
   impl_->sim_urdf_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::SimulationURDF>(topic_name_simurdf,
                 custom_qos_profile);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_simurdf.c_str());
@@ -109,6 +111,51 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_specs_msgs, impl_.get()));
   impl_->timer_comm_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_comm_msgs, impl_.get()));
+}
+
+void MARAGazeboPluginRosPrivate::readfullFile(std::string file_to_read, hrim_generic_msgs::msg::Simulation3D& msg_sim_3d)
+{
+  std::string robotiq_140_description_folder = ament_index_cpp::get_package_share_directory("mara_description");
+
+  gzmsg << "readfullFile " << robotiq_140_description_folder + file_to_read << std::endl;
+
+  std::ifstream ifs(robotiq_140_description_folder + file_to_read, std::ios::binary|std::ios::ate);
+
+  if(!ifs.is_open()){
+    gzmsg << "Error reading file " << robotiq_140_description_folder + file_to_read << std::endl;
+    return;
+  }
+
+  std::ifstream::pos_type pos = ifs.tellg();
+
+  msg_sim_3d.model.resize(pos);
+  ifs.seekg(0, std::ios::beg);
+  ifs.read(&msg_sim_3d.model[0], pos);
+  ifs.close();
+}
+
+void MARAGazeboPluginRosPrivate::publish3DModels()
+{
+  hrim_generic_msgs::msg::Simulation3D msg_sim_3d;
+  gazebo::common::Time cur_time = this->model_->GetWorld()->SimTime();
+  msg_sim_3d.header.stamp.sec = cur_time.sec;
+  msg_sim_3d.header.stamp.nanosec = cur_time.nsec;
+
+  if (type_motor.compare(std::string("series14")) == 0){
+    readfullFile("/meshes/meshes/H-ROS_Robot_mara1.stl", msg_sim_3d);
+    gzmsg << "type_motor series14 published! "<< std::endl;
+  }else if (type_motor.compare(std::string("series17")) == 0){
+    readfullFile("/meshes/meshes/H-ROS_Robot_mara2.stl", msg_sim_3d);
+    gzmsg << "type_motor series17 published! "<< std::endl;
+  }else if (type_motor.compare(std::string("series20")) == 0){
+    readfullFile("/meshes/meshes/H-ROS_Robot_mara3.stl", msg_sim_3d);
+    gzmsg << "type_motor series20 published! "<< std::endl;
+  }else{
+    readfullFile("/meshes/meshes/H-ROS_Robot_mara1.stl", msg_sim_3d);
+    gzmsg << "type_motor series14 published! wrong type motor "<< std::endl;
+  }
+
+  sim3d_pub->publish(msg_sim_3d);
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
@@ -269,8 +316,6 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   std::string node_name = _sdf->Get<std::string>("name");
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "name %s\n", node_name.c_str());
 
-  createGenericTopics(node_name);
-
   // Get joints
   impl_->joints_.resize(2);
 
@@ -280,6 +325,9 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   auto motor2 = _sdf->Get<std::string>("axis2", "axis2").first;
   impl_->joints_[MARAGazeboPluginRosPrivate::AXIS2] = _model->GetJoint(motor2);
 
+  impl_->type_motor = _sdf->Get<std::string>("type", "None").first;
+  gzmsg << "type_motor " << impl_->type_motor << std::endl;
+
   if (!impl_->joints_[MARAGazeboPluginRosPrivate::AXIS1] ||
     !impl_->joints_[MARAGazeboPluginRosPrivate::AXIS2])
   {
@@ -288,6 +336,8 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
     impl_->ros_node_.reset();
     return;
   }
+
+  createGenericTopics(node_name);
 
   // Creating motor state topic name
   std::string topic_name_motor_state = std::string(node_name) + "/state";

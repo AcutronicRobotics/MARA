@@ -8,10 +8,11 @@ endif()
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   # we dont use add_compile_options with pedantic in message packages
   # because the Python C extensions dont comply with it
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -fpermissive")
 endif()
 
 find_package(ament_cmake REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 find_package(gazebo_dev REQUIRED)
 find_package(gazebo_ros REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -54,6 +55,7 @@ ament_target_dependencies(mara_gazebo_joint_plugin
   "hrim_actuator_rotaryservo_msgs"
   "trajectory_msgs"
   "hrim_generic_msgs"
+  "ament_index_cpp"
 )
 ament_export_libraries(mara_gazebo_joint_plugin)
 

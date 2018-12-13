@@ -62,6 +62,8 @@
 #include <memory>
 #include <chrono>
 
+#include <ament_index_cpp/get_package_share_directory.hpp>
+
 #include <mara_gazebo_plugins/spline.hpp>
 
 static const double NSEC_PER_SECOND = 1e+9;
@@ -88,6 +90,9 @@ namespace gazebo_plugins
 
     void timer_motor_state_msgs();
     std::shared_ptr<rclcpp::TimerBase> timer_motor_state_;
+
+    void publish3DModels();
+    void readfullFile(std::string file_to_read, hrim_generic_msgs::msg::Simulation3D& msg_sim_3d);
 
     /// A pointer to the GazeboROS node.
     gazebo_ros::Node::SharedPtr ros_node_;
@@ -164,6 +169,8 @@ namespace gazebo_plugins
     unsigned int index_trajectory_axis2;
     float goal_position_axis1_rad;
     float goal_position_axis2_rad;
+
+    std::string type_motor;
 
   };
 
