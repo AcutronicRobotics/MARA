@@ -152,10 +152,9 @@ namespace gazebo
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::StateCommunication>> state_comm_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::SpecsCommunication>> specs_comm_pub;
 
-    std::shared_ptr<rclcpp::Publisher<hrim_actuator_gripper_msgs::msg::StateGripper>> gripper_state_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_actuator_gripper_msgs::msg::StateFingerGripper>> gripper_finger_state_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_actuator_gripper_msgs::msg::SpecsFingerGripper>> specs_pub;
-
+    std::shared_ptr<rclcpp::Publisher<hrim_actuator_gripper_msgs::msg::StateGripper>> gripper_state_pub;
 
     void timer_info_msgs();
     void timer_power_msgs();
