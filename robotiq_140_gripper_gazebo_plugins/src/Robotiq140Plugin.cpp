@@ -257,7 +257,7 @@ namespace gazebo
     specs_pub = ros_node_->create_publisher<hrim_actuator_gripper_msgs::msg::SpecsFingerGripper>(topic_name_specs,
                   rmw_qos_profile_default);
 
-    std::string topic_name_gripper_state = std::string(node_name) + "/state";
+    std::string topic_name_gripper_state = std::string(node_name) + "/state_finger_gripper";
     gripper_state_pub = ros_node_->create_publisher<hrim_actuator_gripper_msgs::msg::StateFingerGripper>(topic_name_gripper_state,
                   rmw_qos_profile_default);
 
