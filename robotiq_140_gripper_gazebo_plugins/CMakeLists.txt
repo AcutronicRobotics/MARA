@@ -12,6 +12,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 find_package(gazebo_dev REQUIRED)
 find_package(gazebo_ros REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -47,6 +48,7 @@ ament_target_dependencies(${PROJECT_NAME}
   "std_srvs"
   "hrim_actuator_gripper_msgs"
   "hrim_actuator_gripper_srvs"
+  "ament_index_cpp"
 )
 
 ament_export_libraries(${PROJECT_NAME})

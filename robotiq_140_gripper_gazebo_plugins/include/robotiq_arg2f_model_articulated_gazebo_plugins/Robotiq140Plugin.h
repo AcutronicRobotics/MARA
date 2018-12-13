@@ -42,6 +42,8 @@
 #include <hrim_generic_msgs/msg/specs_communication.hpp>
 #include <hrim_generic_msgs/msg/state_communication.hpp>
 
+#include <ament_index_cpp/get_package_share_directory.hpp>
+
 #define MIN_FORCE 10
 #define MAX_FORCE 125
 
@@ -162,6 +164,9 @@ namespace gazebo
     void timer_specs_msgs();
     void timer_comm_msgs();
     void timer_gripper_status_msgs();
+
+    void publish3DModels();
+    void readfullFile(std::string file_to_read, hrim_generic_msgs::msg::Simulation3D& msg_sim_3d);
 
     std::shared_ptr<rclcpp::TimerBase> timer_info_;
     std::shared_ptr<rclcpp::TimerBase> timer_status_;

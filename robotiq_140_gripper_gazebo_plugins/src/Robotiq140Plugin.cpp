@@ -99,13 +99,18 @@ namespace gazebo
   void RobotiqHandPlugin::Load(gazebo::physics::ModelPtr _parent,
                                sdf::ElementPtr _sdf)
   {
-    // Initialize ROS node
-    ros_node_ = gazebo_ros::Node::Get(_sdf);
 
-    std::string node_name = _sdf->Get<std::string>("name");
-    RCLCPP_INFO(ros_node_->get_logger(), "name %s\n", node_name.c_str());
+    printf("RobotiqHandPlugin::Load\n");
+    gzmsg << "RobotiqHandPlugin::Load" << std::endl;
+    this->model = _parent;
+    this->world = this->model->GetWorld();
+    this->sdf = _sdf;
 
-    createGenericTopics(node_name);
+    // Error message if the model couldn't be found
+    if (!this->model){
+      gzerr<< "Parent model is NULL! RobotiqHandPlugin could not be loaded."<< std::endl;
+      return;
+    }
 
     std::string robot_namespace_ = "";
     if (_sdf->HasElement("robotNamespace"))
@@ -113,6 +118,22 @@ namespace gazebo
     else{
       printf("No robotNamespace\n");
     }
+
+    gzmsg<< "robot_namespace_ " << robot_namespace_ << std::endl;
+
+    gzmsg<< "_sdf description " << _sdf->GetDescription() << std::endl;
+
+    for(unsigned int i = 0; i < model->GetJoints().size(); i++){
+        gzmsg << this->model->GetJoints()[i]->GetScopedName() << std::endl;
+    }
+
+    // Initialize ROS node
+    ros_node_ = gazebo_ros::Node::Get(_sdf);
+
+    std::string node_name = _sdf->Get<std::string>("name");
+    RCLCPP_INFO(ros_node_->get_logger(), "name %s\n", node_name.c_str());
+
+    createGenericTopics(node_name);
 
     ros_node_->set_parameters({
       rclcpp::Parameter("kp_gripper", kp),
@@ -193,25 +214,6 @@ namespace gazebo
       }
     };
     ros_node_->register_param_change_callback(param_change_callback);
-
-    printf("RobotiqHandPlugin::Load\n");
-    gzmsg << "RobotiqHandPlugin::Load" << std::endl;
-    this->model = _parent;
-    this->world = this->model->GetWorld();
-    this->sdf = _sdf;
-
-    // Error message if the model couldn't be found
-    if (!this->model){
-      gzerr<< "Parent model is NULL! RobotiqHandPlugin could not be loaded."<< std::endl;
-      return;
-    }
-    gzmsg<< "robot_namespace_ " << robot_namespace_ << std::endl;
-
-    gzmsg<< "_sdf description " << _sdf->GetDescription() << std::endl;
-
-    for(unsigned int i = 0; i < model->GetJoints().size(); i++){
-        gzmsg << this->model->GetJoints()[i]->GetScopedName() << std::endl;
-    }
 
     posePID_left_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
     posePID_right_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
@@ -331,6 +333,8 @@ namespace gazebo
                   custom_qos_profile);
     RCLCPP_INFO(ros_node_->get_logger(), "creating %s publisher topic", topic_name_sim3d.c_str());
 
+    publish3DModels();
+
     sim_urdf_pub = ros_node_->create_publisher<hrim_generic_msgs::msg::SimulationURDF>(topic_name_simurdf,
                   custom_qos_profile);
     RCLCPP_INFO(ros_node_->get_logger(), "creating %s publisher topic", topic_name_simurdf.c_str());
@@ -359,6 +363,50 @@ namespace gazebo
         1s, std::bind(&RobotiqHandPlugin::timer_comm_msgs, this));
     timer_gripper_status_ = ros_node_->create_wall_timer(
         100ms, std::bind(&RobotiqHandPlugin::timer_gripper_status_msgs, this));
+  }
+
+  void RobotiqHandPlugin::readfullFile(std::string file_to_read, hrim_generic_msgs::msg::Simulation3D& msg_sim_3d)
+  {
+    std::string robotiq_140_description_folder = ament_index_cpp::get_package_share_directory("robotiq_140_gripper_description");
+
+    gzmsg << "readfullFile " << robotiq_140_description_folder + file_to_read << std::endl;
+
+    std::ifstream ifs(robotiq_140_description_folder + file_to_read, std::ios::binary|std::ios::ate);
+
+    if(!ifs.is_open()){
+      gzmsg << "Error reading file " << robotiq_140_description_folder + file_to_read << std::endl;
+      return;
+    }
+
+    std::ifstream::pos_type pos = ifs.tellg();
+
+    msg_sim_3d.model.resize(pos);
+    ifs.seekg(0, std::ios::beg);
+    ifs.read(&msg_sim_3d.model[0], pos);
+    ifs.close();
+  }
+
+  void RobotiqHandPlugin::publish3DModels()
+  {
+    hrim_generic_msgs::msg::Simulation3D msg_sim_3d;
+    gazebo::common::Time cur_time = this->model->GetWorld()->SimTime();
+    msg_sim_3d.header.stamp.sec = cur_time.sec;
+    msg_sim_3d.header.stamp.nanosec = cur_time.nsec;
+
+    readfullFile("/meshes/GRIPPER_base_axis.stl", msg_sim_3d);
+    sim3d_pub->publish(msg_sim_3d);
+    
+    readfullFile("/meshes/robotiq_arg2f_140_inner_finger.stl", msg_sim_3d);
+    sim3d_pub->publish(msg_sim_3d);
+
+    readfullFile("/meshes/robotiq_arg2f_140_inner_knuckle.stl", msg_sim_3d);
+    sim3d_pub->publish(msg_sim_3d);
+
+    readfullFile("/meshes/robotiq_arg2f_140_outer_finger.stl", msg_sim_3d);
+    sim3d_pub->publish(msg_sim_3d);
+
+    readfullFile("/meshes/robotiq_arg2f_140_outer_knuckle.stl", msg_sim_3d);
+    sim3d_pub->publish(msg_sim_3d);
   }
 
   void RobotiqHandPlugin::timer_info_msgs()
