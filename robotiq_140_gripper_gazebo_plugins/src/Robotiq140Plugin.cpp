@@ -257,8 +257,12 @@ namespace gazebo
     specs_pub = ros_node_->create_publisher<hrim_actuator_gripper_msgs::msg::SpecsFingerGripper>(topic_name_specs,
                   rmw_qos_profile_default);
 
-    std::string topic_name_gripper_state = std::string(node_name) + "/state_finger_gripper";
-    gripper_state_pub = ros_node_->create_publisher<hrim_actuator_gripper_msgs::msg::StateFingerGripper>(topic_name_gripper_state,
+    std::string topic_name_gripper_state = std::string(node_name) + "/state";
+    gripper_state_pub = ros_node_->create_publisher<hrim_actuator_gripper_msgs::msg::StateGripper>(topic_name_gripper_state,
+                  rmw_qos_profile_default);
+
+    std::string topic_name_gripper_finger_state = std::string(node_name) + "/state_finger_gripper";
+    gripper_finger_state_pub = ros_node_->create_publisher<hrim_actuator_gripper_msgs::msg::StateFingerGripper>(topic_name_gripper_finger_state,
                   rmw_qos_profile_default);
 
     // Connect to gazebo world update.
@@ -392,15 +396,20 @@ namespace gazebo
 
   void RobotiqHandPlugin::timer_gripper_status_msgs()
   {
-    hrim_actuator_gripper_msgs::msg::StateFingerGripper state_gripper_msg;
+    hrim_actuator_gripper_msgs::msg::StateFingerGripper state_gripper_finger_msg;
     gazebo::common::Time cur_time = this->model->GetWorld()->SimTime();
+    state_gripper_finger_msg.header.stamp.sec = cur_time.sec;
+    state_gripper_finger_msg.header.stamp.nanosec = cur_time.nsec;
+    state_gripper_finger_msg.angular_position = right_inner_knuckle_joint->Position(0);
+    state_gripper_finger_msg.linear_position = 0;
+
+    gripper_finger_state_pub->publish(state_gripper_finger_msg);
+
+    hrim_actuator_gripper_msgs::msg::StateGripper state_gripper_msg;
     state_gripper_msg.header.stamp.sec = cur_time.sec;
     state_gripper_msg.header.stamp.nanosec = cur_time.nsec;
-    state_gripper_msg.angular_position = right_inner_knuckle_joint->Position(0);
-    state_gripper_msg.linear_position = 0;
-
+    state_gripper_msg.on_off = true;
     gripper_state_pub->publish(state_gripper_msg);
-
   }
 
   void RobotiqHandPlugin::timer_specs_msgs()

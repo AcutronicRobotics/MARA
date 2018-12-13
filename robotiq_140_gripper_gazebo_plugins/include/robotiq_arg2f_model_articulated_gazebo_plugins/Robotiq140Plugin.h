@@ -28,6 +28,7 @@
 #include <gazebo/physics/physics.hh>
 #include <gazebo_ros/node.hpp>
 
+#include <hrim_actuator_gripper_msgs/msg/state_gripper.hpp>
 #include <hrim_actuator_gripper_msgs/msg/state_finger_gripper.hpp>
 #include <hrim_actuator_gripper_msgs/msg/specs_finger_gripper.hpp>
 #include <hrim_actuator_gripper_srvs/srv/control_finger.hpp>
@@ -151,7 +152,8 @@ namespace gazebo
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::StateCommunication>> state_comm_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::SpecsCommunication>> specs_comm_pub;
 
-    std::shared_ptr<rclcpp::Publisher<hrim_actuator_gripper_msgs::msg::StateFingerGripper>> gripper_state_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_actuator_gripper_msgs::msg::StateGripper>> gripper_state_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_actuator_gripper_msgs::msg::StateFingerGripper>> gripper_finger_state_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_actuator_gripper_msgs::msg::SpecsFingerGripper>> specs_pub;
 
 
