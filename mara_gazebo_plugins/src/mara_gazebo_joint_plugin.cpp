@@ -61,14 +61,16 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
   std::string topic_name_specs_comm = std::string(node_name) + "/specs_comm";
   std::string topic_name_state_comm = std::string(node_name) + "/state_comm";
 
-  impl_->info_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::ID>(topic_name_info);
-
+  impl_->info_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::ID>(topic_name_info,
+                                            rmw_qos_profile_default);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_info.c_str());
 
-  impl_->power_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::Power>(topic_name_power);
+  impl_->power_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::Power>(topic_name_power,
+                                            rmw_qos_profile_default);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_power.c_str());
 
-  impl_->status_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::Status>(topic_name_status);
+  impl_->status_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::Status>(topic_name_status,
+                                            rmw_qos_profile_default);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_status.c_str());
 
   rmw_qos_profile_t custom_qos_profile;
@@ -86,15 +88,15 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_simurdf.c_str());
 
   impl_->specs_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo>(topic_name_specs,
-                custom_qos_profile);
+                rmw_qos_profile_default);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_specs.c_str());
 
   impl_->state_comm_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::StateCommunication>(topic_name_state_comm,
-                custom_qos_profile);
+                rmw_qos_profile_default);
   RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_state_comm.c_str());
 
   impl_->specs_comm_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::SpecsCommunication>(topic_name_specs_comm,
-                custom_qos_profile);
+                rmw_qos_profile_default);
   RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_specs_comm.c_str());
 
   impl_->timer_info_ = impl_->ros_node_->create_wall_timer(
