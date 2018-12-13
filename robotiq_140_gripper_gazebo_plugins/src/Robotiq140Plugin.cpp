@@ -353,6 +353,8 @@ namespace gazebo
         1s, std::bind(&RobotiqHandPlugin::timer_specs_msgs, this));
     timer_comm_ = ros_node_->create_wall_timer(
         1s, std::bind(&RobotiqHandPlugin::timer_comm_msgs, this));
+    timer_gripper_status_ = ros_node_->create_wall_timer(
+        100ms, std::bind(&RobotiqHandPlugin::timer_gripper_status_msgs, this));
   }
 
   void RobotiqHandPlugin::timer_info_msgs()
@@ -386,6 +388,19 @@ namespace gazebo
     status_msg.header.stamp.sec = cur_time.sec;
     status_msg.header.stamp.nanosec = cur_time.nsec;
     status_pub->publish(status_msg);
+  }
+
+  void RobotiqHandPlugin::timer_gripper_status_msgs()
+  {
+    hrim_actuator_gripper_msgs::msg::StateFingerGripper state_gripper_msg;
+    gazebo::common::Time cur_time = this->model->GetWorld()->SimTime();
+    state_gripper_msg.header.stamp.sec = cur_time.sec;
+    state_gripper_msg.header.stamp.nanosec = cur_time.nsec;
+    state_gripper_msg.angular_position = right_inner_knuckle_joint->Position(0);
+    state_gripper_msg.linear_position = 0;
+
+    gripper_state_pub->publish(state_gripper_msg);
+
   }
 
   void RobotiqHandPlugin::timer_specs_msgs()

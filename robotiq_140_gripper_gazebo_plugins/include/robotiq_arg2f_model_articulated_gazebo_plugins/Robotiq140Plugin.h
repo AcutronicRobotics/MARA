@@ -160,9 +160,11 @@ namespace gazebo
     void timer_status_msgs();
     void timer_specs_msgs();
     void timer_comm_msgs();
+    void timer_gripper_status_msgs();
 
     std::shared_ptr<rclcpp::TimerBase> timer_info_;
     std::shared_ptr<rclcpp::TimerBase> timer_status_;
+    std::shared_ptr<rclcpp::TimerBase> timer_gripper_status_;
     std::shared_ptr<rclcpp::TimerBase> timer_power_;
     std::shared_ptr<rclcpp::TimerBase> timer_specs_;
     std::shared_ptr<rclcpp::TimerBase> timer_comm_;
