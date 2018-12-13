@@ -128,13 +128,16 @@ namespace gazebo
     int sentido = 1;
     int count = 0;
 
-    double kp = 20.0;
-    double ki = 5.0;
-    double kd = 0.2;
+    double kp = 5.0;
+    double ki = 0.2;
+    double kd = 0.05;
     double imin = 0.0;
     double imax = 0.0;
     double cmdmax = 10.0;
     double cmdmin = -10.0;
+
+    double targetPose_right = 0.0;
+    double targetPose_left  = 0.0;
 
     /// A pointer to the GazeboROS node.
     gazebo_ros::Node::SharedPtr ros_node_;

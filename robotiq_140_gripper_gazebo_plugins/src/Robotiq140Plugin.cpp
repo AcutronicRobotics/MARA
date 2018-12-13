@@ -54,6 +54,17 @@ namespace gazebo
   {
     (void)request_header;
 
+    targetPose_right = request->goal_angularposition;//right_inner_knuckle_joint->UpperLimit(0);
+    targetPose_left = request->goal_angularposition;//left_inner_knuckle_joint->UpperLimit(0);
+
+    double currentPose_right = right_inner_knuckle_joint->Position(0);
+    double currentPose_left = left_inner_knuckle_joint->Position(0);
+
+    if(currentPose_right - targetPose_right > 0)
+      sentido = 1;
+    else
+      sentido = -1;
+
     posePID_left_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
     posePID_left_inner_knuckle.SetCmd(0.0);
     posePID_right_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
@@ -83,7 +94,6 @@ namespace gazebo
           << "\tCmdMax: " << posePID_left_inner_knuckle.GetCmdMax() << std::endl
           << std::endl;
   }
-
 
   ////////////////////////////////////////////////////////////////////////////////
   void RobotiqHandPlugin::Load(gazebo::physics::ModelPtr _parent,
@@ -204,14 +214,15 @@ namespace gazebo
     }
 
     posePID_left_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
-    posePID_left_inner_knuckle.SetCmd(0.0);
     posePID_right_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
-    posePID_right_inner_knuckle.SetCmd(0.0);
 
     left_inner_knuckle_joint = this->model->GetJoint("left_inner_knuckle_joint");
     if (!left_inner_knuckle_joint){
       gzthrow("could not find front left_inner_knuckle_joint\n");
     }
+    this->model->GetJointController()->SetPositionPID(
+        this->left_inner_knuckle_joint->GetScopedName(), this->posePID_left_inner_knuckle);
+
     gzmsg << "left_inner_knuckle_joint LowerLimit " << left_inner_knuckle_joint->LowerLimit(0) << std::endl;
     gzmsg << "left_inner_knuckle_joint UpperLimit " << left_inner_knuckle_joint->UpperLimit(0) << std::endl;
     gzmsg << "left_inner_knuckle_joint GetEffortLimit " << left_inner_knuckle_joint->GetEffortLimit(0) << std::endl;
@@ -223,6 +234,9 @@ namespace gazebo
     if (!right_inner_knuckle_joint){
       gzthrow("could not find front right_inner_knuckle_joint\n");
     }
+    this->model->GetJointController()->SetPositionPID(
+        this->right_inner_knuckle_joint->GetScopedName(), this->posePID_right_inner_knuckle);
+
     gzmsg << "right_inner_knuckle_joint LowerLimit " << right_inner_knuckle_joint->LowerLimit(0) << std::endl;
     gzmsg << "right_inner_knuckle_joint UpperLimit " << right_inner_knuckle_joint->UpperLimit(0) << std::endl;
     gzmsg << "right_inner_knuckle_joint GetEffortLimit " << right_inner_knuckle_joint->GetEffortLimit(0) << std::endl;
@@ -237,13 +251,13 @@ namespace gazebo
                         std::shared_ptr<hrim_actuator_gripper_srvs::srv::ControlFinger::Response>)> cb_fingercontrol_function = std::bind(
           &RobotiqHandPlugin::gripper_service, this, std::placeholders::_1,  std::placeholders::_2,  std::placeholders::_3);
 
-    srv_ = ros_node_->create_service<hrim_actuator_gripper_srvs::srv::ControlFinger>(node_name + "/open_gripper", cb_fingercontrol_function);
+    srv_ = ros_node_->create_service<hrim_actuator_gripper_srvs::srv::ControlFinger>(node_name + "/goal", cb_fingercontrol_function);
 
     std::string topic_name_specs = std::string(node_name) + "/specs";
     specs_pub = ros_node_->create_publisher<hrim_actuator_gripper_msgs::msg::SpecsFingerGripper>(topic_name_specs,
                   rmw_qos_profile_default);
 
-    std::string topic_name_gripper_state = std::string(node_name) + "/specs";
+    std::string topic_name_gripper_state = std::string(node_name) + "/state";
     gripper_state_pub = ros_node_->create_publisher<hrim_actuator_gripper_msgs::msg::StateFingerGripper>(topic_name_gripper_state,
                   rmw_qos_profile_default);
 
@@ -268,38 +282,11 @@ namespace gazebo
 
   void RobotiqHandPlugin::UpdatePIDControl(double _dt)
   {
-
-    double targetPose_right = 0.0;
-    double targetPose_left  = 0.0;
-
-    if (sentido==1){
-      targetPose_right = right_inner_knuckle_joint->UpperLimit(0);
-      targetPose_left = left_inner_knuckle_joint->UpperLimit(0);
-    }else{
-      targetPose_right = right_inner_knuckle_joint->LowerLimit(0);
-      targetPose_left = left_inner_knuckle_joint->LowerLimit(0);
-    }
-
-    // Get the current pose.
-    double currentPose_right = right_inner_knuckle_joint->Position(0);
-    double currentPose_left = left_inner_knuckle_joint->Position(0);
-
-    // gzmsg << "targetPose: "  << targetPose << " currentPose: " << currentPose << std::endl;
-
-    // Position error.
-    double poseError_right = currentPose_right - targetPose_right;
-    double poseError_left = currentPose_left - targetPose_left;
-
-    // Update the PID.
-    double torque_right = posePID_right_inner_knuckle.Update(poseError_right, _dt);
-    double torque_left = posePID_left_inner_knuckle.Update(poseError_left, _dt);
-
-    // gzmsg << "torque_right: "  << torque_right << " poseError_right: " << poseError_right << std::endl;
-    // gzmsg << "torque_left: "  << torque_left << " poseError_left: " << poseError_left << std::endl;
-
-    // Apply the PID command.
-    right_inner_knuckle_joint->SetForce(0, torque_right);
-    left_inner_knuckle_joint->SetForce(0, torque_left);
+    // Set the joint's target velocity.
+    this->model->GetJointController()->SetPositionTarget(
+            this->right_inner_knuckle_joint->GetScopedName(), targetPose_right);
+    this->model->GetJointController()->SetPositionTarget(
+            this->left_inner_knuckle_joint->GetScopedName(), targetPose_left);
   }
 
   void RobotiqHandPlugin::createGenericTopics(std::string node_name)
@@ -350,8 +337,7 @@ namespace gazebo
 
     state_comm_pub = ros_node_->create_publisher<hrim_generic_msgs::msg::StateCommunication>(topic_name_state_comm,
                   rmw_qos_profile_default);
-    RCLCPP_ERROR(ros_node_->get_logger(), "creating %s publisher topic", topic_name_state_comm.c_str(),
-                  rmw_qos_profile_default);
+    RCLCPP_ERROR(ros_node_->get_logger(), "creating %s publisher topic", topic_name_state_comm.c_str());
 
     specs_comm_pub = ros_node_->create_publisher<hrim_generic_msgs::msg::SpecsCommunication>(topic_name_specs_comm,
                   rmw_qos_profile_default);
