@@ -8,7 +8,7 @@
     		<ros>
     			<argument>~/out:=joint_states</argument>
     		</ros>
-    		<update_rate>250</update_rate>
+    		<update_rate>25</update_rate>
     		<joint_name>motor1</joint_name>
     		<joint_name>motor2</joint_name>
     		<joint_name>motor3</joint_name>
