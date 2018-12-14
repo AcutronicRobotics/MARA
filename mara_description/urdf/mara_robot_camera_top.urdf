@@ -315,6 +315,14 @@
       <joint_name>motor4</joint_name>
       <joint_name>motor5</joint_name>
       <joint_name>motor6</joint_name>
+      <joint_name>left_inner_knuckle_joint</joint_name>
+      <joint_name>left_outer_knuckle_joint</joint_name>
+      <joint_name>left_outer_finger_joint</joint_name>
+      <joint_name>left_inner_finger_joint</joint_name>
+      <joint_name>right_inner_knuckle_joint</joint_name>
+      <joint_name>right_outer_knuckle_joint</joint_name>
+      <joint_name>right_outer_finger_joint</joint_name>
+      <joint_name>right_inner_finger_joint</joint_name>
     </plugin>
     <plugin filename="libmara_gazebo_joint_plugin.so" name="hros_actuation_servomotor_000000000001">
       <ros/>
@@ -381,14 +389,14 @@
   </gazebo>
   <link name="left_outer_knuckle">
     <inertial>
-      <!--<origin xyz="-0.000200000000003065 0.0199435877845359 0.0292245259211331" rpy="0 0 0" />-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.00853198276973456"/>
       <inertia ixx="2.88840278e-09" ixy="0" ixz="0" iyy="2.80689245e-10" iyz="0" izz="2.79961804e-09"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_outer_knuckle.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_outer_knuckle.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1"/>
@@ -397,7 +405,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_outer_knuckle.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_outer_knuckle.stl"/>
       </geometry>
     </collision>
   </link>
@@ -414,7 +422,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_outer_knuckle.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_outer_knuckle.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1"/>
@@ -423,7 +431,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_outer_knuckle.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_outer_knuckle.stl"/>
       </geometry>
     </collision>
   </link>
@@ -440,7 +448,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_inner_knuckle.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_inner_knuckle.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.1 0.1 0.1 1"/>
@@ -460,7 +468,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_inner_knuckle.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_inner_knuckle.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.1 0.1 0.1 1"/>
@@ -480,7 +488,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_inner_finger.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_inner_finger.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="">
         <color rgba="0.1 0.1 0.1 1"/>
@@ -489,7 +497,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_inner_finger.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_inner_finger.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -506,7 +514,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_inner_finger.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_inner_finger.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="">
         <color rgba="0.1 0.1 0.1 1"/>
@@ -515,7 +523,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_inner_finger.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_inner_finger.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -532,7 +540,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_outer_finger.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_outer_finger.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.1 0.1 0.1 1"/>
@@ -541,7 +549,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_outer_finger.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_outer_finger.stl"/>
       </geometry>
     </collision>
   </link>
@@ -558,7 +566,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_outer_finger.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_outer_finger.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.1 0.1 0.1 1"/>
@@ -567,7 +575,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_arg2f_140_outer_finger.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_outer_finger.stl"/>
       </geometry>
     </collision>
   </link>
