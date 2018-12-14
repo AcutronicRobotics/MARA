@@ -50,7 +50,7 @@ sudo apt install python3-numpy
 
 ## Compile
 
-**Optional note**: If want to use MoveIT! you need to source ROS 1.0 environment variables. Typically if you have installed ROS `Kinetic` you need to source the following file:
+**Optional note**: If you want to use MoveIT! you need to source ROS 1.0 environment variables. Typically, if you have installed ROS `Kinetic`, you need to source the following file:
 
 ```bash
 source /opt/ros/kinetic/setup.bash
@@ -96,7 +96,7 @@ Spawing the model:
 
 ```
 source ~/ros2_mara_ws/install/setup.bash
-ros2 run mara_brinup spawn_entity.py
+ros2 run mara_bringup spawn_entity.py
 ```
 
 Publishing robot model
@@ -145,7 +145,7 @@ Right now we need the nodes to run MoveIT!. We should execute the following node
 
 #### Terminal 1:
 
-This node will set the `robot_decription` parameter. MoveIT make use of this parameter to calculate the forward and inverse kinematics.
+This node will set the `robot_description` parameter. MoveIT make use of this parameter to calculate the forward and inverse kinematics.
 
 ```bash
 source ~/ros_mara_ws/install_isolated/setup.bash
