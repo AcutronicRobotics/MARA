@@ -96,7 +96,7 @@ Spawing the model:
 
 ```
 source ~/ros2_mara_ws/install/setup.bash
-ros2 run mara_bringup spawn_entity.py
+ros2 run mara_utils_scripts spawn_entity.py
 ```
 
 Publishing robot model
@@ -128,6 +128,7 @@ We need to launch in ROS 2.0 two nodes. One is the bridge between ROS and ROS 2.
 We need to run this node to create a bridge bewteen ROS and ROS 2.0. The topics that will be available are `/mara_controller/state`, `/joints_state` and `hros_actuation_servomotor_*********/trajectory`. Type the following command to run the bridge:
 
 ```
+source ~/ros2_mara_ws/install/setup.bash
 ros2 run individual_trajectories_bridge individual_trajectories_bridge -motors `ros2 pkg prefix individual_trajectories_bridge`/share/individual_trajectories_bridge/motors.yaml
 ```
 
@@ -136,6 +137,7 @@ ros2 run individual_trajectories_bridge individual_trajectories_bridge -motors `
 This ROS 2.0 node will fetch all the `hros_actuation_servomotor_*********/state` topics define in the config file and these topics data will be republish in a topic called `/mara_controller/state`. This node also will be subscribe to `/mara_controller/command` and it will republish the data in to the corresponding H-ROS topic `hros_actuation_servomotor_*********/goal`. To run this ROS 2.0 just type:
 
 ```
+source ~/ros2_mara_ws/install/setup.bash
 ros2 run hros_cognition_mara_components hros_cognition_mara_components -motors `ros2 pkg prefix hros_cognition_mara_components`/share/hros_cognition_mara_components/link_order.yaml
 ```
 
