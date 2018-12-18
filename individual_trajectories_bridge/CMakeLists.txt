@@ -65,7 +65,9 @@ if(NOT WIN32)
     PROPERTIES COMPILE_FLAGS "-Wno-unused-parameter")
 endif()
 
-include_directories(include /home/erle/ros2_bouncy/install/opt/rviz_yaml_cpp_vendor/include/)
+include_directories(include
+  ${rviz_yaml_cpp_vendor_INCLUDE_DIRS}
+)
 
 add_executable(${PROJECT_NAME} "src/main.cpp")
 

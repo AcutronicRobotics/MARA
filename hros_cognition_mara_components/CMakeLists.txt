@@ -21,7 +21,9 @@ find_package(trajectory_msgs REQUIRED)
 find_package(control_msgs REQUIRED)
 find_package(yaml-cpp 0.5.2 EXACT REQUIRED)
 
-include_directories(include /home/erle/ros2_bouncy/install/opt/rviz_yaml_cpp_vendor/include/ /usr/include/hebi/Eigen)
+include_directories(include
+  ${rviz_yaml_cpp_vendor_INCLUDE_DIRS}
+)
 
 # Declare a C++ executable
 set(${PROJECT_NAME}_SOURCES
@@ -50,7 +52,6 @@ ament_target_dependencies(${PROJECT_NAME}
 # Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}
   stdc++fs
-  hebi_cpp_api /usr/lib/libhebi.so
   ${YAML_CPP_LIBRARIES}
 )
 
