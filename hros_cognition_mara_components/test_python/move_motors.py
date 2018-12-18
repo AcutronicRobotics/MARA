@@ -46,7 +46,6 @@ class Example(QWidget):
         self.publisher_axis2 = self.node.create_publisher(GoalRotaryServo, '/hros_actuation_servomotor_B827EBCB8804/Command')
 
         self.publisher_pal = self.node.create_publisher(GoalRotaryServo, '/hros_actuation_servomotor_B827EBFA06A8/Command')
-        self.publisher_hebi = self.node.create_publisher(GoalRotaryServo, '/hros_actuation_servomotor_B827EBFA06A82/Command')
 
         grid = QGridLayout()
         self.setLayout(grid)
@@ -78,23 +77,12 @@ class Example(QWidget):
         sldPosition_pal.setTickInterval(0.1)
         sldPosition_pal.valueChanged[int].connect(self.changeValuePosition_pal)
 
-        self.labelPosition_hebi = QLabel("Position")
-        sldPosition_hebi = QSlider(Qt.Horizontal, self)
-        sldPosition_hebi.setMaximum(90)
-        sldPosition_hebi.setMinimum(-90)
-        sldPosition_hebi.setFocusPolicy(Qt.NoFocus)
-        sldPosition_hebi.setGeometry(30, 40, 100, 30)
-        sldPosition_hebi.setTickInterval(0.1)
-        sldPosition_hebi.valueChanged[int].connect(self.changeValuePosition_hebi)
-
         grid.addWidget(self.labelPosition, 0, 0)
         grid.addWidget(sldPosition, 0, 1)
         grid.addWidget(self.labelPosition_axis2, 1, 0)
         grid.addWidget(sldPosition_axis2, 1, 1)
         grid.addWidget(self.labelPosition_pal, 2, 0)
         grid.addWidget(sldPosition_pal, 2, 1)
-        grid.addWidget(self.labelPosition_hebi, 3, 0)
-        grid.addWidget(sldPosition_hebi, 3, 1)
 
         self.setWindowTitle("HANS motor")
         self.show()
@@ -105,7 +93,6 @@ class Example(QWidget):
         self.value_hans_axis_1 = 0;
         self.value_hans_axis_2 = 0;
         self.value_pal = 0;
-        self.value_hebi = 0;
 
         subscription = self.node.create_subscription(CompressedImage,
                                                     '/hros_sensing_camera_B827EBF38D04/compressed_image',
@@ -118,13 +105,6 @@ class Example(QWidget):
 
     def update(self):
         # rclpy.spin_once(self.node)
-        msg = GoalRotaryServo()
-        msg.position = self.value_hebi * 3.1416/180
-        msg.control_type = 1
-        msg.velocity = 0.1
-        self.publisher_hebi.publish(msg)
-        self.labelPosition_hebi.setText("Position " + str(self.value_hebi))
-
         msg = GoalRotaryServo()
         msg.position = self.value_pal * 3.1416/180
         msg.control_type = 1
@@ -141,16 +121,6 @@ class Example(QWidget):
         msg.position = self.value_hans_axis_1 * 3.1416/180
         self.publisher.publish(msg)
         self.labelPosition.setText("Position " + str(self.value_hans_axis_1))
-
-    def changeValuePosition_hebi(self, value):
-        self.value_hebi = value
-        msg = GoalRotaryServo()
-        msg.position = self.value_hebi * 3.1416/180
-        msg.control_type = 1
-        msg.velocity = 0.1
-        self.publisher_hebi.publish(msg)
-        self.labelPosition_hebi.setText("Position " + str(self.value_hebi))
-
 
     def changeValuePosition_pal(self, value):
         self.value_pal = value
