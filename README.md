@@ -128,6 +128,7 @@ We need to launch in ROS 2.0 two nodes. One is the bridge between ROS and ROS 2.
 We need to run this node to create a bridge bewteen ROS and ROS 2.0. The topics that will be available are `/mara_controller/state`, `/joints_state` and `hros_actuation_servomotor_*********/trajectory`. Type the following command to run the bridge:
 
 ```
+source /opt/ros/kinetic/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
 ros2 run individual_trajectories_bridge individual_trajectories_bridge -motors `ros2 pkg prefix individual_trajectories_bridge`/share/individual_trajectories_bridge/motors.yaml
 ```
