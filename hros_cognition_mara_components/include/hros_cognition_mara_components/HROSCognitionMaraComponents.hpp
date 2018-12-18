@@ -19,14 +19,6 @@
 #include "rcutils/logging_macros.h"
 #include "rcutils/cmdline_parser.h"
 
-// hebi api includes
-#include "hebi/lookup.hpp"
-#include "hebi/group.hpp"
-#include "hebi/group_command.hpp"
-#include "hebi/trajectory.hpp"
-#include "hebi/kinematics.hpp"
-#include "Eigen/Eigen"
-
 using namespace std::chrono_literals;
 using namespace std::placeholders;
 
