@@ -23,6 +23,8 @@ void HROSCognitionMaraComponentsNode::timer_stateCommonPublisher()
   }
   pthread_mutex_unlock( &mtx );
 
-  msg_actuators.header.stamp = clock_ros.now();
+  builtin_interfaces::msg::Time stamp = clock_ros.now();
+  msg_actuators.header.stamp.sec = stamp.sec;
+  msg_actuators.header.stamp.nanosec = stamp.nanosec;
   common_joints_pub_->publish(msg_actuators);
 }

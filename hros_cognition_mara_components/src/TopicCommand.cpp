@@ -29,7 +29,10 @@ void HROSCognitionMaraComponentsNode::commandCallback(const trajectory_msgs::msg
     cmd_msg1.effort = 0;
     cmd_msg1.control_type = hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo::CONTROL_TYPE_POSITION_VELOCITY;
     cmd_msg1.header.frame_id = std::string("None");
-    cmd_msg1.header.stamp = clock_ros.now();
+
+    builtin_interfaces::msg::Time stamp = clock_ros.now();
+    cmd_msg1.header.stamp.sec = stamp.sec;
+    cmd_msg1.header.stamp.nanosec = stamp.nanosec;
 
     cmd_to_send.push_back(cmd_msg1);
   }
