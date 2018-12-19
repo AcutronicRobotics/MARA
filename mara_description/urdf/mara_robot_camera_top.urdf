@@ -63,8 +63,8 @@
   <link name="motor1_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="7.033"/>
-      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+      <mass value="5.8"/>
+      <inertia ixx="0.10105893" ixy="0.000211" ixz="-0.004" iyy="0.09386624" iyz="-0.01698537" izz="0.01449937"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -89,8 +89,8 @@
   <link name="motor1_cover">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="7.033"/>
-      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+      <mass value="5.8"/>
+      <inertia ixx="0.10105893" ixy="0.000211" ixz="-0.004" iyy="0.09386624" iyz="-0.01698537" izz="0.01449937"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -115,8 +115,8 @@
   <link name="motor2_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="7.033"/>
-      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+      <mass value="1.03237"/>
+      <inertia ixx="0.014865226" ixy="0.0" ixz="0.0" iyy="0.01557" iyz="0.00071" izz="0.00092"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -141,8 +141,8 @@
   <link name="motor3_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="7.033"/>
-      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+      <mass value="3.8"/>
+      <inertia ixx="0.04517" ixy="0.00002" ixz="0.0" iyy="0.01587" iyz="0.01444" izz="0.03303"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -167,8 +167,8 @@
   <link name="motor3_cover">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="7.033"/>
-      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+      <mass value="3.8"/>
+      <inertia ixx="0.04517" ixy="0.00002" ixz="0.0" iyy="0.01587" iyz="0.01444" izz="0.03303"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -193,8 +193,8 @@
   <link name="motor4_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="7.033"/>
-      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+      <mass value="1.1"/>
+      <inertia ixx="0.01464" ixy="0.0" ixz="0.0" iyy="0.00895" iyz="-0.00631" izz="0.00725"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -219,8 +219,8 @@
   <link name="motor5_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="7.033"/>
-      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+      <mass value="2.9"/>
+      <inertia ixx="0.03406" ixy="0.0" ixz="0.0" iyy="0.01066" iyz="0.00989" izz="0.02563"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -245,8 +245,8 @@
   <link name="motor5_cover">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="7.033"/>
-      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+      <mass value="2.9"/>
+      <inertia ixx="0.03406" ixy="0.0" ixz="0.0" iyy="0.01066" iyz="0.00989" izz="0.02563"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -271,8 +271,8 @@
   <link name="motor6_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="7.033"/>
-      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+      <mass value="2.9"/>
+      <inertia ixx="0.0005" ixy="0.0" ixz="0.0" iyy="0.0005" iyz="0.0000" izz="0.0003"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
