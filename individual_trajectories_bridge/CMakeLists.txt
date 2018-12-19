@@ -21,7 +21,7 @@ find_package(rmw_implementation_cmake REQUIRED)
 find_package(control_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(trajectory_msgs REQUIRED)
-find_package(yaml-cpp 0.5.2 EXACT REQUIRED)
+find_package(yaml_cpp_vendor REQUIRED)
 find_package(Boost 1.58 REQUIRED)
 
 # find ROS 1 packages
@@ -75,7 +75,7 @@ ament_target_dependencies(${PROJECT_NAME}
     "rclcpp"
     "trajectory_msgs"
     "control_msgs"
-    "sensor_msgs"
+    "yaml_cpp_vendor"
     ${prefixed_ros1_message_packages}
     ${ros2_message_packages}
     "ros1_roscpp"

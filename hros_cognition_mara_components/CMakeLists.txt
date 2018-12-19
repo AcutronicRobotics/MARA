@@ -19,7 +19,7 @@ find_package(hrim_generic_msgs REQUIRED)
 find_package(hrim_actuator_rotaryservo_msgs REQUIRED)
 find_package(trajectory_msgs REQUIRED)
 find_package(control_msgs REQUIRED)
-find_package(yaml-cpp 0.5.2 EXACT REQUIRED)
+find_package(yaml_cpp_vendor REQUIRED)
 
 include_directories(include
   ${rviz_yaml_cpp_vendor_INCLUDE_DIRS}
@@ -46,7 +46,7 @@ ament_target_dependencies(${PROJECT_NAME}
   "trajectory_msgs"
   "control_msgs"
   "hrim_actuator_rotaryservo_msgs"
-  "yaml-cpp"
+  "yaml_cpp_vendor"
 )
 
 # Specify libraries to link a library or executable target against
