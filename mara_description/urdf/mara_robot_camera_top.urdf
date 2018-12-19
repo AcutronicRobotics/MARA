@@ -17,7 +17,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/H-ROS_Robot_BASE.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/Base_plancha.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Grey">
         <color rgba="0. 0. 0. 1"/>
@@ -26,7 +26,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/H-ROS_Robot_BASE.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/Base_plancha.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -34,16 +34,42 @@
     <material>Gazebo/Grey</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="motor1_link">
+  <link name="base_robot">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="5.8"/>
-      <inertia ixx="0.10105893" ixy="0.000211" ixz="-0.004" iyy="0.09386624" iyz="-0.01698537" izz="0.01449937"/>
+      <mass value="7.033"/>
+      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/H-ROS_Robot_mara1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/Base.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Grey">
+        <color rgba="0. 0. 0. 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/Base.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="base_robot">
+    <material>Gazebo/Grey</material>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+  <link name="motor1_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+      <mass value="7.033"/>
+      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/MARA_T49.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/White">
         <color rgba="0. 0. 0. 1"/>
@@ -52,7 +78,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/H-ROS_Robot_mara1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T49.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -60,16 +86,16 @@
     <material>Gazebo/White</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="motor2_link">
+  <link name="motor1_cover">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="1.03237"/>
-      <inertia ixx="0.014865226" ixy="0.0" ixz="0.0" iyy="0.01557" iyz="0.00071" izz="0.00092"/>
+      <mass value="7.033"/>
+      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/H-ROS_Robot_LINK1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T49_Black.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0. 0. 0. 1"/>
@@ -78,7 +104,33 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/H-ROS_Robot_LINK1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T49_Black.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="motor1_cover">
+    <material>Gazebo/Black</material>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+  <link name="motor2_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+      <mass value="7.033"/>
+      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/MARA_Link1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Black">
+        <color rgba="0. 0. 0. 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/MARA_Link1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -89,13 +141,13 @@
   <link name="motor3_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="3.8"/>
-      <inertia ixx="0.04517" ixy="0.00002" ixz="0.0" iyy="0.01587" iyz="0.01444" izz="0.03303"/>
+      <mass value="7.033"/>
+      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/H-ROS_Robot_mara2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T30.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/White">
         <color rgba="0. 0. 0. 1"/>
@@ -104,7 +156,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/H-ROS_Robot_mara2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T30.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -112,16 +164,16 @@
     <material>Gazebo/White</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="motor4_link">
+  <link name="motor3_cover">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="1.1"/>
-      <inertia ixx="0.01464" ixy="0.0" ixz="0.0" iyy="0.00895" iyz="-0.00631" izz="0.00725"/>
+      <mass value="7.033"/>
+      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/H-ROS_Robot_LINK2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T30_Black.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0. 0. 0. 1"/>
@@ -130,7 +182,33 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/H-ROS_Robot_LINK2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T30_Black.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="motor3_cover">
+    <material>Gazebo/Black</material>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+  <link name="motor4_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+      <mass value="7.033"/>
+      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/MARA_Link2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Black">
+        <color rgba="0. 0. 0. 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/MARA_Link2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -141,13 +219,13 @@
   <link name="motor5_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="2.9"/>
-      <inertia ixx="0.03406" ixy="0.0" ixz="0.0" iyy="0.01066" iyz="0.00989" izz="0.02563"/>
+      <mass value="7.033"/>
+      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/H-ROS_Robot_mara3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T5.4.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/White">
         <color rgba="0. 0. 0. 1"/>
@@ -156,7 +234,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/H-ROS_Robot_mara3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T5.4.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -164,25 +242,51 @@
     <material>Gazebo/White</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="motor6_link">
+  <link name="motor5_cover">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="2.9"/>
-      <inertia ixx="0.0005" ixy="0.0" ixz="0.0" iyy="0.0005" iyz="0.0000" izz="0.0003"/>
+      <mass value="7.033"/>
+      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 1.04666666667" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/gripper_support.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T5.4_black.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0. 0. 0. 1"/>
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 1.04666666667" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/gripper_support.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T5.4_black.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="motor5_cover">
+    <material>Gazebo/Black</material>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+  <link name="motor6_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+      <mass value="7.033"/>
+      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/MARA_GripperAdapter.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Black">
+        <color rgba="0. 0. 0. 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/MARA_GripperAdapter.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -196,58 +300,84 @@
     <material>Gazebo/Blue</material>
     <selfCollide>False</selfCollide>
   </gazebo>
-  <joint name="motor1" type="revolute">
-    <origin rpy="0 0 0" xyz="0 0 0.00625"/>
+  <joint name="joint_bases" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.04"/>
     <parent link="base_link"/>
+    <child link="base_robot"/>
+  </joint>
+  <joint name="motor1" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.05122"/>
+    <parent link="base_robot"/>
     <child link="motor1_link"/>
     <axis xyz="0 0 -1"/>
     <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
+  <joint name="motor1_cover_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0"/>
+    <parent link="motor1_link"/>
+    <child link="motor1_cover"/>
+  </joint>
   <joint name="motor2" type="revolute">
-    <origin rpy="0 0 0" xyz="0 -0.100499999 0.1545"/>
+    <origin rpy="0 0 0" xyz="0.118 0 0.1637"/>
     <parent link="motor1_link"/>
     <child link="motor2_link"/>
-    <axis xyz="0 1 0"/>
-    <limit effort="330.0" lower="-3.13" upper="3.13" velocity="3.1416"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="motor3" type="revolute">
-    <origin rpy="0 0 0" xyz="0 -0.000499999 0.2"/>
+    <origin rpy="0 0 0" xyz="-0.009 0 0.2"/>
     <parent link="motor2_link"/>
     <child link="motor3_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="330" lower="-3.13" upper="3.13" velocity="3.1416"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
+  <joint name="motor3_cover_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0"/>
+    <parent link="motor3_link"/>
+    <child link="motor3_cover"/>
+  </joint>
   <joint name="motor4" type="revolute">
-    <origin rpy="0 0 0" xyz="0 0.09999 0.12999997"/>
+    <origin rpy="0 0 0" xyz="-0.109255 0 0.149255"/>
     <parent link="motor3_link"/>
     <child link="motor4_link"/>
-    <axis xyz="0 0 -1"/>
-    <limit effort="330" lower="-3.13" upper="3.13" velocity="3.1416"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="motor5" type="revolute">
-    <origin rpy="0 0 0" xyz="0 -0.096999 0.15906"/>
+    <origin rpy="0 0 0" xyz="0.1054570 0 0.16074"/>
     <parent link="motor4_link"/>
     <child link="motor5_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="330" lower="-3.13" upper="3.13" velocity="3.1416"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
+  <joint name="motor5_cover_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0"/>
+    <parent link="motor5_link"/>
+    <child link="motor5_cover"/>
+  </joint>
   <joint name="motor6" type="revolute">
-    <origin rpy="0 0 0" xyz="0 0.0969999 0.1265"/>
+    <origin rpy="0 0 0" xyz="-0.10625569 0 0.14675569"/>
     <parent link="motor5_link"/>
     <child link="motor6_link"/>
-    <axis xyz="0 0 -1"/>
-    <limit effort="330" lower="-3.13" upper="3.13" velocity="3.1416"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="ee_link" type="fixed">
     <origin rpy="0 -1.57 0" xyz="0 0.0 0.24"/>
     <parent link="motor6_link"/>
     <child link="ee_link"/>
+  </joint>
+  <link name="tool0"/>
+  <joint name="motor6_link-tool0_fixed_joint" type="fixed">
+    <origin rpy="0 -1.57 0" xyz="0 0.0 0.24"/>
+    <parent link="motor6_link"/>
+    <child link="tool0"/>
   </joint>
   <transmission name="shoulder_pan_trans">
     <type>transmission_interface/SimpleTransmission</type>
@@ -343,24 +473,6 @@
       <type>series20</type>
     </plugin>
   </gazebo>
-  <!-- ROS ${prefix}base_link to UR 'Base' Coordinates transform -->
-  <link name="base"/>
-  <joint name="base_link-base_fixed_joint" type="fixed">
-    <!-- NOTE: this rotation is only needed as long as ${prefix}base_link itself is
-                 not corrected wrt the real robot (ie: rotated over 180
-                 degrees)
-      -->
-    <origin rpy="0 0 -3.14159265359" xyz="0 0 0"/>
-    <parent link="base_link"/>
-    <child link="base"/>
-  </joint>
-  <!-- Frame coincident with all-zeros TCP on UR controller -->
-  <link name="tool0"/>
-  <joint name="motor6_link-tool0_fixed_joint" type="fixed">
-    <origin rpy="0 -1.57 0" xyz="0 0.0 0.24"/>
-    <parent link="motor6_link"/>
-    <child link="tool0"/>
-  </joint>
   <link name="robotiq_arg2f_base_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
@@ -724,7 +836,7 @@
   </link>
   <link name="world"/>
   <joint name="end_effector_adapter_to_robotiq" type="fixed">
-    <origin rpy="0 0 0" xyz=" 0 0 0.05375"/>
+    <origin rpy="0 0 1.57" xyz=" 0 0 0.04659"/>
     <parent link="motor6_link"/>
     <child link="robotiq_arg2f_base_link"/>
   </joint>
@@ -734,7 +846,7 @@
     <child link="table"/>
   </joint>
   <joint name="table_to_base_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.65"/>
+    <origin rpy="0 0 0" xyz="0 0 0.62"/>
     <parent link="table"/>
     <child link="base_link"/>
   </joint>
