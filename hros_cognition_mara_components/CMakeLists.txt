@@ -12,8 +12,6 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(rclcpp_lifecycle REQUIRED)
-find_package(lifecycle_msgs REQUIRED)
 find_package(rttest REQUIRED)
 find_package(hrim_generic_msgs REQUIRED)
 find_package(hrim_actuator_rotaryservo_msgs REQUIRED)
@@ -41,8 +39,7 @@ ament_target_dependencies(${PROJECT_NAME}
   "rclcpp"
   "rttest"
   "hrim_generic_msgs"
-  "rclcpp_lifecycle"
-  "lifecycle_msgs"
+  "rclcpp"
   "trajectory_msgs"
   "control_msgs"
   "hrim_actuator_rotaryservo_msgs"

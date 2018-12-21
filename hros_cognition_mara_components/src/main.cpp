@@ -34,8 +34,6 @@ int main(int argc, char * argv[])
 
   exe.add_node(lc_node->get_node_base_interface());
 
-  lc_node->init_state_machine();
-
   exe.spin();
 
   rclcpp::shutdown();
