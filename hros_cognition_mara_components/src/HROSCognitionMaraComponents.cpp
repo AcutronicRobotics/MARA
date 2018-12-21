@@ -2,15 +2,11 @@
 
 HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::string & node_name,
                    int argc, char **argv, bool intra_process_comms )
-: rclcpp_lifecycle::LifecycleNode(node_name, "", intra_process_comms)
+: rclcpp::Node(node_name, "", intra_process_comms)
 {
 
   this->node_name = node_name;
 
-  client_get_state_ = this->create_client<lifecycle_msgs::srv::GetState>(
-                                this->node_name + std::string("/get_state"));
-  client_change_state_ = this->create_client<lifecycle_msgs::srv::ChangeState>(
-                                this->node_name + std::string("/change_state"));
   auto qos_state = rmw_qos_profile_sensor_data;
   qos_state.depth = 1;
   common_joints_pub_ = create_publisher<control_msgs::msg::JointTrajectoryControllerState>(
@@ -30,23 +26,7 @@ HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::stri
   pthread_mutex_init(&mutex_command, NULL);
 
   nan = std::numeric_limits<float>::quiet_NaN();
-}
 
-void HROSCognitionMaraComponentsNode::init_state_machine()
-{
-  unsigned int state = lifecycle_msgs::msg::State::PRIMARY_STATE_UNKNOWN;
-
-  while(state!=lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE)
-      state = trigger_transition(
-        rclcpp_lifecycle::Transition(lifecycle_msgs::msg::Transition::TRANSITION_CONFIGURE)).id();
-
-  while(state!=lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE)
-      state = trigger_transition(
-        rclcpp_lifecycle::Transition(lifecycle_msgs::msg::Transition::TRANSITION_ACTIVATE)).id();
-}
-
-rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn HROSCognitionMaraComponentsNode::on_configure(const rclcpp_lifecycle::State &)
-{
   RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::on_configure() is called.");
 
 	std::vector<std::string> node_names;
@@ -58,7 +38,7 @@ rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn HROSCo
   YAML::Node config = YAML::LoadFile(file_motors);
   if(config.IsNull()){
       std::cout << "Not able to open the file" << std::endl;
-      return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::ERROR;
+      return;
   }
   std::vector<std::string> lista_subcribers;
 
@@ -110,65 +90,4 @@ rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn HROSCo
       10ms, std::bind(&HROSCognitionMaraComponentsNode::timer_commandPublisher, this));
 
   RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::on_configure() is finished.");
-
-  return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
-}
-
-rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn HROSCognitionMaraComponentsNode::on_activate(const rclcpp_lifecycle::State &)
-{
-  RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::on_activate() is called.");
-
-  common_joints_pub_->on_activate();
-
-  for(unsigned int i = 0; i < motor_goal_publishers_.size(); i++){
-    motor_goal_publishers_[i]->on_activate();
-  }
-
-  return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
-}
-
-rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn HROSCognitionMaraComponentsNode::on_deactivate(const rclcpp_lifecycle::State &)
-{
-  RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::on_deactivate() is called.");
-
-  common_joints_pub_->on_deactivate();
-
-  for(unsigned int i = 0; i < motor_goal_publishers_.size(); i++){
-    motor_goal_publishers_[i]->on_deactivate();
-  }
-
-  return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
-}
-
-rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn HROSCognitionMaraComponentsNode::on_cleanup(const rclcpp_lifecycle::State &)
-{
-  RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::on_cleanup() is called.");
-
-  // In our cleanup phase, we release the shared pointers to the
-  // timer and publisher. These entities are no longer available
-  // and our node is "clean".
-  timer_common_joints_.reset();
-
-  motor_goal_publishers_.clear();
-
-  cmd_to_send.clear();
-
-  msg_actuators_.joint_names.clear();
-  msg_actuators_.actual.positions.clear();
-  msg_actuators_.actual.velocities.clear();
-  msg_actuators_.actual.effort.clear();
-
-  return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
-}
-
-rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn HROSCognitionMaraComponentsNode::on_shutdown(const rclcpp_lifecycle::State &)
-{
-  RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::on_shutdown() is called.");
-  return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
-}
-
-rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn HROSCognitionMaraComponentsNode::on_error(const rclcpp_lifecycle::State &)
-{
-  RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::on_error() is called.");
-  return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
 }
