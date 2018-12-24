@@ -93,6 +93,8 @@ namespace gazebo
           << "\tCmdMin: " << posePID_left_inner_knuckle.GetCmdMin() << std::endl
           << "\tCmdMax: " << posePID_left_inner_knuckle.GetCmdMax() << std::endl
           << std::endl;
+
+    response->goal_accepted = true;
   }
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -395,7 +397,7 @@ namespace gazebo
 
     readfullFile("/meshes/GRIPPER_base_axis.stl", msg_sim_3d);
     sim3d_pub->publish(msg_sim_3d);
-    
+
     readfullFile("/meshes/robotiq_arg2f_140_inner_finger.stl", msg_sim_3d);
     sim3d_pub->publish(msg_sim_3d);
 
