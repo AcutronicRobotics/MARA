@@ -26,7 +26,7 @@ void HROSCognitionMaraComponentsNode::commandCallback(const trajectory_msgs::msg
     hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo cmd_msg1;
     cmd_msg1.position = msg->points[0].positions[i];
     if(msg->points[0].velocities.size() > i){
-      cmd_msg1.velocity = fabs(msg->points[0].velocities[i]);
+      cmd_msg1.velocity = abs(msg->points[0].velocities[i]);
     }else{
       cmd_msg1.velocity = 0.0;
       RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::commandCallback() you are not defining the velocities!!.");
