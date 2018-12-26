@@ -14,10 +14,11 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0.6"/>
         <geometry>
-  				<mesh filename="package://mara_description/urdf/table.obj" scale="1.5 1 0.05"/>
+  				<mesh filename="model://mara_description/urdf/table.obj" scale="1.5 1 0.05"/>
         </geometry>
-         <material name="white">
-          <color rgba="1 1 1 1"/>
+         <material name="brown">
+           <color rgba="0.63 0.16 0.16 1"/>
+          <texture filename="model://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
@@ -29,30 +30,34 @@
   	<visual>
         <origin rpy="0 0 0" xyz="-0.65 -0.4 0.29"/>
         <geometry>
-  	    <mesh filename="package://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
+  	    <mesh filename="model://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
         </geometry>
   	  <material name="framemat0"/>
       </visual>
       <visual>
         <origin rpy="0 0 0" xyz="-0.65 0.4 0.29"/>
         <geometry>
-          <mesh filename="package://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
+          <mesh filename="model://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
         </geometry>
   	  <material name="framemat0"/>
   	  </visual>
       <visual>
         <origin rpy="0 0 0" xyz="0.65 -0.4 0.29"/>
         <geometry>
-          <mesh filename="package://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
+          <mesh filename="model://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
         </geometry>
   	  <material name="framemat0"/>
   	  </visual>
       <visual>
         <origin rpy="0 0 0" xyz="0.65 0.4 0.29"/>
         <geometry>
-          <mesh filename="package://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
+          <mesh filename="model://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
         </geometry>
       </visual>
     </link>
+    <gazebo reference="table">
+      <material>Gazebo/Brown</material>
+      <selfCollide>True</selfCollide>
+    </gazebo>
   </xacro:macro>
 </robot>
