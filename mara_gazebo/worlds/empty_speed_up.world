@@ -21,7 +21,7 @@
       <real_time_update_rate>0</real_time_update_rate>
       <ode>
         <solver>
-          <iters>2</iters> <!-- Default value is 50 -->
+          <iters>5</iters> <!-- Default value is 50 -->
         </solver>
       </ode>
     </physics>
