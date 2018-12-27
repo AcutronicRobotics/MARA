@@ -16,6 +16,7 @@ install(
   PROGRAMS
   scripts/mara_joint_control.py
   scripts/spawn_entity.py
+  scripts/spawn_module.py
   scripts/gripper_interface.py
   DESTINATION lib/${PROJECT_NAME}
 )
