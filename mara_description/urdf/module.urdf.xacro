@@ -1,0 +1,145 @@
+<robot
+  name="elfin3" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find mara_description)/urdf/materials.xacro" />
+
+  <xacro:property name="PI" value="3.1415926535897931"/>
+
+  <xacro:property name="density" value="3.09"/>
+
+  <link name="world"/>
+
+  <joint name="elfin_module_base_joint" type="fixed">
+    <origin xyz="0 0 0.5" rpy="0 0 0" />
+    <parent link="world" />
+    <child link="elfin_module_14" />
+  </joint>
+
+  <link name="elfin_module_14">
+    <inertial>
+      <origin xyz="-0.0158710385319 -0.0365214098995 4.94388107361e-07" rpy="0 0 0"/>
+      <mass value="${0.807027243448*density}"/>
+      <inertia
+      ixx="${0.00193719*density}" ixy="${0.00047145*density}" ixz="${2e-08*density}"
+      iyy="${0.00112857*density}" iyz="${-1.1e-07*density}"
+      izz="${0.00245655*density}"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="model://mara_description/meshes/MARA_T49.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="metal"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="model://mara_description/meshes/MARA_T49.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="motor_cover">
+    <inertial>
+      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.04517" ixy="0.00002" ixz="0.0" iyy="0.01587" iyz="0.01444" izz="0.03303"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="model://mara_description/meshes/MARA_T49_Black.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Black">
+        <color rgba="0. 0. 0. 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="model://mara_description/meshes/MARA_T49_Black.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="motor_cover">
+    <material>Gazebo/Black</material>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+
+  <link name="dummy_link1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+	       <box size="0.02 0.1 0.02"/>
+      </geometry>
+      <material name="metal"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+	    <box size="0.02 0.1 0.02"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="motor1" type="revolute">
+    <origin xyz="0.12 0 0.16074" rpy="0 ${-PI/2} 0" />
+    <parent link="elfin_module_14" />
+    <child link="dummy_link1" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.14" upper="3.14" effort="34" velocity="1.57" />
+  </joint>
+
+  <link name="dummy_link2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+	       <box size="0.1 0.02 0.02"/>
+      </geometry>
+      <material name="metal"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+	    <box size="0.1 0.02 0.02"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="motor2" type="revolute">
+    <origin xyz="0 0 0" rpy="${PI/2} 0 0" />
+    <parent link="elfin_module_14" />
+    <child link="dummy_link2" />
+    <axis xyz="0 1 0" />
+    <limit lower="-3.14" upper="3.14" effort="34" velocity="1.57" />
+  </joint>
+
+  <joint name="motor_cover_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0"/>
+    <parent link="elfin_module_14"/>
+    <child link="motor_cover"/>
+  </joint>
+
+  <gazebo>
+    <plugin name="hros_actuation_servomotor_000000000001" filename="libmara_gazebo_joint_plugin.so">
+      <ros></ros>
+      <axis1>motor2</axis1>
+      <axis2>motor1</axis2>
+      <type>series14</type>
+    </plugin>
+  </gazebo>
+</robot>
