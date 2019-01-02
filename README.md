@@ -48,6 +48,15 @@ git clone https://github.com/ros-perception/vision_opencv -b ros2
 sudo apt install python3-numpy
 ```
 
+Generate HRIM dependencies:
+
+```bash
+sudo apt-get install python-lxml
+cd ~/ros2_mara_ws/src/HRIM
+python hrim.py generate models/actuator/servo/servo.xml
+python hrim.py generate models/actuator/gripper/gripper.xml
+```
+
 ## Compile
 
 **Optional note**: If you want to use MoveIT! you need to source ROS 1.0 environment variables. Typically, if you have installed ROS `Kinetic`, you need to source the following file:
