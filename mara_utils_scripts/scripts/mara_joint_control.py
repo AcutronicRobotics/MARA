@@ -13,12 +13,10 @@ import time
 
 #ROS 2.0
 from hrim_actuator_rotaryservo_msgs.msg import GoalRotaryServo
-from hrim_sensor_camera_msgs.msg import CompressedImage
 from rclpy.qos import qos_profile_default, qos_profile_sensor_data
 
 import rclpy
 
-import cv2
 import numpy as np
 import os
 beloop= False
