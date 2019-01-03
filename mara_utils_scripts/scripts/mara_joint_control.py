@@ -17,7 +17,6 @@ from rclpy.qos import qos_profile_default, qos_profile_sensor_data
 
 import rclpy
 
-import cv2
 import numpy as np
 import os
 beloop= False
