@@ -23,6 +23,7 @@
         </geometry>
         <material name="Gazebo/Grey">
           <color rgba="0. 0. 0. 1"/>
+          <texture filename="model://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
@@ -50,7 +51,8 @@
         </geometry>
         <material name="Gazebo/Grey">
           <color rgba="0. 0. 0. 1"/>
-        </material>
+          <texture filename="model://mara_description/material/gazebo.material" />
+      </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -77,6 +79,7 @@
         </geometry>
         <material name="Gazebo/White">
           <color rgba="0. 0. 0. 1"/>
+          <texture filename="model://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
@@ -104,6 +107,7 @@
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0. 0. 0. 1"/>
+          <texture filename="model://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
@@ -131,6 +135,7 @@
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0. 0. 0. 1"/>
+          <texture filename="model://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
@@ -158,6 +163,7 @@
         </geometry>
         <material name="Gazebo/White">
           <color rgba="0. 0. 0. 1"/>
+          <texture filename="model://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
@@ -185,6 +191,7 @@
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0. 0. 0. 1"/>
+          <texture filename="model://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
@@ -212,6 +219,7 @@
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0. 0. 0. 1"/>
+          <texture filename="model://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
@@ -239,6 +247,7 @@
         </geometry>
         <material name="Gazebo/White">
           <color rgba="0. 0. 0. 1"/>
+          <texture filename="model://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
@@ -266,6 +275,7 @@
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0. 0. 0. 1"/>
+          <texture filename="model://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
@@ -293,7 +303,8 @@
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0. 0. 0. 1"/>
-        </material>
+          <texture filename="model://mara_description/material/gazebo.material" />
+      </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
