@@ -18,4 +18,5 @@ install(DIRECTORY meshes urdf material
 
 ament_export_dependencies(xacro)
 ament_export_dependencies(urdf)
+ament_export_dependencies(material)
 ament_package()
