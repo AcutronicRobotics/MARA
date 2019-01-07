@@ -401,7 +401,16 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
 
 void MARAGazeboPluginRos::Reset()
 {
-
+  impl_->trajectories_position_axis1.clear();
+  impl_->trajectories_velocities_axis1.clear();
+  impl_->trajectories_position_axis2.clear();
+  impl_->trajectories_velocities_axis2.clear();
+  impl_->executing_axis1 = false;
+  impl_->executing_axis2 = false;
+  impl_->index_trajectory_axis1 = 0;
+  impl_->index_trajectory_axis2 = 0;
+  impl_->goal_position_axis1_rad = 0;
+  impl_->goal_position_axis2_rad = 0;
 }
 
 void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _info)
