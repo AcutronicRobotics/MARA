@@ -416,8 +416,6 @@ void MARAGazeboPluginRos::Reset()
 void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _info)
 {
 
-  double seconds_since_last_update = (_info.simTime - last_update_time_).Double();
-
   if(!executing_axis1 && trajectories_position_axis1.size()>0){
     index_trajectory_axis1 = 0;
     executing_axis1 = true;
