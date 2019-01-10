@@ -333,7 +333,7 @@
     <origin rpy="0 0 0" xyz="0.118 0 0.1637"/>
     <parent link="motor1_link"/>
     <child link="motor2_link"/>
-    <axis xyz="1 0 0"/>
+    <axis xyz="-1 0 0"/>
     <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
@@ -354,7 +354,7 @@
     <origin rpy="0 0 0" xyz="-0.109255 0 0.149255"/>
     <parent link="motor3_link"/>
     <child link="motor4_link"/>
-    <axis xyz="0 0 1"/>
+    <axis xyz="0 0 -1"/>
     <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
@@ -375,7 +375,7 @@
     <origin rpy="0 0 0" xyz="-0.10625569 0 0.14675569"/>
     <parent link="motor5_link"/>
     <child link="motor6_link"/>
-    <axis xyz="0 0 1"/>
+    <axis xyz="0 0 -1"/>
     <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
