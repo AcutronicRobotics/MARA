@@ -376,7 +376,7 @@
     <parent link="motor5_link"/>
     <child link="motor6_link"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
+    <limit effort="330.0" lower="-3.1416" upper="3.1416" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="ee_link" type="fixed">
