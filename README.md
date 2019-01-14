@@ -45,7 +45,7 @@ git clone https://github.com/erlerobot/HRIM/
 git clone https://github.com/erlerobot/control_msgs -b crystal
 git clone https://github.com/ros-perception/image_common -b ros2
 git clone https://github.com/ros-perception/vision_opencv -b ros2
-sudo apt install python3-numpy
+sudo apt install -y python3-numpy gazebo9* libgazebo9-dev
 ```
 
 Generate HRIM dependencies:
