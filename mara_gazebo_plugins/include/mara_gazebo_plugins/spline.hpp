@@ -28,7 +28,7 @@
 #define TK_SPLINE_H
 
 #include <cstdio>
-#include <cassert>
+//#include <cassert>
 #include <vector>
 #include <algorithm>
 
@@ -46,7 +46,7 @@ namespace tk
       band_matrix() {};                             // constructor
       band_matrix(int dim, int n_u, int n_l);       // constructor
       ~band_matrix() {};                            // destructor
-      void resize(int dim, int n_u, int n_l);      // init with dim,n_u,n_l
+      bool resize(int dim, int n_u, int n_l);      // init with dim,n_u,n_l
       int dim() const;                             // matrix dimension
       int num_upper() const
       {
@@ -63,10 +63,11 @@ namespace tk
       double& saved_diag(int i);
       double  saved_diag(int i) const;
       void lu_decompose();
-      std::vector<double> r_solve(const std::vector<double>& b) const;
-      std::vector<double> l_solve(const std::vector<double>& b) const;
+      std::vector<double> r_solve(const std::vector<double>& b);
+      std::vector<double> l_solve(const std::vector<double>& b);
       std::vector<double> lu_solve(const std::vector<double>& b,
                                    bool is_lu_decomposed=false);
+      bool success;
 
   };
 
