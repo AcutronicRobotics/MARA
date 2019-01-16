@@ -332,7 +332,7 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
     !impl_->joints_[MARAGazeboPluginRosPrivate::AXIS2])
   {
     RCLCPP_ERROR(impl_->ros_node_->get_logger(),
-      "Joint [%s] or [%s] not found, plugin will not work.", motor1, motor2);
+      "Joint [%s] or [%s] not found, plugin will not work.", motor1.c_str(), motor2.c_str());
     impl_->ros_node_.reset();
     return;
   }
