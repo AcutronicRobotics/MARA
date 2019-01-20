@@ -6,13 +6,24 @@ namespace tk
 
   band_matrix::band_matrix(int dim, int n_u, int n_l)
   {
-      resize(dim, n_u, n_l);
+    success = true;
+
+    if( !resize(dim, n_u, n_l) ){
+      printf("resize error!\n");
+      success = false;
+    }
   }
-  void band_matrix::resize(int dim, int n_u, int n_l)
+
+  bool band_matrix::resize(int dim, int n_u, int n_l)
   {
-      assert(dim>0);
-      assert(n_u>=0);
-      assert(n_l>=0);
+      // assert(dim>0);
+      // assert(n_u>=0);
+      // assert(n_l>=0);
+      if( !(dim>0) || !(n_u>=0) || !(n_l>=0)){
+        printf("resize inside error!\n");
+        return false;
+      }
+
       m_upper.resize(n_u+1);
       m_lower.resize(n_l+1);
       for(size_t i=0; i<m_upper.size(); i++) {
@@ -21,6 +32,7 @@ namespace tk
       for(size_t i=0; i<m_lower.size(); i++) {
           m_lower[i].resize(dim);
       }
+      return true;
   }
 
   int band_matrix::dim() const
@@ -37,8 +49,8 @@ namespace tk
   double & band_matrix::operator () (int i, int j)
   {
       int k=j-i;       // what band is the entry
-      assert( (i>=0) && (i<dim()) && (j>=0) && (j<dim()) );
-      assert( (-num_lower()<=k) && (k<=num_upper()) );
+      // assert( (i>=0) && (i<dim()) && (j>=0) && (j<dim()) );
+      // assert( (-num_lower()<=k) && (k<=num_upper()) );
       // k=0 -> diogonal, k<0 lower left part, k>0 upper right part
       if(k>=0)   return m_upper[k][i];
       else	    return m_lower[-k][i];
@@ -47,8 +59,8 @@ namespace tk
   double band_matrix::operator () (int i, int j) const
   {
       int k=j-i;       // what band is the entry
-      assert( (i>=0) && (i<dim()) && (j>=0) && (j<dim()) );
-      assert( (-num_lower()<=k) && (k<=num_upper()) );
+      // assert( (i>=0) && (i<dim()) && (j>=0) && (j<dim()) );
+      // assert( (-num_lower()<=k) && (k<=num_upper()) );
       // k=0 -> diogonal, k<0 lower left part, k>0 upper right part
       if(k>=0)   return m_upper[k][i];
       else	    return m_lower[-k][i];
@@ -57,13 +69,13 @@ namespace tk
   // second diag (used in LU decomposition), saved in m_lower
   double band_matrix::saved_diag(int i) const
   {
-      assert( (i>=0) && (i<dim()) );
+      //assert( (i>=0) && (i<dim()) );
       return m_lower[0][i];
   }
 
   double & band_matrix::saved_diag(int i)
   {
-      assert( (i>=0) && (i<dim()) );
+      //assert( (i>=0) && (i<dim()) );
       return m_lower[0][i];
   }
 
@@ -77,7 +89,14 @@ namespace tk
       // preconditioning
       // normalize column i so that a_ii=1
       for(int i=0; i<this->dim(); i++) {
-          assert(this->operator()(i,i)!=0.0);
+          //assert(this->operator()(i,i)!=0.0);
+          if( this->operator()(i,i)==0.0 )
+          {
+            printf("this->operator()(i,i)==0.0\n");
+
+            success = false;
+            return;
+          }
           this->saved_diag(i)=1.0/this->operator()(i,i);
           j_min=std::max(0,i-this->num_lower());
           j_max=std::min(this->dim()-1,i+this->num_upper());
@@ -91,7 +110,14 @@ namespace tk
       for(int k=0; k<this->dim(); k++) {
           i_max=std::min(this->dim()-1,k+this->num_lower());  // num_lower not a mistake!
           for(int i=k+1; i<=i_max; i++) {
-              assert(this->operator()(k,k)!=0.0);
+              //assert(this->operator()(k,k)!=0.0);
+              if( this->operator()(k,k)==0.0 )
+              {
+                printf("this->operator()(k,k)==0.0 \n");
+
+                success = false;
+                return;
+              }
               x=-this->operator()(i,k)/this->operator()(k,k);
               this->operator()(i,k)=-x;                         // assembly part of L
               j_max=std::min(this->dim()-1,k+this->num_upper());
@@ -104,9 +130,16 @@ namespace tk
   }
 
   // solves Ly=b
-  std::vector<double> band_matrix::l_solve(const std::vector<double>& b) const
+  std::vector<double> band_matrix::l_solve(const std::vector<double>& b)
   {
-      assert( this->dim()==(int)b.size() );
+      //assert( this->dim()==(int)b.size() );
+      if( this->dim()!=(int)b.size() )
+      {
+        printf("this->dim()!=(int)b.size() \n");
+
+        success = false;
+        return std::vector<double>();
+      }
       std::vector<double> x(this->dim());
       int j_start;
       double sum;
@@ -120,9 +153,16 @@ namespace tk
   }
 
   // solves Rx=y
-  std::vector<double> band_matrix::r_solve(const std::vector<double>& b) const
+  std::vector<double> band_matrix::r_solve(const std::vector<double>& b)
   {
-      assert( this->dim()==(int)b.size() );
+      //assert( this->dim()==(int)b.size() );
+      if( this->dim()!=(int)b.size() )
+      {
+        printf("this->dim()!=(int)b.size() \n");
+
+        success = false;
+        return std::vector<double>();
+      }
       std::vector<double> x(this->dim());
       int j_stop;
       double sum;
@@ -138,10 +178,19 @@ namespace tk
   std::vector<double> band_matrix::lu_solve(const std::vector<double>& b,
           bool is_lu_decomposed)
   {
-      assert( this->dim()==(int)b.size() );
+      //assert( this->dim()==(int)b.size() );
+      if( this->dim()!=(int)b.size() )
+      {
+        printf(" this->dim()!=(int)b.size()\n");
+
+        success = false;
+        return  std::vector<double>();
+      }
       std::vector<double>  x,y;
       if(is_lu_decomposed==false) {
           this->lu_decompose();
+          if(!success)
+            return  std::vector<double>();
       }
       y=this->l_solve(b);
       x=this->r_solve(y);
@@ -155,7 +204,7 @@ namespace tk
                             spline::bd_type right, double right_value,
                             bool force_linear_extrapolation)
   {
-      assert(m_x.size()==0);          // set_points() must not have happened yet
+      //assert(m_x.size()==0);          // set_points() must not have happened yet
       m_left=left;
       m_right=right;
       m_left_value=left_value;
@@ -187,6 +236,11 @@ namespace tk
           // setting up the matrix and right hand side of the equation system
           // for the parameters b[]
           band_matrix A(n,1,1);
+          if( !A.success ){
+            printf("242\n");
+            return false;
+          }
+
           std::vector<double>  rhs(n);
           for(int i=1; i<n-1; i++) {
               A(i,i-1)=1.0/3.0*(x[i]-x[i-1]);
@@ -227,6 +281,10 @@ namespace tk
 
           // solve the equation system to obtain the parameters b[]
           m_b=A.lu_solve(rhs);
+          if( !A.success ){
+            printf("287\n");
+            return false;
+          }
 
           // calculate parameters a[] and c[] based on b[]
           m_a.resize(n);
