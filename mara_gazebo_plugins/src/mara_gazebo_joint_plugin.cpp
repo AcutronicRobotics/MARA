@@ -130,7 +130,7 @@ void MARAGazeboPluginRosPrivate::readfullFile(std::string file_to_read, hrim_gen
 
   msg_sim_3d.model.resize(pos);
   ifs.seekg(0, std::ios::beg);
-  ifs.read(&msg_sim_3d.model[0], pos);
+  ifs.read((char *)&msg_sim_3d.model[0], pos);
   ifs.close();
 }
 
