@@ -1,0 +1,29 @@
+repositories:
+  mara:
+    type: git
+    url: https://github.com/acutronicrobotics/MARA.git
+    version: master
+  hrim:
+    type: git
+    url: https://github.com/erlerobot/HRIM.git
+    version: Beriain
+  control_msgs:
+    type: git
+    url: https://github.com/erlerobot/control_msgs.git
+    version: crystal
+  image_common:
+    type: git
+    url: https://github.com/ros-perception/image_common.git
+    version: ros2
+  vision_opencv:
+    type: git
+    url: https://github.com/ros-perception/vision_opencv.git
+    version: ros2
+  mara_examples:
+    type: git
+    url: https://github.com/AcutronicRobotics/mara_examples.git
+    version: master
+  gazebo_ros_pkgs:
+    type: git
+    url: https://github.com/ros-simulation/gazebo_ros_pkgs.git
+    version: ros2
