@@ -40,7 +40,7 @@ Create a ROS workspace, for example:
 mkdir -p ~/ros2_mara_ws/src
 cd ~/ros2_mara_ws
 sudo apt install -y python3-vcstool python3-numpy
-wget https://github.com/acutronicrobotics/MARA/mara-ros2.repos
+wget https://raw.githubusercontent.com/acutronicrobotics/MARA/mara-repos/mara-ros2.repos
 vcs import src < mara-ros2.repos
 ```
 
