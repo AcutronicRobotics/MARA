@@ -791,7 +791,7 @@
         </limit>
       </axis>
     </joint>
-    <plugin filename="librobotiq_140_gripper_gazebo_plugin.so" name="hros_actuation_gripper_000000000004"/>
+    <plugin filename="librobotiq_gripper_gazebo_plugin.so" name="hros_actuation_gripper_000000000004"/>
   </gazebo>
   <link name="table">
     <contact>
