@@ -101,6 +101,14 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
                 rmw_qos_profile_default);
   RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_specs_comm.c_str());
 
+  impl_->ros_node_->set_parameters({
+    rclcpp::Parameter("joint_name", node_name),
+    rclcpp::Parameter("origin", 0),
+    rclcpp::Parameter("publish_rate", 100),
+    rclcpp::Parameter("min_temperature", -25),
+    rclcpp::Parameter("max_temperature", 75),
+  });
+
   impl_->timer_info_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_info_msgs, impl_.get()));
   impl_->timer_status_ = impl_->ros_node_->create_wall_timer(
