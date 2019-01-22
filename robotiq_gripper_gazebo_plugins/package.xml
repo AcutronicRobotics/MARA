@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>robotiq_140_gripper_gazebo_plugin</name>
+  <name>robotiq_gripper_gazebo_plugin</name>
   <version>0.0.1</version>
   <description>
     robotiq 140 Gazebo plugin
@@ -28,7 +28,7 @@
   <build_depend>gazebo_ros</build_depend>
   <build_depend>hrim_actuator_gripper_msgs</build_depend>
   <build_depend>hrim_actuator_gripper_srvs</build_depend>
-  
+
   <exec_depend>rclcpp</exec_depend>
   <exec_depend>gazebo_dev</exec_depend>
   <exec_depend>gazebo_ros</exec_depend>

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(robotiq_140_gripper_gazebo_plugin)
+project(robotiq_gripper_gazebo_plugin)
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
@@ -35,7 +35,7 @@ link_directories(${gazebo_dev_LIBRARY_DIRS})
 
 # mara_gazebo_joint_plugin
 add_library(${PROJECT_NAME} SHARED
-  src/Robotiq140Plugin.cpp
+  src/RobotiqPlugin.cpp
 )
 
 ament_target_dependencies(${PROJECT_NAME}

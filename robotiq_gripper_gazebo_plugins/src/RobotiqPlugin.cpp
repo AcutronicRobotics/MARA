@@ -1,7 +1,7 @@
 #include <string>
 #include <vector>
 
-#include "robotiq_arg2f_model_articulated_gazebo_plugins/Robotiq140Plugin.h"
+#include "robotiq_gripper_gazebo_plugins/RobotiqPlugin.h"
 
 namespace gazebo
   {
