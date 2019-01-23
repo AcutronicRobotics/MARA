@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>robotiq_85_gripper_description</name>
+  <version>0.0.1</version>
+  <description>
+    3D models of the robotiq 85 gripper for simulation and visualization
+  </description>
+  <license>Apache 2.0</license>
+  <author email="ahcorde@erlerobotics.com">Alejandro Hernandez</author>
+  <maintainer email="ahcorde@erlerobotics.com">Alejandro Hernandez</maintainer>
+  <url type="repository">https://github.com/erlerobot/mara</url>
+  <url type="bugtracker">https://github.com/erlerobot/mara/issues</url>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>urdf</depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
