@@ -286,7 +286,7 @@
       <limit lower="0.0" upper="0.8757" velocity="2.0" effort="1000" />
     </joint>
 
-    <joint name="right_inner_knuckler_joint" type="revolute">
+    <joint name="right_inner_knuckle_joint" type="revolute">
       <origin xyz="0.0306 0 0.05490" rpy="0 0 3.1416" />
       <parent link="robotiq_85_base_link" />
       <child link="robotiq_85_right_inner_knuckle_link" />

@@ -13,7 +13,7 @@ def generate_launch_description():
     install_dir = get_package_prefix('robotiq_hande_gripper_description')
 
     if 'GAZEBO_MODEL_PATH' in os.environ:
-        os.environ['GAZEBO_MODEL_PATH'] =  os.environ['GAZEBO_MODEL_PATH'] + ':' + install_dir + 'share'
+        os.environ['GAZEBO_MODEL_PATH'] =  os.environ['GAZEBO_MODEL_PATH'] + ':' + install_dir + '/share'
     else:
         os.environ['GAZEBO_MODEL_PATH'] =  install_dir + "/share"
 
