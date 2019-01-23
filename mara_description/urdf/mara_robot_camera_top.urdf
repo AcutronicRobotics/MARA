@@ -321,7 +321,7 @@
     <parent link="base_robot"/>
     <child link="motor1_link"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
+    <limit effort="330.0" lower="-3.1416" upper="3.1416" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="motor1_cover_joint" type="fixed">
@@ -334,7 +334,7 @@
     <parent link="motor1_link"/>
     <child link="motor2_link"/>
     <axis xyz="-1 0 0"/>
-    <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
+    <limit effort="330.0" lower="-3.1416" upper="3.1416" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="motor3" type="revolute">
@@ -342,7 +342,7 @@
     <parent link="motor2_link"/>
     <child link="motor3_link"/>
     <axis xyz="1 0 0"/>
-    <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
+    <limit effort="330.0" lower="-3.1416" upper="3.1416" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="motor3_cover_joint" type="fixed">
@@ -355,7 +355,7 @@
     <parent link="motor3_link"/>
     <child link="motor4_link"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
+    <limit effort="330.0" lower="-3.1416" upper="3.1416" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="motor5" type="revolute">
@@ -363,7 +363,7 @@
     <parent link="motor4_link"/>
     <child link="motor5_link"/>
     <axis xyz="1 0 0"/>
-    <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
+    <limit effort="330.0" lower="-3.1416" upper="3.1416" velocity="3.1416"/>
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="motor5_cover_joint" type="fixed">
