@@ -17,17 +17,17 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/Base_plancha.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/Base_plancha.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Grey">
         <color rgba="0. 0. 0. 1"/>
-        <texture filename="model://mara_description/material/gazebo.material"/>
+
       </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/Base_plancha.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/Base_plancha.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -44,17 +44,17 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/Base.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/Base.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Grey">
         <color rgba="0. 0. 0. 1"/>
-        <texture filename="model://mara_description/material/gazebo.material"/>
+
       </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/Base.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/Base.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -71,17 +71,17 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T49.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T49.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/White">
         <color rgba="0. 0. 0. 1"/>
-        <texture filename="model://mara_description/material/gazebo.material"/>
+
       </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T49.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T49.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -98,17 +98,17 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T49_Black.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T49_Black.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0. 0. 0. 1"/>
-        <texture filename="model://mara_description/material/gazebo.material"/>
+
       </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T49_Black.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T49_Black.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -125,17 +125,17 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_Link1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_Link1.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0. 0. 0. 1"/>
-        <texture filename="model://mara_description/material/gazebo.material"/>
+
       </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_Link1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_Link1.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -152,17 +152,17 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T30.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T30.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/White">
         <color rgba="0. 0. 0. 1"/>
-        <texture filename="model://mara_description/material/gazebo.material"/>
+
       </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T30.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T30.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -179,17 +179,17 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T30_Black.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T30_Black.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0. 0. 0. 1"/>
-        <texture filename="model://mara_description/material/gazebo.material"/>
+
       </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T30_Black.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T30_Black.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -206,17 +206,17 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_Link2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_Link2.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0. 0. 0. 1"/>
-        <texture filename="model://mara_description/material/gazebo.material"/>
+
       </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_Link2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_Link2.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -233,17 +233,17 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T5.4.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T5.4.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/White">
         <color rgba="0. 0. 0. 1"/>
-        <texture filename="model://mara_description/material/gazebo.material"/>
+
       </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T5.4.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T5.4.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -260,17 +260,17 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T5.4_black.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T5.4_black.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0. 0. 0. 1"/>
-        <texture filename="model://mara_description/material/gazebo.material"/>
+
       </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T5.4_black.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_T5.4_black.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -287,17 +287,17 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_GripperAdapter.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_GripperAdapter.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0. 0. 0. 1"/>
-        <texture filename="model://mara_description/material/gazebo.material"/>
+
       </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_GripperAdapter.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/MARA_GripperAdapter.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -805,11 +805,11 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0.6"/>
       <geometry>
-        <mesh filename="model://mara_description/urdf/table.obj" scale="1.5 1 0.05"/>
+        <mesh filename="package://mara_description/urdf/table.obj" scale="1.5 1 0.05"/>
       </geometry>
       <material name="brown">
         <color rgba="0.63 0.16 0.16 1"/>
-        <texture filename="model://mara_description/material/gazebo.material"/>
+
       </material>
     </visual>
     <collision>
@@ -821,28 +821,28 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.65 -0.4 0.29"/>
       <geometry>
-        <mesh filename="model://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
+        <mesh filename="package://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
       </geometry>
       <material name="framemat0"/>
     </visual>
     <visual>
       <origin rpy="0 0 0" xyz="-0.65 0.4 0.29"/>
       <geometry>
-        <mesh filename="model://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
+        <mesh filename="package://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
       </geometry>
       <material name="framemat0"/>
     </visual>
     <visual>
       <origin rpy="0 0 0" xyz="0.65 -0.4 0.29"/>
       <geometry>
-        <mesh filename="model://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
+        <mesh filename="package://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
       </geometry>
       <material name="framemat0"/>
     </visual>
     <visual>
       <origin rpy="0 0 0" xyz="0.65 0.4 0.29"/>
       <geometry>
-        <mesh filename="model://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
+        <mesh filename="package://mara_description/urdf/table.obj" scale="0.1 0.1 0.58"/>
       </geometry>
     </visual>
   </link>
