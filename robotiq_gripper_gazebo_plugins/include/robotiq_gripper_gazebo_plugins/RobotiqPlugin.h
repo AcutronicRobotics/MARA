@@ -108,8 +108,8 @@ namespace gazebo
     private: gazebo::common::PID posePID_left_inner_knuckle;
     private: gazebo::common::PID posePID_right_inner_knuckle;
 
-    private: physics::JointPtr left_inner_knuckle_joint;
-    private: physics::JointPtr right_inner_knuckle_joint;
+    private: physics::JointPtr left_inner_finger_joint;
+    private: physics::JointPtr right_inner_finger_joint;
 
     private: gazebo::common::Time lastControllerUpdateTime;
 

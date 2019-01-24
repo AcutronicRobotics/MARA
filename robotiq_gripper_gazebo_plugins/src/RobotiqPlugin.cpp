@@ -27,8 +27,8 @@ namespace gazebo
     ignition::math::Angle tolerance;
     tolerance.Degree(1.0);
 
-    fingersOpen = fingersOpen && (left_inner_knuckle_joint->Position(0) < (left_inner_knuckle_joint->LowerLimit(0) + tolerance.Radian()));
-    fingersOpen = fingersOpen && (right_inner_knuckle_joint->Position(0) < (right_inner_knuckle_joint->LowerLimit(0) + tolerance.Radian()));
+    fingersOpen = fingersOpen && (left_inner_finger_joint->Position(0) < (left_inner_finger_joint->LowerLimit(0) + tolerance.Radian()));
+    fingersOpen = fingersOpen && (right_inner_finger_joint->Position(0) < (right_inner_finger_joint->LowerLimit(0) + tolerance.Radian()));
 
     return fingersOpen;
   }
@@ -54,11 +54,11 @@ namespace gazebo
   {
     (void)request_header;
 
-    targetPose_right = request->goal_angularposition;//right_inner_knuckle_joint->UpperLimit(0);
-    targetPose_left = request->goal_angularposition;//left_inner_knuckle_joint->UpperLimit(0);
+    targetPose_right = request->goal_angularposition;//right_inner_finger_joint->UpperLimit(0);
+    targetPose_left = request->goal_angularposition;//left_inner_finger_joint->UpperLimit(0);
 
-    double currentPose_right = right_inner_knuckle_joint->Position(0);
-    double currentPose_left = left_inner_knuckle_joint->Position(0);
+    double currentPose_right = right_inner_finger_joint->Position(0);
+    double currentPose_left = left_inner_finger_joint->Position(0);
 
     if(currentPose_right - targetPose_right > 0)
       sentido = 1;
@@ -220,33 +220,33 @@ namespace gazebo
     posePID_left_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
     posePID_right_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
 
-    left_inner_knuckle_joint = this->model->GetJoint("left_inner_knuckle_joint");
-    if (!left_inner_knuckle_joint){
-      gzthrow("could not find front left_inner_knuckle_joint\n");
+    left_inner_finger_joint = this->model->GetJoint("left_inner_finger_joint");
+    if (!left_inner_finger_joint){
+      gzthrow("could not find front left_inner_finger_joint\n");
     }
     this->model->GetJointController()->SetPositionPID(
-        this->left_inner_knuckle_joint->GetScopedName(), this->posePID_left_inner_knuckle);
+        this->left_inner_finger_joint->GetScopedName(), this->posePID_left_inner_knuckle);
 
-    gzmsg << "left_inner_knuckle_joint LowerLimit " << left_inner_knuckle_joint->LowerLimit(0) << std::endl;
-    gzmsg << "left_inner_knuckle_joint UpperLimit " << left_inner_knuckle_joint->UpperLimit(0) << std::endl;
-    gzmsg << "left_inner_knuckle_joint GetEffortLimit " << left_inner_knuckle_joint->GetEffortLimit(0) << std::endl;
-    gzmsg << "left_inner_knuckle_joint GetVelocityLimit " << left_inner_knuckle_joint->GetVelocityLimit(0) << std::endl;
-    posePID_left_inner_knuckle.SetCmdMin(-left_inner_knuckle_joint->GetEffortLimit(0));
-    posePID_left_inner_knuckle.SetCmdMax(left_inner_knuckle_joint->GetEffortLimit(0));
+    gzmsg << "left_inner_finger_joint LowerLimit " << left_inner_finger_joint->LowerLimit(0) << std::endl;
+    gzmsg << "left_inner_finger_joint UpperLimit " << left_inner_finger_joint->UpperLimit(0) << std::endl;
+    gzmsg << "left_inner_finger_joint GetEffortLimit " << left_inner_finger_joint->GetEffortLimit(0) << std::endl;
+    gzmsg << "left_inner_finger_joint GetVelocityLimit " << left_inner_finger_joint->GetVelocityLimit(0) << std::endl;
+    posePID_left_inner_knuckle.SetCmdMin(-left_inner_finger_joint->GetEffortLimit(0));
+    posePID_left_inner_knuckle.SetCmdMax(left_inner_finger_joint->GetEffortLimit(0));
 
-    right_inner_knuckle_joint = this->model->GetJoint("right_inner_knuckle_joint");
-    if (!right_inner_knuckle_joint){
-      gzthrow("could not find front right_inner_knuckle_joint\n");
+    right_inner_finger_joint = this->model->GetJoint("right_inner_finger_joint");
+    if (!right_inner_finger_joint){
+      gzthrow("could not find front right_inner_finger_joint\n");
     }
     this->model->GetJointController()->SetPositionPID(
-        this->right_inner_knuckle_joint->GetScopedName(), this->posePID_right_inner_knuckle);
+        this->right_inner_finger_joint->GetScopedName(), this->posePID_right_inner_knuckle);
 
-    gzmsg << "right_inner_knuckle_joint LowerLimit " << right_inner_knuckle_joint->LowerLimit(0) << std::endl;
-    gzmsg << "right_inner_knuckle_joint UpperLimit " << right_inner_knuckle_joint->UpperLimit(0) << std::endl;
-    gzmsg << "right_inner_knuckle_joint GetEffortLimit " << right_inner_knuckle_joint->GetEffortLimit(0) << std::endl;
-    gzmsg << "right_inner_knuckle_joint GetVelocityLimit " << right_inner_knuckle_joint->GetVelocityLimit(0) << std::endl;
-    posePID_right_inner_knuckle.SetCmdMin(-right_inner_knuckle_joint->GetEffortLimit(0));
-    posePID_right_inner_knuckle.SetCmdMax(right_inner_knuckle_joint->GetEffortLimit(0));
+    gzmsg << "right_inner_finger_joint LowerLimit " << right_inner_finger_joint->LowerLimit(0) << std::endl;
+    gzmsg << "right_inner_finger_joint UpperLimit " << right_inner_finger_joint->UpperLimit(0) << std::endl;
+    gzmsg << "right_inner_finger_joint GetEffortLimit " << right_inner_finger_joint->GetEffortLimit(0) << std::endl;
+    gzmsg << "right_inner_finger_joint GetVelocityLimit " << right_inner_finger_joint->GetVelocityLimit(0) << std::endl;
+    posePID_right_inner_knuckle.SetCmdMin(-right_inner_finger_joint->GetEffortLimit(0));
+    posePID_right_inner_knuckle.SetCmdMax(right_inner_finger_joint->GetEffortLimit(0));
 
     this->lastControllerUpdateTime = this->world->SimTime();
 
@@ -292,9 +292,9 @@ namespace gazebo
   {
     // Set the joint's target velocity.
     this->model->GetJointController()->SetPositionTarget(
-            this->right_inner_knuckle_joint->GetScopedName(), targetPose_right);
+            this->right_inner_finger_joint->GetScopedName(), targetPose_right);
     this->model->GetJointController()->SetPositionTarget(
-            this->left_inner_knuckle_joint->GetScopedName(), targetPose_left);
+            this->left_inner_finger_joint->GetScopedName(), targetPose_left);
   }
 
   void RobotiqHandPlugin::createGenericTopics(std::string node_name)
@@ -450,7 +450,7 @@ namespace gazebo
     gazebo::common::Time cur_time = this->model->GetWorld()->SimTime();
     state_gripper_finger_msg.header.stamp.sec = cur_time.sec;
     state_gripper_finger_msg.header.stamp.nanosec = cur_time.nsec;
-    state_gripper_finger_msg.angular_position = right_inner_knuckle_joint->Position(0);
+    state_gripper_finger_msg.angular_position = right_inner_finger_joint->Position(0);
     state_gripper_finger_msg.linear_position = 0;
 
     gripper_finger_state_pub->publish(state_gripper_finger_msg);
