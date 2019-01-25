@@ -9,9 +9,9 @@
   <link name="world" />
 
   <joint name="world_to_hande_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <origin rpy="0 0 1.57" xyz="0 0 0.5"/>
     <parent link="world"/>
-    <child link="robotiq_arg2f_base_link"/>
+    <child link="robotiq_adapter_link"/>
   </joint>
 
 </robot>
