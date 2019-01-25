@@ -351,8 +351,8 @@
       </plugin>
       <joint name="left_finger_joint2" type="revolute">
         <pose frame="">0.017901 0 0.00651469 0 0 0</pose>
-        <parent>robotiq85::robotiq_85_left_inner_finger_link</parent>
-        <child>robotiq85::robotiq_85_left_finger_link</child>
+        <parent>${prefix}::robotiq_85_left_inner_finger_link</parent>
+        <child>${prefix}::robotiq_85_left_finger_link</child>
         <axis>
           <xyz>0 -1 0</xyz>
           <limit>
@@ -366,8 +366,8 @@
 
       <joint name="right_finger_joint2" type="revolute">
         <pose frame="">0.017901 0 0.00651469 0 0 0</pose>
-        <parent>robotiq85::robotiq_85_right_inner_finger_link</parent>
-        <child>robotiq85::robotiq_85_right_finger_link</child>
+        <parent>${prefix}::robotiq_85_right_inner_finger_link</parent>
+        <child>${prefix}::robotiq_85_right_finger_link</child>
         <axis>
           <xyz>0 1 0</xyz>
           <limit>

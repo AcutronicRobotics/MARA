@@ -9,7 +9,7 @@
   <xacro:include filename="$(find mara_description)/urdf/mara.urdf.xacro" />
 
   <!-- robotiq 140 gripper -->
-  <xacro:include filename="$(find robotiq_140_gripper_description)/urdf/robotiq_gripper.urdf.xacro" />
+  <xacro:include filename="$(find robotiq_140_gripper_description)/urdf/robotiq_140.urdf.xacro" />
 
   <!-- <xacro:include filename="$(find mara_description)/urdf/camera_top.urdf.xacro" /> -->
 
@@ -17,7 +17,7 @@
 
   <!-- arm -->
   <xacro:mara_robot prefix="" joint_limited="false"/>
-  <xacro:robotiq_gripper prefix="" />
+  <xacro:robotiq_gripper prefix="mara" />
   <!-- <xacro:mara_camera_top prefix="" /> -->
   <xacro:table prefix="" />
 
@@ -26,7 +26,7 @@
   <joint name="end_effector_adapter_to_robotiq" type="fixed">
     <origin rpy="0 0 1.57" xyz=" 0 0 0.04659"/>
     <parent link="motor6_link"/>
-    <child link="robotiq_arg2f_base_link"/>
+    <child link="robotiq_adapter_link"/>
   </joint>
 
   <joint name="world_to_table_joint" type="fixed">

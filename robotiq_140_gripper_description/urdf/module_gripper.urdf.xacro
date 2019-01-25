@@ -4,7 +4,7 @@
 
   <!-- robotiq hande_gripper -->
   <xacro:include filename="$(find robotiq_140_gripper_description)/urdf/robotiq_140.urdf.xacro" />
-  <xacro:robotiq_gripper prefix=""/>
+  <xacro:robotiq_gripper prefix="robotiq_140"/>
 
   <link name="world" />
 

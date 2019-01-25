@@ -382,8 +382,8 @@
     <gazebo>
       <joint name="left_inner_finger_knuckle_joint" type="revolute">
         <pose frame="">0 0.006 -0.018 0 0 0</pose>
-        <parent>robotiq_140::left_inner_knuckle</parent>
-        <child>robotiq_140::left_inner_finger</child>
+        <parent>${prefix}::left_inner_knuckle</parent>
+        <child>${prefix}::left_inner_finger</child>
         <axis>
           <xyz>1 0 0</xyz>
           <limit>
@@ -397,8 +397,8 @@
 
       <joint name="right_inner_finger_knuckle_joint" type="revolute">
         <pose frame="">0 0.006 -0.018 0 0 0</pose>
-        <parent>robotiq_140::right_inner_knuckle</parent>
-        <child>robotiq_140::right_inner_finger</child>
+        <parent>${prefix}::right_inner_knuckle</parent>
+        <child>${prefix}::right_inner_finger</child>
         <axis>
           <xyz>-1 0 0</xyz>
           <limit>
