@@ -287,7 +287,7 @@
       <parent link="robotiq_arg2f_base_link" />
       <child link="left_outer_knuckle" />
       <axis xyz="-1 0 0" />
-      <limit lower="0" upper="0.875"  velocity="2.0" effort="1000" />
+      <limit lower="0" upper="0.78"  velocity="2.0" effort="1000" />
     </joint>
 
     <joint name="right_outer_knuckle_joint" type="revolute">
@@ -295,7 +295,7 @@
       <parent link="robotiq_arg2f_base_link" />
       <child link="right_outer_knuckle" />
       <axis xyz="-1 0 0" />
-      <limit lower="0" upper="0.875" velocity="2.0" effort="1000" />
+      <limit lower="0" upper="0.78" velocity="2.0" effort="1000" />
     </joint>
 
     <joint name="left_inner_knuckle_joint" type="revolute">
@@ -303,7 +303,7 @@
       <parent link="robotiq_arg2f_base_link" />
       <child link="left_inner_knuckle" />
       <axis xyz="-1 0 0" />
-      <limit lower="0" upper="0.87" velocity="2.0" effort="1000" />
+      <limit lower="0" upper="0.78" velocity="2.0" effort="1000" />
     </joint>
 
     <joint name="right_inner_knuckle_joint" type="revolute">
@@ -311,7 +311,7 @@
       <parent link="robotiq_arg2f_base_link" />
       <child link="right_inner_knuckle" />
       <axis xyz="-1 0 0" />
-      <limit lower="0" upper="0.87" velocity="2.0" effort="1000" />
+      <limit lower="0" upper="0.78" velocity="2.0" effort="1000" />
     </joint>
 
     <joint name="left_outer_finger_joint" type="revolute">
@@ -319,7 +319,7 @@
       <parent link="left_outer_knuckle" />
       <child link="left_outer_finger" />
       <axis xyz="-1 0 0" />
-      <limit lower="0.1" upper="0.875" velocity="2.0" effort="1000" />
+      <limit lower="-0.875" upper="-0.0075" velocity="2.0" effort="1000" />
     </joint>
 
     <joint name="right_outer_finger_joint" type="revolute">
@@ -327,7 +327,7 @@
       <parent link="right_outer_knuckle" />
       <child link="right_outer_finger" />
       <axis xyz="-1 0 0" />
-      <limit lower="0.1" upper="0.875" velocity="2.0" effort="1000" />
+      <limit lower="-0.875" upper="-0.0075" velocity="2.0" effort="1000" />
     </joint>
 
     <joint name="left_inner_finger_joint" type="revolute">
@@ -349,8 +349,8 @@
     <gazebo>
       <joint name="left_inner_finger_knuckle_joint" type="revolute">
         <pose frame="">0 0.006 -0.018 0 0 0</pose>
-        <parent>mara::left_inner_knuckle</parent>
-        <child>mara::left_inner_finger</child>
+        <parent>robotiq_140::left_inner_knuckle</parent>
+        <child>robotiq_140::left_inner_finger</child>
         <axis>
           <xyz>1 0 0</xyz>
           <limit>
@@ -364,8 +364,8 @@
 
       <joint name="right_inner_finger_knuckle_joint" type="revolute">
         <pose frame="">0 0.006 -0.018 0 0 0</pose>
-        <parent>mara::right_inner_knuckle</parent>
-        <child>mara::right_inner_finger</child>
+        <parent>robotiq_140::right_inner_knuckle</parent>
+        <child>robotiq_140::right_inner_finger</child>
         <axis>
           <xyz>-1 0 0</xyz>
           <limit>
