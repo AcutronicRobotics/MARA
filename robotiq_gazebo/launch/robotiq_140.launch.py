@@ -9,8 +9,8 @@ from launch.actions.execute_process import ExecuteProcess
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    urdf = os.path.join(get_package_share_directory('robotiq_hande_gripper_description'), 'urdf', 'robotiq_140.urdf')
-    install_dir = get_package_prefix('robotiq_hande_gripper_description')
+    urdf = os.path.join(get_package_share_directory('robotiq_140_gripper_description'), 'urdf', 'robotiq_140.urdf')
+    install_dir = get_package_prefix('robotiq_140_gripper_description')
 
     if 'GAZEBO_MODEL_PATH' in os.environ:
         os.environ['GAZEBO_MODEL_PATH'] =  os.environ['GAZEBO_MODEL_PATH'] + ':' + install_dir + '/share'
