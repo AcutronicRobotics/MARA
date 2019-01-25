@@ -16,7 +16,7 @@ def generate_launch_description():
     print("mara", mara)
 
     if 'GAZEBO_MODEL_PATH' in os.environ:
-        os.environ['GAZEBO_MODEL_PATH'] =  os.environ['GAZEBO_MODEL_PATH'] + ':' + install_dir + 'share'
+        os.environ['GAZEBO_MODEL_PATH'] =  os.environ['GAZEBO_MODEL_PATH'] + ':' + install_dir + '/share'
     else:
         os.environ['GAZEBO_MODEL_PATH'] =  install_dir + "/share"
 
