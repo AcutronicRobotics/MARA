@@ -2,7 +2,9 @@
 
 <a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/assets/images/AcutronicRobotics_logo_BlackBackground.png.pagespeed.ce.EDHWnZb3Nd.png" align="left" hspace="8" vspace="2" width="200"></a>
 
-This repository provides Gazebo ROS 2.0 support for [MARA](https://acutronicrobotics.com/products/mara/) modular robot, world's first modular cobot. MARA is the first robot which runs ROS 2.0 on each joint empowering new possibilities and applications in the professional and industrial landscapes of robotics. Built out of individual modules that natively run ROS 2.0, the modular robot arm can be physically extended in a seamless manner. MARA delivers industrial-grade features such as time synchronization or deterministic communication latencies.
+This is the official repository of [MARA](https://acutronicrobotics.com/products/mara/) modular robot, world's first modular cobot. MARA is the first robot which runs ROS 2.0 on each joint empowering new possibilities and applications in the professional and industrial landscapes of robotics. Built out of individual modules that natively run ROS 2.0, the modular robot arm can be physically extended in a seamless manner. MARA delivers industrial-grade features such as time synchronization or deterministic communication latencies.
+
+Among other things, you will find in this repository instructions on how to simulate MARA with Gazebo and its integrations with ROS 2.0.
 
 ## Features
 
@@ -23,32 +25,33 @@ This repository provides Gazebo ROS 2.0 support for [MARA](https://acutronicrobo
 - **Controllable from any ROS 2.0 enabled computer**: [ORC](https://acutronicrobotics.com/products/orc/) is the ideal complement for MARA, but not mandatory. Choose yourself how you steer MARA.
 
 ## Table of Contents
-   * [MARA](#mara)
-      * [Features](#features)
-      * [Index](#index)
-         * [Specifications](#specifications)
-         * [Packages](#packages)
-            * [Dependencies](#dependencies)
-         * [Install](#install)
-            * [Install ROS 2.0](#install-ros-20)
-            * [Create mara ROS 2.0 workspace](#create-mara-ros-20-workspace)
-            * [Compile](#compile)
-            * [Set up MoveITt! (for now in ROS)](#set-up-moveitt-for-now-in-ros)
-            * [Usage with Gazebo Simulation](#usage-with-gazebo-simulation)
-               * [Terminal 1:](#terminal-1)
-               * [Terminal 2:](#terminal-2)
-               * [Rviz2](#rviz2)
-               * [MoveIT!](#moveit)
-               * [ROS 2.0](#ros-20)
-                  * [Terminal 1:](#terminal-1-1)
-                  * [Terminal 2:](#terminal-2-1)
-               * [ROS](#ros)
-                  * [Terminal 1:](#terminal-1-2)
-                  * [Terminal 2:](#terminal-2-2)
-                  * [Terminal 3:](#terminal-3)
-                  * [Terminal 4:](#terminal-4)
-         * [Others](#others)
-         * [Example code](#example-code)
+* [MARA](#mara)
+    * [Features](#features)
+    * [Table of Contents](#table-of-contents)
+       * [Specifications](#specifications)
+       * [Packages](#packages)
+          * [Dependencies](#dependencies)
+       * [Install](#install)
+          * [Install ROS 2.0](#install-ros-20)
+          * [Create mara ROS 2.0 workspace](#create-mara-ros-20-workspace)
+          * [Compile](#compile)
+          * [Set up MoveITt! (for now in ROS)](#set-up-moveitt-for-now-in-ros)
+          * [Usage with Gazebo Simulation](#usage-with-gazebo-simulation)
+             * [Terminal 1:](#terminal-1)
+             * [Terminal 2:](#terminal-2)
+             * [Rviz2](#rviz2)
+             * [MoveIT!](#moveit)
+             * [ROS 2.0](#ros-20)
+                * [Terminal 1:](#terminal-1-1)
+                * [Terminal 2:](#terminal-2-1)
+             * [ROS](#ros)
+                * [Terminal 1:](#terminal-1-2)
+                * [Terminal 2:](#terminal-2-2)
+                * [Terminal 3:](#terminal-3)
+                * [Terminal 4:](#terminal-4)
+       * [Others](#others)
+       * [Example code](#example-code)
+       * [Help](#help)
 
 *Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)*
 
@@ -273,3 +276,7 @@ gz sdf -p /home/erle/ros2_mara_ws/src/MARA/mara_description/urdf/mara_robot_came
 ### Example code
 
  - [mara_examples](https://github.com/AcutronicRobotics/mara_examples.git)
+
+### Help
+
+If you need help with MARA's real robot or its simulation, feel free to raise an issue [here](https://github.com/AcutronicRobotics/MARA/issues).
