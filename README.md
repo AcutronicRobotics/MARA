@@ -1,10 +1,54 @@
 # MARA
 
-This repository provides Gazebo ROS 2.0 support for [MARA](https://acutronicrobotics.com/products/mara/).
+<a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/assets/images/AcutronicRobotics_logo_BlackBackground.png.pagespeed.ce.EDHWnZb3Nd.png" align="left" hspace="8" vspace="2" width="200"></a>
 
-![](https://acutronicrobotics.com/docs/user/pages/02.Products/01.MARA/MARA2.jpg)
+This repository provides Gazebo ROS 2.0 support for [MARA](https://acutronicrobotics.com/products/mara/) modular robot, world's first modular cobot. MARA is the first robot which runs ROS 2.0 on each joint empowering new possibilities and applications in the professional and industrial landscapes of robotics. Built out of individual modules that natively run ROS 2.0, the modular robot arm can be physically extended in a seamless manner. MARA delivers industrial-grade features such as time synchronization or deterministic communication latencies.
+
+## Features
+
+<a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/products/mara/images/xv2_MARA2-11.jpg.pagespeed.ic.QRaRP5N01r.webp" align="right" hspace="8" vspace="2" width="200"></a>
+
+- **Powered by ROS 2.0**: a fully distributed software and hardware robotic architecture.
+
+- **Highly customizable**: with daisy chaining, power and communication are exposed at the module level allowing for simplified extensions.
+
+- **Real time data monitoring**: every H-ROS module is able to monitorize a variety of intrinsic aspects in real-time.
+
+- **Power readings**: instantaneous voltage, current and power readings from each module, individually.
+
+- **Automatic re-configuration**: embedded accelerometers, magnetometers and gyroscopes empower each module with inertial data.
+
+- **HW and SW life cycle**: life cycle for each module allows greater control over the state of the ROS system and the underlying components.
+
+- **Controllable from any ROS 2.0 enabled computer**: [ORC](https://acutronicrobotics.com/products/orc/) is the ideal complement for MARA, but not mandatory. Choose yourself how you steer MARA.
+
+
+## Specifications
+
+![](https://acutronicrobotics.com/products/mara/images/xMARA_evolution_end.jpg.pagespeed.ic.dVNwzZ6-4i.webp)
+
+
+| Spec | Value |
+|------|-------|
+| Degrees of freedom | 6 DoF, extensible |
+| Maximum speed | 90º/s |
+| Repeatability | ±0.1 mm |
+| Rated torque | 9.4/30 Nm |
+| Payload | 3 Kg |
+| Weight | 21 Kg |
+| Height | 871 mm |
+| Reach | 656 mm |
+| Footprint | 204 mm |
+| Robotics framework | ROS 2 Crystal Clemmys |
+| Communication interfaces | 1 Gbps Ethernet, Compliant with TSN standards |
+| Information model | Hardware Robot Information Model (HRIM®), version Anboto  |
+| Security | Encrypted and secure computing environment, Secure data exchange capabilities |
+| Automatic updates | Over-the-Air (OTA) |
+| Datasheet | [Download datasheet](https://acutronicrobotics.com/products/mara/files/MARA_datasheet_v1.1.pdf) |
 
 ## Packages
+
+<a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/products/mara/images/v2_MARA6_1-11.png" align="right" hspace="8" vspace="2" width="200"></a>
 
  - `mara_bringup`: roslaunch scripts for starting the MARA.
  - `mara_description`: 3D models of the MARA for simulation and visualization.
@@ -69,7 +113,7 @@ Right now you can compile the code:
 
 ```bash
 source /opt/ros/crystal/setup.bash
-cd ~/ros2_mara_ws && colcon build --merge-install  
+cd ~/ros2_mara_ws && colcon build --merge-install
 ```
 
 ### MoveIT!
