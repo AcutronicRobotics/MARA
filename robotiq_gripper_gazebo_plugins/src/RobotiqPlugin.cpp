@@ -9,6 +9,12 @@ namespace gazebo
   RobotiqHandPlugin::RobotiqHandPlugin()
   {
     printf("RobotiqHandPlugin\n");
+
+    MinVelocity = 0.176;
+    MaxVelocity = 0.88;
+    VelTolerance = 0.002;
+    PoseTolerance = 0.002;
+
   }
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -369,23 +375,23 @@ namespace gazebo
 
   void RobotiqHandPlugin::readfullFile(std::string file_to_read, hrim_generic_msgs::msg::Simulation3D& msg_sim_3d)
   {
-    std::string robotiq_140_description_folder = ament_index_cpp::get_package_share_directory("robotiq_140_gripper_description");
-
-    gzmsg << "readfullFile " << robotiq_140_description_folder + file_to_read << std::endl;
-
-    std::ifstream ifs(robotiq_140_description_folder + file_to_read, std::ios::binary|std::ios::ate);
-
-    if(!ifs.is_open()){
-      gzmsg << "Error reading file " << robotiq_140_description_folder + file_to_read << std::endl;
-      return;
-    }
-
-    std::ifstream::pos_type pos = ifs.tellg();
-
-    msg_sim_3d.model.resize(pos);
-    ifs.seekg(0, std::ios::beg);
-    ifs.read(&msg_sim_3d.model[0], pos);
-    ifs.close();
+    // std::string robotiq_140_description_folder = ament_index_cpp::get_package_share_directory("robotiq_140_gripper_description");
+    //
+    // gzmsg << "readfullFile " << robotiq_140_description_folder + file_to_read << std::endl;
+    //
+    // std::ifstream ifs(robotiq_140_description_folder + file_to_read, std::ios::binary|std::ios::ate);
+    //
+    // if(!ifs.is_open()){
+    //   gzmsg << "Error reading file " << robotiq_140_description_folder + file_to_read << std::endl;
+    //   return;
+    // }
+    //
+    // std::ifstream::pos_type pos = ifs.tellg();
+    //
+    // msg_sim_3d.model.resize(pos);
+    // ifs.seekg(0, std::ios::beg);
+    // ifs.read(&msg_sim_3d.model[0], pos);
+    // ifs.close();
   }
 
   void RobotiqHandPlugin::publish3DModels()
@@ -395,20 +401,20 @@ namespace gazebo
     msg_sim_3d.header.stamp.sec = cur_time.sec;
     msg_sim_3d.header.stamp.nanosec = cur_time.nsec;
 
-    readfullFile("/meshes/GRIPPER_base_axis.stl", msg_sim_3d);
-    sim3d_pub->publish(msg_sim_3d);
-
-    readfullFile("/meshes/robotiq_arg2f_140_inner_finger.stl", msg_sim_3d);
-    sim3d_pub->publish(msg_sim_3d);
-
-    readfullFile("/meshes/robotiq_arg2f_140_inner_knuckle.stl", msg_sim_3d);
-    sim3d_pub->publish(msg_sim_3d);
-
-    readfullFile("/meshes/robotiq_arg2f_140_outer_finger.stl", msg_sim_3d);
-    sim3d_pub->publish(msg_sim_3d);
-
-    readfullFile("/meshes/robotiq_arg2f_140_outer_knuckle.stl", msg_sim_3d);
-    sim3d_pub->publish(msg_sim_3d);
+    // readfullFile("/meshes/GRIPPER_base_axis.stl", msg_sim_3d);
+    // sim3d_pub->publish(msg_sim_3d);
+    //
+    // readfullFile("/meshes/robotiq_arg2f_140_inner_finger.stl", msg_sim_3d);
+    // sim3d_pub->publish(msg_sim_3d);
+    //
+    // readfullFile("/meshes/robotiq_arg2f_140_inner_knuckle.stl", msg_sim_3d);
+    // sim3d_pub->publish(msg_sim_3d);
+    //
+    // readfullFile("/meshes/robotiq_arg2f_140_outer_finger.stl", msg_sim_3d);
+    // sim3d_pub->publish(msg_sim_3d);
+    //
+    // readfullFile("/meshes/robotiq_arg2f_140_outer_knuckle.stl", msg_sim_3d);
+    // sim3d_pub->publish(msg_sim_3d);
   }
 
   void RobotiqHandPlugin::timer_info_msgs()

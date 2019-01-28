@@ -1,6 +1,5 @@
 #include "hros_cognition_mara_components/HROSCognitionMaraComponents.hpp"
 
-#include <rttest/rttest.h>
 #include <unistd.h>
 
 int main(int argc, char * argv[])
@@ -9,10 +8,6 @@ int main(int argc, char * argv[])
   // this ensures a correct sync of all prints
   // even when executed simultaneously within the launch file.
   setvbuf(stdout, NULL, _IONBF, BUFSIZ);
-
-  if (rttest_set_sched_priority(48, SCHED_RR)) {
-    perror("Couldn't set scheduling priority and policy");
-  }
 
   char hostname[150];
   memset(hostname, 0, 150);

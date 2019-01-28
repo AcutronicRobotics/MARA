@@ -12,7 +12,6 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(rttest REQUIRED)
 find_package(hrim_generic_msgs REQUIRED)
 find_package(hrim_actuator_rotaryservo_msgs REQUIRED)
 find_package(trajectory_msgs REQUIRED)
@@ -37,7 +36,6 @@ add_executable(${PROJECT_NAME}
 
 ament_target_dependencies(${PROJECT_NAME}
   "rclcpp"
-  "rttest"
   "hrim_generic_msgs"
   "rclcpp"
   "trajectory_msgs"
@@ -48,7 +46,6 @@ ament_target_dependencies(${PROJECT_NAME}
 
 # Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}
-  stdc++fs
   ${YAML_CPP_LIBRARIES}
 )
 

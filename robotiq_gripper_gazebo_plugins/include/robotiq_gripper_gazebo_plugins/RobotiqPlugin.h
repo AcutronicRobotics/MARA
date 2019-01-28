@@ -114,19 +114,19 @@ namespace gazebo
     private: gazebo::common::Time lastControllerUpdateTime;
 
     /// \brief Min. joint speed (rad/s). Finger is 125mm and tip speed is 22mm/s.
-    private: static const double MinVelocity = 0.176;
+    private: double MinVelocity;
 
     /// \brief Max. joint speed (rad/s). Finger is 125mm and tip speed is 110mm/s.
-    private: static const double MaxVelocity = 0.88;
+    private: double MaxVelocity;
 
     /// \brief Velocity tolerance. Below this value we assume that the joint is
     /// stopped (rad/s).
-    private: static const double VelTolerance = 0.002;
+    private: double VelTolerance;
 
     /// \brief Position tolerance. If the difference between target position and
     /// current position is within this value we'll conclude that the joint
     /// reached its target (rad).
-    private: static const double PoseTolerance = 0.002;
+    private: double PoseTolerance;
 
     int sentido = 1;
     int count = 0;
