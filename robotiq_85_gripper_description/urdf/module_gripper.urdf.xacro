@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       name="robotiq_85" >
+
+  <!-- robotiq hande_gripper -->
+  <xacro:include filename="$(find robotiq_85_gripper_description)/urdf/robotiq_85.urdf.xacro" />
+  <xacro:robotiq_85 prefix="robotiq85"/>
+
+  <link name="world" />
+
+  <joint name="world_to_hande_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <parent link="world"/>
+    <child link="robotiq_adapter_link"/>
+  </joint>
+
+</robot>

@@ -105,11 +105,10 @@ namespace gazebo
     /// \brief gazebo world update connection.
     private: gazebo::event::ConnectionPtr updateConnection;
 
-    private: gazebo::common::PID posePID_left_inner_knuckle;
-    private: gazebo::common::PID posePID_right_inner_knuckle;
-
-    private: physics::JointPtr left_inner_knuckle_joint;
-    private: physics::JointPtr right_inner_knuckle_joint;
+    private: std::vector<gazebo::common::PID> left_posePID_v_;
+    private: std::vector<gazebo::common::PID> right_posePID_v_;
+    private: std::vector<physics::JointPtr> left_joint_v_;
+    private: std::vector<physics::JointPtr> right_joint_v_;
 
     private: gazebo::common::Time lastControllerUpdateTime;
 

@@ -19,17 +19,17 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/Base_plancha.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/Base_plancha.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Grey">
           <color rgba="0. 0. 0. 1"/>
-          <texture filename="model://mara_description/material/gazebo.material" />
+          <texture filename="package://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/Base_plancha.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/Base_plancha.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -47,22 +47,22 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/Base.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/Base.dae" scale="0.001 0.001 0.001"/>
         </geometry>
-        <material name="Gazebo/Grey">
+        <material name="Gazebo/Black">
           <color rgba="0. 0. 0. 1"/>
-          <texture filename="model://mara_description/material/gazebo.material" />
+          <texture filename="package://mara_description/material/gazebo.material" />
       </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/Base.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/Base.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
     <gazebo reference="${prefix}base_robot">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Black</material>
       <selfCollide>True</selfCollide>
     </gazebo>
 
@@ -75,17 +75,17 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_T49.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_T49.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/White">
           <color rgba="0. 0. 0. 1"/>
-          <texture filename="model://mara_description/material/gazebo.material" />
+          <texture filename="package://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_T49.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_T49.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -103,17 +103,17 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_T49_Black.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_T49_Black.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0. 0. 0. 1"/>
-          <texture filename="model://mara_description/material/gazebo.material" />
+          <texture filename="package://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_T49_Black.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_T49_Black.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -131,17 +131,17 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_Link1.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_Link1.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0. 0. 0. 1"/>
-          <texture filename="model://mara_description/material/gazebo.material" />
+          <texture filename="package://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_Link1.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_Link1.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -159,17 +159,17 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_T30.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_T30.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/White">
           <color rgba="0. 0. 0. 1"/>
-          <texture filename="model://mara_description/material/gazebo.material" />
+          <texture filename="package://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_T30.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_T30.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -187,17 +187,17 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_T30_Black.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_T30_Black.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0. 0. 0. 1"/>
-          <texture filename="model://mara_description/material/gazebo.material" />
+          <texture filename="package://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_T30_Black.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_T30_Black.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -215,17 +215,17 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_Link2.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_Link2.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0. 0. 0. 1"/>
-          <texture filename="model://mara_description/material/gazebo.material" />
+          <texture filename="package://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_Link2.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_Link2.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -243,17 +243,17 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_T5.4.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_T5.4.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/White">
           <color rgba="0. 0. 0. 1"/>
-          <texture filename="model://mara_description/material/gazebo.material" />
+          <texture filename="package://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_T5.4.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_T5.4.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -271,17 +271,17 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_T5.4_black.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_T5.4_black.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0. 0. 0. 1"/>
-          <texture filename="model://mara_description/material/gazebo.material" />
+          <texture filename="package://mara_description/material/gazebo.material" />
         </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_T5.4_black.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_T5.4_black.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -299,17 +299,17 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_GripperAdapter.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_GripperAdapter.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0. 0. 0. 1"/>
-          <texture filename="model://mara_description/material/gazebo.material" />
+          <texture filename="package://mara_description/material/gazebo.material" />
       </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="model://mara_description/meshes/MARA_GripperAdapter.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://mara_description/meshes/MARA_GripperAdapter.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -336,7 +336,7 @@
       <parent link="${prefix}base_robot"/>
       <child link="${prefix}motor1_link"/>
       <axis xyz="0 0 -1"/>
-      <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
+      <limit effort="330.0" lower="-3.1416" upper="3.1416" velocity="3.1416"/>
       <dynamics damping="0" friction="0"/>
     </joint>
 
@@ -351,7 +351,7 @@
       <parent link="${prefix}motor1_link"/>
       <child link="${prefix}motor2_link"/>
       <axis xyz="-1 0 0"/>
-      <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
+      <limit effort="330.0" lower="-3.1416" upper="3.1416" velocity="3.1416"/>
       <dynamics damping="0" friction="0"/>
     </joint>
 
@@ -360,7 +360,7 @@
       <parent link="${prefix}motor2_link"/>
       <child link="${prefix}motor3_link"/>
       <axis xyz="1 0 0"/>
-      <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
+      <limit effort="330.0" lower="-3.1416" upper="3.1416" velocity="3.1416"/>
       <dynamics damping="0" friction="0"/>
     </joint>
 
@@ -375,7 +375,7 @@
       <parent link="${prefix}motor3_link"/>
       <child link="${prefix}motor4_link"/>
       <axis xyz="0 0 -1"/>
-      <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
+      <limit effort="330.0" lower="-3.1416" upper="3.1416" velocity="3.1416"/>
       <dynamics damping="0" friction="0"/>
     </joint>
 
@@ -384,7 +384,7 @@
       <parent link="${prefix}motor4_link"/>
       <child link="${prefix}motor5_link"/>
       <axis xyz="1 0 0"/>
-      <limit effort="330.0" lower="-2.3562" upper="2.3562" velocity="3.1416"/>
+      <limit effort="330.0" lower="-3.1416" upper="3.1416" velocity="3.1416"/>
       <dynamics damping="0" friction="0"/>
     </joint>
 

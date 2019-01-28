@@ -19,6 +19,8 @@ install(DIRECTORY launch
 install(
   PROGRAMS
   scripts/spawn_hande.py
+  scripts/spawn_robotiq85.py
+  scripts/spawn_robotiq140.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

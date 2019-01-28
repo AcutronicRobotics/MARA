@@ -33,8 +33,8 @@ namespace gazebo
     ignition::math::Angle tolerance;
     tolerance.Degree(1.0);
 
-    fingersOpen = fingersOpen && (left_inner_knuckle_joint->Position(0) < (left_inner_knuckle_joint->LowerLimit(0) + tolerance.Radian()));
-    fingersOpen = fingersOpen && (right_inner_knuckle_joint->Position(0) < (right_inner_knuckle_joint->LowerLimit(0) + tolerance.Radian()));
+    fingersOpen = fingersOpen && (left_joint_v_.front()->Position(0) < (left_joint_v_.front()->LowerLimit(0) + tolerance.Radian()));
+    fingersOpen = fingersOpen && (right_joint_v_.front()->Position(0) < (right_joint_v_.front()->LowerLimit(0) + tolerance.Radian()));
 
     return fingersOpen;
   }
@@ -60,44 +60,51 @@ namespace gazebo
   {
     (void)request_header;
 
-    targetPose_right = request->goal_angularposition;//right_inner_knuckle_joint->UpperLimit(0);
-    targetPose_left = request->goal_angularposition;//left_inner_knuckle_joint->UpperLimit(0);
+    targetPose_right = request->goal_angularposition;//right_inner_finger_joint->UpperLimit(0);
+    targetPose_left = request->goal_angularposition;//left_inner_finger_joint->UpperLimit(0);
 
-    double currentPose_right = right_inner_knuckle_joint->Position(0);
-    double currentPose_left = left_inner_knuckle_joint->Position(0);
+    double currentPose_right = right_joint_v_.front()->Position(0);
+    double currentPose_left = left_joint_v_.front()->Position(0);
 
     if(currentPose_right - targetPose_right > 0)
       sentido = 1;
     else
       sentido = -1;
 
-    posePID_left_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
-    posePID_left_inner_knuckle.SetCmd(0.0);
-    posePID_right_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
-    posePID_right_inner_knuckle.SetCmd(0.0);
-
     sentido = sentido*-1;
 
-    if(sentido>0){
-      posePID_left_inner_knuckle.SetCmdMin(0);
-      posePID_left_inner_knuckle.SetCmdMax(cmdmax);
-      posePID_right_inner_knuckle.SetCmdMin(0);
-      posePID_right_inner_knuckle.SetCmdMax(cmdmax);
-    }else{
-      posePID_left_inner_knuckle.SetCmdMin(cmdmin);
-      posePID_left_inner_knuckle.SetCmdMax(0);
-      posePID_right_inner_knuckle.SetCmdMin(cmdmin);
-      posePID_right_inner_knuckle.SetCmdMax(0);
+    for (auto &posePID : right_posePID_v_){
+      posePID.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
+      posePID.SetCmd(0.0);
+      if(sentido>0){
+        posePID.SetCmdMin(0);
+        posePID.SetCmdMax(cmdmax);
+      }else{
+        posePID.SetCmdMin(cmdmin);
+        posePID.SetCmdMax(0);
+      }
+    }
+
+    for (auto &posePID : left_posePID_v_){
+      posePID.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
+      posePID.SetCmd(0.0);
+      if(sentido>0){
+        posePID.SetCmdMin(0);
+        posePID.SetCmdMax(cmdmax);
+      }else{
+        posePID.SetCmdMin(cmdmin);
+        posePID.SetCmdMax(0);
+      }
     }
 
     gzmsg << "Position PID parameters for joints "  << std::endl
-          << "\tKP: "     << posePID_left_inner_knuckle.GetPGain()  << std::endl
-          << "\tKI: "     << posePID_left_inner_knuckle.GetIGain()  << std::endl
-          << "\tKD: "     << posePID_left_inner_knuckle.GetDGain()  << std::endl
-          << "\tIMin: "   << posePID_left_inner_knuckle.GetIMin()   << std::endl
-          << "\tIMax: "   << posePID_left_inner_knuckle.GetIMax()   << std::endl
-          << "\tCmdMin: " << posePID_left_inner_knuckle.GetCmdMin() << std::endl
-          << "\tCmdMax: " << posePID_left_inner_knuckle.GetCmdMax() << std::endl
+          << "\tKP: "     << left_posePID_v_.front().GetPGain()  << std::endl
+          << "\tKI: "     << left_posePID_v_.front().GetIGain()  << std::endl
+          << "\tKD: "     << left_posePID_v_.front().GetDGain()  << std::endl
+          << "\tIMin: "   << left_posePID_v_.front().GetIMin()   << std::endl
+          << "\tIMax: "   << left_posePID_v_.front().GetIMax()   << std::endl
+          << "\tCmdMin: " << left_posePID_v_.front().GetCmdMin() << std::endl
+          << "\tCmdMax: " << left_posePID_v_.front().GetCmdMax() << std::endl
           << std::endl;
 
     response->goal_accepted = true;
@@ -223,36 +230,67 @@ namespace gazebo
     };
     ros_node_->register_param_change_callback(param_change_callback);
 
-    posePID_left_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
-    posePID_right_inner_knuckle.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
+    sdf::ElementPtr left_joint_elem = sdf->GetElement("left_joint");
+    while (left_joint_elem) {
+      auto joint_name = left_joint_elem->Get<std::string>();
 
-    left_inner_knuckle_joint = this->model->GetJoint("left_inner_knuckle_joint");
-    if (!left_inner_knuckle_joint){
-      gzthrow("could not find front left_inner_knuckle_joint\n");
+      auto joint = model->GetJoint(joint_name);
+      if (!joint) {
+        gzthrow("Could not find "+joint_name+" left joint\n");
+      } else {
+        left_joint_v_.push_back(joint);
+        RCLCPP_INFO(ros_node_->get_logger(), "Found left join [%s]", joint_name.c_str());
+      }
+
+      left_joint_elem = left_joint_elem->GetNextElement("left_joint");
     }
-    this->model->GetJointController()->SetPositionPID(
-        this->left_inner_knuckle_joint->GetScopedName(), this->posePID_left_inner_knuckle);
 
-    gzmsg << "left_inner_knuckle_joint LowerLimit " << left_inner_knuckle_joint->LowerLimit(0) << std::endl;
-    gzmsg << "left_inner_knuckle_joint UpperLimit " << left_inner_knuckle_joint->UpperLimit(0) << std::endl;
-    gzmsg << "left_inner_knuckle_joint GetEffortLimit " << left_inner_knuckle_joint->GetEffortLimit(0) << std::endl;
-    gzmsg << "left_inner_knuckle_joint GetVelocityLimit " << left_inner_knuckle_joint->GetVelocityLimit(0) << std::endl;
-    posePID_left_inner_knuckle.SetCmdMin(-left_inner_knuckle_joint->GetEffortLimit(0));
-    posePID_left_inner_knuckle.SetCmdMax(left_inner_knuckle_joint->GetEffortLimit(0));
-
-    right_inner_knuckle_joint = this->model->GetJoint("right_inner_knuckle_joint");
-    if (!right_inner_knuckle_joint){
-      gzthrow("could not find front right_inner_knuckle_joint\n");
+    if (left_joint_v_.empty()) {
+      RCLCPP_ERROR(ros_node_->get_logger(), "No left joints found.");
+      ros_node_.reset();
+      return;
     }
-    this->model->GetJointController()->SetPositionPID(
-        this->right_inner_knuckle_joint->GetScopedName(), this->posePID_right_inner_knuckle);
 
-    gzmsg << "right_inner_knuckle_joint LowerLimit " << right_inner_knuckle_joint->LowerLimit(0) << std::endl;
-    gzmsg << "right_inner_knuckle_joint UpperLimit " << right_inner_knuckle_joint->UpperLimit(0) << std::endl;
-    gzmsg << "right_inner_knuckle_joint GetEffortLimit " << right_inner_knuckle_joint->GetEffortLimit(0) << std::endl;
-    gzmsg << "right_inner_knuckle_joint GetVelocityLimit " << right_inner_knuckle_joint->GetVelocityLimit(0) << std::endl;
-    posePID_right_inner_knuckle.SetCmdMin(-right_inner_knuckle_joint->GetEffortLimit(0));
-    posePID_right_inner_knuckle.SetCmdMax(right_inner_knuckle_joint->GetEffortLimit(0));
+    sdf::ElementPtr right_joint_elem = sdf->GetElement("right_joint");
+    while (right_joint_elem) {
+      auto joint_name = right_joint_elem->Get<std::string>();
+
+      auto joint = model->GetJoint(joint_name);
+      if (!joint) {
+        gzthrow("Could not find "+joint_name+" right joint\n");
+      } else {
+        right_joint_v_.push_back(joint);
+        RCLCPP_INFO(ros_node_->get_logger(), "Found right join [%s]", joint_name.c_str());
+      }
+
+      right_joint_elem = right_joint_elem->GetNextElement("right_joint");
+    }
+
+    if (right_joint_v_.empty()) {
+      RCLCPP_ERROR(ros_node_->get_logger(), "No right joints found.");
+      ros_node_.reset();
+      return;
+    }
+
+    for (auto &joint : left_joint_v_){
+      gazebo::common::PID tmp_pid;
+      tmp_pid.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
+      gzmsg << joint->GetName().c_str() <<" LowerLimit " << joint->LowerLimit(0) << std::endl;
+      gzmsg << joint->GetName().c_str() <<" UpperLimit " << joint->UpperLimit(0) << std::endl;
+      tmp_pid.SetCmdMin(-joint->GetEffortLimit(0));
+      tmp_pid.SetCmdMax(joint->GetEffortLimit(0));
+      left_posePID_v_.push_back(tmp_pid);
+    }
+
+    for (auto &joint : right_joint_v_){
+      gazebo::common::PID tmp_pid;
+      tmp_pid.Init(kp, ki, kd, imax, imin, cmdmax, cmdmin);
+      gzmsg << joint->GetName().c_str() <<" LowerLimit " << joint->LowerLimit(0) << std::endl;
+      gzmsg << joint->GetName().c_str() <<" UpperLimit " << joint->UpperLimit(0) << std::endl;
+      tmp_pid.SetCmdMin(-joint->GetEffortLimit(0));
+      tmp_pid.SetCmdMax(joint->GetEffortLimit(0));
+      right_posePID_v_.push_back(tmp_pid);
+    }
 
     this->lastControllerUpdateTime = this->world->SimTime();
 
@@ -297,10 +335,14 @@ namespace gazebo
   void RobotiqHandPlugin::UpdatePIDControl(double _dt)
   {
     // Set the joint's target velocity.
-    this->model->GetJointController()->SetPositionTarget(
-            this->right_inner_knuckle_joint->GetScopedName(), targetPose_right);
-    this->model->GetJointController()->SetPositionTarget(
-            this->left_inner_knuckle_joint->GetScopedName(), targetPose_left);
+    for(auto &joint : this->left_joint_v_){
+      this->model->GetJointController()->SetPositionTarget(
+        joint->GetScopedName(), targetPose_left);
+    }
+    for(auto &joint : this->right_joint_v_){
+      this->model->GetJointController()->SetPositionTarget(
+        joint->GetScopedName(), targetPose_right);
+    }
   }
 
   void RobotiqHandPlugin::createGenericTopics(std::string node_name)
@@ -456,7 +498,7 @@ namespace gazebo
     gazebo::common::Time cur_time = this->model->GetWorld()->SimTime();
     state_gripper_finger_msg.header.stamp.sec = cur_time.sec;
     state_gripper_finger_msg.header.stamp.nanosec = cur_time.nsec;
-    state_gripper_finger_msg.angular_position = right_inner_knuckle_joint->Position(0);
+    state_gripper_finger_msg.angular_position = right_joint_v_.front()->Position(0);
     state_gripper_finger_msg.linear_position = 0;
 
     gripper_finger_state_pub->publish(state_gripper_finger_msg);
