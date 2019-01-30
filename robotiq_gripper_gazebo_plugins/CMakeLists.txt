@@ -33,12 +33,12 @@ include_directories(include
 )
 link_directories(${gazebo_dev_LIBRARY_DIRS})
 
-# mara_gazebo_joint_plugin
-add_library(${PROJECT_NAME} SHARED
+# robotiq angular finger gripper plugin
+add_library(robotiq_angular_gripper_gazebo_plugin SHARED
   src/RobotiqPlugin.cpp
 )
 
-ament_target_dependencies(${PROJECT_NAME}
+ament_target_dependencies(robotiq_angular_gripper_gazebo_plugin
   "gazebo_dev"
   "gazebo_ros"
   "rclcpp"
@@ -51,7 +51,27 @@ ament_target_dependencies(${PROJECT_NAME}
   "ament_index_cpp"
 )
 
-ament_export_libraries(${PROJECT_NAME})
+ament_export_libraries(robotiq_angular_gripper_gazebo_plugin)
+
+# robotiq linear finger gripper plugin
+add_library(robotiq_linear_gripper_gazebo_plugin SHARED
+  src/RobotiqLinearPlugin.cpp
+)
+
+ament_target_dependencies(robotiq_linear_gripper_gazebo_plugin
+  "gazebo_dev"
+  "gazebo_ros"
+  "rclcpp"
+  "tf2"
+  "tf2_geometry_msgs"
+  "tf2_ros"
+  "std_srvs"
+  "hrim_actuator_gripper_msgs"
+  "hrim_actuator_gripper_srvs"
+  "ament_index_cpp"
+)
+
+ament_export_libraries(robotiq_linear_gripper_gazebo_plugin)
 
 ament_export_include_directories(include)
 ament_export_dependencies(rclcpp)
@@ -64,7 +84,8 @@ install(DIRECTORY include/
         DESTINATION include)
 
 install(TARGETS
-  ${PROJECT_NAME}
+  robotiq_angular_gripper_gazebo_plugin
+  robotiq_linear_gripper_gazebo_plugin
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
