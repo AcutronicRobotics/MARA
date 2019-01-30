@@ -111,14 +111,10 @@ Create a ROS workspace, for example:
 
 ```bash
 mkdir -p ~/ros2_mara_ws/src
-cd ~/ros2_mara_ws/src
-git clone https://github.com/AcutronicRobotics/MARA
-git clone https://github.com/ros-simulation/gazebo_ros_pkgs -b ros2
-git clone https://github.com/erlerobot/HRIM/
-git clone https://github.com/erlerobot/control_msgs -b crystal
-git clone https://github.com/ros-perception/image_common -b ros2
-git clone https://github.com/ros-perception/vision_opencv -b ros2
-sudo apt install python3-numpy
+cd ~/ros2_mara_ws
+sudo apt install -y python3-vcstool python3-numpy
+wget https://raw.githubusercontent.com/acutronicrobotics/MARA/master/mara-ros2.repos
+vcs import src < mara-ros2.repos
 ```
 
 Generate HRIM dependencies:
