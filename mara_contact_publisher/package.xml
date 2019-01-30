@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
+  <name>mara_contact_publisher</name>
+  <version>0.0.2</version>
+  <description>
+        Gazebo contact ROS2 publisher.
+  </description>
+
+  <!-- One maintainer tag required, multiple allowed, one person per tag -->
+  <maintainer email="alex@erlerobotics.com">Alejandro Hernández Cordero</maintainer>
+  <license>GPLv3</license>
+
+  <author email="alex@erlerobotics.com">Alejandro Hernández Cordero</author>
+  <author email="nestor@erlerobotics.com">Nestor Gonzalez</author>
+
+  <!-- The *_depend tags are used to specify dependencies -->
+  <!-- Dependencies can be catkin packages or system dependencies -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>gazebo_ros</build_depend>
+  <build_depend>gazebo_dev</build_depend>
+  <build_depend>gazebo_msgs</build_depend>
+  <build_depend>rclcpp</build_depend>
+
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>gazebo_dev</exec_depend>
+  <exec_depend>rclcpp</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
