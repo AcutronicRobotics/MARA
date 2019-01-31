@@ -83,6 +83,13 @@
       <selfCollide>True</selfCollide>
     </gazebo>
 
+    <gazebo>
+      <plugin filename="librobotiq_linear_gripper_gazebo_plugin.so" name="robotiq_hande_gripper">
+        <left_joint>finger1_joint</left_joint>
+        <right_joint>finger2_joint</right_joint>
+      </plugin>
+    </gazebo>
+
     <joint name="finger1_joint" type="fixed">
       <origin rpy="0 0 0" xyz="0 0 0.0"/>
       <parent link="robotiq_hande_base_link"/>
