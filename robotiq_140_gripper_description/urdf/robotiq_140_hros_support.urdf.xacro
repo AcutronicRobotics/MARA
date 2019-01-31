@@ -2,6 +2,33 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:macro name="robotiq_gripper"  params="prefix">
+    <link name="robotiq_adapter_link">
+      <inertial>
+        <origin xyz="8.625E-08 -4.6583E-06 0.03145" rpy="0 0 0" />
+        <mass value="0.22652" />
+        <inertia ixx="0.00020005" ixy="0" ixz="0" iyy="0.00017832" iyz="0" izz="0.00013478" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/hros_robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="Gazebo/Black">
+          <color rgba="0.1 0.1 0.1 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/hros_robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+    <gazebo reference="robotiq_adapter_link">
+      <material>Gazebo/Black</material>
+      <selfCollide>True</selfCollide>
+    </gazebo>
+
     <link name="robotiq_arg2f_base_link">
       <inertial>
         <origin xyz="8.625E-08 -4.6583E-06 0.03145" rpy="0 0 0" />
@@ -281,6 +308,12 @@
       <material>Gazebo/Black</material>
       <selfCollide>True</selfCollide>
     </gazebo>
+
+    <joint name="base_adapter_to_base_robotiq_joint" type="fixed">
+      <origin rpy="0 0 0" xyz=" 0 0 0.03653"/>
+      <parent link="robotiq_adapter_link" />
+      <child link="robotiq_arg2f_base_link"/>
+    </joint>
 
     <joint name="left_outer_knuckle_joint" type="revolute">
       <origin xyz="0 -0.030601 0.054905" rpy="2.31 0 0" />
