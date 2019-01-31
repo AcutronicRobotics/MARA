@@ -377,7 +377,7 @@
         </axis>
       </joint>
 
-      <plugin filename="librobotiq_gripper_gazebo_plugin.so" name="hros_actuation_gripper_000000000004">
+      <plugin filename="librobotiq_angular_gripper_gazebo_plugin.so" name="robotiq_140_gripper">
         <left_joint>left_inner_knuckle_joint</left_joint>
         <left_joint>left_outer_knuckle_joint</left_joint>
         <right_joint>right_inner_knuckle_joint</right_joint>
