@@ -11,7 +11,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/base_gripper.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/base_gripper.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0.1 0.1 0.1 1" />
@@ -20,7 +20,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/base_gripper.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/base_gripper.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -38,7 +38,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_1_l.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_1_l.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Grey">
           <color rgba="0.1 0.1 0.1 1" />
@@ -47,7 +47,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_1_l.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_1_l.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -65,7 +65,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_1_r.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_1_r.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Grey">
           <color rgba="0.1 0.1 0.1 1" />
@@ -74,7 +74,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_1_r.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_1_r.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -92,7 +92,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_3_l.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_3_l.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0.1 0.1 0.1 1" />
@@ -101,7 +101,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_3_l.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_3_l.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -119,7 +119,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_3_r.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_3_r.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0.1 0.1 0.1 1" />
@@ -128,7 +128,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_3_r.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_3_r.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -146,7 +146,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_2_l.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_2_l.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0.1 0.1 0.1 1" />
@@ -155,7 +155,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_2_l.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_2_l.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -173,7 +173,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_2_r.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_2_r.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0.1 0.1 0.1 1" />
@@ -182,7 +182,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_2_r.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_2_r.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -200,7 +200,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_4_l.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_4_l.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0.1 0.1 0.1 1" />
@@ -209,7 +209,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_4_l.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_4_l.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -227,7 +227,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_4_r.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_4_r.dae" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Gazebo/Black">
           <color rgba="0.1 0.1 0.1 1" />
@@ -236,7 +236,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_4_r.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://robotiq_85_gripper_description/meshes/2-F-85_4_r.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
