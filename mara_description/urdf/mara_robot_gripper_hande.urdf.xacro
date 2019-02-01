@@ -14,7 +14,7 @@
   <xacro:include filename="$(find mara_description)/urdf/table.urdf.xacro" />
 
   <!-- arm -->
-  <xacro:mara_robot prefix="" joint_limited="false"/>
+  <xacro:mara_robot prefix="" ee_link_distance="0.18"/>
   <xacro:robotiq_hande prefix="mara" />
   <xacro:table prefix="" />
 

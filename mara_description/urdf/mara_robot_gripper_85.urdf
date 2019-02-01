@@ -379,13 +379,14 @@
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="ee_link" type="fixed">
-    <origin rpy="0 -1.57 0" xyz="0 0.0 0.24"/>
+    <origin rpy="0 -1.57 0" xyz="0 0.0 0.165"/>
+    <!-- 0.24 -->
     <parent link="motor6_link"/>
     <child link="ee_link"/>
   </joint>
   <link name="tool0"/>
   <joint name="motor6_link-tool0_fixed_joint" type="fixed">
-    <origin rpy="0 -1.57 0" xyz="0 0.0 0.24"/>
+    <origin rpy="0 -1.57 0" xyz="0 0.0 0.165"/>
     <parent link="motor6_link"/>
     <child link="tool0"/>
   </joint>

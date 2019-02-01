@@ -8,7 +8,7 @@
   <xacro:include filename="$(find mara_description)/urdf/mara.transmission.xacro" />
   <xacro:include filename="$(find mara_description)/urdf/mara_gazebo.urdf.xacro" />
 
-  <xacro:macro name="mara_robot"  params="prefix joint_limited">
+  <xacro:macro name="mara_robot"  params="prefix ee_link_distance">
 
     <link name="${prefix}base_link">
       <inertial>
@@ -404,14 +404,14 @@
     </joint>
 
     <joint name="${prefix}ee_link" type="fixed">
-      <origin rpy="0 -1.57 0" xyz="0 0.0 0.24"/>
+      <origin rpy="0 -1.57 0" xyz="0 0.0 ${ee_link_distance}"/> <!-- 0.24 -->
       <parent link="${prefix}motor6_link"/>
       <child link="${prefix}ee_link"/>
     </joint>
 
     <link name="${prefix}tool0"/>
     <joint name="${prefix}${prefix}motor6_link-tool0_fixed_joint" type="fixed">
-      <origin rpy="0 -1.57 0" xyz="0 0.0 0.24"/>
+      <origin rpy="0 -1.57 0" xyz="0 0.0 ${ee_link_distance}"/>
       <parent link="${prefix}${prefix}motor6_link"/>
       <child link="${prefix}tool0"/>
     </joint>
