@@ -39,7 +39,7 @@
     <visual>
       <origin rpy="0 0 1.57" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/GRIPPER_base_axis.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/GRIPPER_base_axis.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0.1 0.1 0.1 1"/>
@@ -48,7 +48,7 @@
     <collision>
       <origin rpy="0 0 1.57" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/GRIPPER_base_axis.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/GRIPPER_base_axis.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -65,7 +65,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_outer_knuckle.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_outer_knuckle.dae"/>
       </geometry>
       <material name="">
         <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1"/>
@@ -74,7 +74,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_outer_knuckle.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_outer_knuckle.dae"/>
       </geometry>
     </collision>
   </link>
@@ -91,7 +91,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_outer_knuckle.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_outer_knuckle.dae"/>
       </geometry>
       <material name="">
         <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1"/>
@@ -100,7 +100,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_outer_knuckle.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_outer_knuckle.dae"/>
       </geometry>
     </collision>
   </link>
@@ -117,7 +117,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_inner_knuckle.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_inner_knuckle.dae"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0.1 0.1 0.1 1"/>
@@ -137,7 +137,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_inner_knuckle.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_inner_knuckle.dae"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0.1 0.1 0.1 1"/>
@@ -157,7 +157,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_inner_finger.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_inner_finger.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0.1 0.1 0.1 1"/>
@@ -166,7 +166,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_inner_finger.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_inner_finger.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -183,7 +183,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_inner_finger.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_inner_finger.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0.1 0.1 0.1 1"/>
@@ -192,7 +192,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_inner_finger.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_inner_finger.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -209,7 +209,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_outer_finger.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_outer_finger.dae"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0.1 0.1 0.1 1"/>
@@ -218,7 +218,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_outer_finger.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_left_outer_finger.dae"/>
       </geometry>
     </collision>
   </link>
@@ -235,7 +235,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_outer_finger.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_outer_finger.dae"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0.1 0.1 0.1 1"/>
@@ -244,7 +244,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_outer_finger.stl"/>
+        <mesh filename="package://robotiq_140_gripper_description/meshes/robotiq_140_right_outer_finger.dae"/>
       </geometry>
     </collision>
   </link>
