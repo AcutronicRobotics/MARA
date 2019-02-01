@@ -37,19 +37,14 @@ Among other things, you will find in this repository instructions on how to simu
           * [Compile](#compile)
           * [Set up MoveITt! (for now in ROS)](#set-up-moveitt-for-now-in-ros)
           * [Usage with Gazebo Simulation](#usage-with-gazebo-simulation)
-             * [Terminal 1:](#terminal-1)
-             * [Terminal 2:](#terminal-2)
-             * [Rviz2](#rviz2)
-             * [MoveIT!](#moveit)
-             * [ROS 2.0](#ros-20)
-                * [Terminal 1:](#terminal-1-1)
-                * [Terminal 2:](#terminal-2-1)
-             * [ROS](#ros)
-                * [Terminal 1:](#terminal-1-2)
-                * [Terminal 2:](#terminal-2-2)
-                * [Terminal 3:](#terminal-3)
-                * [Terminal 4:](#terminal-4)
-       * [Others](#others)
+           * [Terminal 1:](#terminal-1)
+           * [Rviz2](#rviz2)
+           * [MoveIT!](#moveit)
+            * [ROS 2.0](#ros-20)
+             * [Terminal 1:](#terminal-1-1)
+             * [Terminal 2:](#terminal-2-1)
+            * [ROS](#ros)
+             * [Terminal 1:](#terminal-1-2)
        * [Example code](#example-code)
        * [Help](#help)
 
@@ -159,30 +154,14 @@ Don't forget to source the correct setup shell files and use a new terminal for 
 
 ##### Terminal 1:
 
-To bring up the simulated robot in Gazebo:
+To bring up the simulated robot in Gazebo. You can choose one of the following ros2 launch depends on the gripper that you want to use:
 
 ```
 source ~/ros2_mara_ws/install/setup.bash
-source /usr/share/gazebo/setup.sh
-export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/ros2_mara_ws/src/MARA
-export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH:~/ros2_mara_ws/src/MARA/mara_gazebo_plugins/build/
-gazebo --verbose -s libgazebo_ros_factory.so
-```
-
-##### Terminal 2:
-
-Spawing the model:
-
-```
-source ~/ros2_mara_ws/install/setup.bash
-ros2 run mara_utils_scripts spawn_entity.py
-```
-
-Publishing robot model
-
-```
-source ~/ros2_mara_ws/install/setup.bash
-ros2 launch mara_bringup mara_bringup.launch.py
+ros2 launch mara_gazebo mara.launch.py
+ros2 launch mara_bringup mara_gripper_140.launch.py
+ros2 launch mara_bringup mara_gripper_85.launch.py
+ros2 launch mara_bringup mara_gripper_hande.launch.py
 ```
 
 ##### Rviz2
@@ -196,13 +175,21 @@ rviz2
 
 ##### MoveIT!
 
-MoveIT! is not yet available for ROS 2.0. For now, if you want to use it with MARA we need to launch a set of nodes to create a bridge between ROS and ROS 2.0. It's quite complex to configure, please be pacient.
-
-##### ROS 2.0
-
-We need to launch in ROS 2.0 two nodes. One is the bridge between ROS and ROS 2.0 and the other one is the node that fetches all the state from the motors and create a topic called `/mara_controller/state`.
+###### ROS 2.0
 
 ###### Terminal 1:
+
+You can run `gazebo`, spawn the model, publish the robot state and run `hros_cognition_mara_components` using the ROS 2.0 launch file. You can choose one of the following `ros2 launch` depends on the gripper that you want to use:
+
+```
+source ~/ros2_mara_ws/install/setup.bash
+ros2 launch mara_gazebo mara.launch.py
+ros2 launch mara_bringup mara_gripper_140.launch.py
+ros2 launch mara_bringup mara_gripper_85.launch.py
+ros2 launch mara_bringup mara_gripper_hande.launch.py
+```
+
+###### Terminal 2:
 
 We need to run this node to create a bridge bewteen ROS and ROS 2.0. The topics that will be available are `/mara_controller/state`, `/joints_state` and `hros_actuation_servomotor_*********/trajectory`. Type the following command to run the bridge:
 
@@ -212,61 +199,13 @@ source ~/ros2_mara_ws/install/setup.bash
 ros2 run individual_trajectories_bridge individual_trajectories_bridge -motors `ros2 pkg prefix individual_trajectories_bridge`/share/individual_trajectories_bridge/motors.yaml
 ```
 
-###### Terminal 2:
+###### ROS
 
-This ROS 2.0 node will fetch all the `hros_actuation_servomotor_*********/state` topics define in the config file and these topics data will be republish in a topic called `/mara_controller/state`. This node also will be subscribe to `/mara_controller/command` and it will republish the data in to the corresponding H-ROS topic `hros_actuation_servomotor_*********/goal`. To run this ROS 2.0 just type:
+You can run the four needed nodes using this launch file. You should use the argument `prefix` to indicate which gripper you are using `85`, `140` or `hande`:
 
 ```
-source ~/ros2_mara_ws/install/setup.bash
-ros2 run hros_cognition_mara_components hros_cognition_mara_components -motors `ros2 pkg prefix hros_cognition_mara_components`/share/hros_cognition_mara_components/link_order.yaml
-```
-
-##### ROS
-
-Right now we need the nodes to run MoveIT!. We should execute the following nodes for setting up the `robot_description` parameter, a node that handles `follow_joint_trajectory` topic, the MoveIT nodes and finally RVIZ to move the robot.
-
-###### Terminal 1:
-
-This node will set the `robot_description` parameter. MoveIT make use of this parameter to calculate the forward and inverse kinematics.
-
-```bash
 source ~/ros_mara_ws/install_isolated/setup.bash
-roslaunch mara_bringup mara_bringup.launch
-```
-###### Terminal 2:
-
-This node will handle the `follow_joint_trajectory` topic. This node is subscribed to this topic and it will republish the data in the corresponding `hros_actuation_servomotor_*********/trajectory`.
-
-```bash
-source ~/ros_mara_ws/install_isolated/setup.bash
-rosrun mara_bringup follow_joints_individual_trajectory.py
-```
-
-###### Terminal 3:
-
-This terminal will launch MoveIT.
-
-```bash
-source ~/ros_mara_ws/install_isolated/setup.bash
-roslaunch mara_moveit_config mara_moveit_planning_execution.launch
-```
-
-###### Terminal 4:
-
-If you want to use RVIZ to move the robot that we need to type the following instructions.
-
-```bash
-source ~/ros_mara_ws/install_isolated/setup.bash
-roslaunch mara_moveit_config moveit_rviz.launch config:=true
-```
-
-### Others
-
-Convert URDF into sdf
-
-```
-xacro --inorder /home/erle/ros2_mara_ws/src/MARA/mara_description/urdf/mara_robot_camera_top.urdf.xacro -o /home/erle/ros2_mara_ws/src/MARA/mara_description/urdf/mara_robot_camera_top.urdf
-gz sdf -p /home/erle/ros2_mara_ws/src/MARA/mara_description/urdf/mara_robot_camera_top.urdf > mara_robot_camera_top.sdf
+roslaunch mara_bringup mara_bringup_moveit.launch prefix:=85
 ```
 
 ### Example code
