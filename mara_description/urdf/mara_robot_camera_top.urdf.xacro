@@ -5,39 +5,24 @@
   <!-- common stuff -->
   <xacro:include filename="$(find mara_description)/urdf/mara_gazebo.urdf.xacro" />
 
-  <!-- mara -->
   <xacro:include filename="$(find mara_description)/urdf/mara.urdf.xacro" />
 
-  <!-- robotiq 140 gripper -->
-  <xacro:include filename="$(find robotiq_140_gripper_description)/urdf/robotiq_140.urdf.xacro" />
+  <!-- <xacro:include filename="$(find robotiq_140_gripper_description)/urdf/robotiq_140.urdf.xacro" /> -->
 
-  <!-- <xacro:include filename="$(find mara_description)/urdf/camera_top.urdf.xacro" /> -->
-
-  <xacro:include filename="$(find mara_description)/urdf/table.urdf.xacro" />
-
-  <!-- arm -->
-  <xacro:mara_robot prefix="" joint_limited="false"/>
-  <xacro:robotiq_gripper prefix="mara" />
-  <!-- <xacro:mara_camera_top prefix="" /> -->
-  <xacro:table prefix="" />
+  <xacro:mara_robot prefix="" ee_link_distance="0.24"/>
+  <!-- <xacro:robotiq_gripper prefix="mara" /> -->
 
   <link name="world" />
 
-  <joint name="end_effector_adapter_to_robotiq" type="fixed">
-    <origin rpy="0 0 1.57" xyz=" 0 0 0.04659"/>
+  <!-- <joint name="end_effector_adapter_to_robotiq" type="fixed">
+    <origin rpy="0 0 1.57" xyz=" 0 0 0.0353"/>
     <parent link="motor6_link"/>
-    <child link="robotiq_adapter_link"/>
-  </joint>
-
-  <joint name="world_to_table_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.02"/>
-    <parent link="world"/>
-    <child link="table"/>
-  </joint>
+    <child link="robotiq_arg2f_base_link"/>
+  </joint> -->
 
   <joint name="table_to_base_joint" type="fixed">
-    <origin rpy="0 0 1.57" xyz="0 0 0.62"/>
-    <parent link="table"/>
+    <origin rpy="0 0 1.57" xyz="0 0 0.0"/>
+    <parent link="world"/>
     <child link="base_link"/>
   </joint>
 

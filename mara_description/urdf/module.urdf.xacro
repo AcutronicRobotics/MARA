@@ -26,14 +26,14 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T49.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="model://mara_description/meshes/MARA_T49.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="metal"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T49.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="model://mara_description/meshes/MARA_T49.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -47,7 +47,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T49_Black.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="model://mara_description/meshes/MARA_T49_Black.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0. 0. 0. 1"/>
@@ -56,7 +56,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="model://mara_description/meshes/MARA_T49_Black.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="model://mara_description/meshes/MARA_T49_Black.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>

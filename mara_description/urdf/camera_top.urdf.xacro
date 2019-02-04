@@ -11,7 +11,7 @@
         <visual>
           <origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
-            <mesh filename="model://mara_description/meshes/demo/AIR_WorkArea.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="model://mara_description/meshes/demo/AIR_WorkArea.dae" scale="0.001 0.001 0.001"/>
           </geometry>
           <material name="Gazebo/Wood">
             <color rgba="0. 0. 0. 1"/>
@@ -20,7 +20,7 @@
         <collision>
           <origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
-            <mesh filename="model://mara_description/meshes/demo/AIR_WorkArea.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="model://mara_description/meshes/demo/AIR_WorkArea.dae" scale="0.001 0.001 0.001"/>
           </geometry>
         </collision>
       </link>
@@ -38,7 +38,7 @@
         <visual>
           <origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
-            <mesh filename="model://mara_description/meshes/demo/top/top_camera_support.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="model://mara_description/meshes/demo/top/top_camera_support.dae" scale="0.001 0.001 0.001"/>
           </geometry>
           <material name="Gazebo/Wood">
             <color rgba="0. 0. 0. 1"/>
@@ -47,7 +47,7 @@
         <collision>
           <origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
-            <mesh filename="model://mara_description/meshes/demo/top/top_camera_support.stl" scale="0.002 0.001 0.001"/>
+            <mesh filename="model://mara_description/meshes/demo/top/top_camera_support.dae" scale="0.002 0.001 0.001"/>
           </geometry>
         </collision>
       </link>
@@ -65,7 +65,7 @@
         <visual>
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
-            <mesh scale="0.001 0.001 0.001" filename="model://mara_description/meshes/depthSensor.stl" />
+            <mesh scale="0.001 0.001 0.001" filename="model://mara_description/meshes/depthSensor.dae" />
           </geometry>
           <material name="Gazebo/Grey">
             <color rgba="1. 1. 1. 1" />
@@ -74,7 +74,7 @@
         <collision>
           <origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
-            <mesh filename="model://mara_description/meshes/depthSensor.stl" scale="0.002 0.002 0.002" />
+            <mesh filename="model://mara_description/meshes/depthSensor.dae" scale="0.002 0.002 0.002" />
           </geometry>
         </collision>
       </link>
