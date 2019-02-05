@@ -159,9 +159,9 @@ To bring up the simulated robot in Gazebo. You can choose one of the following r
 ```
 source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_gazebo mara.launch.py
-ros2 launch mara_bringup mara_gripper_140.launch.py
-ros2 launch mara_bringup mara_gripper_85.launch.py
-ros2 launch mara_bringup mara_gripper_hande.launch.py
+ros2 launch mara_gazebo mara_gripper_140.launch.py
+ros2 launch mara_gazebo mara_gripper_85.launch.py
+ros2 launch mara_gazebo mara_gripper_hande.launch.py
 ```
 
 ##### Rviz2
