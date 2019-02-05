@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(robotiq_gripper_gazebo_plugin)
+project(robotiq_gripper_gazebo_plugins)
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
