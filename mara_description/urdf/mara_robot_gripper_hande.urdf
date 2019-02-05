@@ -568,15 +568,19 @@
       <right_joint>finger2_joint</right_joint>
     </plugin>
   </gazebo>
-  <joint name="finger1_joint" type="fixed">
+  <joint name="finger1_joint" type="prismatic">
     <origin rpy="0 0 0" xyz="0 0 0.0"/>
     <parent link="robotiq_hande_base_link"/>
     <child link="finger1"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="1000" lower="0" upper="0.024858" velocity="2.0"/>
   </joint>
-  <joint name="finger2_joint" type="fixed">
+  <joint name="finger2_joint" type="prismatic">
     <origin rpy="0 0 0" xyz="0 0 0.0"/>
     <parent link="robotiq_hande_base_link"/>
     <child link="finger2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" lower="0" upper="0.024858" velocity="2.0"/>
   </joint>
   <link name="table">
     <contact>
