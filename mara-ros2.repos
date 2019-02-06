@@ -27,3 +27,7 @@ repositories:
     type: git
     url: https://github.com/ros-simulation/gazebo_ros_pkgs.git
     version: ros2
+  robotiq_modular_gripper:
+    type: git
+    url: https://github.com/AcutronicRobotics/robotiq_modular_gripper.git
+    version: master
