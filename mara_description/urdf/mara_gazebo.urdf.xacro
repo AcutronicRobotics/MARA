@@ -15,14 +15,7 @@
     		<joint_name>motor4</joint_name>
     		<joint_name>motor5</joint_name>
         <joint_name>motor6</joint_name>
-        <joint_name>left_inner_knuckle_joint</joint_name>
-        <joint_name>left_outer_knuckle_joint</joint_name>
-        <joint_name>left_outer_finger_joint</joint_name>
-        <joint_name>left_inner_finger_joint</joint_name>
-        <joint_name>right_inner_knuckle_joint</joint_name>
-        <joint_name>right_outer_knuckle_joint</joint_name>
-        <joint_name>right_outer_finger_joint</joint_name>
-        <joint_name>right_inner_finger_joint</joint_name>
+        <joint_name>joint_finger</joint_name>
     	</plugin>
 
       <plugin name="hros_actuation_servomotor_000000000001" filename="libmara_gazebo_joint_plugin.so">
