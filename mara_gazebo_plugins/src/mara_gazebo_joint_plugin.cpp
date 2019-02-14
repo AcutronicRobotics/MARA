@@ -240,15 +240,13 @@ void MARAGazeboPluginRosPrivate::trajectoryAxis1Callback(const trajectory_msgs::
   if(!executing_axis1){
     std::vector<double> X(msg->points.size()), Y_vel(msg->points.size()), Y_pos(msg->points.size());
     for(unsigned int point = 0; point < msg->points.size(); point++){
-      double start_time = msg->points[point].time_from_start.sec +
-                          msg->points[point].time_from_start.nanosec/NSEC_PER_SECOND;
+      double start_time = msg->points[point].time_from_start.sec;
       Y_vel[point] =  msg->points[point].velocities[0];
       Y_pos[point] =  msg->points[point].positions[0];
       X[point] = start_time;
     }
-    double start_time = 0;
-    double end_time = msg->points[msg->points.size()-1].time_from_start.sec +
-                      msg->points[msg->points.size()-1].time_from_start.nanosec/NSEC_PER_SECOND;
+    double start_time = 0.0;
+    double end_time = 0.0;
 
     tk::spline interpolation_vel, interpolation_pos;
     if(!interpolation_vel.set_points(X, Y_vel))
@@ -467,7 +465,7 @@ void MARAGazeboPluginRosPrivate::timer_info_msgs()
   info_msg.header.stamp.sec = cur_time.sec;
   info_msg.header.stamp.nanosec = cur_time.nsec;
   info_msg.device_kind_id = hrim_generic_msgs::msg::ID::HRIM_SENSOR;
-  info_msg.hros_version = "Ardent";
+  info_msg.hros_version = "Crystal";
   info_msg.hrim_version = "Anboto";
   info_pub->publish(info_msg);
 }
@@ -500,8 +498,8 @@ void MARAGazeboPluginRosPrivate::timer_specs_msgs()
   specs_msg.header.stamp.sec = cur_time.sec;
   specs_msg.header.stamp.nanosec = cur_time.nsec;
   specs_msg.control_type = (uint8_t)hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo::CONTROL_TYPE_POSITION_VELOCITY;
-  specs_msg.range_min = -6.27; // multi-turn absolute +/-4 tuens
-  specs_msg.range_max = 6.27;
+  specs_msg.range_min = -3.14; // multi-turn absolute +/-4 tuens
+  specs_msg.range_max = 3.14;
   specs_msg.precision = 0.00008722222; // 0.005º
 
   specs_msg.rated_speed = 1.46607657; // 14 RPM
@@ -510,7 +508,7 @@ void MARAGazeboPluginRosPrivate::timer_specs_msgs()
   specs_msg.reachable_torque = 13; // 13-Nm
 
   specs_msg.temperature_range_min  = -10.0; // -10º
-  specs_msg.temperature_range_max  = +50.0; // 50º
+  specs_msg.temperature_range_max  = 50.0; // 50º
   specs_pub->publish(specs_msg);
 }
 
