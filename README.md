@@ -184,9 +184,9 @@ You can run `gazebo`, spawn the model, publish the robot state and run `hros_cog
 ```
 source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_gazebo mara.launch.py
-ros2 launch mara_bringup mara_gripper_140.launch.py
-ros2 launch mara_bringup mara_gripper_85.launch.py
-ros2 launch mara_bringup mara_gripper_hande.launch.py
+ros2 launch mara_gazebo mara_gripper_140.launch.py
+ros2 launch mara_gazebo mara_gripper_85.launch.py
+ros2 launch mara_gazebo mara_gripper_hande.launch.py
 ```
 
 ###### Terminal 2:
