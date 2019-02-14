@@ -77,25 +77,25 @@ int main(int argc, char * argv[])
   }
   std::cout << config.size() << std::endl;
 
-  std::vector<std::string> lista_subcribers;
+  std::vector<std::string> lista_subscribers;
 
   for (auto motor : config["motors"]) {
     std::string s = motor.as<std::string>();
-    lista_subcribers.push_back(s);
+    lista_subscribers.push_back(s);
   }
 
-  pub_ros2_lista.resize(lista_subcribers.size());
-  for (unsigned int j = 0; j < lista_subcribers.size(); j++){
+  pub_ros2_lista.resize(lista_subscribers.size());
+  for (unsigned int j = 0; j < lista_subscribers.size(); j++){
     pub_ros2_lista[j] = NULL;
   }
 
-  std::vector<ros::Subscriber> lista_subcribers_ros1;
+  std::vector<ros::Subscriber> lista_subscribers_ros1;
 
-  for(unsigned int i = 0; i < lista_subcribers.size(); i++){
+  for(unsigned int i = 0; i < lista_subscribers.size(); i++){
 
     rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr pub_ros2 = pub_ros2_lista[i];
 
-    std::cout << "Creating ROS 1 subscriber " << lista_subcribers[i] << "!" << std::endl;
+    std::cout << "Creating ROS 1 subscriber " << lista_subscribers[i] << "!" << std::endl;
 
     boost::function<void (const trajectory_msgs::JointTrajectory&)> callback =
     [i] (const trajectory_msgs::JointTrajectory& ros1_msg) {
@@ -122,7 +122,7 @@ int main(int argc, char * argv[])
         pub_ros2_lista[i]->publish(ros2_msg);
         // std::cout << "publish!! " << i << pub_ros2_lista[i]->get_topic_name() << std::endl;
     };
-    lista_subcribers_ros1.push_back(ros1_node.subscribe<trajectory_msgs::msg::JointTrajectory>(lista_subcribers[i].c_str(), 1, callback));
+    lista_subscribers_ros1.push_back(ros1_node.subscribe<trajectory_msgs::msg::JointTrajectory>(lista_subscribers[i].c_str(), 1, callback));
   }
   pub_joint_state_ros1 = ros1_node.advertise<sensor_msgs::JointState>("/joint_states", 10);
 
@@ -130,12 +130,12 @@ int main(int argc, char * argv[])
   rclcpp::init(argc, argv);
   auto ros2_node = rclcpp::Node::make_shared("mara_bridge");
 
-  for(unsigned int i = 0; i < lista_subcribers.size(); i++){
-    std::cout << "Creating ROS 2 publisher " << lista_subcribers[i] << "!" << std::endl;
+  for(unsigned int i = 0; i < lista_subscribers.size(); i++){
+    std::cout << "Creating ROS 2 publisher " << lista_subsribers[i] << "!" << std::endl;
 
     pub_ros2_lista[i] =
               ros2_node->create_publisher<trajectory_msgs::msg::JointTrajectory>
-                     (lista_subcribers[i], rmw_qos_profile_sensor_data);
+                     (lista_subscribers[i], rmw_qos_profile_sensor_data);
   }
 
   auto sub_servoMotorGoal = ros2_node->create_subscription<control_msgs::msg::JointTrajectoryControllerState>(
