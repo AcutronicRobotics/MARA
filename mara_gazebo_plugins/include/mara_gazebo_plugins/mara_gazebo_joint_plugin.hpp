@@ -39,6 +39,7 @@
 #include <gazebo/physics/Link.hh>
 #include <gazebo/physics/Model.hh>
 #include <gazebo/physics/World.hh>
+#include <gazebo/physics/physics.hh>
 
 #include <gazebo_ros/conversions/builtin_interfaces.hpp>
 #include <gazebo_ros/conversions/geometry_msgs.hpp>
@@ -93,6 +94,9 @@ namespace gazebo_plugins
 
     void publish3DModels();
     void readfullFile(std::string file_to_read, hrim_generic_msgs::msg::Simulation3D& msg_sim_3d);
+
+    void UpdateJointPIDs();
+    void UpdatePIDControl();
 
     /// A pointer to the GazeboROS node.
     gazebo_ros::Node::SharedPtr ros_node_;
@@ -171,6 +175,8 @@ namespace gazebo_plugins
     float goal_position_axis2_rad;
 
     std::string type_motor;
+
+    float * getPIDValues(std::string joint_name);
 
   };
 
