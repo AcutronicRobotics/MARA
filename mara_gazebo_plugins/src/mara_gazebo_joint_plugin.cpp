@@ -170,6 +170,8 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotar
 {
   if(!executing_axis1){
     if(msg->velocity!=0.0){
+      UpdateJointPIDs();
+
       trajectories_position_axis1.clear();
       trajectories_velocities_axis1.clear();
       std::vector<double> X(2), Y_vel(2), Y_pos(2);
@@ -204,6 +206,8 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotar
 {
   if(!executing_axis2){
     if(msg->velocity!=0.0){
+      UpdateJointPIDs();
+
       trajectories_position_axis2.clear();
       trajectories_velocities_axis2.clear();
       std::vector<double> X(2), Y_vel(2), Y_pos(2);
@@ -403,6 +407,84 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
 
   impl_->timer_motor_state_ = impl_->ros_node_->create_wall_timer(
         50ms, std::bind(&MARAGazeboPluginRosPrivate::timer_motor_state_msgs, impl_.get()));
+
+/*  // Set PID values
+  float *motor1_pid = impl_->getPIDValues(motor1);
+  float m1_p = *(motor1_pid + 0);
+  float m1_i = *(motor1_pid + 1);
+  float m1_d = *(motor1_pid + 2);
+  float m1_imax = *(motor1_pid + 3);
+  float m1_imin = *(motor1_pid + 4);
+  float m1_cmdMax = *(motor1_pid + 5);
+  float m1_cmdMin = *(motor1_pid + 6);
+
+  float *motor2_pid = impl_->getPIDValues(motor2);
+  float m2_p = *(motor2_pid + 0);
+  float m2_i = *(motor2_pid + 1);
+  float m2_d = *(motor2_pid + 2);
+  float m2_imax = *(motor2_pid + 3);
+  float m2_imin = *(motor2_pid + 4);
+  float m2_cmdMax = *(motor2_pid + 5);
+  float m2_cmdMin = *(motor2_pid + 6);
+*/
+
+  impl_->UpdateJointPIDs();
+}
+
+float * MARAGazeboPluginRosPrivate::getPIDValues(std::string joint_name)
+{
+  static float pid_values[7];
+
+  if (joint_name.compare("motor1")==0){
+    pid_values[0]=5000;  //_p  The proportional gain.
+    pid_values[1]=0.0;  //_i  The integral gain.
+    pid_values[2]=20.0;  //_d  The derivative gain.
+    pid_values[3]=0.0;  //_imax The integral upper limit.
+    pid_values[4]=0.0;  //_imin The integral lower limit.
+    pid_values[5]=-3.1416;  //_cmdMax Output max value.
+    pid_values[6]=3.1416;  //_cmdMin Output min value.
+  }else if (joint_name.compare("motor2")==0){
+    pid_values[0]=10000;  //_p  The proportional gain.
+    pid_values[1]=0.0;  //_i  The integral gain.
+    pid_values[2]=20.0;  //_d  The derivative gain.
+    pid_values[3]=0.0;  //_imax The integral upper limit.
+    pid_values[4]=0.0;  //_imin The integral lower limit.
+    pid_values[5]=-3.1416;  //_cmdMax Output max value.
+    pid_values[6]=3.1416;  //_cmdMin Output min value.
+  }else if (joint_name.compare("motor3")==0){
+    pid_values[0]=15000;  //_p  The proportional gain.
+    pid_values[1]=0.0;  //_i  The integral gain.
+    pid_values[2]=20.0;  //_d  The derivative gain.
+    pid_values[3]=0.0;  //_imax The integral upper limit.
+    pid_values[4]=0.0;  //_imin The integral lower limit.
+    pid_values[5]=-3.1416;  //_cmdMax Output max value.
+    pid_values[6]=3.1416;  //_cmdMin Output min value.
+  }else if (joint_name.compare("motor4")==0){
+    pid_values[0]=500;  //_p  The proportional gain.
+    pid_values[1]=0.0;  //_i  The integral gain.
+    pid_values[2]=10.0;  //_d  The derivative gain.
+    pid_values[3]=0.0;  //_imax The integral upper limit.
+    pid_values[4]=0.0;  //_imin The integral lower limit.
+    pid_values[5]=-3.1416;  //_cmdMax Output max value.
+    pid_values[6]=3.1416;  //_cmdMin Output min value.
+  }else if (joint_name.compare("motor5")==0){
+    pid_values[0]=500;  //_p  The proportional gain.
+    pid_values[1]=0.0;  //_i  The integral gain.
+    pid_values[2]=10.0;  //_d  The derivative gain.
+    pid_values[3]=0.0;  //_imax The integral upper limit.
+    pid_values[4]=0.0;  //_imin The integral lower limit.
+    pid_values[5]=-3.1416;  //_cmdMax Output max value.
+    pid_values[6]=3.1416;  //_cmdMin Output min value.
+  }else if (joint_name.compare("motor6")==0){
+    pid_values[0]=5;  //_p  The proportional gain.
+    pid_values[1]=0.0;  //_i  The integral gain.
+    pid_values[2]=1.0;  //_d  The derivative gain.
+    pid_values[3]=0.0;  //_imax The integral upper limit.
+    pid_values[4]=0.0;  //_imin The integral lower limit.
+    pid_values[5]=-3.1416;  //_cmdMax Output max value.
+    pid_values[6]=3.1416;  //_cmdMin Output min value.
+  }
+  return pid_values;
 }
 
 void MARAGazeboPluginRos::Reset()
@@ -452,8 +534,10 @@ void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _in
     }
   }
 
-  joints_[MARAGazeboPluginRosPrivate::AXIS1]->SetPosition(0, goal_position_axis1_rad, false);
-  joints_[MARAGazeboPluginRosPrivate::AXIS2]->SetPosition(0, goal_position_axis2_rad, false);
+  UpdatePIDControl();
+
+  //joints_[MARAGazeboPluginRosPrivate::AXIS1]->SetPosition(0, goal_position_axis1_rad, false);
+  //joints_[MARAGazeboPluginRosPrivate::AXIS2]->SetPosition(0, goal_position_axis2_rad, false);
 
   last_update_time_ = _info.simTime;
 }
@@ -527,6 +611,44 @@ void MARAGazeboPluginRosPrivate::timer_comm_msgs()
   specs_comm_pub->publish(specs_comm_msg);
 
 }
+
+void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
+  float *motor1_pid = getPIDValues(joints_[MARAGazeboPluginRosPrivate::AXIS1]->GetName());
+  float m1_p = *(motor1_pid + 0);
+  float m1_i = *(motor1_pid + 1);
+  float m1_d = *(motor1_pid + 2);
+  float m1_imax = *(motor1_pid + 3);
+  float m1_imin = *(motor1_pid + 4);
+  //float m1_cmdMax = *(motor1_pid + 5);
+  //float m1_cmdMin = *(motor1_pid + 6);
+
+  model_->GetJointController()->SetPositionPID(
+    joints_[MARAGazeboPluginRosPrivate::AXIS1]->GetScopedName(),
+    gazebo::common::PID(m1_p, m1_i, m1_d, m1_imax, m1_imin, joints_[MARAGazeboPluginRosPrivate::AXIS1]->LowerLimit(0), joints_[MARAGazeboPluginRosPrivate::AXIS1]->UpperLimit(0)));
+
+  float *motor2_pid = getPIDValues(joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetName());
+  float m2_p = *(motor2_pid + 0);
+  float m2_i = *(motor2_pid + 1);
+  float m2_d = *(motor2_pid + 2);
+  float m2_imax = *(motor2_pid + 3);
+  float m2_imin = *(motor2_pid + 4);
+  //float m2_cmdMax = *(motor2_pid + 5);
+  //float m2_cmdMin = *(motor2_pid + 6);
+
+  model_->GetJointController()->SetPositionPID(
+    joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetScopedName(),
+    gazebo::common::PID(m2_p, m2_i, m2_d, m2_imax, m2_imin, joints_[MARAGazeboPluginRosPrivate::AXIS2]->LowerLimit(0), joints_[MARAGazeboPluginRosPrivate::AXIS2]->UpperLimit(0)));
+}
+
+void MARAGazeboPluginRosPrivate::UpdatePIDControl()
+{
+  model_->GetJointController()->SetPositionTarget(
+    joints_[MARAGazeboPluginRosPrivate::AXIS1]->GetScopedName(), goal_position_axis1_rad);
+
+  model_->GetJointController()->SetPositionTarget(
+    joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetScopedName(), goal_position_axis2_rad);
+}
+
 
 GZ_REGISTER_MODEL_PLUGIN(MARAGazeboPluginRos)
 }  // namespace gazebo_plugins
