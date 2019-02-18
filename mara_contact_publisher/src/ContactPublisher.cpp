@@ -96,7 +96,7 @@ int main(int argc, char ** argv)
 
   // Busy wait loop...replace with your own code as needed.
   while (true)
-    gazebo::common::Time::MSleep(1);
+    gazebo::common::Time::NSleep(1);
 
   // Make sure to shut everything down.
   gazebo::client::shutdown();

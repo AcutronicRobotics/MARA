@@ -16,12 +16,12 @@ void HROSCognitionMaraComponentsNode::timer_stateCommonPublisher()
 {
   control_msgs::msg::JointTrajectoryControllerState msg_actuators;
 
-  pthread_mutex_lock( &mtx );
+  // pthread_mutex_lock( &mtx );
   msg_actuators = msg_actuators_;
   for(unsigned int i = 0; i < msg_actuators.joint_names.size(); i++){
     msg_actuators.joint_names[i] = std::string("motor") + std::to_string(i+1);
   }
-  pthread_mutex_unlock( &mtx );
+  // pthread_mutex_unlock( &mtx );
 
   builtin_interfaces::msg::Time stamp = clock_ros.now();
   msg_actuators.header.stamp.sec = stamp.sec;
