@@ -109,7 +109,7 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
     rclcpp::Parameter("max_temperature", 75),
   });
 
-  impl_->timer_info_ = impl_->ros_node_->create_wall_timer(
+/*  impl_->timer_info_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_info_msgs, impl_.get()));
   impl_->timer_status_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_status_msgs, impl_.get()));
@@ -119,6 +119,7 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_specs_msgs, impl_.get()));
   impl_->timer_comm_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_comm_msgs, impl_.get()));
+*/
 }
 
 void MARAGazeboPluginRosPrivate::readfullFile(std::string file_to_read, hrim_generic_msgs::msg::Simulation3D& msg_sim_3d)
