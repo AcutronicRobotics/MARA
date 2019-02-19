@@ -84,10 +84,10 @@ HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::stri
     msg_actuators_.joint_names[i] =  topic_order[i];
   }
 
-  timer_common_joints_ = this->create_wall_timer(
-      3ms, std::bind(&HROSCognitionMaraComponentsNode::timer_stateCommonPublisher, this));
-  timer_command_ = this->create_wall_timer(
-      3ms, std::bind(&HROSCognitionMaraComponentsNode::timer_commandPublisher, this));
+/*  timer_common_joints_ = this->create_wall_timer(
+      1ms, std::bind(&HROSCognitionMaraComponentsNode::timer_stateCommonPublisher, this));
+*/  timer_command_ = this->create_wall_timer(
+      1ms, std::bind(&HROSCognitionMaraComponentsNode::timer_commandPublisher, this));
 
   RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::on_configure() is finished.");
 }

@@ -27,7 +27,7 @@ int main(int argc, char * argv[])
 
   rclcpp::init(argc, argv);
 
-  rclcpp::executors::MultiThreadedExecutor exe;
+  rclcpp::executors::SingleThreadedExecutor exe;
 
   std::shared_ptr<HROSCognitionMaraComponentsNode> lc_node =
      std::make_shared<HROSCognitionMaraComponentsNode>(node_name, argc, argv);
