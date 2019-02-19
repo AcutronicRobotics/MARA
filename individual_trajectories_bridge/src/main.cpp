@@ -131,7 +131,7 @@ int main(int argc, char * argv[])
   auto ros2_node = rclcpp::Node::make_shared("mara_bridge");
 
   for(unsigned int i = 0; i < lista_subscribers.size(); i++){
-    std::cout << "Creating ROS 2 publisher " << lista_subsribers[i] << "!" << std::endl;
+    std::cout << "Creating ROS 2 publisher " << lista_subscribers[i] << "!" << std::endl;
 
     pub_ros2_lista[i] =
               ros2_node->create_publisher<trajectory_msgs::msg::JointTrajectory>
