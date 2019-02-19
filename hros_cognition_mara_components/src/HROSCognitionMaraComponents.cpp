@@ -86,8 +86,8 @@ HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::stri
 
 /*  timer_common_joints_ = this->create_wall_timer(
       1ms, std::bind(&HROSCognitionMaraComponentsNode::timer_stateCommonPublisher, this));
-*/  timer_command_ = this->create_wall_timer(
+  timer_command_ = this->create_wall_timer(
       1ms, std::bind(&HROSCognitionMaraComponentsNode::timer_commandPublisher, this));
-
+*/
   RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::on_configure() is finished.");
 }
