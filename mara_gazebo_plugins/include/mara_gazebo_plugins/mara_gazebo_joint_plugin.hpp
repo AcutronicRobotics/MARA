@@ -77,12 +77,15 @@ namespace gazebo_plugins
   {
   public:
 
-    /// Indicates which wheel
+    /// Indicates which axis
     enum
     {
       AXIS1 = 0,
-
       AXIS2 = 1,
+      AXIS3 = 2,
+      AXIS4 = 3,
+      AXIS5 = 4,
+      AXIS6 = 5,
     };
 
     /// Callback to be called at every simulation iteration.
@@ -90,9 +93,7 @@ namespace gazebo_plugins
     void OnUpdate(const gazebo::common::UpdateInfo & _info);
 
     void timer_motor_state_msgs();
-    std::shared_ptr<rclcpp::TimerBase> timer_motor_state_;
 
-    void publish3DModels();
     void readfullFile(std::string file_to_read, hrim_generic_msgs::msg::Simulation3D& msg_sim_3d);
 
     void UpdateJointPIDs();
@@ -113,9 +114,6 @@ namespace gazebo_plugins
     /// Protect variables accessed on callbacks.
     std::mutex lock_;
 
-    /// Update period in seconds.
-    double update_period_;
-
     /// Last update time.
     gazebo::common::Time last_update_time_;
 
@@ -128,53 +126,59 @@ namespace gazebo_plugins
 
     std::shared_ptr<rclcpp::Publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>> motor_state_axis1_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>> motor_state_axis2_pub;
-    std::shared_ptr<rclcpp::Publisher<hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo>> specs_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>> motor_state_axis3_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>> motor_state_axis4_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>> motor_state_axis5_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>> motor_state_axis6_pub;
 
     std::shared_ptr<rclcpp::Subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>> command_sub_axis1_;
     std::shared_ptr<rclcpp::Subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>> command_sub_axis2_;
-
-    std::shared_ptr<rclcpp::Subscription<trajectory_msgs::msg::JointTrajectory>> trajectory_sub_;
-    std::shared_ptr<rclcpp::Subscription<trajectory_msgs::msg::JointTrajectory>> trajectory2_sub_;
+    std::shared_ptr<rclcpp::Subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>> command_sub_axis3_;
+    std::shared_ptr<rclcpp::Subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>> command_sub_axis4_;
+    std::shared_ptr<rclcpp::Subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>> command_sub_axis5_;
+    std::shared_ptr<rclcpp::Subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>> command_sub_axis6_;
 
     void commandCallback_axis1(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg);
     void commandCallback_axis2(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg);
-    void trajectoryAxis1Callback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg);
-    void trajectoryAxis2Callback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg);
-
-    std::shared_ptr<rclcpp::TimerBase> timer_info_;
-    std::shared_ptr<rclcpp::TimerBase> timer_status_;
-    std::shared_ptr<rclcpp::TimerBase> timer_power_;
-    std::shared_ptr<rclcpp::TimerBase> timer_specs_;
-    std::shared_ptr<rclcpp::TimerBase> timer_comm_;
-
-    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::ID>> info_pub;
-    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::Status>> status_pub;
-    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::Power>> power_pub;
-    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::Simulation3D>> sim3d_pub;
-    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::SimulationURDF>> sim_urdf_pub;
-    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::StateCommunication>> state_comm_pub;
-    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::SpecsCommunication>> specs_comm_pub;
-
-    void timer_info_msgs();
-    void timer_power_msgs();
-    void timer_status_msgs();
-    void timer_specs_msgs();
-    void timer_comm_msgs();
-
-    // rclcpp::Clock clock_ros;
+    void commandCallback_axis3(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg);
+    void commandCallback_axis4(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg);
+    void commandCallback_axis5(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg);
+    void commandCallback_axis6(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg);
 
     std::vector<float> trajectories_position_axis1;
-    std::vector<float> trajectories_velocities_axis1;
     std::vector<float> trajectories_position_axis2;
+    std::vector<float> trajectories_position_axis3;
+    std::vector<float> trajectories_position_axis4;
+    std::vector<float> trajectories_position_axis5;
+    std::vector<float> trajectories_position_axis6;
+
+    std::vector<float> trajectories_velocities_axis1;
     std::vector<float> trajectories_velocities_axis2;
+    std::vector<float> trajectories_velocities_axis3;
+    std::vector<float> trajectories_velocities_axis4;
+    std::vector<float> trajectories_velocities_axis5;
+    std::vector<float> trajectories_velocities_axis6;
+
     bool executing_axis1;
     bool executing_axis2;
+    bool executing_axis3;
+    bool executing_axis4;
+    bool executing_axis5;
+    bool executing_axis6;
+
     unsigned int index_trajectory_axis1;
     unsigned int index_trajectory_axis2;
+    unsigned int index_trajectory_axis3;
+    unsigned int index_trajectory_axis4;
+    unsigned int index_trajectory_axis5;
+    unsigned int index_trajectory_axis6;
+
     float goal_position_axis1_rad;
     float goal_position_axis2_rad;
-
-    std::string type_motor;
+    float goal_position_axis3_rad;
+    float goal_position_axis4_rad;
+    float goal_position_axis5_rad;
+    float goal_position_axis6_rad;
 
     float * getPIDValues(std::string joint_name);
 
