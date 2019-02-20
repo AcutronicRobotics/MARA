@@ -407,7 +407,7 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
     std::bind(&MARAGazeboPluginRosPrivate::OnUpdate, impl_.get(), std::placeholders::_1));
 
   impl_->timer_motor_state_ = impl_->ros_node_->create_wall_timer(
-        2ms, std::bind(&MARAGazeboPluginRosPrivate::timer_motor_state_msgs, impl_.get()));
+        10ms, std::bind(&MARAGazeboPluginRosPrivate::timer_motor_state_msgs, impl_.get()));
 
 /*  // Set PID values
   float *motor1_pid = impl_->getPIDValues(motor1);
