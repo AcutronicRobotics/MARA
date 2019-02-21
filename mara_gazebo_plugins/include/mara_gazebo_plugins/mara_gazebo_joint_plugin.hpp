@@ -93,6 +93,7 @@ namespace gazebo_plugins
     void OnUpdate(const gazebo::common::UpdateInfo & _info);
 
     void timer_motor_state_msgs();
+    std::shared_ptr<rclcpp::TimerBase> timer_motor_state_;
 
     void readfullFile(std::string file_to_read, hrim_generic_msgs::msg::Simulation3D& msg_sim_3d);
 

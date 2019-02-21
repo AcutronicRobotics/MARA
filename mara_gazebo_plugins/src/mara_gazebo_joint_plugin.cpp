@@ -465,9 +465,9 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   impl_->update_connection_ = gazebo::event::Events::ConnectWorldUpdateBegin(
     std::bind(&MARAGazeboPluginRosPrivate::OnUpdate, impl_.get(), std::placeholders::_1));
 
-/*  impl_->timer_motor_state_ = impl_->ros_node_->create_wall_timer(
+  impl_->timer_motor_state_ = impl_->ros_node_->create_wall_timer(
         10ms, std::bind(&MARAGazeboPluginRosPrivate::timer_motor_state_msgs, impl_.get()));
-*/
+
   impl_->UpdateJointPIDs();
 }
 
@@ -656,7 +656,7 @@ void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _in
   }
 
   UpdatePIDControl();
-  timer_motor_state_msgs();
+  //timer_motor_state_msgs();
 
   last_update_time_ = _info.simTime;
 }
