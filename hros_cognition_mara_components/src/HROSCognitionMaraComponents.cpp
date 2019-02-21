@@ -84,6 +84,8 @@ HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::stri
     msg_actuators_.joint_names[i] =  topic_order[i];
   }
 
+  msg_actuators_callback_count = 0;
+
 /*  timer_common_joints_ = this->create_wall_timer(
       1ms, std::bind(&HROSCognitionMaraComponentsNode::timer_stateCommonPublisher, this));
   timer_command_ = this->create_wall_timer(

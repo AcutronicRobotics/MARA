@@ -82,6 +82,7 @@ private:
 
   std::string file_motors;
 
+  float msg_actuators_callback_count;
 };
 
 #endif // HROSCOGNITIONSCARACOMPONETSNODE_H

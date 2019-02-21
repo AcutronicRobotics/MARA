@@ -9,18 +9,19 @@ void HROSCognitionMaraComponentsNode::stateCallback(std::string motor_name, floa
   msg_actuators_.actual.velocities[pos] = velocity;
   msg_actuators_.actual.effort[pos] = effort;
 
-  timer_stateCommonPublisher();
+  msg_actuators_callback_count ++;
+  if (msg_actuators_callback_count == msg_actuators_.joint_names.size()){
+    timer_stateCommonPublisher();
+    msg_actuators_callback_count = 0;
+  }
 
   pthread_mutex_unlock( &mtx );
-
-
 }
 
 void HROSCognitionMaraComponentsNode::timer_stateCommonPublisher()
 {
   control_msgs::msg::JointTrajectoryControllerState msg_actuators;
 
-  //pthread_mutex_lock( &mtx );
   msg_actuators = msg_actuators_;
   for(unsigned int i = 0; i < msg_actuators.joint_names.size(); i++){
     msg_actuators.joint_names[i] = std::string("motor") + std::to_string(i+1);
@@ -31,7 +32,4 @@ void HROSCognitionMaraComponentsNode::timer_stateCommonPublisher()
   msg_actuators.header.stamp.nanosec = stamp.nanosec;
 
   common_joints_pub_->publish(msg_actuators);
-
-  //pthread_mutex_unlock( &mtx );
-
 }
