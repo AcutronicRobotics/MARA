@@ -34,9 +34,9 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
   hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo motor_state_msg_axis2;
   motor_state_msg_axis2.header.stamp.sec = cur_time.sec;
   motor_state_msg_axis2.header.stamp.nanosec = cur_time.nsec;
-  motor_state_msg_axis2.position = joints_[MARAGazeboPluginRosPrivate::AXIS2]->Position(1);
-  motor_state_msg_axis2.velocity = joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetVelocity(1);
-  motor_state_msg_axis2.effort = joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetForce(1);
+  motor_state_msg_axis2.position = joints_[MARAGazeboPluginRosPrivate::AXIS2]->Position(0);
+  motor_state_msg_axis2.velocity = joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetVelocity(0);
+  motor_state_msg_axis2.effort = joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetForce(0);
   motor_state_msg_axis2.goal =  goal_position_axis2_rad;
   motor_state_msg_axis2.error = (goal_position_axis2_rad - motor_state_msg_axis2.position);
   motor_state_msg_axis2.load = 0;
@@ -48,9 +48,9 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
   hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo motor_state_msg_axis3;
   motor_state_msg_axis3.header.stamp.sec = cur_time.sec;
   motor_state_msg_axis3.header.stamp.nanosec = cur_time.nsec;
-  motor_state_msg_axis3.position = joints_[MARAGazeboPluginRosPrivate::AXIS3]->Position(2);
-  motor_state_msg_axis3.velocity = joints_[MARAGazeboPluginRosPrivate::AXIS3]->GetVelocity(2);
-  motor_state_msg_axis3.effort = joints_[MARAGazeboPluginRosPrivate::AXIS3]->GetForce(2);
+  motor_state_msg_axis3.position = joints_[MARAGazeboPluginRosPrivate::AXIS3]->Position(0);
+  motor_state_msg_axis3.velocity = joints_[MARAGazeboPluginRosPrivate::AXIS3]->GetVelocity(0);
+  motor_state_msg_axis3.effort = joints_[MARAGazeboPluginRosPrivate::AXIS3]->GetForce(0);
   motor_state_msg_axis3.goal = goal_position_axis3_rad;
   motor_state_msg_axis3.error = (goal_position_axis3_rad - motor_state_msg_axis3.position);
   motor_state_msg_axis3.load = 0;
@@ -62,9 +62,9 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
   hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo motor_state_msg_axis4;
   motor_state_msg_axis4.header.stamp.sec = cur_time.sec;
   motor_state_msg_axis4.header.stamp.nanosec = cur_time.nsec;
-  motor_state_msg_axis4.position = joints_[MARAGazeboPluginRosPrivate::AXIS4]->Position(3);
-  motor_state_msg_axis4.velocity = joints_[MARAGazeboPluginRosPrivate::AXIS4]->GetVelocity(3);
-  motor_state_msg_axis4.effort = joints_[MARAGazeboPluginRosPrivate::AXIS4]->GetForce(3);
+  motor_state_msg_axis4.position = joints_[MARAGazeboPluginRosPrivate::AXIS4]->Position(0);
+  motor_state_msg_axis4.velocity = joints_[MARAGazeboPluginRosPrivate::AXIS4]->GetVelocity(0);
+  motor_state_msg_axis4.effort = joints_[MARAGazeboPluginRosPrivate::AXIS4]->GetForce(0);
   motor_state_msg_axis4.goal = goal_position_axis4_rad;
   motor_state_msg_axis4.error = (goal_position_axis4_rad - motor_state_msg_axis4.position);
   motor_state_msg_axis4.load = 0;
@@ -76,9 +76,9 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
   hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo motor_state_msg_axis5;
   motor_state_msg_axis5.header.stamp.sec = cur_time.sec;
   motor_state_msg_axis5.header.stamp.nanosec = cur_time.nsec;
-  motor_state_msg_axis5.position = joints_[MARAGazeboPluginRosPrivate::AXIS5]->Position(4);
-  motor_state_msg_axis5.velocity = joints_[MARAGazeboPluginRosPrivate::AXIS5]->GetVelocity(4);
-  motor_state_msg_axis5.effort = joints_[MARAGazeboPluginRosPrivate::AXIS5]->GetForce(4);
+  motor_state_msg_axis5.position = joints_[MARAGazeboPluginRosPrivate::AXIS5]->Position(0);
+  motor_state_msg_axis5.velocity = joints_[MARAGazeboPluginRosPrivate::AXIS5]->GetVelocity(0);
+  motor_state_msg_axis5.effort = joints_[MARAGazeboPluginRosPrivate::AXIS5]->GetForce(0);
   motor_state_msg_axis5.goal = goal_position_axis5_rad;
   motor_state_msg_axis5.error = (goal_position_axis5_rad - motor_state_msg_axis5.position);
   motor_state_msg_axis5.load = 0;
@@ -90,9 +90,9 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
   hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo motor_state_msg_axis6;
   motor_state_msg_axis6.header.stamp.sec = cur_time.sec;
   motor_state_msg_axis6.header.stamp.nanosec = cur_time.nsec;
-  motor_state_msg_axis6.position = joints_[MARAGazeboPluginRosPrivate::AXIS6]->Position(5);
-  motor_state_msg_axis6.velocity = joints_[MARAGazeboPluginRosPrivate::AXIS6]->GetVelocity(5);
-  motor_state_msg_axis6.effort = joints_[MARAGazeboPluginRosPrivate::AXIS6]->GetForce(5);
+  motor_state_msg_axis6.position = joints_[MARAGazeboPluginRosPrivate::AXIS6]->Position(0);
+  motor_state_msg_axis6.velocity = joints_[MARAGazeboPluginRosPrivate::AXIS6]->GetVelocity(0);
+  motor_state_msg_axis6.effort = joints_[MARAGazeboPluginRosPrivate::AXIS6]->GetForce(0);
   motor_state_msg_axis6.goal = goal_position_axis6_rad;
   motor_state_msg_axis6.error = (goal_position_axis6_rad - motor_state_msg_axis6.position);
   motor_state_msg_axis6.load = 0;
@@ -344,7 +344,7 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "name %s\n", node_name.c_str());
 
   // Get joints
-  impl_->joints_.resize(2);
+  impl_->joints_.resize(6);
 
   auto motor1 = _sdf->Get<std::string>("axis1", "axis1").first;
   impl_->joints_[MARAGazeboPluginRosPrivate::AXIS1] = _model->GetJoint(motor1);
@@ -402,19 +402,19 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   std::string topic_name_motor_state_axis4 = std::string(node_name) + "12/state";
   impl_->motor_state_axis4_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(topic_name_motor_state_axis4,
                         rmw_qos_profile_sensor_data);
-  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis2.c_str() );
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis4.c_str() );
 
   // AXIS 5
   std::string topic_name_motor_state_axis5 = std::string(node_name) + "1/state";
   impl_->motor_state_axis5_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(topic_name_motor_state_axis5,
                         rmw_qos_profile_sensor_data);
-  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis1.c_str() );
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis5.c_str() );
 
   // AXIS 6
   std::string topic_name_motor_state_axis6 = std::string(node_name) + "12/state";
   impl_->motor_state_axis6_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(topic_name_motor_state_axis6,
                         rmw_qos_profile_sensor_data);
-  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis2.c_str() );
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis6.c_str() );
 
   // Creating command topic name
   // AXIS 1
@@ -434,28 +434,28 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   // AXIS 3
   std::string topic_command_state_axis3 = std::string(node_name) + "1/goal";
   impl_->command_sub_axis3_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state_axis3,
-                                std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis1, impl_.get(), std::placeholders::_1),
+                                std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis3, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state_axis3.c_str() );
 
   // AXIS 4
   std::string topic_command_state_axis4 = std::string(node_name) + "12/goal";
   impl_->command_sub_axis4_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state_axis4,
-                                std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis2, impl_.get(), std::placeholders::_1),
+                                std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis4, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state_axis4.c_str() );
 
   // AXIS 5
   std::string topic_command_state_axis5 = std::string(node_name) + "1/goal";
   impl_->command_sub_axis5_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state_axis5,
-                                std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis1, impl_.get(), std::placeholders::_1),
+                                std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis5, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state_axis5.c_str() );
 
   // AXIS 6
   std::string topic_command_state_axis6 = std::string(node_name) + "12/goal";
   impl_->command_sub_axis6_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state_axis6,
-                                std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis2, impl_.get(), std::placeholders::_1),
+                                std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis6, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state_axis6.c_str() );
 
@@ -530,15 +530,35 @@ float * MARAGazeboPluginRosPrivate::getPIDValues(std::string joint_name)
 void MARAGazeboPluginRos::Reset()
 {
   impl_->trajectories_position_axis1.clear();
-  impl_->trajectories_velocities_axis1.clear();
   impl_->trajectories_position_axis2.clear();
+  impl_->trajectories_position_axis3.clear();
+  impl_->trajectories_position_axis4.clear();
+  impl_->trajectories_position_axis5.clear();
+  impl_->trajectories_position_axis6.clear();
+  impl_->trajectories_velocities_axis1.clear();
   impl_->trajectories_velocities_axis2.clear();
+  impl_->trajectories_velocities_axis3.clear();
+  impl_->trajectories_velocities_axis4.clear();
+  impl_->trajectories_velocities_axis5.clear();
+  impl_->trajectories_velocities_axis6.clear();
   impl_->executing_axis1 = false;
   impl_->executing_axis2 = false;
+  impl_->executing_axis3 = false;
+  impl_->executing_axis4 = false;
+  impl_->executing_axis5 = false;
+  impl_->executing_axis6 = false;
   impl_->index_trajectory_axis1 = 0;
   impl_->index_trajectory_axis2 = 0;
+  impl_->index_trajectory_axis3 = 0;
+  impl_->index_trajectory_axis4 = 0;
+  impl_->index_trajectory_axis5 = 0;
+  impl_->index_trajectory_axis6 = 0;
   impl_->goal_position_axis1_rad = 0;
   impl_->goal_position_axis2_rad = 0;
+  impl_->goal_position_axis3_rad = 0;
+  impl_->goal_position_axis4_rad = 0;
+  impl_->goal_position_axis5_rad = 0;
+  impl_->goal_position_axis6_rad = 0;
 }
 
 void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _info)
