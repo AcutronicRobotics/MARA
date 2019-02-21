@@ -125,8 +125,11 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotar
 
       trajectories_position_axis2.clear();
       trajectories_velocities_axis2.clear();
+
       trajectories_position_axis2.push_back(msg->position);
       trajectories_velocities_axis2.push_back(msg->velocity);
+
+    }
   }
 }
 
@@ -171,7 +174,6 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis5(const hrim_actuator_rotar
       trajectories_position_axis5.clear();
       trajectories_velocities_axis5.clear();
 
-
       trajectories_position_axis5.push_back(msg->position);
       trajectories_velocities_axis5.push_back(msg->velocity);
 
@@ -192,7 +194,6 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis6(const hrim_actuator_rotar
 
       trajectories_position_axis6.push_back(msg->position);
       trajectories_velocities_axis6.push_back(msg->velocity);
-
     }
   }
 }
@@ -359,8 +360,6 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   impl_->update_connection_ = gazebo::event::Events::ConnectWorldUpdateBegin(
     std::bind(&MARAGazeboPluginRosPrivate::OnUpdate, impl_.get(), std::placeholders::_1));
 
-  /*impl_->timer_motor_state_ = impl_->ros_node_->create_wall_timer(
-        10ms, std::bind(&MARAGazeboPluginRosPrivate::timer_motor_state_msgs, impl_.get()));*/
 
   impl_->UpdateJointPIDs();
 }
@@ -457,6 +456,7 @@ void MARAGazeboPluginRos::Reset()
 
 void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _info)
 {
+  // TODO, this is a long OnUpdate, we will need to check the does not get overlapped by next.
 
   if (trajectories_position_axis1.size()>0
    and trajectories_position_axis2.size()>0
@@ -511,6 +511,7 @@ void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
   float m1_imax = *(motor1_pid + 3);
   float m1_imin = *(motor1_pid + 4);
 
+
   model_->GetJointController()->SetPositionPID(
     joints_[MARAGazeboPluginRosPrivate::AXIS1]->GetScopedName(),
     gazebo::common::PID(m1_p, m1_i, m1_d, m1_imax, m1_imin, joints_[MARAGazeboPluginRosPrivate::AXIS1]->LowerLimit(0), joints_[MARAGazeboPluginRosPrivate::AXIS1]->UpperLimit(0)));
@@ -522,6 +523,7 @@ void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
   float m2_d = *(motor2_pid + 2);
   float m2_imax = *(motor2_pid + 3);
   float m2_imin = *(motor2_pid + 4);
+
 
   model_->GetJointController()->SetPositionPID(
     joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetScopedName(),
@@ -560,6 +562,7 @@ void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
   float m5_d = *(motor5_pid + 2);
   float m5_imax = *(motor5_pid + 3);
   float m5_imin = *(motor5_pid + 4);
+
 
   model_->GetJointController()->SetPositionPID(
     joints_[MARAGazeboPluginRosPrivate::AXIS5]->GetScopedName(),
