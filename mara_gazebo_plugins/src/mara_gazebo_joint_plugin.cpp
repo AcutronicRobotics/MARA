@@ -437,19 +437,19 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis3.c_str() );
 
   // AXIS 4
-  std::string topic_name_motor_state_axis4 = std::string(node_name) + "12/state";
+  std::string topic_name_motor_state_axis4 = std::string(node_name) + "22/state";
   impl_->motor_state_axis4_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(topic_name_motor_state_axis4,
                         rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis4.c_str() );
 
   // AXIS 5
-  std::string topic_name_motor_state_axis5 = std::string(node_name) + "1/state";
+  std::string topic_name_motor_state_axis5 = std::string(node_name) + "3/state";
   impl_->motor_state_axis5_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(topic_name_motor_state_axis5,
                         rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis5.c_str() );
 
   // AXIS 6
-  std::string topic_name_motor_state_axis6 = std::string(node_name) + "12/state";
+  std::string topic_name_motor_state_axis6 = std::string(node_name) + "32/state";
   impl_->motor_state_axis6_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(topic_name_motor_state_axis6,
                         rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis6.c_str() );
@@ -470,28 +470,28 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state_axis2.c_str() );
 
   // AXIS 3
-  std::string topic_command_state_axis3 = std::string(node_name) + "1/goal";
+  std::string topic_command_state_axis3 = std::string(node_name) + "2/goal";
   impl_->command_sub_axis3_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state_axis3,
                                 std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis3, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state_axis3.c_str() );
 
   // AXIS 4
-  std::string topic_command_state_axis4 = std::string(node_name) + "12/goal";
+  std::string topic_command_state_axis4 = std::string(node_name) + "22/goal";
   impl_->command_sub_axis4_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state_axis4,
                                 std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis4, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state_axis4.c_str() );
 
   // AXIS 5
-  std::string topic_command_state_axis5 = std::string(node_name) + "1/goal";
+  std::string topic_command_state_axis5 = std::string(node_name) + "3/goal";
   impl_->command_sub_axis5_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state_axis5,
                                 std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis5, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state_axis5.c_str() );
 
   // AXIS 6
-  std::string topic_command_state_axis6 = std::string(node_name) + "12/goal";
+  std::string topic_command_state_axis6 = std::string(node_name) + "32/goal";
   impl_->command_sub_axis6_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state_axis6,
                                 std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis6, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
