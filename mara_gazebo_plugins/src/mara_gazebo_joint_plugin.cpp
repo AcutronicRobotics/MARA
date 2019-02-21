@@ -700,44 +700,41 @@ void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _in
    and trajectories_position_axis5.size()>0
    and trajectories_position_axis6.size()>0)
   {
-    std::cout << 1;
     goal_position_axis1_rad = trajectories_position_axis1[0];
     goal_position_axis2_rad = trajectories_position_axis2[0];
     goal_position_axis3_rad = trajectories_position_axis3[0];
     goal_position_axis4_rad = trajectories_position_axis4[0];
     goal_position_axis5_rad = trajectories_position_axis5[0];
     goal_position_axis6_rad = trajectories_position_axis6[0];
-    std::cout << 2;
 
-    executing_axis1 = true;  //hack
-    executing_axis2 = true;  //hack
-    executing_axis3 = true;  //hack
-    executing_axis4 = true;  //hack
-    executing_axis5 = true;  //hack
-    executing_axis6 = true;  //hack
+  } // else, use default values set in Load
 
-    UpdatePIDControl();
-    std::cout << 3;
+  executing_axis1 = true;  //hack
+  executing_axis2 = true;  //hack
+  executing_axis3 = true;  //hack
+  executing_axis4 = true;  //hack
+  executing_axis5 = true;  //hack
+  executing_axis6 = true;  //hack
 
-    timer_motor_state_msgs();
-    std::cout << 4;
+  UpdatePIDControl();
 
-    trajectories_position_axis1.clear();
-    trajectories_position_axis2.clear();
-    trajectories_position_axis3.clear();
-    trajectories_position_axis4.clear();
-    trajectories_position_axis5.clear();
-    trajectories_position_axis6.clear();
+  timer_motor_state_msgs();
 
-    executing_axis1 = false;  //hack
-    executing_axis2 = false;  //hack
-    executing_axis3 = false;  //hack
-    executing_axis4 = false;  //hack
-    executing_axis5 = false;  //hack
-    executing_axis6 = false;  //hack
+  trajectories_position_axis1.clear();
+  trajectories_position_axis2.clear();
+  trajectories_position_axis3.clear();
+  trajectories_position_axis4.clear();
+  trajectories_position_axis5.clear();
+  trajectories_position_axis6.clear();
 
-    last_update_time_ = _info.simTime;
-  }
+  executing_axis1 = false;  //hack
+  executing_axis2 = false;  //hack
+  executing_axis3 = false;  //hack
+  executing_axis4 = false;  //hack
+  executing_axis5 = false;  //hack
+  executing_axis6 = false;  //hack
+
+  last_update_time_ = _info.simTime;
 }
 
 void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
