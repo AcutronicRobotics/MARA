@@ -9,10 +9,16 @@ void HROSCognitionMaraComponentsNode::stateCallback(std::string motor_name, floa
   msg_actuators_.actual.velocities[pos] = velocity;
   msg_actuators_.actual.effort[pos] = effort;
 
-  msg_actuators_callback_count ++;
-  if (msg_actuators_callback_count == msg_actuators_.joint_names.size()){
+  msg_actuators_callback_sync[pos] = true;
+
+  // sync: check all elements are true
+  if (std::find(msg_actuators_callback_sync.begin(), msg_actuators_callback_sync.end(), false) == msg_actuators_callback_sync.end()) {
+    // publish synced messages
     timer_stateCommonPublisher();
-    msg_actuators_callback_count = 0;
+    // reset sync tool
+    for(unsigned int i = 0; i < msg_actuators_callback_sync.size(); i++){
+      msg_actuators_callback_sync[i] =  false;
+    }
   }
 
   pthread_mutex_unlock( &mtx );
