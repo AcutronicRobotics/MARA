@@ -109,33 +109,10 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotar
 
       trajectories_position_axis1.clear();
       trajectories_velocities_axis1.clear();
-      // std::vector<double> X(2), Y_vel(2), Y_pos(2);
-      //
-      // float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS1]->Position(0);
-      //
-      // double start_time = 0;
-      // double end_time = fabs(current_pose_rad-msg->position)/msg->velocity;
-
-      // Y_vel[0] = 0;
-      // Y_pos[0] = current_pose_rad;
-      // X[0] = start_time;
-      //
-      // Y_vel[1] = 0;
-      // Y_pos[1] = msg->position;
-      // X[1] = end_time;
-      // tk::spline interpolation_vel, interpolation_pos;
-      // if(!interpolation_vel.set_points(X, Y_vel))
-      //   return;
-      // if(!interpolation_pos.set_points(X, Y_pos))
-      //   return;
 
       trajectories_position_axis1.push_back(msg->position);
       trajectories_velocities_axis1.push_back(msg->velocity);
 
-      /*for(double t = start_time; t < end_time; t+= 0.001 ){
-        trajectories_position_axis1.push_back(interpolation_pos(t));
-        trajectories_velocities_axis1.push_back(interpolation_vel(t));
-      }*/
     }
   }
 }
@@ -148,34 +125,8 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotar
 
       trajectories_position_axis2.clear();
       trajectories_velocities_axis2.clear();
-      // std::vector<double> X(2), Y_vel(2), Y_pos(2);
-      //
-      // float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS2]->Position(0);
-      //
-      // double start_time = 0;
-      // double end_time = fabs(current_pose_rad-msg->position)/msg->velocity;
-
-      // Y_vel[0] = 0;
-      // Y_pos[0] = current_pose_rad;
-      // X[0] = start_time;
-      //
-      // Y_vel[1] = 0;
-      // Y_pos[1] = msg->position;
-      // X[1] = end_time;
-      //
-      // tk::spline interpolation_vel, interpolation_pos;
-      // if(!interpolation_vel.set_points(X, Y_vel))
-      //   return;
-      // if(!interpolation_pos.set_points(X, Y_pos))
-      //   return;
-
       trajectories_position_axis2.push_back(msg->position);
       trajectories_velocities_axis2.push_back(msg->velocity);
-      /*for(double t = start_time; t < end_time; t+= 0.001 ){
-        trajectories_position_axis2.push_back(interpolation_pos(t));
-        trajectories_velocities_axis2.push_back(interpolation_vel(t));
-      }*/
-    }
   }
 }
 
@@ -187,34 +138,10 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis3(const hrim_actuator_rotar
 
       trajectories_position_axis3.clear();
       trajectories_velocities_axis3.clear();
-      // std::vector<double> X(2), Y_vel(2), Y_pos(2);
-      //
-      // float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS3]->Position(0);
-      //
-      // double start_time = 0;
-      // double end_time = fabs(current_pose_rad-msg->position)/msg->velocity;
-
-      // Y_vel[0] = 0;
-      // Y_pos[0] = current_pose_rad;
-      // X[0] = start_time;
-      //
-      // Y_vel[1] = 0;
-      // Y_pos[1] = msg->position;
-      // X[1] = end_time;
-      //
-      // tk::spline interpolation_vel, interpolation_pos;
-      // if(!interpolation_vel.set_points(X, Y_vel))
-      //   return;
-      // if(!interpolation_pos.set_points(X, Y_pos))
-      //   return;
 
       trajectories_position_axis3.push_back(msg->position);
       trajectories_velocities_axis3.push_back(msg->velocity);
 
-      /*for(double t = start_time; t < end_time; t+= 0.001 ){
-        trajectories_position_axis3.push_back(interpolation_pos(t));
-        trajectories_velocities_axis3.push_back(interpolation_vel(t));
-      }*/
     }
   }
 }
@@ -227,34 +154,10 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis4(const hrim_actuator_rotar
 
       trajectories_position_axis4.clear();
       trajectories_velocities_axis4.clear();
-      // std::vector<double> X(2), Y_vel(2), Y_pos(2);
-      //
-      // float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS4]->Position(0);
-      //
-      // double start_time = 0;
-      // double end_time = fabs(current_pose_rad-msg->position)/msg->velocity;
-      //
-      // Y_vel[0] = 0;
-      // Y_pos[0] = current_pose_rad;
-      // X[0] = start_time;
-      //
-      // Y_vel[1] = 0;
-      // Y_pos[1] = msg->position;
-      // X[1] = end_time;
-      //
-      // tk::spline interpolation_vel, interpolation_pos;
-      // if(!interpolation_vel.set_points(X, Y_vel))
-      //   return;
-      // if(!interpolation_pos.set_points(X, Y_pos))
-      //   return;
 
       trajectories_position_axis4.push_back(msg->position);
       trajectories_velocities_axis4.push_back(msg->velocity);
 
-      /*for(double t = start_time; t < end_time; t+= 0.001 ){
-        trajectories_position_axis4.push_back(interpolation_pos(t));
-        trajectories_velocities_axis4.push_back(interpolation_vel(t));
-      }*/
     }
   }
 }
@@ -267,34 +170,11 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis5(const hrim_actuator_rotar
 
       trajectories_position_axis5.clear();
       trajectories_velocities_axis5.clear();
-      // std::vector<double> X(2), Y_vel(2), Y_pos(2);
-      //
-      // float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS5]->Position(0);
-      //
-      // double start_time = 0;
-      // double end_time = fabs(current_pose_rad-msg->position)/msg->velocity;
-      //
-      // Y_vel[0] = 0;
-      // Y_pos[0] = current_pose_rad;
-      // X[0] = start_time;
-      //
-      // Y_vel[1] = 0;
-      // Y_pos[1] = msg->position;
-      // X[1] = end_time;
-      //
-      // tk::spline interpolation_vel, interpolation_pos;
-      // if(!interpolation_vel.set_points(X, Y_vel))
-      //   return;
-      // if(!interpolation_pos.set_points(X, Y_pos))
-      //   return;
+
 
       trajectories_position_axis5.push_back(msg->position);
       trajectories_velocities_axis5.push_back(msg->velocity);
 
-      /*for(double t = start_time; t < end_time; t+= 0.001 ){
-        trajectories_position_axis5.push_back(interpolation_pos(t));
-        trajectories_velocities_axis5.push_back(interpolation_vel(t));
-      }*/
     }
   }
 }
@@ -309,34 +189,10 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis6(const hrim_actuator_rotar
 
       trajectories_position_axis6.clear();
       trajectories_velocities_axis6.clear();
-      // std::vector<double> X(2), Y_vel(2), Y_pos(2);
-      //
-      // float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS6]->Position(0);
-      //
-      // double start_time = 0;
-      // double end_time = fabs(current_pose_rad-msg->position)/msg->velocity;
-      //
-      // Y_vel[0] = 0;
-      // Y_pos[0] = current_pose_rad;
-      // X[0] = start_time;
-      //
-      // Y_vel[1] = 0;
-      // Y_pos[1] = msg->position;
-      // X[1] = end_time;
-      //
-      // tk::spline interpolation_vel, interpolation_pos;
-      // if(!interpolation_vel.set_points(X, Y_vel))
-      //   return;
-      // if(!interpolation_pos.set_points(X, Y_pos))
-      //   return;
 
       trajectories_position_axis6.push_back(msg->position);
       trajectories_velocities_axis6.push_back(msg->velocity);
 
-      /*for(double t = start_time; t < end_time; t+= 0.001 ){
-        trajectories_position_axis6.push_back(interpolation_pos(t));
-        trajectories_velocities_axis6.push_back(interpolation_vel(t));
-      }*/
     }
   }
 }
@@ -601,97 +457,6 @@ void MARAGazeboPluginRos::Reset()
 
 void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _info)
 {
-  // TODO, this is a long OnUpdate, we will need to check the does not get overlapped by next.
-
-  // AXIS 1
-  /*if(!executing_axis1 && trajectories_position_axis1.size()>0){
-    index_trajectory_axis1 = 0;
-    executing_axis1 = true;
-  }
-  if(executing_axis1){
-    goal_position_axis1_rad = trajectories_position_axis1[index_trajectory_axis1];
-    index_trajectory_axis1++;
-    if(index_trajectory_axis1==trajectories_position_axis1.size()){
-      executing_axis1 = false;
-      trajectories_position_axis1.clear();
-      index_trajectory_axis1 = 0;
-    }
-  }
-
-  // AXIS 2
-  if(!executing_axis2 && trajectories_position_axis2.size()>0){
-    index_trajectory_axis2 = 0;
-    executing_axis2 = true;
-  }
-  if(executing_axis2){
-    goal_position_axis2_rad = trajectories_position_axis2[index_trajectory_axis2];
-    index_trajectory_axis2++;
-    if(index_trajectory_axis2==trajectories_position_axis2.size()){
-      executing_axis2 = false;
-      trajectories_position_axis2.clear();
-      index_trajectory_axis2 = 0;
-    }
-  }
-
-  // AXIS 3
-  if(!executing_axis3 && trajectories_position_axis3.size()>0){
-    index_trajectory_axis3 = 0;
-    executing_axis3 = true;
-  }
-  if(executing_axis3){
-    goal_position_axis3_rad = trajectories_position_axis3[index_trajectory_axis3];
-    index_trajectory_axis3++;
-    if(index_trajectory_axis3==trajectories_position_axis3.size()){
-      executing_axis3 = false;
-      trajectories_position_axis3.clear();
-      index_trajectory_axis3 = 0;
-    }
-  }
-
-  // AXIS 4
-  if(!executing_axis4 && trajectories_position_axis4.size()>0){
-    index_trajectory_axis4 = 0;
-    executing_axis4 = true;
-  }
-  if(executing_axis4){
-    goal_position_axis4_rad = trajectories_position_axis4[index_trajectory_axis4];
-    index_trajectory_axis4++;
-    if(index_trajectory_axis4==trajectories_position_axis4.size()){
-      executing_axis4 = false;
-      trajectories_position_axis4.clear();
-      index_trajectory_axis4 = 0;
-    }
-  }
-
-  // AXIS 5
-  if(!executing_axis5 && trajectories_position_axis5.size()>0){
-    index_trajectory_axis5 = 0;
-    executing_axis5 = true;
-  }
-  if(executing_axis5){
-    goal_position_axis5_rad = trajectories_position_axis5[index_trajectory_axis5];
-    index_trajectory_axis5++;
-    if(index_trajectory_axis5==trajectories_position_axis5.size()){
-      executing_axis5 = false;
-      trajectories_position_axis5.clear();
-      index_trajectory_axis5 = 0;
-    }
-  }
-
-  // AXIS 6
-  if(!executing_axis6 && trajectories_position_axis6.size()>0){
-    index_trajectory_axis6 = 0;
-    executing_axis6 = true;
-  }
-  if(executing_axis6){
-    goal_position_axis6_rad = trajectories_position_axis6[index_trajectory_axis6];
-    index_trajectory_axis6++;
-    if(index_trajectory_axis6==trajectories_position_axis6.size()){
-      executing_axis6 = false;
-      trajectories_position_axis6.clear();
-      index_trajectory_axis6 = 0;
-    }
-  }*/
 
   if (trajectories_position_axis1.size()>0
    and trajectories_position_axis2.size()>0
@@ -745,8 +510,6 @@ void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
   float m1_d = *(motor1_pid + 2);
   float m1_imax = *(motor1_pid + 3);
   float m1_imin = *(motor1_pid + 4);
-  //float m1_cmdMax = *(motor1_pid + 5);
-  //float m1_cmdMin = *(motor1_pid + 6);
 
   model_->GetJointController()->SetPositionPID(
     joints_[MARAGazeboPluginRosPrivate::AXIS1]->GetScopedName(),
@@ -759,8 +522,6 @@ void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
   float m2_d = *(motor2_pid + 2);
   float m2_imax = *(motor2_pid + 3);
   float m2_imin = *(motor2_pid + 4);
-  //float m2_cmdMax = *(motor2_pid + 5);
-  //float m2_cmdMin = *(motor2_pid + 6);
 
   model_->GetJointController()->SetPositionPID(
     joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetScopedName(),
@@ -773,8 +534,7 @@ void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
   float m3_d = *(motor3_pid + 2);
   float m3_imax = *(motor3_pid + 3);
   float m3_imin = *(motor3_pid + 4);
-  //float m3_cmdMax = *(motor3_pid + 5);
-  //float m3_cmdMin = *(motor3_pid + 6);
+
 
   model_->GetJointController()->SetPositionPID(
     joints_[MARAGazeboPluginRosPrivate::AXIS3]->GetScopedName(),
@@ -787,8 +547,7 @@ void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
   float m4_d = *(motor4_pid + 2);
   float m4_imax = *(motor4_pid + 3);
   float m4_imin = *(motor4_pid + 4);
-  //float m4_cmdMax = *(motor4_pid + 5);
-  //float m4_cmdMin = *(motor4_pid + 6);
+
 
   model_->GetJointController()->SetPositionPID(
     joints_[MARAGazeboPluginRosPrivate::AXIS4]->GetScopedName(),
@@ -801,8 +560,6 @@ void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
   float m5_d = *(motor5_pid + 2);
   float m5_imax = *(motor5_pid + 3);
   float m5_imin = *(motor5_pid + 4);
-  //float m5_cmdMax = *(motor5_pid + 5);
-  //float m5_cmdMin = *(motor5_pid + 6);
 
   model_->GetJointController()->SetPositionPID(
     joints_[MARAGazeboPluginRosPrivate::AXIS5]->GetScopedName(),
@@ -815,8 +572,7 @@ void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
   float m6_d = *(motor6_pid + 2);
   float m6_imax = *(motor6_pid + 3);
   float m6_imin = *(motor6_pid + 4);
-  //float m6_cmdMax = *(motor6_pid + 5);
-  //float m6_cmdMin = *(motor6_pid + 6);
+
 
   model_->GetJointController()->SetPositionPID(
     joints_[MARAGazeboPluginRosPrivate::AXIS6]->GetScopedName(),
