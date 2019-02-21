@@ -2,6 +2,8 @@
 
 void HROSCognitionMaraComponentsNode::stateCallback(std::string motor_name, float velocity, float position, float effort)
 {
+  pthread_mutex_lock( &mtx );
+
   auto pos = std::find(msg_actuators_.joint_names.begin(), msg_actuators_.joint_names.end(), motor_name) - msg_actuators_.joint_names.begin();
   msg_actuators_.actual.positions[pos] = position;
   msg_actuators_.actual.velocities[pos] = velocity;
@@ -12,6 +14,8 @@ void HROSCognitionMaraComponentsNode::stateCallback(std::string motor_name, floa
     timer_stateCommonPublisher();
     msg_actuators_callback_count = 0;
   }
+
+  pthread_mutex_unlock( &mtx );
 }
 
 void HROSCognitionMaraComponentsNode::timer_stateCommonPublisher()
