@@ -115,7 +115,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotar
   X[1] = end_time;
   Y_pos[0] = current_pose_rad;
   Y_pos[1] = msg->position;
-  
+
   tk::spline interpolation_pos;
   if(!interpolation_pos.set_points(X, Y_pos))
     return;
@@ -139,7 +139,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotar
   X[1] = end_time;
   Y_pos[0] = current_pose_rad;
   Y_pos[1] = msg->position;
-  
+
   tk::spline interpolation_pos;
   if(!interpolation_pos.set_points(X, Y_pos))
     return;
@@ -163,7 +163,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis3(const hrim_actuator_rotar
   X[1] = end_time;
   Y_pos[0] = current_pose_rad;
   Y_pos[1] = msg->position;
-  
+
   tk::spline interpolation_pos;
   if(!interpolation_pos.set_points(X, Y_pos))
     return;
@@ -187,12 +187,12 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis4(const hrim_actuator_rotar
   X[1] = end_time;
   Y_pos[0] = current_pose_rad;
   Y_pos[1] = msg->position;
-  
+
   tk::spline interpolation_pos;
   if(!interpolation_pos.set_points(X, Y_pos))
     return;
 
-  for(double t = start_time; t < end_time; t+= 0.001 ){
+  for(double t = start_time; t < end_time; t+= 0.01 ){
     trajectories_position_axis4.push_back(interpolation_pos(t));
   }
 }
@@ -211,7 +211,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis5(const hrim_actuator_rotar
   X[1] = end_time;
   Y_pos[0] = current_pose_rad;
   Y_pos[1] = msg->position;
-  
+
   tk::spline interpolation_pos;
   if(!interpolation_pos.set_points(X, Y_pos))
     return;
@@ -235,7 +235,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis6(const hrim_actuator_rotar
   X[1] = end_time;
   Y_pos[0] = current_pose_rad;
   Y_pos[1] = msg->position;
-  
+
   tk::spline interpolation_pos;
   if(!interpolation_pos.set_points(X, Y_pos))
     return;
@@ -472,19 +472,19 @@ void MARAGazeboPluginRosPrivate::OnUpdate()
 {
   // TODO, this is a long OnUpdate, we will need to check the does not get overlapped by next.
 
-  if (trajectories_position_axis1.size()>0
-   and trajectories_position_axis2.size()>0
-   and trajectories_position_axis3.size()>0
-   and trajectories_position_axis4.size()>0
-   and trajectories_position_axis5.size()>0
-   and trajectories_position_axis6.size()>0)
+  if (!trajectories_position_axis1.empty()
+   && !trajectories_position_axis2.empty()
+   && !trajectories_position_axis3.empty()
+   && !trajectories_position_axis4.empty()
+   && !trajectories_position_axis5.empty()
+   && !trajectories_position_axis6.empty())
   {
-    goal_position_axis1_rad = trajectories_position_axis1[0];
-    goal_position_axis2_rad = trajectories_position_axis2[0];
-    goal_position_axis3_rad = trajectories_position_axis3[0];
-    goal_position_axis4_rad = trajectories_position_axis4[0];
-    goal_position_axis5_rad = trajectories_position_axis5[0];
-    goal_position_axis6_rad = trajectories_position_axis6[0];
+    goal_position_axis1_rad = trajectories_position_axis1.back();
+    goal_position_axis2_rad = trajectories_position_axis2.back();
+    goal_position_axis3_rad = trajectories_position_axis3.back();
+    goal_position_axis4_rad = trajectories_position_axis4.back();
+    goal_position_axis5_rad = trajectories_position_axis5.back();
+    goal_position_axis6_rad = trajectories_position_axis6.back();
 
   } // else, use default values set in Load
 
