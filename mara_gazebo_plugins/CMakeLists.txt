@@ -40,12 +40,12 @@ include_directories(include
 )
 link_directories(${gazebo_dev_LIBRARY_DIRS})
 
-# mara_gazebo_joint_plugin
-add_library(mara_gazebo_joint_plugin SHARED
-  src/mara_gazebo_joint_plugin.cpp
+# mara_gazebo_joint_training_plugin
+add_library(mara_gazebo_joint_training_plugin SHARED
+  src/mara_gazebo_joint_training_plugin.cpp
   src/spline.cpp
 )
-ament_target_dependencies(mara_gazebo_joint_plugin
+ament_target_dependencies(mara_gazebo_joint_training_plugin
   "gazebo_dev"
   "gazebo_ros"
   "rclcpp"
@@ -57,7 +57,26 @@ ament_target_dependencies(mara_gazebo_joint_plugin
   "hrim_generic_msgs"
   "ament_index_cpp"
 )
-ament_export_libraries(mara_gazebo_joint_plugin)
+ament_export_libraries(mara_gazebo_joint_training_plugin)
+
+# mara_gazebo_joint_running_plugin
+add_library(mara_gazebo_joint_running_plugin SHARED
+  src/mara_gazebo_joint_running_plugin.cpp
+  src/spline.cpp
+)
+ament_target_dependencies(mara_gazebo_joint_running_plugin
+  "gazebo_dev"
+  "gazebo_ros"
+  "rclcpp"
+  "tf2"
+  "tf2_geometry_msgs"
+  "tf2_ros"
+  "hrim_actuator_rotaryservo_msgs"
+  "trajectory_msgs"
+  "hrim_generic_msgs"
+  "ament_index_cpp"
+)
+ament_export_libraries(mara_gazebo_joint_running_plugin)
 
 ament_export_include_directories(include)
 ament_export_dependencies(rclcpp)
@@ -70,7 +89,8 @@ install(DIRECTORY include/
         DESTINATION include)
 
 install(TARGETS
-  mara_gazebo_joint_plugin
+  mara_gazebo_joint_training_plugin
+  mara_gazebo_joint_running_plugin
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)

@@ -18,6 +18,7 @@ install(
   scripts/spawn_entity.py
   scripts/spawn_mara_gripper_85.py
   scripts/spawn_mara_gripper_140.py
+  scripts/spawn_mara_gripper_140_run.py
   scripts/spawn_mara_gripper_hande.py
   scripts/spawn_module.py
   scripts/gripper_interface.py

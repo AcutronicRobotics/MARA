@@ -168,7 +168,8 @@ namespace gazebo_plugins
 /*
  *
  * \author  Alejandro Hernandez (alex <at> erlerobotics.com)
- *
+ * \author  Nestor Gonzalez (nestor <at> erlerobotics.com)
+ * \author  Risto Kojcev (risto <at> erlerobotics.com)
  */
 
 class MARAGazeboPluginRos : public gazebo::ModelPlugin

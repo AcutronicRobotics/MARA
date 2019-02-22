@@ -18,21 +18,21 @@
         <joint_name>joint_finger</joint_name>
     	</plugin>
 
-      <plugin name="hros_actuation_servomotor_000000000001" filename="libmara_gazebo_joint_plugin.so">
+      <plugin name="hros_actuation_servomotor_000000000001" filename="libmara_gazebo_joint_training_plugin.so">
         <ros></ros>
         <axis1>motor2</axis1>
         <axis2>motor1</axis2>
         <type>series14</type>
       </plugin>
 
-      <plugin name="hros_actuation_servomotor_000000000002" filename="libmara_gazebo_joint_plugin.so">
+      <plugin name="hros_actuation_servomotor_000000000002" filename="libmara_gazebo_joint_training_plugin.so">
         <ros></ros>
         <axis1>motor3</axis1>
         <axis2>motor4</axis2>
         <type>series17</type>
       </plugin>
 
-      <plugin name="hros_actuation_servomotor_000000000003" filename="libmara_gazebo_joint_plugin.so">
+      <plugin name="hros_actuation_servomotor_000000000003" filename="libmara_gazebo_joint_training_plugin.so">
         <ros></ros>
         <axis1>motor5</axis1>
         <axis2>motor6</axis2>

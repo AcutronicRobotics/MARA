@@ -1,4 +1,4 @@
-#include <mara_gazebo_plugins/mara_gazebo_joint_plugin.hpp>
+#include <mara_gazebo_plugins/mara_gazebo_joint_training_plugin.hpp>
 
 namespace gazebo_plugins
 {
@@ -105,42 +105,144 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotar
 {
   UpdateJointPIDs();
   trajectories_position_axis1.clear();
-  trajectories_position_axis1.push_back(msg->position);
+
+  float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS1]->Position(0);
+  double start_time = 0;
+  double end_time = fabs(current_pose_rad - msg->position) / msg->velocity;
+
+  std::vector<double> X(2), Y_pos(2);
+  X[0] = start_time;
+  X[1] = end_time;
+  Y_pos[0] = current_pose_rad;
+  Y_pos[1] = msg->position;
+  
+  tk::spline interpolation_pos;
+  if(!interpolation_pos.set_points(X, Y_pos))
+    return;
+
+  for(double t = start_time; t < end_time; t+= 0.001 ){
+    trajectories_position_axis1.push_back(interpolation_pos(t));
+  }
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
   UpdateJointPIDs();
   trajectories_position_axis2.clear();
-  trajectories_position_axis2.push_back(msg->position);
+
+  float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS2]->Position(0);
+  double start_time = 0;
+  double end_time = fabs(current_pose_rad - msg->position) / msg->velocity;
+
+  std::vector<double> X(2), Y_pos(2);
+  X[0] = start_time;
+  X[1] = end_time;
+  Y_pos[0] = current_pose_rad;
+  Y_pos[1] = msg->position;
+  
+  tk::spline interpolation_pos;
+  if(!interpolation_pos.set_points(X, Y_pos))
+    return;
+
+  for(double t = start_time; t < end_time; t+= 0.001 ){
+    trajectories_position_axis2.push_back(interpolation_pos(t));
+  }
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis3(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
   UpdateJointPIDs();
   trajectories_position_axis3.clear();
-  trajectories_position_axis3.push_back(msg->position);
+
+  float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS3]->Position(0);
+  double start_time = 0;
+  double end_time = fabs(current_pose_rad - msg->position) / msg->velocity;
+
+  std::vector<double> X(2), Y_pos(2);
+  X[0] = start_time;
+  X[1] = end_time;
+  Y_pos[0] = current_pose_rad;
+  Y_pos[1] = msg->position;
+  
+  tk::spline interpolation_pos;
+  if(!interpolation_pos.set_points(X, Y_pos))
+    return;
+
+  for(double t = start_time; t < end_time; t+= 0.001 ){
+    trajectories_position_axis3.push_back(interpolation_pos(t));
+  }
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis4(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
   UpdateJointPIDs();
   trajectories_position_axis4.clear();
-  trajectories_position_axis4.push_back(msg->position);
+
+  float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS4]->Position(0);
+  double start_time = 0;
+  double end_time = fabs(current_pose_rad - msg->position) / msg->velocity;
+
+  std::vector<double> X(2), Y_pos(2);
+  X[0] = start_time;
+  X[1] = end_time;
+  Y_pos[0] = current_pose_rad;
+  Y_pos[1] = msg->position;
+  
+  tk::spline interpolation_pos;
+  if(!interpolation_pos.set_points(X, Y_pos))
+    return;
+
+  for(double t = start_time; t < end_time; t+= 0.001 ){
+    trajectories_position_axis4.push_back(interpolation_pos(t));
+  }
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis5(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
   UpdateJointPIDs();
   trajectories_position_axis5.clear();
-  trajectories_position_axis5.push_back(msg->position);
+
+  float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS5]->Position(0);
+  double start_time = 0;
+  double end_time = fabs(current_pose_rad - msg->position) / msg->velocity;
+
+  std::vector<double> X(2), Y_pos(2);
+  X[0] = start_time;
+  X[1] = end_time;
+  Y_pos[0] = current_pose_rad;
+  Y_pos[1] = msg->position;
+  
+  tk::spline interpolation_pos;
+  if(!interpolation_pos.set_points(X, Y_pos))
+    return;
+
+  for(double t = start_time; t < end_time; t+= 0.001 ){
+    trajectories_position_axis5.push_back(interpolation_pos(t));
+  }
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis6(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
   UpdateJointPIDs();
   trajectories_position_axis6.clear();
-  trajectories_position_axis6.push_back(msg->position);
+
+  float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS6]->Position(0);
+  double start_time = 0;
+  double end_time = fabs(current_pose_rad - msg->position) / msg->velocity;
+
+  std::vector<double> X(2), Y_pos(2);
+  X[0] = start_time;
+  X[1] = end_time;
+  Y_pos[0] = current_pose_rad;
+  Y_pos[1] = msg->position;
+  
+  tk::spline interpolation_pos;
+  if(!interpolation_pos.set_points(X, Y_pos))
+    return;
+
+  for(double t = start_time; t < end_time; t+= 0.001 ){
+    trajectories_position_axis6.push_back(interpolation_pos(t));
+  }
 }
 
 void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr _sdf)
