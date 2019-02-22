@@ -108,7 +108,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotar
 
   float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS1]->Position(0);
   double start_time = 0;
-  double end_time = fabs(current_pose_rad - msg->position) / msg->velocity;
+  double end_time = fabs( msg->position) / msg->velocity;
 
   std::vector<double> X(2), Y_pos(2);
   X[0] = start_time;
@@ -132,7 +132,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotar
 
   float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS2]->Position(0);
   double start_time = 0;
-  double end_time = fabs(current_pose_rad - msg->position) / msg->velocity;
+  double end_time = fabs( msg->position) / msg->velocity;
 
   std::vector<double> X(2), Y_pos(2);
   X[0] = start_time;
@@ -156,7 +156,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis3(const hrim_actuator_rotar
 
   float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS3]->Position(0);
   double start_time = 0;
-  double end_time = fabs(current_pose_rad - msg->position) / msg->velocity;
+  double end_time = fabs( msg->position) / msg->velocity;
 
   std::vector<double> X(2), Y_pos(2);
   X[0] = start_time;
@@ -180,7 +180,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis4(const hrim_actuator_rotar
 
   float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS4]->Position(0);
   double start_time = 0;
-  double end_time = fabs(current_pose_rad - msg->position) / msg->velocity;
+  double end_time = fabs( msg->position) / msg->velocity;
 
   std::vector<double> X(2), Y_pos(2);
   X[0] = start_time;
@@ -192,7 +192,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis4(const hrim_actuator_rotar
   if(!interpolation_pos.set_points(X, Y_pos))
     return;
 
-  for(double t = start_time; t < end_time; t+= 0.01 ){
+  for(double t = start_time; t < end_time; t+= 0.001 ){
     trajectories_position_axis4.push_back(interpolation_pos(t));
   }
 }
@@ -204,7 +204,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis5(const hrim_actuator_rotar
 
   float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS5]->Position(0);
   double start_time = 0;
-  double end_time = fabs(current_pose_rad - msg->position) / msg->velocity;
+  double end_time = fabs( msg->position) / msg->velocity;
 
   std::vector<double> X(2), Y_pos(2);
   X[0] = start_time;
@@ -228,7 +228,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis6(const hrim_actuator_rotar
 
   float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS6]->Position(0);
   double start_time = 0;
-  double end_time = fabs(current_pose_rad - msg->position) / msg->velocity;
+  double end_time = fabs( msg->position) / msg->velocity;
 
   std::vector<double> X(2), Y_pos(2);
   X[0] = start_time;
