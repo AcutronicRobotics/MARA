@@ -153,27 +153,6 @@ namespace gazebo_plugins
     std::vector<float> trajectories_position_axis5;
     std::vector<float> trajectories_position_axis6;
 
-    std::vector<float> trajectories_velocities_axis1;
-    std::vector<float> trajectories_velocities_axis2;
-    std::vector<float> trajectories_velocities_axis3;
-    std::vector<float> trajectories_velocities_axis4;
-    std::vector<float> trajectories_velocities_axis5;
-    std::vector<float> trajectories_velocities_axis6;
-
-    bool executing_axis1;
-    bool executing_axis2;
-    bool executing_axis3;
-    bool executing_axis4;
-    bool executing_axis5;
-    bool executing_axis6;
-
-    unsigned int index_trajectory_axis1;
-    unsigned int index_trajectory_axis2;
-    unsigned int index_trajectory_axis3;
-    unsigned int index_trajectory_axis4;
-    unsigned int index_trajectory_axis5;
-    unsigned int index_trajectory_axis6;
-
     float goal_position_axis1_rad;
     float goal_position_axis2_rad;
     float goal_position_axis3_rad;

@@ -104,67 +104,43 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
 void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
   UpdateJointPIDs();
-
   trajectories_position_axis1.clear();
-  trajectories_velocities_axis1.clear();
-
   trajectories_position_axis1.push_back(msg->position);
-  trajectories_velocities_axis1.push_back(msg->velocity);
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
   UpdateJointPIDs();
-
   trajectories_position_axis2.clear();
-  trajectories_velocities_axis2.clear();
-
   trajectories_position_axis2.push_back(msg->position);
-  trajectories_velocities_axis2.push_back(msg->velocity);
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis3(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
   UpdateJointPIDs();
-
   trajectories_position_axis3.clear();
-  trajectories_velocities_axis3.clear();
-
   trajectories_position_axis3.push_back(msg->position);
-  trajectories_velocities_axis3.push_back(msg->velocity);
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis4(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
   UpdateJointPIDs();
-
   trajectories_position_axis4.clear();
-  trajectories_velocities_axis4.clear();
-
   trajectories_position_axis4.push_back(msg->position);
-  trajectories_velocities_axis4.push_back(msg->velocity);
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis5(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
   UpdateJointPIDs();
-
   trajectories_position_axis5.clear();
-  trajectories_velocities_axis5.clear();
-
   trajectories_position_axis5.push_back(msg->position);
-  trajectories_velocities_axis5.push_back(msg->velocity);
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis6(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
   UpdateJointPIDs();
-
   trajectories_position_axis6.clear();
-  trajectories_velocities_axis6.clear();
-
   trajectories_position_axis6.push_back(msg->position);
-  trajectories_velocities_axis6.push_back(msg->velocity);
 }
 
 void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr _sdf)
@@ -180,13 +156,6 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   impl_->trajectories_position_axis4.clear();
   impl_->trajectories_position_axis5.clear();
   impl_->trajectories_position_axis6.clear();
-
-  impl_->trajectories_velocities_axis1.clear();
-  impl_->trajectories_velocities_axis2.clear();
-  impl_->trajectories_velocities_axis3.clear();
-  impl_->trajectories_velocities_axis4.clear();
-  impl_->trajectories_velocities_axis5.clear();
-  impl_->trajectories_velocities_axis6.clear();
 
   impl_->goal_position_axis1_rad = 0;
   impl_->goal_position_axis2_rad = 0;
@@ -389,12 +358,6 @@ void MARAGazeboPluginRos::Reset()
   impl_->trajectories_position_axis4.clear();
   impl_->trajectories_position_axis5.clear();
   impl_->trajectories_position_axis6.clear();
-  impl_->trajectories_velocities_axis1.clear();
-  impl_->trajectories_velocities_axis2.clear();
-  impl_->trajectories_velocities_axis3.clear();
-  impl_->trajectories_velocities_axis4.clear();
-  impl_->trajectories_velocities_axis5.clear();
-  impl_->trajectories_velocities_axis6.clear();
   impl_->goal_position_axis1_rad = 0;
   impl_->goal_position_axis2_rad = 0;
   impl_->goal_position_axis3_rad = 0;
