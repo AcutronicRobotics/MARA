@@ -120,7 +120,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotar
   if(!interpolation_pos.set_points(X, Y_pos))
     return;
 
-  for(double t = start_time; t < end_time; t+= 0.001 ){
+  for(double t = start_time; t <= end_time; t+= 0.001 ){
     trajectories_position_axis1.push_back(interpolation_pos(t));
   }
 }
@@ -144,7 +144,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotar
   if(!interpolation_pos.set_points(X, Y_pos))
     return;
 
-  for(double t = start_time; t < end_time; t+= 0.001 ){
+  for(double t = start_time; t <= end_time; t+= 0.001 ){
     trajectories_position_axis2.push_back(interpolation_pos(t));
   }
 }
@@ -168,7 +168,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis3(const hrim_actuator_rotar
   if(!interpolation_pos.set_points(X, Y_pos))
     return;
 
-  for(double t = start_time; t < end_time; t+= 0.001 ){
+  for(double t = start_time; t <= end_time; t+= 0.001 ){
     trajectories_position_axis3.push_back(interpolation_pos(t));
   }
 }
@@ -192,7 +192,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis4(const hrim_actuator_rotar
   if(!interpolation_pos.set_points(X, Y_pos))
     return;
 
-  for(double t = start_time; t < end_time; t+= 0.001 ){
+  for(double t = start_time; t <= end_time; t+= 0.001 ){
     trajectories_position_axis4.push_back(interpolation_pos(t));
   }
 }
@@ -216,7 +216,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis5(const hrim_actuator_rotar
   if(!interpolation_pos.set_points(X, Y_pos))
     return;
 
-  for(double t = start_time; t < end_time; t+= 0.001 ){
+  for(double t = start_time; t <= end_time; t+= 0.001 ){
     trajectories_position_axis5.push_back(interpolation_pos(t));
   }
 }
@@ -240,7 +240,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis6(const hrim_actuator_rotar
   if(!interpolation_pos.set_points(X, Y_pos))
     return;
 
-  for(double t = start_time; t < end_time; t+= 0.001 ){
+  for(double t = start_time; t <= end_time; t+= 0.001 ){
     trajectories_position_axis6.push_back(interpolation_pos(t));
   }
 }
@@ -479,12 +479,17 @@ void MARAGazeboPluginRosPrivate::OnUpdate()
    && !trajectories_position_axis5.empty()
    && !trajectories_position_axis6.empty())
   {
-    goal_position_axis1_rad = trajectories_position_axis1.back();
-    goal_position_axis2_rad = trajectories_position_axis2.back();
-    goal_position_axis3_rad = trajectories_position_axis3.back();
-    goal_position_axis4_rad = trajectories_position_axis4.back();
-    goal_position_axis5_rad = trajectories_position_axis5.back();
-    goal_position_axis6_rad = trajectories_position_axis6.back();
+    for( int i = 0; i < int( trajectories_position_axis1.size() ); i++)
+    {
+      goal_position_axis1_rad = trajectories_position_axis1[i];
+      goal_position_axis2_rad = trajectories_position_axis2[i];
+      goal_position_axis3_rad = trajectories_position_axis3[i];
+      goal_position_axis4_rad = trajectories_position_axis4[i];
+      goal_position_axis5_rad = trajectories_position_axis5[i];
+      goal_position_axis6_rad = trajectories_position_axis6[i];
+      UpdatePIDControl();
+      timer_motor_state_msgs();
+    }
 
   } // else, use default values set in Load
 
