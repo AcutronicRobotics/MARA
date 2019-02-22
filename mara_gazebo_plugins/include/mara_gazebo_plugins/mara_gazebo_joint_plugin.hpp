@@ -90,7 +90,7 @@ namespace gazebo_plugins
 
     /// Callback to be called at every simulation iteration.
     /// \param[in] _info Updated simulation info.
-    void OnUpdate(const gazebo::common::UpdateInfo & _info);
+    void OnUpdate();
 
     void timer_motor_state_msgs();
     std::shared_ptr<rclcpp::TimerBase> timer_motor_state_;

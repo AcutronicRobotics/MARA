@@ -26,7 +26,7 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
   motor_state_msg_axis1.goal = goal_position_axis1_rad;
   motor_state_msg_axis1.error = (goal_position_axis1_rad - motor_state_msg_axis1.position);
   motor_state_msg_axis1.load = 0;
-  motor_state_msg_axis1.moving = executing_axis1;
+  motor_state_msg_axis1.moving = true;
   motor_state_msg_axis1.fault = hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo::FAULT_NONE;
   motor_state_axis1_pub->publish(motor_state_msg_axis1);
 
@@ -40,7 +40,7 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
   motor_state_msg_axis2.goal =  goal_position_axis2_rad;
   motor_state_msg_axis2.error = (goal_position_axis2_rad - motor_state_msg_axis2.position);
   motor_state_msg_axis2.load = 0;
-  motor_state_msg_axis2.moving = executing_axis2;
+  motor_state_msg_axis2.moving = true;
   motor_state_msg_axis2.fault = hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo::FAULT_NONE;
   motor_state_axis2_pub->publish(motor_state_msg_axis2);
 
@@ -54,7 +54,7 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
   motor_state_msg_axis3.goal = goal_position_axis3_rad;
   motor_state_msg_axis3.error = (goal_position_axis3_rad - motor_state_msg_axis3.position);
   motor_state_msg_axis3.load = 0;
-  motor_state_msg_axis3.moving = executing_axis3;
+  motor_state_msg_axis3.moving = true;
   motor_state_msg_axis3.fault = hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo::FAULT_NONE;
   motor_state_axis3_pub->publish(motor_state_msg_axis3);
 
@@ -68,7 +68,7 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
   motor_state_msg_axis4.goal = goal_position_axis4_rad;
   motor_state_msg_axis4.error = (goal_position_axis4_rad - motor_state_msg_axis4.position);
   motor_state_msg_axis4.load = 0;
-  motor_state_msg_axis4.moving = executing_axis4;
+  motor_state_msg_axis4.moving = true;
   motor_state_msg_axis4.fault = hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo::FAULT_NONE;
   motor_state_axis4_pub->publish(motor_state_msg_axis4);
 
@@ -82,7 +82,7 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
   motor_state_msg_axis5.goal = goal_position_axis5_rad;
   motor_state_msg_axis5.error = (goal_position_axis5_rad - motor_state_msg_axis5.position);
   motor_state_msg_axis5.load = 0;
-  motor_state_msg_axis5.moving = executing_axis5;
+  motor_state_msg_axis5.moving = true;
   motor_state_msg_axis5.fault = hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo::FAULT_NONE;
   motor_state_axis5_pub->publish(motor_state_msg_axis5);
 
@@ -96,106 +96,75 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
   motor_state_msg_axis6.goal = goal_position_axis6_rad;
   motor_state_msg_axis6.error = (goal_position_axis6_rad - motor_state_msg_axis6.position);
   motor_state_msg_axis6.load = 0;
-  motor_state_msg_axis6.moving = executing_axis6;
+  motor_state_msg_axis6.moving = true;
   motor_state_msg_axis6.fault = hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo::FAULT_NONE;
   motor_state_axis6_pub->publish(motor_state_msg_axis6);
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  if(!executing_axis1){
-    if(msg->velocity!=0.0){
-      UpdateJointPIDs();
+  UpdateJointPIDs();
 
-      trajectories_position_axis1.clear();
-      trajectories_velocities_axis1.clear();
+  trajectories_position_axis1.clear();
+  trajectories_velocities_axis1.clear();
 
-      trajectories_position_axis1.push_back(msg->position);
-      trajectories_velocities_axis1.push_back(msg->velocity);
-
-    }
-  }
+  trajectories_position_axis1.push_back(msg->position);
+  trajectories_velocities_axis1.push_back(msg->velocity);
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  if(!executing_axis2){
-    if(msg->velocity!=0.0){
-      UpdateJointPIDs();
+  UpdateJointPIDs();
 
-      trajectories_position_axis2.clear();
-      trajectories_velocities_axis2.clear();
+  trajectories_position_axis2.clear();
+  trajectories_velocities_axis2.clear();
 
-      trajectories_position_axis2.push_back(msg->position);
-      trajectories_velocities_axis2.push_back(msg->velocity);
-
-    }
-  }
+  trajectories_position_axis2.push_back(msg->position);
+  trajectories_velocities_axis2.push_back(msg->velocity);
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis3(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  if(!executing_axis3){
-    if(msg->velocity!=0.0){
-      UpdateJointPIDs();
+  UpdateJointPIDs();
 
-      trajectories_position_axis3.clear();
-      trajectories_velocities_axis3.clear();
+  trajectories_position_axis3.clear();
+  trajectories_velocities_axis3.clear();
 
-      trajectories_position_axis3.push_back(msg->position);
-      trajectories_velocities_axis3.push_back(msg->velocity);
-
-    }
-  }
+  trajectories_position_axis3.push_back(msg->position);
+  trajectories_velocities_axis3.push_back(msg->velocity);
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis4(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  if(!executing_axis4){
-    if(msg->velocity!=0.0){
-      UpdateJointPIDs();
+  UpdateJointPIDs();
 
-      trajectories_position_axis4.clear();
-      trajectories_velocities_axis4.clear();
+  trajectories_position_axis4.clear();
+  trajectories_velocities_axis4.clear();
 
-      trajectories_position_axis4.push_back(msg->position);
-      trajectories_velocities_axis4.push_back(msg->velocity);
-
-    }
-  }
+  trajectories_position_axis4.push_back(msg->position);
+  trajectories_velocities_axis4.push_back(msg->velocity);
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis5(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  if(!executing_axis5){
-    if(msg->velocity!=0.0){
-      UpdateJointPIDs();
+  UpdateJointPIDs();
 
-      trajectories_position_axis5.clear();
-      trajectories_velocities_axis5.clear();
+  trajectories_position_axis5.clear();
+  trajectories_velocities_axis5.clear();
 
-      trajectories_position_axis5.push_back(msg->position);
-      trajectories_velocities_axis5.push_back(msg->velocity);
-
-    }
-  }
+  trajectories_position_axis5.push_back(msg->position);
+  trajectories_velocities_axis5.push_back(msg->velocity);
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis6(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
+  UpdateJointPIDs();
 
+  trajectories_position_axis6.clear();
+  trajectories_velocities_axis6.clear();
 
-  if(!executing_axis6){
-    if(msg->velocity!=0.0){
-      UpdateJointPIDs();
-
-      trajectories_position_axis6.clear();
-      trajectories_velocities_axis6.clear();
-
-      trajectories_position_axis6.push_back(msg->position);
-      trajectories_velocities_axis6.push_back(msg->velocity);
-    }
-  }
+  trajectories_position_axis6.push_back(msg->position);
+  trajectories_velocities_axis6.push_back(msg->velocity);
 }
 
 void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr _sdf)
@@ -219,14 +188,6 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   impl_->trajectories_velocities_axis5.clear();
   impl_->trajectories_velocities_axis6.clear();
 
-  impl_->executing_axis1 = false;
-  impl_->executing_axis2 = false;
-  impl_->executing_axis3 = false;
-  impl_->executing_axis4 = false;
-  impl_->executing_axis5 = false;
-  impl_->executing_axis6 = false;
-  //impl_->index_trajectory_axis1 = 0;
-  //impl_->index_trajectory_axis2 = 0;
   impl_->goal_position_axis1_rad = 0;
   impl_->goal_position_axis2_rad = 0;
   impl_->goal_position_axis3_rad = 0;
@@ -358,7 +319,7 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
 
   // Listen to the update event (broadcast every simulation iteration)
   impl_->update_connection_ = gazebo::event::Events::ConnectWorldUpdateBegin(
-    std::bind(&MARAGazeboPluginRosPrivate::OnUpdate, impl_.get(), std::placeholders::_1));
+    std::bind(&MARAGazeboPluginRosPrivate::OnUpdate, impl_.get()));
 
 
   impl_->UpdateJointPIDs();
@@ -434,18 +395,6 @@ void MARAGazeboPluginRos::Reset()
   impl_->trajectories_velocities_axis4.clear();
   impl_->trajectories_velocities_axis5.clear();
   impl_->trajectories_velocities_axis6.clear();
-  impl_->executing_axis1 = false;
-  impl_->executing_axis2 = false;
-  impl_->executing_axis3 = false;
-  impl_->executing_axis4 = false;
-  impl_->executing_axis5 = false;
-  impl_->executing_axis6 = false;
-  impl_->index_trajectory_axis1 = 0;
-  impl_->index_trajectory_axis2 = 0;
-  impl_->index_trajectory_axis3 = 0;
-  impl_->index_trajectory_axis4 = 0;
-  impl_->index_trajectory_axis5 = 0;
-  impl_->index_trajectory_axis6 = 0;
   impl_->goal_position_axis1_rad = 0;
   impl_->goal_position_axis2_rad = 0;
   impl_->goal_position_axis3_rad = 0;
@@ -454,7 +403,7 @@ void MARAGazeboPluginRos::Reset()
   impl_->goal_position_axis6_rad = 0;
 }
 
-void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _info)
+void MARAGazeboPluginRosPrivate::OnUpdate()
 {
   // TODO, this is a long OnUpdate, we will need to check the does not get overlapped by next.
 
@@ -474,32 +423,8 @@ void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _in
 
   } // else, use default values set in Load
 
-  executing_axis1 = true;  //hack
-  executing_axis2 = true;  //hack
-  executing_axis3 = true;  //hack
-  executing_axis4 = true;  //hack
-  executing_axis5 = true;  //hack
-  executing_axis6 = true;  //hack
-
   UpdatePIDControl();
-
   timer_motor_state_msgs();
-
-  trajectories_position_axis1.clear();
-  trajectories_position_axis2.clear();
-  trajectories_position_axis3.clear();
-  trajectories_position_axis4.clear();
-  trajectories_position_axis5.clear();
-  trajectories_position_axis6.clear();
-
-  executing_axis1 = false;  //hack
-  executing_axis2 = false;  //hack
-  executing_axis3 = false;  //hack
-  executing_axis4 = false;  //hack
-  executing_axis5 = false;  //hack
-  executing_axis6 = false;  //hack
-
-  last_update_time_ = _info.simTime;
 }
 
 void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
