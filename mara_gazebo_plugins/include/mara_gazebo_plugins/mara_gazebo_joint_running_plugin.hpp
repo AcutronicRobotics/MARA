@@ -160,6 +160,20 @@ namespace gazebo_plugins
     float goal_position_axis5_rad;
     float goal_position_axis6_rad;
 
+    bool executing_axis1;
+    bool executing_axis2;
+    bool executing_axis3;
+    bool executing_axis4;
+    bool executing_axis5;
+    bool executing_axis6;
+
+    unsigned int index_trajectory_axis1;
+    unsigned int index_trajectory_axis2;
+    unsigned int index_trajectory_axis3;
+    unsigned int index_trajectory_axis4;
+    unsigned int index_trajectory_axis5;
+    unsigned int index_trajectory_axis6;
+
     float * getPIDValues(std::string joint_name);
 
   };
