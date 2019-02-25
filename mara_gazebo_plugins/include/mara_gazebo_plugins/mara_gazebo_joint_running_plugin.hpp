@@ -91,9 +91,9 @@ namespace gazebo_plugins
     /// Callback to be called at every simulation iteration.
     /// \param[in] _info Updated simulation info.
     void OnUpdate();
-
+    void timer_PIDControl();
     void timer_motor_state_msgs();
-    std::shared_ptr<rclcpp::TimerBase> timer_motor_state_;
+    std::shared_ptr<rclcpp::TimerBase> timer_PIDControl_;
 
     void readfullFile(std::string file_to_read, hrim_generic_msgs::msg::Simulation3D& msg_sim_3d);
 
@@ -176,6 +176,7 @@ namespace gazebo_plugins
 
     float * getPIDValues(std::string joint_name);
 
+    float interpolation_rate;  //seconds
   };
 
 /// A plugin for gazebo.

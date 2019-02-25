@@ -121,7 +121,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotar
     if(!interpolation_pos.set_points(X, Y_pos))
       return;
 
-    for(double t = start_time; t <= end_time; t+= 0.001 ){
+    for(double t = start_time; t <= end_time; t+= interpolation_rate ){
       trajectories_position_axis1.push_back(interpolation_pos(t));
     }
   }
@@ -147,7 +147,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotar
     if(!interpolation_pos.set_points(X, Y_pos))
       return;
 
-    for(double t = start_time; t <= end_time; t+= 0.001 ){
+    for(double t = start_time; t <= end_time; t+= interpolation_rate ){
       trajectories_position_axis2.push_back(interpolation_pos(t));
     }
   }
@@ -173,7 +173,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis3(const hrim_actuator_rotar
     if(!interpolation_pos.set_points(X, Y_pos))
       return;
 
-    for(double t = start_time; t <= end_time; t+= 0.001 ){
+    for(double t = start_time; t <= end_time; t+= interpolation_rate ){
       trajectories_position_axis3.push_back(interpolation_pos(t));
     }
   }
@@ -199,7 +199,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis4(const hrim_actuator_rotar
     if(!interpolation_pos.set_points(X, Y_pos))
       return;
 
-    for(double t = start_time; t <= end_time; t+= 0.001 ){
+    for(double t = start_time; t <= end_time; t+= interpolation_rate ){
       trajectories_position_axis4.push_back(interpolation_pos(t));
     }
   }
@@ -225,7 +225,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis5(const hrim_actuator_rotar
     if(!interpolation_pos.set_points(X, Y_pos))
       return;
 
-    for(double t = start_time; t <= end_time; t+= 0.001 ){
+    for(double t = start_time; t <= end_time; t+= interpolation_rate ){
       trajectories_position_axis5.push_back(interpolation_pos(t));
     }
   }
@@ -251,7 +251,7 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis6(const hrim_actuator_rotar
     if(!interpolation_pos.set_points(X, Y_pos))
       return;
 
-    for(double t = start_time; t <= end_time; t+= 0.001 ){
+    for(double t = start_time; t <= end_time; t+= interpolation_rate ){
       trajectories_position_axis6.push_back(interpolation_pos(t));
     }
   }
@@ -263,6 +263,11 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
 
   // Initialize ROS node
   impl_->ros_node_ = gazebo_ros::Node::Get(_sdf);
+
+  // Interpolation_rate
+  // Seconds by which trajectories will be divided when interpolating.
+  // This must be equal to the pose update rate in gazebo.
+  impl_->interpolation_rate = 0.001;  //seconds
 
   impl_->trajectories_position_axis1.clear();
   impl_->trajectories_position_axis2.clear();
@@ -417,6 +422,9 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   impl_->update_connection_ = gazebo::event::Events::ConnectWorldUpdateBegin(
     std::bind(&MARAGazeboPluginRosPrivate::OnUpdate, impl_.get()));
 
+  std::chrono::milliseconds hz_ms(int(impl_->interpolation_rate * 1000));
+  impl_->timer_PIDControl_ = impl_->ros_node_->create_wall_timer(
+    hz_ms, std::bind(&MARAGazeboPluginRosPrivate::timer_PIDControl, impl_.get()));
 
   impl_->UpdateJointPIDs();
   impl_->UpdatePIDControl();
@@ -508,6 +516,11 @@ void MARAGazeboPluginRos::Reset()
 
 void MARAGazeboPluginRosPrivate::OnUpdate()
 {
+}
+
+void MARAGazeboPluginRosPrivate::timer_PIDControl()
+{
+  // Publish motor states.
   timer_motor_state_msgs();
 
   // AXIS 1
@@ -606,7 +619,7 @@ void MARAGazeboPluginRosPrivate::OnUpdate()
     }
   }
 
-  // Execute new poses in all axis.
+  // Update the pose of axes.
   UpdatePIDControl();
 }
 
