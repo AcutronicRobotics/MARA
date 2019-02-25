@@ -46,7 +46,7 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
 void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
 {
   // create info topic
-  std::string topic_name_info = std::string(node_name) + "/id";
+  std::string service_name_id = std::string(node_name) + "/id";
 
   // Creating status topic name
   std::string topic_name_status = std::string(node_name) + "/status";
@@ -55,15 +55,27 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
   std::string topic_name_power = std::string(node_name) + "/power";
 
   // Creating sim topic name
-  std::string topic_name_sim3d = std::string(node_name) + "/module_3d";
-  std::string topic_name_simurdf = std::string(node_name) + "/module_urdf";
-  std::string topic_name_specs = std::string(node_name) + "/specs";
-  std::string topic_name_specs_comm = std::string(node_name) + "/specs_comm";
+  std::string service_name_sim3d = std::string(node_name) + "/module_3d";
+  std::string service_name_simurdf = std::string(node_name) + "/module_urdf";
+  std::string service_name_specs_comm = std::string(node_name) + "/specs_comm";
+  std::string service_name_specs = std::string(node_name) + "/specs";
+
   std::string topic_name_state_comm = std::string(node_name) + "/state_comm";
 
-  impl_->info_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::ID>(topic_name_info,
-                                            rmw_qos_profile_default);
-  RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_info.c_str());
+  std::function<void( std::shared_ptr<rmw_request_id_t>,
+                      const std::shared_ptr<hrim_generic_srvs::srv::ID::Request>,
+                      std::shared_ptr<hrim_generic_srvs::srv::ID::Response>)> cb_id_function = std::bind(
+        &MARAGazeboPluginRosPrivate::IDService, impl_.get(), std::placeholders::_1,  std::placeholders::_2,  std::placeholders::_3);
+
+  impl_->id_srv_ = impl_->ros_node_->create_service<hrim_generic_srvs::srv::ID>(service_name_id, cb_id_function);
+  RCUTILS_LOG_INFO_NAMED(impl_->ros_node_->get_name(), "creating service called: %s ", service_name_id.c_str());
+
+  std::function<void( std::shared_ptr<rmw_request_id_t>,
+                      const std::shared_ptr<hrim_generic_srvs::srv::SpecsCommunication::Request>,
+                      std::shared_ptr<hrim_generic_srvs::srv::SpecsCommunication::Response>)> cb_SpecsCommunication_function = std::bind(
+        &MARAGazeboPluginRosPrivate::SpecsCommunicationService, impl_.get(), std::placeholders::_1,  std::placeholders::_2,  std::placeholders::_3);
+  impl_->specs_comm_srv_ = impl_->ros_node_->create_service<hrim_generic_srvs::srv::SpecsCommunication>(service_name_specs_comm, cb_SpecsCommunication_function);
+  RCUTILS_LOG_INFO_NAMED(impl_->ros_node_->get_name(), "creating service called: %s ", service_name_specs_comm.c_str());
 
   impl_->power_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::Power>(topic_name_power,
                                             rmw_qos_profile_default);
@@ -73,33 +85,29 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
                                             rmw_qos_profile_default);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_status.c_str());
 
-  rmw_qos_profile_t custom_qos_profile;
-  custom_qos_profile.depth = 1;
-  custom_qos_profile.history = RMW_QOS_POLICY_HISTORY_KEEP_ALL;
-  custom_qos_profile.reliability = RMW_QOS_POLICY_RELIABILITY_RELIABLE;
-  custom_qos_profile.durability = RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL;
+  std::function<void( std::shared_ptr<rmw_request_id_t>,
+                      const std::shared_ptr<hrim_generic_srvs::srv::SimulationURDF::Request>,
+                      std::shared_ptr<hrim_generic_srvs::srv::SimulationURDF::Response>)> cb_SimulationURDF_function = std::bind(
+        &MARAGazeboPluginRosPrivate::URDFService, impl_.get(), std::placeholders::_1,  std::placeholders::_2,  std::placeholders::_3);
+  impl_->sim_urdf_srv_ = impl_->ros_node_->create_service<hrim_generic_srvs::srv::SimulationURDF>(service_name_simurdf, cb_SimulationURDF_function);
+  RCUTILS_LOG_INFO_NAMED(impl_->ros_node_->get_name(), "creating service called: %s ", service_name_simurdf.c_str());
 
-  impl_->sim3d_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::Simulation3D>(topic_name_sim3d,
-                custom_qos_profile);
-  RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_sim3d.c_str());
-
-  impl_->publish3DModels();
-
-  impl_->sim_urdf_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::SimulationURDF>(topic_name_simurdf,
-                custom_qos_profile);
-  RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_simurdf.c_str());
-
-  impl_->specs_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo>(topic_name_specs,
-                rmw_qos_profile_default);
-  RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_specs.c_str());
+  std::function<void( std::shared_ptr<rmw_request_id_t>,
+                      const std::shared_ptr<hrim_generic_srvs::srv::Simulation3D::Request>,
+                      std::shared_ptr<hrim_generic_srvs::srv::Simulation3D::Response>)> cb_Simulation3D_function = std::bind(
+        &MARAGazeboPluginRosPrivate::Sim3DService, impl_.get(), std::placeholders::_1,  std::placeholders::_2,  std::placeholders::_3);
+  impl_->sim_3d_srv_ = impl_->ros_node_->create_service<hrim_generic_srvs::srv::Simulation3D>(service_name_simurdf, cb_Simulation3D_function);
+  RCUTILS_LOG_INFO_NAMED(impl_->ros_node_->get_name(), "creating service called: %s ", service_name_simurdf.c_str());
+  std::function<void( std::shared_ptr<rmw_request_id_t>,
+                      const std::shared_ptr<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Request>,
+                      std::shared_ptr<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Response>)> cb_SpecsRotaryServo_function = std::bind(
+        &MARAGazeboPluginRosPrivate::SpecsRotaryServoService, impl_.get(), std::placeholders::_1,  std::placeholders::_2,  std::placeholders::_3);
+  impl_->specs_srv_ = impl_->ros_node_->create_service<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo>(service_name_specs, cb_SpecsRotaryServo_function);
+  RCUTILS_LOG_INFO_NAMED(impl_->ros_node_->get_name(), "creating service called: %s ", service_name_specs.c_str());
 
   impl_->state_comm_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::StateCommunication>(topic_name_state_comm,
                 rmw_qos_profile_default);
   RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_state_comm.c_str());
-
-  impl_->specs_comm_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::SpecsCommunication>(topic_name_specs_comm,
-                rmw_qos_profile_default);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_specs_comm.c_str());
 
   impl_->ros_node_->set_parameters({
     rclcpp::Parameter("joint_name", node_name),
@@ -109,61 +117,33 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
     rclcpp::Parameter("max_temperature", 75),
   });
 
-  impl_->timer_info_ = impl_->ros_node_->create_wall_timer(
-      1s, std::bind(&MARAGazeboPluginRosPrivate::timer_info_msgs, impl_.get()));
   impl_->timer_status_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_status_msgs, impl_.get()));
   impl_->timer_power_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_power_msgs, impl_.get()));
-  impl_->timer_specs_ = impl_->ros_node_->create_wall_timer(
-      1s, std::bind(&MARAGazeboPluginRosPrivate::timer_specs_msgs, impl_.get()));
   impl_->timer_comm_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_comm_msgs, impl_.get()));
 }
 
-void MARAGazeboPluginRosPrivate::readfullFile(std::string file_to_read, hrim_generic_msgs::msg::Simulation3D& msg_sim_3d)
+void MARAGazeboPluginRosPrivate::readfullFile(std::string file_to_read, hrim_generic_srvs::srv::Simulation3D& msg_sim_3d)
 {
-  std::string robotiq_140_description_folder = ament_index_cpp::get_package_share_directory("mara_description");
-
-  gzmsg << "readfullFile " << robotiq_140_description_folder + file_to_read << std::endl;
-
-  std::ifstream ifs(robotiq_140_description_folder + file_to_read, std::ios::binary|std::ios::ate);
-
-  if(!ifs.is_open()){
-    gzmsg << "Error reading file " << robotiq_140_description_folder + file_to_read << std::endl;
-    return;
-  }
-
-  std::ifstream::pos_type pos = ifs.tellg();
-
-  msg_sim_3d.model.resize(pos);
-  ifs.seekg(0, std::ios::beg);
-  ifs.read(&msg_sim_3d.model[0], pos);
-  ifs.close();
-}
-
-void MARAGazeboPluginRosPrivate::publish3DModels()
-{
-  hrim_generic_msgs::msg::Simulation3D msg_sim_3d;
-  gazebo::common::Time cur_time = this->model_->GetWorld()->SimTime();
-  msg_sim_3d.header.stamp.sec = cur_time.sec;
-  msg_sim_3d.header.stamp.nanosec = cur_time.nsec;
-
-  if (type_motor.compare(std::string("series14")) == 0){
-    readfullFile("/meshes/meshes/H-ROS_Robot_mara1.stl", msg_sim_3d);
-    gzmsg << "type_motor series14 published! "<< std::endl;
-  }else if (type_motor.compare(std::string("series17")) == 0){
-    readfullFile("/meshes/meshes/H-ROS_Robot_mara2.stl", msg_sim_3d);
-    gzmsg << "type_motor series17 published! "<< std::endl;
-  }else if (type_motor.compare(std::string("series20")) == 0){
-    readfullFile("/meshes/meshes/H-ROS_Robot_mara3.stl", msg_sim_3d);
-    gzmsg << "type_motor series20 published! "<< std::endl;
-  }else{
-    readfullFile("/meshes/meshes/H-ROS_Robot_mara1.stl", msg_sim_3d);
-    gzmsg << "type_motor series14 published! wrong type motor "<< std::endl;
-  }
-
-  sim3d_pub->publish(msg_sim_3d);
+  // std::string robotiq_140_description_folder = ament_index_cpp::get_package_share_directory("mara_description");
+  //
+  // gzmsg << "readfullFile " << robotiq_140_description_folder + file_to_read << std::endl;
+  //
+  // std::ifstream ifs(robotiq_140_description_folder + file_to_read, std::ios::binary|std::ios::ate);
+  //
+  // if(!ifs.is_open()){
+  //   gzmsg << "Error reading file " << robotiq_140_description_folder + file_to_read << std::endl;
+  //   return;
+  // }
+  //
+  // std::ifstream::pos_type pos = ifs.tellg();
+  //
+  // msg_sim_3d.model.resize(pos);
+  // ifs.seekg(0, std::ios::beg);
+  // ifs.read(&msg_sim_3d.model[0], pos);
+  // ifs.close();
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
@@ -372,7 +352,6 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
                                 rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state.c_str() );
 
-
   std::string topic_trajectory_axis1 = std::string(node_name) + "/trajectory";
   impl_->trajectory_sub_ = impl_->ros_node_->create_subscription<trajectory_msgs::msg::JointTrajectory>(
          topic_trajectory_axis1,
@@ -460,18 +439,6 @@ void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _in
   last_update_time_ = _info.simTime;
 }
 
-void MARAGazeboPluginRosPrivate::timer_info_msgs()
-{
-  hrim_generic_msgs::msg::ID info_msg;
-  gazebo::common::Time cur_time = model_->GetWorld()->SimTime();
-  info_msg.header.stamp.sec = cur_time.sec;
-  info_msg.header.stamp.nanosec = cur_time.nsec;
-  info_msg.device_kind_id = hrim_generic_msgs::msg::ID::HRIM_SENSOR;
-  info_msg.hros_version = "Ardent";
-  info_msg.hrim_version = "Anboto";
-  info_pub->publish(info_msg);
-}
-
 void MARAGazeboPluginRosPrivate::timer_power_msgs()
 {
   hrim_generic_msgs::msg::Power power_msg;
@@ -493,27 +460,6 @@ void MARAGazeboPluginRosPrivate::timer_status_msgs()
   status_pub->publish(status_msg);
 }
 
-void MARAGazeboPluginRosPrivate::timer_specs_msgs()
-{
-  hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo specs_msg;
-  gazebo::common::Time cur_time = model_->GetWorld()->SimTime();
-  specs_msg.header.stamp.sec = cur_time.sec;
-  specs_msg.header.stamp.nanosec = cur_time.nsec;
-  specs_msg.control_type = (uint8_t)hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo::CONTROL_TYPE_POSITION_VELOCITY;
-  specs_msg.range_min = -6.27; // multi-turn absolute +/-4 tuens
-  specs_msg.range_max = 6.27;
-  specs_msg.precision = 0.00008722222; // 0.005º
-
-  specs_msg.rated_speed = 1.46607657; // 14 RPM
-  specs_msg.reachable_speed = 1.46607657; // 14 RPM
-  specs_msg.rated_torque = 9; // 9-Nm
-  specs_msg.reachable_torque = 13; // 13-Nm
-
-  specs_msg.temperature_range_min  = -10.0; // -10º
-  specs_msg.temperature_range_max  = +50.0; // 50º
-  specs_pub->publish(specs_msg);
-}
-
 void MARAGazeboPluginRosPrivate::timer_comm_msgs()
 {
   gazebo::common::Time cur_time = model_->GetWorld()->SimTime();
@@ -522,12 +468,84 @@ void MARAGazeboPluginRosPrivate::timer_comm_msgs()
   state_comm_msg.header.stamp.sec = cur_time.sec;
   state_comm_msg.header.stamp.nanosec = cur_time.nsec;
   state_comm_pub->publish(state_comm_msg);
+}
 
-  hrim_generic_msgs::msg::SpecsCommunication specs_comm_msg;
-  specs_comm_msg.header.stamp.sec = cur_time.sec;
-  specs_comm_msg.header.stamp.nanosec = cur_time.nsec;
-  specs_comm_pub->publish(specs_comm_msg);
+void MARAGazeboPluginRosPrivate::SpecsCommunicationService(
+    const std::shared_ptr<rmw_request_id_t> request_header,
+    const std::shared_ptr<hrim_generic_srvs::srv::SpecsCommunication::Request> req,
+    std::shared_ptr<hrim_generic_srvs::srv::SpecsCommunication::Response> res)
+{
+  (void)request_header;
+  (void)req;
+}
 
+void MARAGazeboPluginRosPrivate::SpecsRotaryServoService(
+    const std::shared_ptr<rmw_request_id_t> request_header,
+    const std::shared_ptr<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Request> req,
+    std::shared_ptr<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Response> res)
+{
+  res->control_type = (uint8_t)hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Response::CONTROL_TYPE_POSITION_VELOCITY;
+  res->range_min = -6.27; // multi-turn absolute +/-4 tuens
+  res->range_max = 6.27;
+  res->precision = 0.00008722222; // 0.005º
+
+  res->rated_speed = 1.46607657; // 14 RPM
+  res->reachable_speed = 1.46607657; // 14 RPM
+  res->rated_torque = 9; // 9-Nm
+  res->reachable_torque = 13; // 13-Nm
+
+  res->temperature_range_min  = -10.0; // -10º
+  res->temperature_range_max  = +50.0; // 50º
+}
+
+void MARAGazeboPluginRosPrivate::IDService(
+    const std::shared_ptr<rmw_request_id_t> request_header,
+    const std::shared_ptr<hrim_generic_srvs::srv::ID::Request> req,
+    std::shared_ptr<hrim_generic_srvs::srv::ID::Response> res)
+{
+  (void)request_header;
+  (void)req;
+
+  res->device_kind_id = hrim_generic_srvs::srv::ID::Response::HRIM_ACTUATOR;
+  res->hros_version = "Ardent";
+  res->hrim_version = "Anboto";
+}
+
+void MARAGazeboPluginRosPrivate::URDFService(
+    const std::shared_ptr<rmw_request_id_t> request_header,
+    const std::shared_ptr<hrim_generic_srvs::srv::SimulationURDF::Request> req,
+    std::shared_ptr<hrim_generic_srvs::srv::SimulationURDF::Response> res)
+{
+  (void)request_header;
+  (void)req;
+
+  // std::ifstream t(urdf_file);
+  // std::string str;
+  //
+  // t.seekg(0, std::ios::end);
+  // str.reserve(t.tellg());
+  // t.seekg(0, std::ios::beg);
+  //
+  // str.assign((std::istreambuf_iterator<char>(t)),
+  //             std::istreambuf_iterator<char>());
+  //
+  // res->urdf_model = str;
+}
+
+void MARAGazeboPluginRosPrivate::Sim3DService(
+    const std::shared_ptr<rmw_request_id_t> request_header,
+    const std::shared_ptr<hrim_generic_srvs::srv::Simulation3D::Request> req,
+    std::shared_ptr<hrim_generic_srvs::srv::Simulation3D::Response> res)
+{
+  (void)request_header;
+  (void)req;
+
+  // std::ifstream ifs(stl_file, std::ios::binary|std::ios::ate);
+  // std::ifstream::pos_type pos = ifs.tellg();
+  //
+  // res->model.resize(pos);
+  // ifs.seekg(0, std::ios::beg);
+  // ifs.read(&res->model[0], pos);
 }
 
 GZ_REGISTER_MODEL_PLUGIN(MARAGazeboPluginRos)

@@ -47,14 +47,14 @@
 #include "trajectory_msgs/msg/joint_trajectory.hpp"
 #include "hrim_actuator_rotaryservo_msgs/msg/state_rotary_servo.hpp"
 #include "hrim_actuator_rotaryservo_msgs/msg/goal_rotary_servo.hpp"
-#include "hrim_actuator_rotaryservo_msgs/msg/specs_rotary_servo.hpp"
+#include "hrim_actuator_rotaryservo_srvs/srv/specs_rotary_servo.hpp"
 
-#include "hrim_generic_msgs/msg/id.hpp"
+#include "hrim_generic_srvs/srv/id.hpp"
 #include "hrim_generic_msgs/msg/status.hpp"
 #include "hrim_generic_msgs/msg/power.hpp"
-#include "hrim_generic_msgs/msg/simulation3_d.hpp"
-#include "hrim_generic_msgs/msg/simulation_urdf.hpp"
-#include "hrim_generic_msgs/msg/specs_communication.hpp"
+#include "hrim_generic_srvs/srv/simulation3_d.hpp"
+#include "hrim_generic_srvs/srv/simulation_urdf.hpp"
+#include "hrim_generic_srvs/srv/specs_communication.hpp"
 #include "hrim_generic_msgs/msg/state_communication.hpp"
 
 #include <string>
@@ -91,8 +91,7 @@ namespace gazebo_plugins
     void timer_motor_state_msgs();
     std::shared_ptr<rclcpp::TimerBase> timer_motor_state_;
 
-    void publish3DModels();
-    void readfullFile(std::string file_to_read, hrim_generic_msgs::msg::Simulation3D& msg_sim_3d);
+    void readfullFile(std::string file_to_read, hrim_generic_srvs::srv::Simulation3D& msg_sim_3d);
 
     /// A pointer to the GazeboROS node.
     gazebo_ros::Node::SharedPtr ros_node_;
@@ -121,10 +120,34 @@ namespace gazebo_plugins
     /// Robot base frame ID
     std::string robot_base_frame_;
 
+    void SpecsCommunicationService(
+        const std::shared_ptr<rmw_request_id_t> request_header,
+        const std::shared_ptr<hrim_generic_srvs::srv::SpecsCommunication::Request> req,
+        std::shared_ptr<hrim_generic_srvs::srv::SpecsCommunication::Response> res);
+
+    void SpecsRotaryServoService(
+        const std::shared_ptr<rmw_request_id_t> request_header,
+        const std::shared_ptr<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Request> req,
+        std::shared_ptr<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Response> res);
+
+    void IDService(
+        const std::shared_ptr<rmw_request_id_t> request_header,
+        const std::shared_ptr<hrim_generic_srvs::srv::ID::Request> req,
+        std::shared_ptr<hrim_generic_srvs::srv::ID::Response> res);
+
+    void Sim3DService(
+        const std::shared_ptr<rmw_request_id_t> request_header,
+        const std::shared_ptr<hrim_generic_srvs::srv::Simulation3D::Request> req,
+        std::shared_ptr<hrim_generic_srvs::srv::Simulation3D::Response> res);
+
+    void URDFService(
+        const std::shared_ptr<rmw_request_id_t> request_header,
+        const std::shared_ptr<hrim_generic_srvs::srv::SimulationURDF::Request> req,
+        std::shared_ptr<hrim_generic_srvs::srv::SimulationURDF::Response> res);
 
     std::shared_ptr<rclcpp::Publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>> motor_state_axis1_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>> motor_state_axis2_pub;
-    std::shared_ptr<rclcpp::Publisher<hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo>> specs_pub;
+    std::shared_ptr<rclcpp::Publisher<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo>> specs_pub;
 
     std::shared_ptr<rclcpp::Subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>> command_sub_axis1_;
     std::shared_ptr<rclcpp::Subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>> command_sub_axis2_;
@@ -137,24 +160,22 @@ namespace gazebo_plugins
     void trajectoryAxis1Callback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg);
     void trajectoryAxis2Callback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg);
 
-    std::shared_ptr<rclcpp::TimerBase> timer_info_;
     std::shared_ptr<rclcpp::TimerBase> timer_status_;
     std::shared_ptr<rclcpp::TimerBase> timer_power_;
-    std::shared_ptr<rclcpp::TimerBase> timer_specs_;
     std::shared_ptr<rclcpp::TimerBase> timer_comm_;
 
-    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::ID>> info_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::Status>> status_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::Power>> power_pub;
-    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::Simulation3D>> sim3d_pub;
-    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::SimulationURDF>> sim_urdf_pub;
     std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::StateCommunication>> state_comm_pub;
-    std::shared_ptr<rclcpp::Publisher<hrim_generic_msgs::msg::SpecsCommunication>> specs_comm_pub;
 
-    void timer_info_msgs();
+    rclcpp::Service<hrim_generic_srvs::srv::ID>::SharedPtr id_srv_;
+    rclcpp::Service<hrim_generic_srvs::srv::Simulation3D>::SharedPtr sim_3d_srv_;
+    rclcpp::Service<hrim_generic_srvs::srv::SimulationURDF>::SharedPtr sim_urdf_srv_;
+    rclcpp::Service<hrim_generic_srvs::srv::SpecsCommunication>::SharedPtr specs_comm_srv_;
+    rclcpp::Service<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo>::SharedPtr specs_srv_;
+
     void timer_power_msgs();
     void timer_status_msgs();
-    void timer_specs_msgs();
     void timer_comm_msgs();
 
     // rclcpp::Clock clock_ros;

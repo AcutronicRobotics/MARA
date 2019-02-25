@@ -22,7 +22,9 @@ find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(hrim_actuator_rotaryservo_msgs REQUIRED)
+find_package(hrim_actuator_rotaryservo_srvs REQUIRED)
 find_package(hrim_generic_msgs REQUIRED)
+find_package(hrim_generic_srvs REQUIRED)
 find_package(trajectory_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 
@@ -36,6 +38,7 @@ include_directories(include
   ${geometry_msgs_INCLUDE_DIRS}
   ${trajectory_msgs_INCLUDE_DIRS}
   ${hrim_actuator_rotaryservo_msgs_INCLUDE_DIRS}
+  ${hrim_actuator_rotaryservo_srvs_INCLUDE_DIRS}
   ${hrim_generic_msgs_INCLUDE_DIRS}
 )
 link_directories(${gazebo_dev_LIBRARY_DIRS})
@@ -53,8 +56,10 @@ ament_target_dependencies(mara_gazebo_joint_plugin
   "tf2_geometry_msgs"
   "tf2_ros"
   "hrim_actuator_rotaryservo_msgs"
+  "hrim_actuator_rotaryservo_srvs"
   "trajectory_msgs"
   "hrim_generic_msgs"
+  "hrim_generic_srvs"
   "ament_index_cpp"
 )
 ament_export_libraries(mara_gazebo_joint_plugin)
