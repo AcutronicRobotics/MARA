@@ -417,8 +417,6 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   impl_->update_connection_ = gazebo::event::Events::ConnectWorldUpdateBegin(
     std::bind(&MARAGazeboPluginRosPrivate::OnUpdate, impl_.get()));
 
-  impl_->timer_motor_state_ = impl_->ros_node_->create_wall_timer(
-        50ms, std::bind(&MARAGazeboPluginRosPrivate::UpdatePIDControl, impl_.get()));
 
   impl_->UpdateJointPIDs();
   impl_->UpdatePIDControl();
@@ -609,7 +607,7 @@ void MARAGazeboPluginRosPrivate::OnUpdate()
   }
 
   // Execute new poses in all axis.
-  //UpdatePIDControl();
+  UpdatePIDControl();
 }
 
 void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
