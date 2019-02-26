@@ -96,8 +96,8 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
                       const std::shared_ptr<hrim_generic_srvs::srv::Simulation3D::Request>,
                       std::shared_ptr<hrim_generic_srvs::srv::Simulation3D::Response>)> cb_Simulation3D_function = std::bind(
         &MARAGazeboPluginRosPrivate::Sim3DService, impl_.get(), std::placeholders::_1,  std::placeholders::_2,  std::placeholders::_3);
-  impl_->sim_3d_srv_ = impl_->ros_node_->create_service<hrim_generic_srvs::srv::Simulation3D>(service_name_simurdf, cb_Simulation3D_function);
-  RCUTILS_LOG_INFO_NAMED(impl_->ros_node_->get_name(), "creating service called: %s ", service_name_simurdf.c_str());
+  impl_->sim_3d_srv_ = impl_->ros_node_->create_service<hrim_generic_srvs::srv::Simulation3D>(service_name_sim3d, cb_Simulation3D_function);
+  RCUTILS_LOG_INFO_NAMED(impl_->ros_node_->get_name(), "creating service called: %s ", service_name_sim3d.c_str());
   std::function<void( std::shared_ptr<rmw_request_id_t>,
                       const std::shared_ptr<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Request>,
                       std::shared_ptr<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Response>)> cb_SpecsRotaryServo_function = std::bind(
