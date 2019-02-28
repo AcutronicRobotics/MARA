@@ -115,10 +115,10 @@ vcs import src < mara-ros2.repos
 Generate HRIM dependencies:
 
 ```bash
-pip3 install lxml
-cd ~/ros2_mara_ws/src/HRIM
-python3 hrim.py generate models/actuator/servo/servo.xml
-python3 hrim.py generate models/actuator/gripper/gripper.xml
+cd ~/ros2_mara_ws/src/HRIM/installator
+python3 setup.py install && cd ..
+hrim generate models/actuator/servo/servo.xml
+hrim generate models/actuator/gripper/gripper.xml
 ```
 
 #### Compile
