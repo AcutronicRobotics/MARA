@@ -6,7 +6,6 @@
 
 #include "hrim_actuator_rotaryservo_msgs/msg/state_rotary_servo.hpp"
 #include "hrim_actuator_rotaryservo_msgs/msg/goal_rotary_servo.hpp"
-#include "hrim_actuator_rotaryservo_msgs/msg/specs_rotary_servo.hpp"
 #include "control_msgs/msg/joint_trajectory_controller_state.hpp"
 #include "trajectory_msgs/msg/joint_trajectory.hpp"
 

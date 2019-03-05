@@ -15,7 +15,7 @@ void HROSCognitionMaraComponentsNode::commandCallback(const trajectory_msgs::msg
       RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::commandCallback() you are not defining the velocities!!.");
     }
     cmd_msg1.effort = 0;
-    cmd_msg1.control_type = hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo::CONTROL_TYPE_POSITION_VELOCITY;
+    cmd_msg1.control_type = hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::CONTROL_TYPE_POSITION_VELOCITY;
     cmd_msg1.header.frame_id = std::string("None");
 
     builtin_interfaces::msg::Time stamp = clock_ros.now();
@@ -40,7 +40,7 @@ void HROSCognitionMaraComponentsNode::timer_commandPublisher()
       hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo cmd_msg = cmd_to_send.front();
       cmd_to_send.erase (cmd_to_send.begin());
       msg_actuators_.error.positions.push_back(msg_actuators_.actual.positions[i] - cmd_msg.position);
-      cmd_msg.control_type = hrim_actuator_rotaryservo_msgs::msg::SpecsRotaryServo::CONTROL_TYPE_POSITION_VELOCITY;
+      cmd_msg.control_type = hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::CONTROL_TYPE_POSITION_VELOCITY;
       motor_goal_publishers_[i]->publish(cmd_msg);
     }
   }

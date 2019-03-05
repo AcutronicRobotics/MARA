@@ -48,14 +48,7 @@
 #include "trajectory_msgs/msg/joint_trajectory.hpp"
 #include "hrim_actuator_rotaryservo_msgs/msg/state_rotary_servo.hpp"
 #include "hrim_actuator_rotaryservo_msgs/msg/goal_rotary_servo.hpp"
-#include "hrim_actuator_rotaryservo_msgs/msg/specs_rotary_servo.hpp"
 
-#include "hrim_generic_msgs/msg/id.hpp"
-#include "hrim_generic_msgs/msg/status.hpp"
-#include "hrim_generic_msgs/msg/power.hpp"
-#include "hrim_generic_msgs/msg/simulation3_d.hpp"
-#include "hrim_generic_msgs/msg/simulation_urdf.hpp"
-#include "hrim_generic_msgs/msg/specs_communication.hpp"
 #include "hrim_generic_msgs/msg/state_communication.hpp"
 
 #include <string>
@@ -94,8 +87,6 @@ namespace gazebo_plugins
     void timer_PIDControl();
     void timer_motor_state_msgs();
     std::shared_ptr<rclcpp::TimerBase> timer_PIDControl_;
-
-    void readfullFile(std::string file_to_read, hrim_generic_msgs::msg::Simulation3D& msg_sim_3d);
 
     void UpdateJointPIDs();
     void UpdatePIDControl();
