@@ -754,8 +754,8 @@ void MARAGazeboPluginRosPrivate::SpecsRotaryServoService(
     std::shared_ptr<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Response> res)
 {
   res->control_type = (uint8_t)hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Response::CONTROL_TYPE_POSITION_VELOCITY;
-  res->range_min = -6.27; // multi-turn absolute +/-4 tuens
-  res->range_max = 6.27;
+  res->range_min = joints_[MARAGazeboPluginRosPrivate::AXIS1]->LowerLimit();
+  res->range_max = joints_[MARAGazeboPluginRosPrivate::AXIS1]->UpperLimit();
   res->precision = 0.00008722222; // 0.005º
 
   res->rated_speed = 1.46607657; // 14 RPM
