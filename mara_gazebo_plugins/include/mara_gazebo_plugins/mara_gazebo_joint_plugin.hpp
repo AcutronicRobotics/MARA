@@ -30,8 +30,8 @@
 // ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef GAZEBO_PLUGINS__MARA_GAZEBO_PLUGINS_HPP_
-#define GAZEBO_PLUGINS__MARA_GAZEBO_PLUGINSE_HPP_
+#ifndef GAZEBO_PLUGINS_MARA_GAZEBO_PLUGINS_HPP_
+#define GAZEBO_PLUGINS_MARA_GAZEBO_PLUGINSE_HPP_
 
 #include <gazebo/common/Plugin.hh>
 #include <gazebo/common/Time.hh>
@@ -40,7 +40,7 @@
 #include <gazebo/physics/Model.hh>
 #include <gazebo/physics/World.hh>
 
-#include <gazebo_ros/conversions/builtin_interfaces.hpp>
+// #include <gazebo_ros/conversions/builtin_interfaces.hpp>
 #include <gazebo_ros/conversions/geometry_msgs.hpp>
 #include <gazebo_ros/node.hpp>
 
@@ -48,6 +48,7 @@
 #include "hrim_actuator_rotaryservo_msgs/msg/state_rotary_servo.hpp"
 #include "hrim_actuator_rotaryservo_msgs/msg/goal_rotary_servo.hpp"
 #include "hrim_actuator_rotaryservo_srvs/srv/specs_rotary_servo.hpp"
+#include "hrim_actuator_rotaryservo_actions/action/goal_joint_trajectory.hpp"
 
 #include "hrim_generic_srvs/srv/id.hpp"
 #include "hrim_generic_msgs/msg/status.hpp"
@@ -61,6 +62,8 @@
 #include <vector>
 #include <memory>
 #include <chrono>
+
+#include "rclcpp_action/rclcpp_action.hpp"
 
 #include <ament_index_cpp/get_package_share_directory.hpp>
 
@@ -152,13 +155,8 @@ namespace gazebo_plugins
     std::shared_ptr<rclcpp::Subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>> command_sub_axis1_;
     std::shared_ptr<rclcpp::Subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>> command_sub_axis2_;
 
-    std::shared_ptr<rclcpp::Subscription<trajectory_msgs::msg::JointTrajectory>> trajectory_sub_;
-    std::shared_ptr<rclcpp::Subscription<trajectory_msgs::msg::JointTrajectory>> trajectory2_sub_;
-
     void commandCallback_axis1(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg);
     void commandCallback_axis2(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg);
-    void trajectoryAxis1Callback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg);
-    void trajectoryAxis2Callback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg);
 
     std::shared_ptr<rclcpp::TimerBase> timer_status_;
     std::shared_ptr<rclcpp::TimerBase> timer_power_;
@@ -178,7 +176,26 @@ namespace gazebo_plugins
     void timer_status_msgs();
     void timer_comm_msgs();
 
-    // rclcpp::Clock clock_ros;
+    rclcpp_action::Server<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>::SharedPtr action_server_trajectory_axis1_;
+    rclcpp_action::Server<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>::SharedPtr action_server_trajectory_axis2_;
+
+    std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle_axis1_;
+    std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle_axis2_;
+    //
+    void handle_trajectory_axis1_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle);
+    void handle_trajectory_axis2_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle);
+    void execute_trajectory_axis1(const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle);
+    void execute_trajectory_axis2(const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle);
+    rclcpp_action::GoalResponse handle_trajectory_axis1_goal(
+            const std::array<uint8_t, 16> & uuid,
+            std::shared_ptr<const hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Goal> goal);
+    rclcpp_action::GoalResponse handle_trajectory_axis2_goal(
+            const std::array<uint8_t, 16> & uuid,
+            std::shared_ptr<const hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Goal> goal);
+    rclcpp_action::CancelResponse handle_trajectory_axis1_cancel(
+            const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle);
+    rclcpp_action::CancelResponse handle_trajectory_axis2_cancel(
+            const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle);
 
     std::vector<float> trajectories_position_axis1;
     std::vector<float> trajectories_velocities_axis1;
@@ -192,38 +209,36 @@ namespace gazebo_plugins
     float goal_position_axis2_rad;
 
     std::string type_motor;
-
   };
 
-/// A plugin for gazebo.
-/*
- *
- * \author  Alejandro Hernandez (alex <at> erlerobotics.com)
- *
- */
+  /// A plugin for gazebo.
+  /*
+   *
+   * \author  Alejandro Hernandez (alex <at> erlerobotics.com)
+   *
+   */
+  class MARAGazeboPluginRos : public gazebo::ModelPlugin
+  {
+  public:
+    /// Constructor
+    MARAGazeboPluginRos();
 
-class MARAGazeboPluginRos : public gazebo::ModelPlugin
-{
-public:
-  /// Constructor
-  MARAGazeboPluginRos();
+    /// Destructor
+    ~MARAGazeboPluginRos();
 
-  /// Destructor
-  ~MARAGazeboPluginRos();
+    void createGenericTopics(std::string node_name);
 
-  void createGenericTopics(std::string node_name);
+  protected:
+    // Documentation inherited
+    void Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr _sdf) override;
 
-protected:
-  // Documentation inherited
-  void Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr _sdf) override;
+    // Documentation inherited
+    void Reset() override;
 
-  // Documentation inherited
-  void Reset() override;
-
-private:
-  /// Private data pointer
-  std::unique_ptr<MARAGazeboPluginRosPrivate> impl_;
-};
+  private:
+    /// Private data pointer
+    std::unique_ptr<MARAGazeboPluginRosPrivate> impl_;
+  };
 }  // namespace gazebo_plugins
 
-#endif  // GAZEBO_PLUGINS__MARA_GAZEBO_PLUGINSE_HPP_
+#endif  // GAZEBO_PLUGINS_MARA_GAZEBO_PLUGINSE_HPP_

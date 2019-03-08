@@ -16,6 +16,7 @@ find_package(ament_index_cpp REQUIRED)
 find_package(gazebo_dev REQUIRED)
 find_package(gazebo_ros REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(tf2 REQUIRED)
@@ -23,6 +24,7 @@ find_package(tf2_geometry_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(hrim_actuator_rotaryservo_msgs REQUIRED)
 find_package(hrim_actuator_rotaryservo_srvs REQUIRED)
+find_package(hrim_actuator_rotaryservo_actions REQUIRED)
 find_package(hrim_generic_msgs REQUIRED)
 find_package(hrim_generic_srvs REQUIRED)
 find_package(trajectory_msgs REQUIRED)
@@ -52,11 +54,13 @@ ament_target_dependencies(mara_gazebo_joint_plugin
   "gazebo_dev"
   "gazebo_ros"
   "rclcpp"
+  "rclcpp_action"
   "tf2"
   "tf2_geometry_msgs"
   "tf2_ros"
   "hrim_actuator_rotaryservo_msgs"
   "hrim_actuator_rotaryservo_srvs"
+  "hrim_actuator_rotaryservo_actions"
   "trajectory_msgs"
   "hrim_generic_msgs"
   "hrim_generic_srvs"
@@ -65,7 +69,7 @@ ament_target_dependencies(mara_gazebo_joint_plugin
 ament_export_libraries(mara_gazebo_joint_plugin)
 
 ament_export_include_directories(include)
-ament_export_dependencies(rclcpp)
+ament_export_dependencies(rclcpp rclcpp_action)
 ament_export_dependencies(gazebo_dev)
 ament_export_dependencies(gazebo_ros)
 

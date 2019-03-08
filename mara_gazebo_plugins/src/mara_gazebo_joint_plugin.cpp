@@ -12,6 +12,272 @@ MARAGazeboPluginRos::~MARAGazeboPluginRos()
 {
 }
 
+void MARAGazeboPluginRosPrivate::handle_trajectory_axis1_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
+{
+  printf("is active %d\n", goal_handle->is_active());
+  printf("is executing %d\n", goal_handle->is_executing());
+
+  goal_handle_axis1_ = goal_handle;
+
+  printf("handle_trajectory_accepted\n");
+  // this needs to return quickly to avoid blocking the executor, so spin up a new thread
+  std::thread(&MARAGazeboPluginRosPrivate::execute_trajectory_axis1, this, goal_handle).detach();
+}
+
+void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
+{
+  printf("is active %d\n", goal_handle->is_active());
+  printf("is executing %d\n", goal_handle->is_executing());
+
+  printf("handle_trajectory_accepted\n");
+
+  goal_handle_axis2_ = goal_handle;
+
+  // this needs to return quickly to avoid blocking the executor, so spin up a new thread
+  std::thread(&MARAGazeboPluginRosPrivate::execute_trajectory_axis2, this, goal_handle).detach();
+}
+
+  rclcpp_action::GoalResponse MARAGazeboPluginRosPrivate::handle_trajectory_axis1_goal(
+    const std::array<uint8_t, 16> & uuid,
+    std::shared_ptr<const hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Goal> goal)
+  {
+    RCUTILS_LOG_ERROR_NAMED("hros_actuation_servomotor_hans_lifecycle", "Got goal axis1 request");
+    (void)uuid;
+    if(goal_handle_axis1_!=NULL){
+      if(goal_handle_axis1_->is_active()){
+        printf("handle_actions->is_active() %d REJECTING!\n", goal_handle_axis1_->is_active());
+        return rclcpp_action::GoalResponse::REJECT;
+      }
+    }
+    // TODO check trajectory
+    // if (we don like traj)
+    // {
+    //   return rclcpp_action::GoalResponse::REJECT;
+    // }
+    return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
+  }
+
+  rclcpp_action::GoalResponse MARAGazeboPluginRosPrivate::handle_trajectory_axis2_goal(
+    const std::array<uint8_t, 16> & uuid,
+    std::shared_ptr<const hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Goal> goal)
+  {
+    RCUTILS_LOG_ERROR_NAMED("hros_actuation_servomotor_hans_lifecycle", "Got goal axis2 request");
+    (void)uuid;
+    if(goal_handle_axis2_!=NULL){
+      if(goal_handle_axis2_->is_active()){
+        printf("handle_actions->is_active() %d REJECTING!\n", goal_handle_axis2_->is_active());
+        return rclcpp_action::GoalResponse::REJECT;
+      }
+    }
+    // TODO check trajectory
+    // if (we don like traj)
+    // {
+    //   return rclcpp_action::GoalResponse::REJECT;
+    // }
+    return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
+  }
+
+  rclcpp_action::CancelResponse MARAGazeboPluginRosPrivate::handle_trajectory_axis1_cancel(
+    const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
+  {
+    printf("Got request to cancel axis1 trajectory\n");
+    (void)goal_handle;
+    // TODO Cancel trajectory
+    return rclcpp_action::CancelResponse::ACCEPT;
+  }
+
+  rclcpp_action::CancelResponse MARAGazeboPluginRosPrivate::handle_trajectory_axis2_cancel(
+    const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
+  {
+    printf("Got request to cancel axis2 trajectory\n");
+    (void)goal_handle;
+    // TODO Cancel trajectory
+    return rclcpp_action::CancelResponse::ACCEPT;
+  }
+
+  void MARAGazeboPluginRosPrivate::execute_trajectory_axis1(
+    const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
+  {
+    printf("trajectory_execute\n");
+    const auto goal = goal_handle->get_goal();
+
+    if( goal->trajectory.points.size() == 0){
+        RCUTILS_LOG_ERROR_NAMED("hros_actuation_servomotor_hans_lifecycle", "trajectoryAxis1Callback. Void trajectory.");
+        return;
+    }
+
+    if(!executing_axis1){
+      std::vector<double> X(goal->trajectory.points.size()), Y_vel(goal->trajectory.points.size()), Y_pos(goal->trajectory.points.size());
+      for(unsigned int point = 0; point < goal->trajectory.points.size(); point++){
+        double start_time = goal->trajectory.points[point].time_from_start.sec +
+                            goal->trajectory.points[point].time_from_start.nanosec/NSEC_PER_SECOND;
+        Y_vel[point] =  goal->trajectory.points[point].velocities[0];
+        Y_pos[point] =  goal->trajectory.points[point].positions[0];
+        X[point] = start_time;
+      }
+      double start_time = 0;
+      double end_time = goal->trajectory.points[goal->trajectory.points.size()-1].time_from_start.sec +
+                        goal->trajectory.points[goal->trajectory.points.size()-1].time_from_start.nanosec/NSEC_PER_SECOND;
+
+      tk::spline interpolation_vel, interpolation_pos;
+      if(!interpolation_vel.set_points(X, Y_vel))
+        return;
+      if(!interpolation_pos.set_points(X, Y_pos))
+        return;
+
+      int index_x = 1;
+      for(double t = start_time; t < end_time; t+=0.001 ){
+
+        double time_point = goal->trajectory.points[index_x].time_from_start.sec +
+                            goal->trajectory.points[index_x].time_from_start.nanosec/NSEC_PER_SECOND;
+        if(t > time_point)
+          index_x++;
+        trajectories_position_axis1.push_back(interpolation_pos(t));
+        trajectories_velocities_axis1.push_back(interpolation_vel(t));
+      }
+    }
+
+    auto feedback = std::make_shared<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Feedback>();
+
+    struct timespec initial_time;
+    clock_gettime(CLOCK_REALTIME, &initial_time);
+    double initial_time_secs = (double)(initial_time.tv_sec) + (double)(initial_time.tv_nsec/1e+9);
+    struct timespec current_time;
+    double diff_time_secs = 0;
+    double error_time = 0;
+
+    while(executing_axis1){
+
+      clock_gettime(CLOCK_REALTIME, &current_time);
+      double current_time_secs = (double)(current_time.tv_sec) + (double)(current_time.tv_nsec/1e+9);
+
+      diff_time_secs = current_time_secs - initial_time_secs;
+
+      trajectory_msgs::msg::JointTrajectoryPoint point;
+      point.positions.push_back(joints_[MARAGazeboPluginRosPrivate::AXIS1]->Position(0));
+      point.velocities.push_back(joints_[MARAGazeboPluginRosPrivate::AXIS1]->GetVelocity(0));
+      point.time_from_start.sec = (int)diff_time_secs;
+      point.time_from_start.nanosec = (diff_time_secs - (int)diff_time_secs)*1e+9;
+      feedback->actual = point;
+
+      // trajectory_msgs::msg::JointTrajectoryPoint point_desired;
+      // point_desired.positions.push_back(hansdriver->getGoalPositionAxis1());
+      // point_desired.velocities.push_back(hansdriver->getGoalVelocityAxis1());
+      // point_desired.time_from_start.sec = (int)hansdriver->getGoalTimeAxis1();
+      // point_desired.time_from_start.nanosec = (hansdriver->getGoalTimeAxis1() - (int)hansdriver->getGoalTimeAxis1())*1e+9;
+      // feedback->desired = point_desired;
+      //
+      // error_time = hansdriver->getGoalTimeAxis1() - diff_time_secs;
+      //
+      // trajectory_msgs::msg::JointTrajectoryPoint point_error;
+      // point_error.positions.push_back(point_desired.positions[0] - point.positions[0]);
+      // point_error.velocities.push_back(point_desired.velocities[0] - point.velocities[0]);
+      // point_error.time_from_start.sec = (int)error_time;
+      // point_error.time_from_start.nanosec = ((int)error_time - error_time)*1e+9;
+      // feedback->error = point_error;
+
+      goal_handle->publish_feedback(feedback);
+      usleep(10000);
+    }
+
+    auto result_response = std::make_shared<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Result>();
+    result_response->error = 0;
+    goal_handle->set_succeeded(result_response);
+    RCLCPP_INFO(rclcpp::get_logger("server"), "Goal Suceeded");
+  }
+
+  void MARAGazeboPluginRosPrivate::execute_trajectory_axis2(
+    const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
+  {
+    printf("trajectory_execute\n");
+    const auto goal = goal_handle->get_goal();
+
+    if( goal->trajectory.points.size() == 0){
+        RCUTILS_LOG_ERROR_NAMED("hros_actuation_servomotor_hans_lifecycle", "trajectoryAxis2Callback. Void trajectory.");
+        return;
+    }
+
+    if(!executing_axis2){
+      std::vector<double> X(goal->trajectory.points.size()), Y_vel(goal->trajectory.points.size()), Y_pos(goal->trajectory.points.size());
+      for(unsigned int point = 0; point < goal->trajectory.points.size(); point++){
+        double start_time = goal->trajectory.points[point].time_from_start.sec +
+                            goal->trajectory.points[point].time_from_start.nanosec/NSEC_PER_SECOND;
+        Y_vel[point] =  goal->trajectory.points[point].velocities[0];
+        Y_pos[point] =  goal->trajectory.points[point].positions[0];
+        X[point] = start_time;
+      }
+      double start_time = 0;
+      double end_time = goal->trajectory.points[goal->trajectory.points.size()-1].time_from_start.sec +
+                        goal->trajectory.points[goal->trajectory.points.size()-1].time_from_start.nanosec/NSEC_PER_SECOND;
+
+      tk::spline interpolation_vel, interpolation_pos;
+      if(!interpolation_vel.set_points(X, Y_vel))
+        return;
+      if(!interpolation_pos.set_points(X, Y_pos))
+        return;
+
+      int index_x = 1;
+      for(double t=start_time; t < end_time; t+=0.001 ){
+
+        double time_point = goal->trajectory.points[index_x].time_from_start.sec +
+                            goal->trajectory.points[index_x].time_from_start.nanosec/NSEC_PER_SECOND;
+        if(t > time_point)
+          index_x++;
+        trajectories_position_axis2.push_back(interpolation_pos(t));
+        trajectories_velocities_axis2.push_back(interpolation_vel(t));
+      }
+    }
+
+    auto feedback = std::make_shared<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Feedback>();
+
+    struct timespec initial_time;
+    clock_gettime(CLOCK_REALTIME, &initial_time);
+    double initial_time_secs = (double)(initial_time.tv_sec) + (double)(initial_time.tv_nsec/1e+9);
+    struct timespec current_time;
+    double diff_time_secs = 0;
+    double error_time = 0;
+
+    while(executing_axis2){
+
+      clock_gettime(CLOCK_REALTIME, &current_time);
+      double current_time_secs = (double)(current_time.tv_sec) + (double)(current_time.tv_nsec/1e+9);
+
+      diff_time_secs = current_time_secs - initial_time_secs;
+
+      trajectory_msgs::msg::JointTrajectoryPoint point;
+      point.positions.push_back(joints_[MARAGazeboPluginRosPrivate::AXIS2]->Position(0));
+      point.velocities.push_back(joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetVelocity(0));
+      point.time_from_start.sec = (int)diff_time_secs;
+      point.time_from_start.nanosec = (diff_time_secs - (int)diff_time_secs)*1e+9;
+      feedback->actual = point;
+
+      // trajectory_msgs::msg::JointTrajectoryPoint point_desired;
+      // point_desired.positions.push_back(hansdriver->getGoalPositionAxis2());
+      // point_desired.velocities.push_back(hansdriver->getGoalVelocityAxis2());
+      // point_desired.time_from_start.sec = (int)hansdriver->getGoalTimeAxis2();
+      // point_desired.time_from_start.nanosec = (hansdriver->getGoalTimeAxis2() - (int)hansdriver->getGoalTimeAxis2())*1e+9;
+      // feedback->desired = point_desired;
+      //
+      // error_time = hansdriver->getGoalTimeAxis2() - diff_time_secs;
+      //
+      // trajectory_msgs::msg::JointTrajectoryPoint point_error;
+      // point_error.positions.push_back(point_desired.positions[0] - point.positions[0]);
+      // point_error.velocities.push_back(point_desired.velocities[0] - point.velocities[0]);
+      // point_error.time_from_start.sec = (int)error_time;
+      // point_error.time_from_start.nanosec = ((int)error_time - error_time)*1e+9;
+      // feedback->error = point_error;
+
+      goal_handle->publish_feedback(feedback);
+      usleep(10000);
+    }
+
+    auto result_response = std::make_shared<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Result>();
+    result_response->error = 0;
+    goal_handle->set_succeeded(result_response);
+    RCLCPP_INFO(rclcpp::get_logger("server"), "Goal Suceeded");
+
+  }
+
 void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
 {
   gazebo::common::Time cur_time = model_->GetWorld()->SimTime();
@@ -108,6 +374,24 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
   impl_->state_comm_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::StateCommunication>(topic_name_state_comm,
                 rmw_qos_profile_default);
   RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_state_comm.c_str());
+
+
+  printf("Creating action %s\n", std::string(node_name + "/trajectory_axis1").c_str());
+  printf("Creating action %s\n", std::string(node_name + "/trajectory_axis2").c_str());
+
+  impl_->action_server_trajectory_axis1_ = rclcpp_action::create_server<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>(
+      impl_->ros_node_,
+      std::string(node_name) + "/trajectory_axis1",
+      std::bind(&MARAGazeboPluginRosPrivate::handle_trajectory_axis1_goal, impl_.get(), std::placeholders::_1, std::placeholders::_2),
+      std::bind(&MARAGazeboPluginRosPrivate::handle_trajectory_axis1_cancel, impl_.get(), std::placeholders::_1),
+      std::bind(&MARAGazeboPluginRosPrivate::handle_trajectory_axis1_accepted, impl_.get(), std::placeholders::_1));
+
+  impl_->action_server_trajectory_axis2_ = rclcpp_action::create_server<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>(
+      impl_->ros_node_,
+      std::string(node_name) + "/trajectory_axis2",
+      std::bind(&MARAGazeboPluginRosPrivate::handle_trajectory_axis2_goal, impl_.get(), std::placeholders::_1, std::placeholders::_2),
+      std::bind(&MARAGazeboPluginRosPrivate::handle_trajectory_axis2_cancel, impl_.get(), std::placeholders::_1),
+      std::bind(&MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted, impl_.get(), std::placeholders::_1));
 
   impl_->ros_node_->set_parameters({
     rclcpp::Parameter("joint_name", node_name),
@@ -215,73 +499,73 @@ void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotar
   }
 }
 
-void MARAGazeboPluginRosPrivate::trajectoryAxis1Callback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg)
-{
-  if(!executing_axis1){
-    std::vector<double> X(msg->points.size()), Y_vel(msg->points.size()), Y_pos(msg->points.size());
-    for(unsigned int point = 0; point < msg->points.size(); point++){
-      double start_time = msg->points[point].time_from_start.sec +
-                          msg->points[point].time_from_start.nanosec/NSEC_PER_SECOND;
-      Y_vel[point] =  msg->points[point].velocities[0];
-      Y_pos[point] =  msg->points[point].positions[0];
-      X[point] = start_time;
-    }
-    double start_time = 0;
-    double end_time = msg->points[msg->points.size()-1].time_from_start.sec +
-                      msg->points[msg->points.size()-1].time_from_start.nanosec/NSEC_PER_SECOND;
-
-    tk::spline interpolation_vel, interpolation_pos;
-    if(!interpolation_vel.set_points(X, Y_vel))
-      return;
-    if(!interpolation_pos.set_points(X, Y_pos))
-      return;
-
-    int index_x = 1;
-    for(double t = start_time; t < end_time; t+=0.001 ){
-
-      double time_point = msg->points[index_x].time_from_start.sec +
-                          msg->points[index_x].time_from_start.nanosec/NSEC_PER_SECOND;
-      if(t > time_point)
-        index_x++;
-      trajectories_position_axis1.push_back(interpolation_pos(t));
-      trajectories_velocities_axis1.push_back(interpolation_vel(t));
-    }
-  }
-}
-
-void MARAGazeboPluginRosPrivate::trajectoryAxis2Callback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg)
-{
-  if(!executing_axis2){
-    std::vector<double> X(msg->points.size()), Y_vel(msg->points.size()), Y_pos(msg->points.size());
-    for(unsigned int point = 0; point < msg->points.size(); point++){
-      double start_time = msg->points[point].time_from_start.sec +
-                          msg->points[point].time_from_start.nanosec/NSEC_PER_SECOND;
-      Y_vel[point] =  msg->points[point].velocities[0];
-      Y_pos[point] =  msg->points[point].positions[0];
-      X[point] = start_time;
-    }
-    double start_time = 0;
-    double end_time = msg->points[msg->points.size()-1].time_from_start.sec +
-                      msg->points[msg->points.size()-1].time_from_start.nanosec/NSEC_PER_SECOND;
-
-    tk::spline interpolation_vel, interpolation_pos;
-    if(!interpolation_vel.set_points(X, Y_vel))
-      return;
-    if(!interpolation_pos.set_points(X, Y_pos))
-      return;
-
-    int index_x = 1;
-    for(double t=start_time; t < end_time; t+=0.001 ){
-
-      double time_point = msg->points[index_x].time_from_start.sec +
-                          msg->points[index_x].time_from_start.nanosec/NSEC_PER_SECOND;
-      if(t > time_point)
-        index_x++;
-      trajectories_position_axis2.push_back(interpolation_pos(t));
-      trajectories_velocities_axis2.push_back(interpolation_vel(t));
-    }
-  }
-}
+// void MARAGazeboPluginRosPrivate::trajectoryAxis1Callback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg)
+// {
+//   if(!executing_axis1){
+//     std::vector<double> X(msg->points.size()), Y_vel(msg->points.size()), Y_pos(msg->points.size());
+//     for(unsigned int point = 0; point < msg->points.size(); point++){
+//       double start_time = msg->points[point].time_from_start.sec +
+//                           msg->points[point].time_from_start.nanosec/NSEC_PER_SECOND;
+//       Y_vel[point] =  msg->points[point].velocities[0];
+//       Y_pos[point] =  msg->points[point].positions[0];
+//       X[point] = start_time;
+//     }
+//     double start_time = 0;
+//     double end_time = msg->points[msg->points.size()-1].time_from_start.sec +
+//                       msg->points[msg->points.size()-1].time_from_start.nanosec/NSEC_PER_SECOND;
+//
+//     tk::spline interpolation_vel, interpolation_pos;
+//     if(!interpolation_vel.set_points(X, Y_vel))
+//       return;
+//     if(!interpolation_pos.set_points(X, Y_pos))
+//       return;
+//
+//     int index_x = 1;
+//     for(double t = start_time; t < end_time; t+=0.001 ){
+//
+//       double time_point = msg->points[index_x].time_from_start.sec +
+//                           msg->points[index_x].time_from_start.nanosec/NSEC_PER_SECOND;
+//       if(t > time_point)
+//         index_x++;
+//       trajectories_position_axis1.push_back(interpolation_pos(t));
+//       trajectories_velocities_axis1.push_back(interpolation_vel(t));
+//     }
+//   }
+// }
+//
+// void MARAGazeboPluginRosPrivate::trajectoryAxis2Callback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg)
+// {
+//   if(!executing_axis2){
+//     std::vector<double> X(msg->points.size()), Y_vel(msg->points.size()), Y_pos(msg->points.size());
+//     for(unsigned int point = 0; point < msg->points.size(); point++){
+//       double start_time = msg->points[point].time_from_start.sec +
+//                           msg->points[point].time_from_start.nanosec/NSEC_PER_SECOND;
+//       Y_vel[point] =  msg->points[point].velocities[0];
+//       Y_pos[point] =  msg->points[point].positions[0];
+//       X[point] = start_time;
+//     }
+//     double start_time = 0;
+//     double end_time = msg->points[msg->points.size()-1].time_from_start.sec +
+//                       msg->points[msg->points.size()-1].time_from_start.nanosec/NSEC_PER_SECOND;
+//
+//     tk::spline interpolation_vel, interpolation_pos;
+//     if(!interpolation_vel.set_points(X, Y_vel))
+//       return;
+//     if(!interpolation_pos.set_points(X, Y_pos))
+//       return;
+//
+//     int index_x = 1;
+//     for(double t=start_time; t < end_time; t+=0.001 ){
+//
+//       double time_point = msg->points[index_x].time_from_start.sec +
+//                           msg->points[index_x].time_from_start.nanosec/NSEC_PER_SECOND;
+//       if(t > time_point)
+//         index_x++;
+//       trajectories_position_axis2.push_back(interpolation_pos(t));
+//       trajectories_velocities_axis2.push_back(interpolation_vel(t));
+//     }
+//   }
+// }
 
 void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr _sdf)
 {
@@ -351,21 +635,6 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
                                 std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis2, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state.c_str() );
-
-  std::string topic_trajectory_axis1 = std::string(node_name) + "/trajectory";
-  impl_->trajectory_sub_ = impl_->ros_node_->create_subscription<trajectory_msgs::msg::JointTrajectory>(
-         topic_trajectory_axis1,
-         std::bind(&MARAGazeboPluginRosPrivate::trajectoryAxis1Callback, impl_.get(), std::placeholders::_1),
-         rmw_qos_profile_sensor_data);
-  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_trajectory_axis1.c_str() );
-
-  std::string topic_trajectory_axis2 = std::string(node_name) + "2/trajectory";
-
-  impl_->trajectory2_sub_ = impl_->ros_node_->create_subscription<trajectory_msgs::msg::JointTrajectory>(
-          topic_trajectory_axis2,
-          std::bind(&MARAGazeboPluginRosPrivate::trajectoryAxis2Callback, impl_.get(), std::placeholders::_1),
-          rmw_qos_profile_sensor_data);
-  RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_trajectory_axis2.c_str() );
 
   // Update rate
   auto update_rate = _sdf->Get<double>("update_rate", 1000.0).first;
