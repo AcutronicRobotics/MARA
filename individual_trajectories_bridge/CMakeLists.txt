@@ -17,12 +17,14 @@ set(CMAKE_BUILD_TYPE DEBUG)
 find_package(rmw REQUIRED)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
 find_package(rmw_implementation_cmake REQUIRED)
 find_package(control_msgs 0.0.1 EXACT REQUIRED PATH CMAKE_CURRENT_SOURCE_DIR)
 find_package(sensor_msgs 0.6.1 EXACT REQUIRED PATH CMAKE_CURRENT_SOURCE_DIR)
 find_package(trajectory_msgs 0.6.1 EXACT REQUIRED PATH CMAKE_CURRENT_SOURCE_DIR)
 find_package(yaml_cpp_vendor REQUIRED)
 find_package(Boost 1.58 REQUIRED)
+find_package(hrim_actuator_rotaryservo_actions REQUIRED)
 
 # find ROS 1 packages
 include(cmake/find_ros1_package.cmake)
@@ -73,6 +75,7 @@ add_executable(${PROJECT_NAME} "src/main.cpp")
 
 ament_target_dependencies(${PROJECT_NAME}
     "rclcpp"
+    "rclcpp_action"
     "trajectory_msgs"
     "control_msgs"
     "yaml_cpp_vendor"
@@ -86,11 +89,32 @@ target_link_libraries(${PROJECT_NAME}
   ${YAML_CPP_LIBRARIES}
 )
 
+add_executable(${PROJECT_NAME}_actions
+        src/main_actions.cpp
+        src/FollowJointTrajectoryAction.cpp)
+
+ament_target_dependencies(${PROJECT_NAME}_actions
+    "rclcpp"
+    "rclcpp_action"
+    "trajectory_msgs"
+    "control_msgs"
+    "yaml_cpp_vendor"
+    ${prefixed_ros1_message_packages}
+    ${ros2_message_packages}
+    "ros1_roscpp"
+		"ros1_control_msgs"
+		"ros1_trajectory_msgs"
+    "hrim_actuator_rotaryservo_actions")
+
+target_link_libraries(${PROJECT_NAME}_actions
+  ${YAML_CPP_LIBRARIES}
+)
+
 install(
   PROGRAMS
   config/motors.yaml
   DESTINATION share/${PROJECT_NAME}
 )
 
-install(TARGETS ${PROJECT_NAME}
+install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_actions
   DESTINATION lib/${PROJECT_NAME})
