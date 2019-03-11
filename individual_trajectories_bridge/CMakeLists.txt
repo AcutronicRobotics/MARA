@@ -50,6 +50,8 @@ endif()
 
 find_ros1_package(control_msgs REQUIRED)
 find_ros1_package(trajectory_msgs REQUIRED)
+find_ros1_package(actionlib_msgs REQUIRED)
+find_ros1_package(actionlib REQUIRED)
 
 set(prefixed_ros1_message_packages "")
 foreach(ros1_message_package ${ros1_message_packages})
@@ -83,7 +85,8 @@ ament_target_dependencies(${PROJECT_NAME}
     ${ros2_message_packages}
     "ros1_roscpp"
 		"ros1_control_msgs"
-		"ros1_trajectory_msgs")
+		"ros1_trajectory_msgs"
+)
 
 target_link_libraries(${PROJECT_NAME}
   ${YAML_CPP_LIBRARIES}
@@ -104,7 +107,10 @@ ament_target_dependencies(${PROJECT_NAME}_actions
     "ros1_roscpp"
 		"ros1_control_msgs"
 		"ros1_trajectory_msgs"
-    "hrim_actuator_rotaryservo_actions")
+    "hrim_actuator_rotaryservo_actions"
+    "ros1_actionlib_msgs"
+    "ros1_actionlib"
+)
 
 target_link_libraries(${PROJECT_NAME}_actions
   ${YAML_CPP_LIBRARIES}

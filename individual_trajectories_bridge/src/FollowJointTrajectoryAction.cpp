@@ -7,6 +7,20 @@ FollowJointTrajectoryAction::FollowJointTrajectoryAction(std::string name, ros::
   as_.start();
   this->node_ros2 = node_ros2;
   action_client = rclcpp_action::create_client<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>(node_ros2, action_name_);
+
+  sub_action_cancel_ = nh.subscribe( action_name_ + std::string("/cancel"), 1, &FollowJointTrajectoryAction::actionCancelCallback, this);
+}
+
+void FollowJointTrajectoryAction::actionCancelCallback(const actionlib_msgs::GoalID::ConstPtr& msg)
+{
+
+  auto cancel_result_future = action_client->async_cancel_goal(goal_handle);
+  if (cancel_result_future.wait_for(std::chrono::seconds(5s)) != std::future_status::ready)
+  {
+    printf("cancel goal call failed :(\n");
+  }else{
+    printf("cancel goal call ok! :)\n");
+  }
 }
 
 FollowJointTrajectoryAction::~FollowJointTrajectoryAction()
@@ -92,7 +106,7 @@ void FollowJointTrajectoryAction::executeCB(const control_msgs::FollowJointTraje
     return;
   }
 
-  rclcpp_action::ClientGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>::SharedPtr goal_handle = goal_handle_future.get();
+  goal_handle = goal_handle_future.get();
   if (!goal_handle) {
     printf("Goal was rejected by server\n");
     return;

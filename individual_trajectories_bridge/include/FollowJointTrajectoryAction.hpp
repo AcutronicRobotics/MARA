@@ -14,6 +14,7 @@
 #include "control_msgs/JointTrajectoryControllerState.h"
 #include "control_msgs/FollowJointTrajectoryAction.h"
 #include "sensor_msgs/JointState.h"
+#include "actionlib_msgs/GoalID.h"
 #include "actionlib/server/simple_action_server.h"
 #ifdef __clang__
 # pragma clang diagnostic pop
@@ -49,12 +50,17 @@ public:
 
   void executeCB(const control_msgs::FollowJointTrajectoryGoalConstPtr &goal);
 
+  void actionCancelCallback(const actionlib_msgs::GoalID::ConstPtr& msg);
+
 protected:
 
   rclcpp::Node::SharedPtr node_ros2;
+  ros::Subscriber sub_action_cancel_;
 
   actionlib::SimpleActionServer<control_msgs::FollowJointTrajectoryAction> as_; // NodeHandle instance must be created before this line. Otherwise strange error occurs.
   std::string action_name_;
+
+  rclcpp_action::ClientGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>::SharedPtr goal_handle;
 
   // create messages that are used to published feedback/result
   control_msgs::FollowJointTrajectoryResult result_;
