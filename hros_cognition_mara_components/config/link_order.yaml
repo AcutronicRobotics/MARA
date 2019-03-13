@@ -1,7 +1,35 @@
+# MARA 3 - Igor
+# motors:
+#   - hros_actuation_servomotor_70B3D521A0102
+#   - hros_actuation_servomotor_70B3D521A010
+#   - hros_actuation_servomotor_70B3D521A012
+#   - hros_actuation_servomotor_70B3D521A0122
+#   - hros_actuation_servomotor_70B3D521A014
+#   - hros_actuation_servomotor_70B3D521A0142
+
+# Simulation
+# motors:
+#   - hros_actuation_servomotor_0000000000012
+#   - hros_actuation_servomotor_000000000001
+#   - hros_actuation_servomotor_000000000002
+#   - hros_actuation_servomotor_0000000000022
+#   - hros_actuation_servomotor_000000000003
+#   - hros_actuation_servomotor_0000000000032
+
+# MARA 5 - Carlos
 motors:
-  - hros_actuation_servomotor_0000000000012
-  - hros_actuation_servomotor_000000000001
-  - hros_actuation_servomotor_000000000002
-  - hros_actuation_servomotor_0000000000022
-  - hros_actuation_servomotor_000000000003
-  - hros_actuation_servomotor_0000000000032
+  - hros_actuation_servomotor_70B3D521A046/state_axis2
+  - hros_actuation_servomotor_70B3D521A046/state_axis1
+  - hros_actuation_servomotor_70B3D521A018/state_axis1
+  - hros_actuation_servomotor_70B3D521A018/state_axis2
+  - hros_actuation_servomotor_70B3D521A002/state_axis1
+  - hros_actuation_servomotor_70B3D521A002/state_axis2
+
+# # MARA 6 - Alex
+# motors:
+#   - hros_actuation_servomotor_70B3D521A0202
+#   - hros_actuation_servomotor_70B3D521A020
+#   - hros_actuation_servomotor_70B3D521A016
+#   - hros_actuation_servomotor_70B3D521A0162
+#   - hros_actuation_servomotor_70B3D521A03A
+#   - hros_actuation_servomotor_70B3D521A03A2
