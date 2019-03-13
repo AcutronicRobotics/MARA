@@ -61,8 +61,6 @@ void FollowJointTrajectoryAction::feedback_callback(
 
 void FollowJointTrajectoryAction::executeCB(const control_msgs::FollowJointTrajectoryGoalConstPtr &goal)
 {
-  printf("FibonacciGoalConstPtr executeCB\n");
-
   if (!action_client->wait_for_action_server(std::chrono::seconds(2))) {
     printf("Action server not available after waiting\n");
     return;
