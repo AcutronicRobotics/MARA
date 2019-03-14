@@ -30,7 +30,7 @@ repositories:
   robotiq_modular_gripper:
     type: git
     url: https://github.com/AcutronicRobotics/robotiq_modular_gripper.git
-    version: master
+    version: 555f770
   hans_modular_servomotor:
     type: git
     url: https://github.com/AcutronicRobotics/hans_modular_servomotor.git
