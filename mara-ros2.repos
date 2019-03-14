@@ -5,7 +5,7 @@ repositories:
     version: ai
   HRIM:
     type: git
-    url: https://github.com/erlerobot/HRIM.git
+    url: https://github.com/acutronicrobotics/HRIM.git
     version: master
   control_msgs:
     type: git
