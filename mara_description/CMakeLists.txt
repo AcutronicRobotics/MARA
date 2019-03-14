@@ -12,8 +12,14 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(urdf REQUIRED)
 
-install(DIRECTORY meshes urdf material
+install(DIRECTORY meshes urdf material launch rviz
   DESTINATION share/${PROJECT_NAME}
+)
+
+install(
+  PROGRAMS
+  scripts/mara_state_publisher.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 ament_export_dependencies(xacro)
