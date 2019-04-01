@@ -216,7 +216,7 @@
           </imu>
           <plugin name="hros_actuation_servomotor_000000000001" filename="libgazebo_ros_imu_sensor.so">
             <ros>
-              <namespace>/hros_actuation_servomotor_000000000001</namespace>
+              <namespace>/hrim_actuation_servomotor_000000000001</namespace>
               <argument>~/out:=imu</argument>
             </ros>
           </plugin>
@@ -376,7 +376,7 @@
           </imu>
           <plugin name="hros_actuation_servomotor_000000000002" filename="libgazebo_ros_imu_sensor.so">
             <ros>
-              <namespace>/hros_actuation_servomotor_000000000002</namespace>
+              <namespace>/hrim_actuation_servomotor_000000000002</namespace>
               <argument>~/out:=imu</argument>
             </ros>
           </plugin>
@@ -537,7 +537,7 @@
           </imu>
           <plugin name="hros_actuation_servomotor_000000000003" filename="libgazebo_ros_imu_sensor.so">
             <ros>
-              <namespace>/hros_actuation_servomotor_000000000003</namespace>
+              <namespace>/hrim_actuation_servomotor_000000000003</namespace>
               <argument>~/out:=imu</argument>
             </ros>
           </plugin>

@@ -43,7 +43,7 @@ class Example(QWidget):
         rclpy.init(args=None)
         self.node = rclpy.create_node('test_finger_control_service')
 
-        self.cli = self.node.create_client(ControlFinger, '/hros_actuation_gripper_000000000004/goal') #Change me!
+        self.cli = self.node.create_client(ControlFinger, '/hrim_actuation_gripper_000000000004/goal') #Change me!
 
         grid = QGridLayout()
         self.setLayout(grid)
