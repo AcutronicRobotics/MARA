@@ -21,9 +21,9 @@
   <link name="world" />
 
   <joint name="end_effector_adapter_to_robotiq" type="fixed">
-    <origin rpy="0 1.57 0" xyz=" 0 0 0.13"/>
+    <origin rpy="0 0 0" xyz=" 0 0 0.0"/>
     <parent link="motor6_link"/>
-    <child link="robotiq_hande_base_link"/>
+    <child link="robotiq_adapter_link"/>
   </joint>
 
   <joint name="world_to_table_joint" type="fixed">
