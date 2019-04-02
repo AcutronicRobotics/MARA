@@ -119,6 +119,7 @@ target_link_libraries(${PROJECT_NAME}_actions
 install(
   PROGRAMS
   config/motors.yaml
+  config/motors_actions.yaml
   DESTINATION share/${PROJECT_NAME}
 )
 
