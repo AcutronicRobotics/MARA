@@ -1,7 +1,7 @@
 motors:
-  - hros_actuation_servomotor_000000000001/state_axis2
-  - hros_actuation_servomotor_000000000001/state_axis1
-  - hros_actuation_servomotor_000000000002/state_axis1
-  - hros_actuation_servomotor_000000000002/state_axis2
-  - hros_actuation_servomotor_000000000003/state_axis1
-  - hros_actuation_servomotor_000000000003/state_axis2
+  - hrim_actuation_servomotor_000000000001/state_axis2
+  - hrim_actuation_servomotor_000000000001/state_axis1
+  - hrim_actuation_servomotor_000000000002/state_axis1
+  - hrim_actuation_servomotor_000000000002/state_axis2
+  - hrim_actuation_servomotor_000000000003/state_axis1
+  - hrim_actuation_servomotor_000000000003/state_axis2
