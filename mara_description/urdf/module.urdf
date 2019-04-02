@@ -149,7 +149,7 @@
     <child link="motor_cover"/>
   </joint>
   <gazebo>
-    <plugin filename="libmara_gazebo_joint_plugin.so" name="hros_actuation_servomotor_000000000001">
+    <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuation_servomotor_000000000001">
       <ros/>
       <axis1>motor2</axis1>
       <axis2>motor1</axis2>

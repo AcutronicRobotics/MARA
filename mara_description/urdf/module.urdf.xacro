@@ -134,7 +134,7 @@
   </joint>
 
   <gazebo>
-    <plugin name="hros_actuation_servomotor_000000000001" filename="libmara_gazebo_joint_plugin.so">
+    <plugin name="hrim_actuation_servomotor_000000000001" filename="libmara_gazebo_joint_plugin.so">
       <ros></ros>
       <axis1>motor2</axis1>
       <axis2>motor1</axis2>
