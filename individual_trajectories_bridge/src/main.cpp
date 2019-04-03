@@ -44,6 +44,16 @@ void motorStateCallback(const control_msgs::msg::JointTrajectoryControllerState:
     ros1_joint_state_msg.position[j] = ros2_msg->actual.positions[j];
   }
 
+  ros1_joint_state_msg.velocity.resize(ros2_msg->actual.velocities.size());
+  for(unsigned int j = 0; j < ros1_joint_state_msg.velocity.size(); j++){
+    ros1_joint_state_msg.velocity[j] = ros2_msg->actual.velocities[j];
+  }
+
+  ros1_joint_state_msg.effort.resize(ros2_msg->actual.effort.size());
+  for(unsigned int j = 0; j < ros1_joint_state_msg.effort.size(); j++){
+    ros1_joint_state_msg.effort[j] = ros2_msg->actual.effort[j];
+  }
+
   pub_joint_state_ros1.publish(ros1_joint_state_msg);
 }
 
