@@ -612,25 +612,25 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   createGenericTopics(node_name);
 
   // Creating motor state topic name
-  std::string topic_name_motor_state = std::string(node_name) + "/state";
+  std::string topic_name_motor_state = std::string(node_name) + "/state_axis1";
   impl_->motor_state_axis1_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(topic_name_motor_state,
                         rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state.c_str() );
 
-  std::string topic_name_motor_state_axis2 = std::string(node_name) + "2/state";
+  std::string topic_name_motor_state_axis2 = std::string(node_name) + "/state_axis2";
   impl_->motor_state_axis2_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(topic_name_motor_state_axis2,
                         rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis2.c_str() );
 
   // Creating command topic name
-  std::string topic_command_state = std::string(node_name) + "/goal";
+  std::string topic_command_state = std::string(node_name) + "/goal_axis1";
   impl_->command_sub_axis1_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state,
                                 std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis1, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state.c_str() );
 
 
-  std::string topic_command_state_axis2 = std::string(node_name) + "2/goal";
+  std::string topic_command_state_axis2 = std::string(node_name) + "/goal_axis2";
   impl_->command_sub_axis2_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state_axis2,
                                 std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis2, impl_.get(), std::placeholders::_1),
                                 rmw_qos_profile_sensor_data);

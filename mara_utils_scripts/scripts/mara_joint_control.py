@@ -34,14 +34,14 @@ class Example(QWidget):
 
         self.node = rclpy.create_node('test_finger_control_service')
 
-        self.publisher = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_0000000000012/goal', qos_profile=qos_profile_sensor_data)
-        self.publisher_axis2 = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_000000000001/goal', qos_profile=qos_profile_sensor_data)
+        self.publisher = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_000000000001/goal_axis2', qos_profile=qos_profile_sensor_data)
+        self.publisher_axis2 = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_000000000001/goal_axis1', qos_profile=qos_profile_sensor_data)
 
-        self.publisher_pal = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_000000000002/goal', qos_profile=qos_profile_sensor_data)
-        self.publisher_hebi = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_0000000000022/goal', qos_profile=qos_profile_sensor_data)
+        self.publisher_pal = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_000000000002/goal_axis1', qos_profile=qos_profile_sensor_data)
+        self.publisher_hebi = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_000000000002/goal_axis2', qos_profile=qos_profile_sensor_data)
 
-        self.publisher_lander = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_000000000003/goal', qos_profile=qos_profile_sensor_data)
-        self.publisher_lander2 = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_0000000000032/goal', qos_profile=qos_profile_sensor_data)
+        self.publisher_lander = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_000000000003/goal_axis1', qos_profile=qos_profile_sensor_data)
+        self.publisher_lander2 = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_000000000003/goal_axis2', qos_profile=qos_profile_sensor_data)
 
         grid = QGridLayout()
         self.setLayout(grid)
