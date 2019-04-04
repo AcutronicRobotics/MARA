@@ -27,7 +27,7 @@ class Example(QWidget):
         req = ControlFinger.Request()
         req.goal_velocity = self.vel         # velocity range: 30 -  250 mm/s
         req.goal_effort = self.effort        # forces range:   10 -  125 N
-        req.goal_angularposition = self.pos  # position range   0 - 0.87 rad
+        req.goal_linearposition = self.pos  # position range   0 - 0.87 rad
 
         future = self.cli.call_async(req)
         rclpy.spin_until_future_complete(self.node, future)
