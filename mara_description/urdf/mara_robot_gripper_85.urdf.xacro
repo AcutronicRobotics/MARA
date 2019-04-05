@@ -33,7 +33,7 @@
   </joint>
 
   <joint name="table_to_base_joint" type="fixed">
-    <origin rpy="0 0 1.57" xyz="0 0 0.62"/>
+    <origin rpy="0 0 0" xyz="0 0 0.62"/>
     <parent link="table"/>
     <child link="base_link"/>
   </joint>
