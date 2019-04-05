@@ -324,7 +324,7 @@
       <origin rpy="0 0 0" xyz="0 0 0.05122"/>
       <parent link="${prefix}base_robot"/>
       <child link="${prefix}motor1_link"/>
-      <axis xyz="0 0 -1"/>
+      <axis xyz="0 0 1"/>
       <limit effort="104.0" lower="-3.1416" upper="3.1416" velocity="1.57"/>
       <dynamics damping="0" friction="0"/>
     </joint>
@@ -339,7 +339,7 @@
       <origin rpy="0 0 0" xyz="0.118 0 0.1637"/>
       <parent link="${prefix}motor1_link"/>
       <child link="${prefix}motor2_link"/>
-      <axis xyz="-1 0 0"/>
+      <axis xyz="1 0 0"/>
       <limit effort="104.0" lower="-2.35" upper="2.35" velocity="1.57"/>
       <dynamics damping="0" friction="0"/>
     </joint>
@@ -348,7 +348,7 @@
       <origin rpy="0 0 0" xyz="-0.009 0 0.2"/>
       <parent link="${prefix}motor2_link"/>
       <child link="${prefix}motor3_link"/>
-      <axis xyz="1 0 0"/>
+      <axis xyz="-1 0 0"/>
       <limit effort="69" lower="-2.61" upper="2.61" velocity="1.57"/>
       <dynamics damping="0" friction="0"/>
     </joint>
@@ -363,7 +363,7 @@
       <origin rpy="0 0 0" xyz="-0.109255 0 0.149255"/>
       <parent link="${prefix}motor3_link"/>
       <child link="${prefix}motor4_link"/>
-      <axis xyz="0 0 -1"/>
+      <axis xyz="0 0 1"/>
       <limit effort="69" lower="-3.14" upper="3.14" velocity="1.57"/>
       <dynamics damping="0" friction="0"/>
     </joint>
@@ -372,7 +372,7 @@
       <origin rpy="0 0 0" xyz="0.1054570 0 0.16074"/>
       <parent link="${prefix}motor4_link"/>
       <child link="${prefix}motor5_link"/>
-      <axis xyz="1 0 0"/>
+      <axis xyz="-1 0 0"/>
       <limit effort="34" lower="-2.56" upper="2.56" velocity="1.57"/>
       <dynamics damping="0" friction="0"/>
     </joint>
@@ -387,7 +387,7 @@
       <origin rpy="0 0 0" xyz="-0.10625569 0 0.14675569"/>
       <parent link="${prefix}motor5_link"/>
       <child link="${prefix}motor6_link"/>
-      <axis xyz="0 0 -1"/>
+      <axis xyz="0 0 1"/>
       <limit effort="34" lower="-3.14" upper="3.14" velocity="1.57"/>
       <dynamics damping="0" friction="0"/>
     </joint>
