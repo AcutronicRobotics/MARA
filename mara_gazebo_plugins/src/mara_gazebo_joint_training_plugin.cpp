@@ -279,7 +279,6 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
 
 
   impl_->UpdateJointPIDs();
-  impl_->UpdatePIDControl();
 }
 
 float * MARAGazeboPluginRosPrivate::getPIDValues(std::string joint_name)
@@ -346,8 +345,6 @@ void MARAGazeboPluginRos::Reset()
   impl_->goal_position_axis4_rad = 0;
   impl_->goal_position_axis5_rad = 0;
   impl_->goal_position_axis6_rad = 0;
-
-  impl_->UpdatePIDControl();
 }
 
 void MARAGazeboPluginRosPrivate::OnUpdate()
