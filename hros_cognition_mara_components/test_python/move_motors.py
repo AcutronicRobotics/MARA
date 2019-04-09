@@ -42,10 +42,10 @@ class Example(QWidget):
         rclpy.init(args=None)
 
         self.node = rclpy.create_node('test_finger_control_service')
-        self.publisher = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_B827EB79FCFB/Command')
-        self.publisher_axis2 = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_B827EBCB8804/Command')
+        self.publisher = self.node.create_publisher(GoalRotaryServo, '/hros_actuation_servomotor_B827EB79FCFB/Command')
+        self.publisher_axis2 = self.node.create_publisher(GoalRotaryServo, '/hros_actuation_servomotor_B827EBCB8804/Command')
 
-        self.publisher_pal = self.node.create_publisher(GoalRotaryServo, '/hrim_actuation_servomotor_B827EBFA06A8/Command')
+        self.publisher_pal = self.node.create_publisher(GoalRotaryServo, '/hros_actuation_servomotor_B827EBFA06A8/Command')
 
         grid = QGridLayout()
         self.setLayout(grid)
@@ -95,7 +95,7 @@ class Example(QWidget):
         self.value_pal = 0;
 
         subscription = self.node.create_subscription(CompressedImage,
-                                                    '/hrim_sensing_camera_B827EBF38D04/compressed_image',
+                                                    '/hros_sensing_camera_B827EBF38D04/compressed_image',
                                                      self.chatter_callback,
                                                      qos_profile=qos_profile_sensor_data)
 

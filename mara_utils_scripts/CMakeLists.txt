@@ -16,6 +16,7 @@ install(
   PROGRAMS
   scripts/mara_joint_control.py
   scripts/spawn_entity.py
+  scripts/spawn_mara_arg.py
   scripts/spawn_mara_gripper_85.py
   scripts/spawn_mara_gripper_140.py
   scripts/spawn_mara_gripper_hande.py

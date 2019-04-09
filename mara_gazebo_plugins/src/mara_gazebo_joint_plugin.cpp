@@ -39,7 +39,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
 
   rclcpp_action::GoalResponse MARAGazeboPluginRosPrivate::handle_trajectory_axis1_goal(
     const std::array<uint8_t, 16> & uuid,
-    std::shared_ptr<const hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Goal> goal)
+    std::shared_ptr<const hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Goal>)
   {
     RCUTILS_LOG_ERROR_NAMED("hros_actuation_servomotor_hans_lifecycle", "Got goal axis1 request");
     (void)uuid;
@@ -59,7 +59,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
 
   rclcpp_action::GoalResponse MARAGazeboPluginRosPrivate::handle_trajectory_axis2_goal(
     const std::array<uint8_t, 16> & uuid,
-    std::shared_ptr<const hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Goal> goal)
+    std::shared_ptr<const hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Goal>)
   {
     RCUTILS_LOG_ERROR_NAMED("hros_actuation_servomotor_hans_lifecycle", "Got goal axis2 request");
     (void)uuid;
@@ -144,7 +144,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
     double initial_time_secs = (double)(initial_time.tv_sec) + (double)(initial_time.tv_nsec/1e+9);
     struct timespec current_time;
     double diff_time_secs = 0;
-    double error_time = 0;
+    //double error_time = 0;
 
     while(executing_axis1){
 
@@ -235,7 +235,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
     double initial_time_secs = (double)(initial_time.tv_sec) + (double)(initial_time.tv_nsec/1e+9);
     struct timespec current_time;
     double diff_time_secs = 0;
-    double error_time = 0;
+    //double error_time = 0;
 
     while(executing_axis2){
 
@@ -409,26 +409,26 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_comm_msgs, impl_.get()));
 }
 
-void MARAGazeboPluginRosPrivate::readfullFile(std::string file_to_read, hrim_generic_srvs::srv::Simulation3D& msg_sim_3d)
+/*void MARAGazeboPluginRosPrivate::readfullFile(std::string file_to_read, hrim_generic_srvs::srv::Simulation3D& msg_sim_3d)
 {
-  // std::string robotiq_140_description_folder = ament_index_cpp::get_package_share_directory("mara_description");
-  //
-  // gzmsg << "readfullFile " << robotiq_140_description_folder + file_to_read << std::endl;
-  //
-  // std::ifstream ifs(robotiq_140_description_folder + file_to_read, std::ios::binary|std::ios::ate);
-  //
-  // if(!ifs.is_open()){
-  //   gzmsg << "Error reading file " << robotiq_140_description_folder + file_to_read << std::endl;
-  //   return;
-  // }
-  //
-  // std::ifstream::pos_type pos = ifs.tellg();
-  //
-  // msg_sim_3d.model.resize(pos);
-  // ifs.seekg(0, std::ios::beg);
-  // ifs.read(&msg_sim_3d.model[0], pos);
-  // ifs.close();
-}
+   std::string robotiq_140_description_folder = ament_index_cpp::get_package_share_directory("mara_description");
+  
+   gzmsg << "readfullFile " << robotiq_140_description_folder + file_to_read << std::endl;
+  
+   std::ifstream ifs(robotiq_140_description_folder + file_to_read, std::ios::binary|std::ios::ate);
+  
+   if(!ifs.is_open()){
+     gzmsg << "Error reading file " << robotiq_140_description_folder + file_to_read << std::endl;
+     return;
+   }
+  
+   std::ifstream::pos_type pos = ifs.tellg();
+  
+   msg_sim_3d.model.resize(pos);
+   ifs.seekg(0, std::ios::beg);
+   ifs.read(&msg_sim_3d.model[0], pos);
+   ifs.close();
+}*/
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
@@ -742,15 +742,15 @@ void MARAGazeboPluginRosPrivate::timer_comm_msgs()
 void MARAGazeboPluginRosPrivate::SpecsCommunicationService(
     const std::shared_ptr<rmw_request_id_t> request_header,
     const std::shared_ptr<hrim_generic_srvs::srv::SpecsCommunication::Request> req,
-    std::shared_ptr<hrim_generic_srvs::srv::SpecsCommunication::Response> res)
+    std::shared_ptr<hrim_generic_srvs::srv::SpecsCommunication::Response>)
 {
   (void)request_header;
   (void)req;
 }
 
 void MARAGazeboPluginRosPrivate::SpecsRotaryServoService(
-    const std::shared_ptr<rmw_request_id_t> request_header,
-    const std::shared_ptr<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Request> req,
+    const std::shared_ptr<rmw_request_id_t>,
+    const std::shared_ptr<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Request>,
     std::shared_ptr<hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Response> res)
 {
   res->control_type = (uint8_t)hrim_actuator_rotaryservo_srvs::srv::SpecsRotaryServo::Response::CONTROL_TYPE_POSITION_VELOCITY;
@@ -783,7 +783,7 @@ void MARAGazeboPluginRosPrivate::IDService(
 void MARAGazeboPluginRosPrivate::URDFService(
     const std::shared_ptr<rmw_request_id_t> request_header,
     const std::shared_ptr<hrim_generic_srvs::srv::SimulationURDF::Request> req,
-    std::shared_ptr<hrim_generic_srvs::srv::SimulationURDF::Response> res)
+    std::shared_ptr<hrim_generic_srvs::srv::SimulationURDF::Response>)
 {
   (void)request_header;
   (void)req;
@@ -804,7 +804,7 @@ void MARAGazeboPluginRosPrivate::URDFService(
 void MARAGazeboPluginRosPrivate::Sim3DService(
     const std::shared_ptr<rmw_request_id_t> request_header,
     const std::shared_ptr<hrim_generic_srvs::srv::Simulation3D::Request> req,
-    std::shared_ptr<hrim_generic_srvs::srv::Simulation3D::Response> res)
+    std::shared_ptr<hrim_generic_srvs::srv::Simulation3D::Response>)
 {
   (void)request_header;
   (void)req;
