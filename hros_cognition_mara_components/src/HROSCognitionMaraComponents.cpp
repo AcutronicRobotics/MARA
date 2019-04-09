@@ -49,31 +49,34 @@ HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::stri
   }
   std::cout << "=====================================================" << std::endl;
 
-  std::cout << "++++++++++++++++++ Subscriptions ++++++++++++++++++" << std::endl;
+  std::cout << "++++++++++++++++++ Subscribers and Publishers++++++++++++++++++" << std::endl;
   for(unsigned int i = 0; i < topic_order.size(); i++){
-    std::string name_motor = std::string("/") + topic_order[i];
-    name_motor = topic_order[i];
+
+    std::string topic = topic_order[i];
+    std::string delimiter = ":";
+    std::string id = topic.substr( 0, topic.find(delimiter) );
+    std::string axis = topic.erase( 0, topic.find(delimiter) + delimiter.length() );
+    std::string motor_name = id + "/state_" + axis;
+
     auto subscriber = this->create_subscription<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(
-                              std::string("/") + topic_order[i],
-                              [this, name_motor](hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo::UniquePtr msg) {
-                                stateCallback(name_motor, msg->velocity, msg->position, msg->effort);
+                              std::string("/") + motor_name,
+                              [this, motor_name](hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo::UniquePtr msg) {
+                                stateCallback(motor_name, msg->velocity, msg->position, msg->effort);
                               },rmw_qos_profile_sensor_data);
     motor_state_subcriptions_.push_back(subscriber);
-    std::cout << "Subscribe at " << topic_order[i] << " " << subscriber->get_topic_name() << std::endl;
+    std::cout << "Subscribe at " << motor_name << std::endl;
+
+    motor_name = id + "/goal_" + axis;
+
+    auto publisher_command = this->create_publisher<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(
+                                   std::string("/") + motor_name,
+                                   rmw_qos_profile_sensor_data);
+    motor_goal_publishers_.push_back(publisher_command);
+    std::cout << "New publisher at " << motor_name << std::endl;
   }
 
   std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
   std::cout << std::endl << std::endl;
-
-  std::cout << "----------------- Publishers -----------------" << std::endl;
-
-  for(unsigned int i = 0; i < topic_order.size(); i++){
-    auto publisher_command = this->create_publisher<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(
-                                   std::string("/") + topic_order[i],
-                                   rmw_qos_profile_sensor_data);
-    motor_goal_publishers_.push_back(publisher_command);
-    std::cout << "New publisher at " <<  std::string("/") + topic_order[i] << std::endl;
-  }
 
   msg_actuators_.actual.positions.resize(motor_goal_publishers_.size());
   msg_actuators_.actual.velocities.resize(motor_goal_publishers_.size());

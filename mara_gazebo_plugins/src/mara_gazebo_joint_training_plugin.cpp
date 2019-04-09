@@ -16,7 +16,7 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
 {
   gazebo::common::Time cur_time = model_->GetWorld()->SimTime();
 
-  // AXIS 21
+  // AXIS 1
   hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo motor_state_msg_axis1;
   motor_state_msg_axis1.header.stamp.sec = cur_time.sec;
   motor_state_msg_axis1.header.stamp.nanosec = cur_time.nsec;
@@ -279,6 +279,7 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
 
 
   impl_->UpdateJointPIDs();
+  impl_->UpdatePIDControl();
 }
 
 float * MARAGazeboPluginRosPrivate::getPIDValues(std::string joint_name)
@@ -345,6 +346,8 @@ void MARAGazeboPluginRos::Reset()
   impl_->goal_position_axis4_rad = 0;
   impl_->goal_position_axis5_rad = 0;
   impl_->goal_position_axis6_rad = 0;
+
+  impl_->UpdatePIDControl();
 }
 
 void MARAGazeboPluginRosPrivate::OnUpdate()
