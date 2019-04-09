@@ -62,6 +62,7 @@ install(  TARGETS
 install(
   PROGRAMS
   config/link_order.yaml
+  config/link_order_real.yaml
   config/module_order.yaml
   DESTINATION share/${PROJECT_NAME}
 )
