@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="rs_d435_camera" params="prefix">
+    <link name="${prefix}camera_link">
+      <inertial>
+        <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+        <mass value="0.564"/>
+        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
+      </inertial>
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://mara_description/meshes/Intel_RealSense_Depth_Camera_D435.dae" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="aluminum">
+    	     <color rgba="0.5 0.5 0.5 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://mara_description/meshes/Intel_RealSense_Depth_Camera_D435.dae" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+    <gazebo reference="${prefix}camera_link">
+      <material>Gazebo/Grey</material>
+      <selfCollide>True</selfCollide>
+  	</gazebo>
+
+    <link name="${prefix}camera_right_depth"/>
+    <link name="${prefix}camera_ir_projector"/>
+    <link name="${prefix}camera_left_depth"/>
+
+    <link name="${prefix}camera_color"/>
+    <gazebo reference="${prefix}camera_color">
+      <sensor name="sensor_camera" type="camera">
+        <alwaysOn>true</alwaysOn>
+        <!-- <visualize>true</visualize> -->
+        <camera>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+        </camera>
+        <plugin name="gazebo_plugins" filename="libgazebo_ros_camera.so">
+          <ros>
+            <namespace>rs_camera</namespace>
+            <argument>image_raw:=custom_img</argument>
+            <argument>camera_info:=custom_info</argument>
+          </ros>
+          <camera_name>rs_d435</camera_name>
+          <frame_name>rs_camera_frame</frame_name>
+          <hack_baseline>0.07</hack_baseline>
+        </plugin>
+  	  </sensor>
+    </gazebo>
+
+    <joint name="camera_to_right_depth" type="fixed">
+      <origin rpy="1.57 0 0" xyz="0.0325 0.024 0.0"/>
+      <parent link="${prefix}camera_link"/>
+      <child link="${prefix}camera_right_depth" />
+    </joint>
+
+    <joint name="camera_to_ir_projector" type="fixed">
+      <origin rpy="0 0 0" xyz="0.0115 0.0214 0.0"/>
+      <parent link="${prefix}camera_link" />
+      <child link="${prefix}camera_ir_projector" />
+    </joint>
+
+    <joint name="camera_to_left_depth" type="fixed">
+      <origin rpy="0 0 0" xyz="-0.0175 0.024 0.0"/>
+      <parent link="${prefix}camera_link" />
+      <child link="${prefix}camera_left_depth" />
+    </joint>
+
+    <joint name="camera_to_color" type="fixed">
+      <origin rpy="0.0 0.0 1.57" xyz="-0.0325 0.0214 0.0"/>
+      <parent link="${prefix}camera_link" />
+      <child link="${prefix}camera_color" />
+    </joint>
+  </xacro:macro>
+</robot>
