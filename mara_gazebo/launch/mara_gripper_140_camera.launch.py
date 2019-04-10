@@ -41,7 +41,8 @@ def generate_launch_description():
             env=envs
         ),
         Node(package='robot_state_publisher', node_executable='robot_state_publisher', output='screen', arguments=[urdf]),
-        Node(package='mara_utils_scripts', node_executable='spawn_mara_gripper_140_camera.py', output='screen'),
+        Node(package='mara_utils_scripts', node_executable='spawn_mara_arg.py', arguments=["mara_robot_gripper_140_camera.urdf"], output='screen'),
+        # Node(package='mara_utils_scripts', node_executable='spawn_mara_gripper_140_camera.py', output='screen'),
         Node(package='hros_cognition_mara_components', node_executable='hros_cognition_mara_components', output='screen',
             arguments=["-motors", install_dir + "/share/hros_cognition_mara_components/link_order.yaml"])
     ])
