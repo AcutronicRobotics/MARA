@@ -1,7 +1,7 @@
 motors:
-  - hros_actuation_servomotor_000A3500010E:axis2
-  - hros_actuation_servomotor_000A3500010E:axis1
-  - hros_actuation_servomotor_70B3D521A0A6:axis1
-  - hros_actuation_servomotor_70B3D521A0A6:axis2
-  - hros_actuation_servomotor_70B3D521A0A4:axis1
-  - hros_actuation_servomotor_70B3D521A0A4:axis2
+  - hrim_actuation_servomotor_000A3500010E:axis2
+  - hrim_actuation_servomotor_000A3500010E:axis1
+  - hrim_actuation_servomotor_70B3D521A0A6:axis1
+  - hrim_actuation_servomotor_70B3D521A0A6:axis2
+  - hrim_actuation_servomotor_70B3D521A0A4:axis1
+  - hrim_actuation_servomotor_70B3D521A0A4:axis2
