@@ -87,10 +87,10 @@ Among other things, you will find in this repository instructions on how to simu
 
 #### Dependencies
 
- - [gazebo_ros_pkgs](https://github.com/ros-simulation/gazebo_ros_pkgs) branch: `ros2`.
+ - [gazebo_ros_pkgs](https://github.com/ros-simulation/gazebo_ros_pkgs) branch: `crytal`.
  - [HRIM](https://github.com/erlerobot/HRIM/).
  - [control_msgs](https://github.com/erlerobot/control_msgs) branch: `crystal`.
- - [image_common](https://github.com/ros-perception/image_common) branch: `ros2`.
+ - [image_common](https://github.com/ros-perception/image_common) branch: `crystal`.
  - [vision_opencv](https://github.com/ros-perception/vision_opencv) branch: `ros2`
  - sudo apt install python3-numpy
 
