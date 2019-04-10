@@ -295,7 +295,15 @@
     <selfCollide>True</selfCollide>
   </gazebo>
   <link name="ee_link">
-    </link>
+    <visual>
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+      <material name="Gazebo/Grey">
+        <color rgba="0. 0. 0. 1"/>
+      </material>
+    </visual>
+  </link>
   <gazebo reference="ee_link">
     <material>Gazebo/Blue</material>
     <selfCollide>False</selfCollide>
