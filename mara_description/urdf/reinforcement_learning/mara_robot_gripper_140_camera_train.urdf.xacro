@@ -3,10 +3,10 @@
        name="mara" >
 
   <!-- common stuff -->
-  <xacro:include filename="$(find mara_description)/urdf/mara_gazebo.urdf.xacro" />
+  <xacro:include filename="$(find mara_description)/urdf/reinforcement_learning/mara_gazebo_train.urdf.xacro" />
 
   <!-- mara -->
-  <xacro:include filename="$(find mara_description)/urdf/mara.urdf.xacro" />
+  <xacro:include filename="$(find mara_description)/urdf/reinforcement_learning/mara_train.urdf.xacro" />
   <xacro:include filename="$(find mara_description)/urdf/camera_gripper_support.urdf.xacro" />
   <xacro:include filename="$(find mara_description)/urdf/rs_d435.urdf.xacro" />
 
@@ -16,7 +16,7 @@
   <xacro:include filename="$(find mara_description)/urdf/table.urdf.xacro" />
 
   <!-- arm -->
-  <xacro:mara_robot prefix="" ee_link_distance="0.24"/>
+  <xacro:mara_robot_train prefix="" ee_link_distance="0.24"/>
   <xacro:mara_camera_gripper_support prefix="" />
   <xacro:rs_d435_camera prefix="" />
   <xacro:robotiq_gripper prefix="mara" />

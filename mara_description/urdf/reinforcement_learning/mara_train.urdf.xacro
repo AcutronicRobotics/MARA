@@ -1,14 +1,10 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-<!--
-  Author: Alejandro  Hernandez
--->
-
   <xacro:include filename="$(find mara_description)/urdf/mara.transmission.xacro" />
-  <xacro:include filename="$(find mara_description)/urdf/mara_gazebo.urdf.xacro" />
+  <xacro:include filename="$(find mara_description)/urdf/reinforcement_learning/mara_gazebo_train.urdf.xacro" />
 
-  <xacro:macro name="mara_robot"  params="prefix ee_link_distance">
+  <xacro:macro name="mara_robot_train"  params="prefix ee_link_distance">
 
     <link name="${prefix}base_link">
       <inertial>
@@ -34,33 +30,6 @@
     </link>
     <gazebo reference="${prefix}base_link">
       <material>Gazebo/Grey</material>
-      <selfCollide>True</selfCollide>
-    </gazebo>
-
-    <link name="${prefix}base_robot">
-      <inertial>
-        <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-        <mass value="7.033"/>
-        <inertia ixx="0.1478344" ixy="0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
-      </inertial>
-      <visual>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
-        <geometry>
-          <mesh filename="package://mara_description/meshes/Base.dae" scale="0.001 0.001 0.001"/>
-        </geometry>
-        <material name="Gazebo/Black">
-          <color rgba="1. 0. 0. 1.0"/>
-        </material>
-      </visual>
-      <collision>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
-        <geometry>
-          <mesh filename="package://mara_description/meshes/Base.dae" scale="0.001 0.001 0.001"/>
-        </geometry>
-      </collision>
-    </link>
-    <gazebo reference="${prefix}base_robot">
-      <material>Gazebo/Black</material>
       <selfCollide>True</selfCollide>
     </gazebo>
 
@@ -316,20 +285,15 @@
           <color rgba="0. 0. 0. 1"/>
         </material>
       </visual>
+    </link>
     <gazebo reference="${prefix}ee_link">
       <material>Gazebo/Blue</material>
       <selfCollide>False</selfCollide>
     </gazebo>
 
-    <joint name="${prefix}joint_bases" type="fixed">
-      <origin rpy="0 0 0" xyz="0 0 0.04"/>
-      <parent link="${prefix}base_link"/>
-      <child link="${prefix}base_robot"/>
-    </joint>
-
     <joint name="${prefix}motor1" type="revolute">
-      <origin rpy="0 0 0" xyz="0 0 0.05122"/>
-      <parent link="${prefix}base_robot"/>
+      <origin rpy="0 0 0" xyz="0 0 0.02125"/>
+      <parent link="${prefix}base_link"/>
       <child link="${prefix}motor1_link"/>
       <axis xyz="0 0 1"/>
       <limit effort="104.0" lower="-3.1416" upper="3.1416" velocity="1.57"/>
@@ -413,7 +377,7 @@
     </joint>
 
     <xacro:mara_transmission prefix="${prefix}"/>
-    <xacro:mara_gazebo prefix="${prefix}"/>
+    <xacro:mara_gazebo_train prefix="${prefix}"/>
 
   </xacro:macro>
 </robot>
