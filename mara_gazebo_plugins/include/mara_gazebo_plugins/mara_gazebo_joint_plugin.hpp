@@ -94,7 +94,7 @@ namespace gazebo_plugins
     void timer_motor_state_msgs();
     std::shared_ptr<rclcpp::TimerBase> timer_motor_state_;
 
-    void readfullFile(std::string file_to_read, hrim_generic_srvs::srv::Simulation3D& msg_sim_3d);
+    //void readfullFile(std::string file_to_read, hrim_generic_srvs::srv::Simulation3D& msg_sim_3d);
 
     /// A pointer to the GazeboROS node.
     gazebo_ros::Node::SharedPtr ros_node_;

@@ -81,6 +81,8 @@ private:
 
   std::string file_motors;
 
+  std::vector<bool> msg_actuators_callback_sync;
+
 };
 
 #endif // HROSCOGNITIONSCARACOMPONETSNODE_H

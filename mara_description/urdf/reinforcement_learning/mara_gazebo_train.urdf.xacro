@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="mara_gazebo_train" params="prefix">
+    <gazebo>
+      <plugin filename="libmara_gazebo_joint_training_plugin.so" name="hrim_actuation_servomotor_00000000000">
+        <ros/>
+        <axis1>motor2</axis1>
+        <axis2>motor1</axis2>
+        <axis3>motor3</axis3>
+        <axis4>motor4</axis4>
+        <axis5>motor5</axis5>
+        <axis6>motor6</axis6>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+</robot>
