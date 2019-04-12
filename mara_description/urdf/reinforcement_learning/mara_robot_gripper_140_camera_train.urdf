@@ -560,7 +560,7 @@
     </sensor>
   </gazebo>
   <joint name="camera_to_right_depth" type="fixed">
-    <origin rpy="1.57 0 0" xyz="0.0325 0.024 0.0"/>
+    <origin rpy="0 0 0" xyz="0.0325 0.024 0.0"/>
     <parent link="camera_link"/>
     <child link="camera_right_depth"/>
   </joint>
