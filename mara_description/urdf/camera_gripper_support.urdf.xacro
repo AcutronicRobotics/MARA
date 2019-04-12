@@ -4,7 +4,7 @@
     <link name="${prefix}mara_gripper_adapter">
       <inertial>
         <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-        <mass value="0.1"/>
+        <mass value="0.13969"/>
         <inertia ixx="91283.23E-9" ixy="634.87E-9" ixz="-0.02E-9" iyy="97239.94E-9" iyz="93.72E-9" izz="175963.64E-9"/>
       </inertial>
       <visual>
