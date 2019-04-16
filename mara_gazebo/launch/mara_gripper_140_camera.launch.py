@@ -9,7 +9,7 @@ from launch.actions.execute_process import ExecuteProcess
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    urdf = os.path.join(get_package_share_directory('mara_description'), 'urdf', 'mara_robot_gripper_140_camera.urdf')
+    urdf = os.path.join(get_package_share_directory('mara_description'), 'urdf/reinforcement_learning', 'mara_robot_gripper_140_camera.urdf')
     mara = get_package_share_directory('mara_gazebo_plugins')
     install_dir = get_package_prefix('mara_gazebo_plugins')
     print("plugins", install_dir)
@@ -41,8 +41,7 @@ def generate_launch_description():
             env=envs
         ),
         Node(package='robot_state_publisher', node_executable='robot_state_publisher', output='screen', arguments=[urdf]),
-        Node(package='mara_utils_scripts', node_executable='spawn_mara_arg.py', arguments=["mara_robot_gripper_140_camera.urdf"], output='screen'),
-        # Node(package='mara_utils_scripts', node_executable='spawn_mara_gripper_140_camera.py', output='screen'),
+        Node(package='mara_utils_scripts', node_executable='spawn_mara_arg.py', arguments=["reinforcement_learning/mara_robot_gripper_140_camera_run.urdf"], output='screen'),
         Node(package='hros_cognition_mara_components', node_executable='hros_cognition_mara_components', output='screen',
             arguments=["-motors", install_dir + "/share/hros_cognition_mara_components/link_order.yaml"])
     ])
