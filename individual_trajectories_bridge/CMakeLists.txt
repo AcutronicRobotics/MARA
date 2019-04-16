@@ -120,6 +120,7 @@ install(
   PROGRAMS
   config/motors.yaml
   config/motors_actions.yaml
+  config/motors_actions_camera.yaml
   DESTINATION share/${PROJECT_NAME}
 )
 
