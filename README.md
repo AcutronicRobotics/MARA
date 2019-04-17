@@ -123,17 +123,18 @@ hrim generate models/actuator/gripper/gripper.xml
 
 #### Compile
 
-**Optional note**: If you want to use MoveIT! you need to source ROS 1.0 environment variables. Typically, if you have installed ROS `Kinetic`, you need to source the following file:
-
-```bash
-source /opt/ros/kinetic/setup.bash
-```
-
 Right now you can compile the code:
 
 ```bash
 source /opt/ros/crystal/setup.bash
-cd ~/ros2_mara_ws && colcon build --merge-install
+cd ~/ros2_mara_ws && colcon build --merge-install --packages-skip individual_trajectories_bridge
+```
+
+**Optional note**: If you want to use MoveIT! you need to source ROS 1.0 environment variables. Typically, if you have installed ROS `Melodic`, you need to source the following file and compile `individual_trajectories_bridge`:
+
+```bash
+source /opt/ros/melodic/setup.bash
+cd ~/ros2_mara_ws && colcon build --merge-install --packages-select individual_trajectories_bridge
 ```
 
 #### Set up MoveITt! (for now in ROS)
