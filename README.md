@@ -123,17 +123,18 @@ hrim generate models/actuator/gripper/gripper.xml
 
 #### Compile
 
-**Optional note**: If you want to use MoveIT! you need to source ROS 1.0 environment variables. Typically, if you have installed ROS `Kinetic`, you need to source the following file:
-
-```bash
-source /opt/ros/kinetic/setup.bash
-```
-
 Right now you can compile the code:
 
 ```bash
 source /opt/ros/crystal/setup.bash
-cd ~/ros2_mara_ws && colcon build --merge-install
+cd ~/ros2_mara_ws && colcon build --merge-install --packages-skip individual_trajectories_bridge
+```
+
+**Optional note**: If you want to use MoveIT! you need to source ROS 1.0 environment variables. Typically, if you have installed ROS `Melodic`, you need to source the following file and compile `individual_trajectories_bridge`:
+
+```bash
+source /opt/ros/melodic/setup.bash
+cd ~/ros2_mara_ws && colcon build --merge-install --packages-select individual_trajectories_bridge
 ```
 
 #### Set up MoveITt! (for now in ROS)
@@ -194,7 +195,7 @@ ros2 launch mara_gazebo mara_gripper_hande.launch.py
 We need to run this node to create a bridge bewteen ROS and ROS 2.0. The topics that will be available are `/mara_controller/state`, `/joints_state` and `hros_actuation_servomotor_*********/trajectory`. Type the following command to run the bridge:
 
 ```
-source /opt/ros/kinetic/setup.bash
+source /opt/ros/melodic/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
 ros2 run individual_trajectories_bridge individual_trajectories_bridge -motors `ros2 pkg prefix individual_trajectories_bridge`/share/individual_trajectories_bridge/motors.yaml
 ```
