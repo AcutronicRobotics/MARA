@@ -135,6 +135,8 @@ cd ~/ros2_mara_ws && colcon build --merge-install --packages-skip individual_tra
 ```bash
 source /opt/ros/melodic/setup.bash
 cd ~/ros2_mara_ws && colcon build --merge-install --packages-select individual_trajectories_bridge
+# Building ROS1 would create conflicts with this ROS2 workspace in the future. Next line ensures the workspace is completely ROS2.
+sed -i 's#/opt/ros/melodic#/opt/ros/crystal#g' ~/ros2_mara_ws/install/setup.bash
 ```
 
 #### Set up MoveITt! (for now in ROS)
