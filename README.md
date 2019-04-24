@@ -31,16 +31,16 @@ Among other things, you will find in this repository instructions on how to simu
   * [Dependendent tools](#dependent-tools)
   * [Create a ROS 2.0 workspace](#create-a-ros-20-workspace)
   * [Compile the ROS 2.0 workspace](#compile-the-ros-20-workspace)
-  * [MoveIt! in ROS1 [Optional]](#moveit-in-ros1-optional)
+  * [MoveIt! in ROS1 (Optional)](#moveit-in-ros1-optional)
     * [MoveIt! Setup](#moveit-setup)
     * [MoveIt! with MARA - Simulation](#moveit-with-mara---simulation)
-      * [Terminal 1 [ROS 2.0]:](#terminal-1-ros-20)
-      * [Terminal 2 [ROS]:](#terminal-2-ros)
-      * [Terminal 3 [bridge]:](#terminal-3-bridge)
+      * [Terminal 1 (ROS 2.0):](#terminal-1-ros-20)
+      * [Terminal 2 (ROS):](#terminal-2-ros)
+      * [Terminal 3 (bridge):](#terminal-3-bridge)
     * [MoveIt! with MARA - Real](#moveit-with-mara---real-robot)
-      * [Terminal 1 [ROS 2.0]:](#terminal-1-ros-20)
-      * [Terminal 2 [ROS]:](#terminal-2-ros)
-      * [Terminal 3 [bridge]:](#terminal-3-bridge)
+      * [Terminal 1 (ROS 2.0):](#terminal-1-ros-20)
+      * [Terminal 2 (ROS):](#terminal-2-ros)
+      * [Terminal 3 (bridge):](#terminal-3-bridge)
 * [Examples](#examples)
 * [Help](#help)
 
@@ -119,9 +119,9 @@ Please  make sure you are not sourcing ROS1 workspaces via `.bashrc` or any othe
 source /opt/ros/crystal/setup.bash
 cd ~/ros2_mara_ws && colcon build --merge-install --packages-skip individual_trajectories_bridge
 ```
-**Installation completed! Now make sure you check the [Examples](#examples) section!** Or follow the MoveIt! installation.
+**Installation completed!** Now make sure you check the **[Examples](#examples)** section! Or follow the MoveIt! installation.
 
-### MoveIt! in ROS1 [Optional]
+### MoveIt! in ROS1 (Optional)
 While MoveIt2! is not released (we are activelly developing), we offer the support to use ROS 1.0 MoveIt! through bridges.
 
 #### MoveIt! Setup
@@ -153,7 +153,7 @@ catkin_make_isolated --install
 #### MoveIt! with MARA - Simulation
 Plan trajectories in a virtual environment with Gazebo and MoveIt!.
 
-##### Terminal 1 [ROS 2.0]:
+##### Terminal 1 (ROS 2.0)
 
 To spawn the simulated robot in Gazebo, you can choose one of the following ros2 launch files depending on the gripper that you want to use:
 
@@ -170,7 +170,7 @@ ros2 launch mara_gazebo mara_gripper_85.launch.py
 ros2 launch mara_gazebo mara_gripper_hande.launch.py
 ```
 
-##### Terminal 2 [ROS]:
+##### Terminal 2 (ROS)
 ```sh
 source ~/catkin_mara_ws/devel/setup.bash
 
@@ -180,7 +180,7 @@ roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
 
 ```
 
-##### Terminal 3 [bridge]:
+##### Terminal 3 (bridge)
 ```sh
 source ~/catkin_mara_ws/devel/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
@@ -191,7 +191,7 @@ ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -
 #### MoveIt! with MARA - Real Robot
 Plan trajectories in a real environment with MoveIt!.
 
-##### Terminal 1 [ROS 2.0]
+##### Terminal 1 (ROS 2.0)
 ```sh
 source ~/ros2_mara_ws/install/setup.bash
 # you will need to change the export values according to the SoMs configuration
@@ -201,7 +201,7 @@ export ROS_DOMAIN_ID=22
 ros2 launch mara_bringup mara_bringup_real.launch.py
 ```
 
-##### Terminal 2 [ROS]
+##### Terminal 2 (ROS)
 ```sh
 source ~/catkin_mara_ws/devel/setup.bash
 # you will need to change the yaml files to match the topics names on your SoMs
@@ -210,7 +210,7 @@ roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
 
 ```
 
-##### Terminal 3 [bridge]
+##### Terminal 3 (bridge)
 ```sh
 source ~/catkin_mara_ws/devel/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
