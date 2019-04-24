@@ -190,7 +190,7 @@ ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -
 #### Terminal 1 (ROS 2.0)
 ```sh
 source ~/ros2_mara_ws/install/setup.bash
-# you will need to change the export values according to the SOMs configuration
+# you will need to change the export values according to the SoMs configuration
 export RMW_IMPLEMENTATION=rmw_opensplice_cpp
 export ROS_DOMAIN_ID=22
 
@@ -200,7 +200,7 @@ ros2 launch mara_bringup mara_bringup_real.launch.py
 #### Terminal 2 (ROS)
 ```sh
 source ~/catkin_mara_ws/devel/setup.bash
-# you will need to change the yaml files to match the topics names on your SOMs
+# you will need to change the yaml files to match the topics names on your SoMs
 python3 ~/catkin_mara_ws/src/mara_camera/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/mara_camera/mara_bringup/config/motors.yaml &
 roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
 
@@ -210,10 +210,10 @@ roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
 ```sh
 source ~/catkin_mara_ws/devel/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
-# you will need to change the export values according to the SOMs configuration, same as in Terminal 1
+# you will need to change the export values according to the SoMs configuration, same as in Terminal 1
 export RMW_IMPLEMENTATION=rmw_opensplice_cpp
 export ROS_DOMAIN_ID=22
-# you will need to change the yaml files to match the topics names on your SOMs
+# you will need to change the yaml files to match the topics names on your SoMs
 ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/individual_trajectories_bridge/config/motors_actions.yaml &
 ```
 
