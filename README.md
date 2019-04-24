@@ -33,7 +33,7 @@ Among other things, you will find in this repository instructions on how to simu
     * [Dependendent tools](#dependent-tools)
     * [Create a ROS workspace](#create-a-ros-workspace)
     * [Compile the ROS workspace](#compile-the-ros-workspace)
-    * [Set up MoveITt! in ROS 1 (optional)](#set-up-optional-moveit-in-ros-1)
+    * [Set up MoveIt! in ROS 1 (optional)](#set-up-optional-moveit-in-ros-1)
       * [Usage in Gazebo Simulator](#usage-in-gazebo-simulator)
         * [Terminal 1 (ROS 2.0):](#terminal-1-ros-2)
         * [Terminal 2 (ROS):](#terminal-2-ros)
