@@ -20,7 +20,7 @@ Among other things, you will find in this repository instructions on how to simu
 
 - **Automatic re-configuration**: embedded accelerometers, magnetometers and gyroscopes empower each module with inertial data.
 
-- **HW and SW life cycle**: life cycle for each module allows greater control over the state of the ROS system and the underlying components.
+- **HW and SW life cycle**: life cycle for each module allows greater control over the state of the ROS 2.0 system and the underlying components.
 
 - **Controllable from any ROS 2.0 enabled computer**: [ORC](https://acutronicrobotics.com/products/orc/) is the ideal complement for MARA, but not mandatory. Choose yourself how you steer MARA.
 
@@ -63,7 +63,7 @@ Among other things, you will find in this repository instructions on how to simu
 | Height | 871 mm |
 | Reach | 656 mm |
 | Footprint | 204 mm |
-| Robotics framework | ROS 2 Crystal Clemmys |
+| Robotics framework | ROS 2.0 Crystal Clemmys |
 | Communication interfaces | 1 Gbps Ethernet, Compliant with TSN standards |
 | Information model | Hardware Robot Information Model (HRIM®), version Anboto  |
 | Security | Encrypted and secure computing environment, Secure data exchange capabilities |
@@ -75,7 +75,7 @@ Among other things, you will find in this repository instructions on how to simu
 <a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/products/mara/images/v2_MARA6_1-11.png" align="right" hspace="8" vspace="2" width="200"></a>
 
  - `hros_cognition_mara_components`: Transformations between JointTrajectory messages and module specific HRIM messages.
- - `individual_trajectories_bridge`: Bridge to connect ROS and ROS2.
+ - `individual_trajectories_bridge`: Bridge to connect ROS and ROS 2.0.
  - `mara_bringup`: roslaunch scripts for starting the MARA.
  - `mara_contact_publisher`: ROS2 publisher to know if a collision takes place.
  - `mara_description`: 3D models of the MARA for simulation and visualization.
@@ -117,7 +117,7 @@ hrim generate models/actuator/servo/servo.xml
 hrim generate models/actuator/gripper/gripper.xml
 ```
 
-### Compile the ROS workspace
+### Compile the ROS 2.0 workspace
 
 Please  make sure you are not sourcing ROS1 workspaces via `.bashrc` or any other way.
 
