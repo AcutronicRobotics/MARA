@@ -202,7 +202,7 @@ ros2 launch mara_bringup mara_bringup_real.launch.py
 source ~/catkin_mara_ws/devel/setup.bash
 # you will need to change the yaml files to match the topics names on your SOMs
 python3 ~/catkin_mara_ws/src/mara_camera/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/mara_camera/mara_bringup/config/motors.yaml &
-roslaunch mara_bringup mara_bringup_camera_moveit_actions.launch prefix:=140 yaml:=motors_camera.yaml &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
 
 ```
 
