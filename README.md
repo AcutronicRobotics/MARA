@@ -150,15 +150,14 @@ catkin_make_isolated --install
 
 To spawn the simulated robot in Gazebo, you can choose one of the following ros2 launch files depending on the gripper that you want to use:
 
-```
+```sh
 source ~/ros2_mara_ws/install/setup.bash
-
 ros2 launch mara_gazebo mara.launch.py
 ```
 
 **Optionally**, you can launch one of these launch files, which correspond to different types of grippers.
 
-```
+```sh
 ros2 launch mara_gazebo mara_gripper_140.launch.py
 ros2 launch mara_gazebo mara_gripper_85.launch.py
 ros2 launch mara_gazebo mara_gripper_hande.launch.py
