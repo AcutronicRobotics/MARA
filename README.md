@@ -4,7 +4,7 @@
 
 This is the official repository of [MARA](https://acutronicrobotics.com/products/mara/) modular robot, world's first modular cobot. MARA is the first robot which runs ROS 2.0 on each joint empowering new possibilities and applications in the professional and industrial landscapes of robotics. Built out of individual modules that natively run ROS 2.0, the modular robot arm can be physically extended in a seamless manner. MARA delivers industrial-grade features such as time synchronization or deterministic communication latencies.
 
-Among other things, you will find in this repository instructions on how to simulate MARA with Gazebo and its integrations with ROS 2.0.
+Among other things, you will find in this repository instructions on how to simulate and control MARA in Gazebo Simulator or on the real robot.
 
 ## Features
 
@@ -20,35 +20,30 @@ Among other things, you will find in this repository instructions on how to simu
 
 - **Automatic re-configuration**: embedded accelerometers, magnetometers and gyroscopes empower each module with inertial data.
 
-- **HW and SW life cycle**: life cycle for each module allows greater control over the state of the ROS system and the underlying components.
+- **HW and SW life cycle**: life cycle for each module allows greater control over the state of the ROS 2.0 system and the underlying components.
 
 - **Controllable from any ROS 2.0 enabled computer**: [ORC](https://acutronicrobotics.com/products/orc/) is the ideal complement for MARA, but not mandatory. Choose yourself how you steer MARA.
 
 ## Table of Contents
 * [MARA](#mara)
-    * [Features](#features)
-    * [Table of Contents](#table-of-contents)
-       * [Specifications](#specifications)
-       * [Packages](#packages)
-          * [Dependencies](#dependencies)
-       * [Install](#install)
-          * [Install ROS 2.0](#install-ros-20)
-          * [Create mara ROS 2.0 workspace](#create-mara-ros-20-workspace)
-          * [Compile](#compile)
-          * [Set up MoveITt! (for now in ROS)](#set-up-moveitt-for-now-in-ros)
-          * [Usage with Gazebo Simulation](#usage-with-gazebo-simulation)
-              * [Terminal 1:](#terminal-1)
-              * [Rviz2](#rviz2)
-              * [MoveIT!](#moveit)
-                  * [ROS 2.0](#ros-20)
-                     * [Terminal 1:](#terminal-1-1)
-                     * [Terminal 2:](#terminal-2-1)
-                  * [ROS](#ros)
-                     * [Terminal 1:](#terminal-1-2)
-       * [Example code](#example-code)
-       * [Help](#help)
-
-*Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)*
+  * [Features](#features)
+  * [Table of Contents](#table-of-contents)
+    * [Specifications](#specifications)
+    * [Packages](#packages)
+    * [Dependendent tools](#dependent-tools)
+    * [Create a ROS workspace](#create-a-ros-workspace)
+    * [Compile the ROS workspace](#compile-the-ros-workspace)
+    * [Set up MoveIt! in ROS 1 (optional)](#set-up-optional-moveit-in-ros-1)
+      * [MoveIt! with MARA in Gazebo](#usage-in-gazebo-simulator)
+        * [Terminal 1 (ROS 2.0):](#terminal-1-ros-2)
+        * [Terminal 2 (ROS):](#terminal-2-ros)
+        * [Terminal 3 (bridge):](#terminal-3-bridge)
+      * [Real robot](#usage-on-the-real-robot)
+        * [Terminal 1 (ROS 2):](#terminal-1-ros-2)
+        * [Terminal 2 (ROS):](#terminal-2-ros)
+        * [Terminal 3 (bridge):](#terminal-3-bridge)
+    * [Example code](#example-code)
+    * [Help](#help)
 
 ### Specifications
 
@@ -66,7 +61,7 @@ Among other things, you will find in this repository instructions on how to simu
 | Height | 871 mm |
 | Reach | 656 mm |
 | Footprint | 204 mm |
-| Robotics framework | ROS 2 Crystal Clemmys |
+| Robotics framework | ROS 2.0 Crystal Clemmys |
 | Communication interfaces | 1 Gbps Ethernet, Compliant with TSN standards |
 | Information model | Hardware Robot Information Model (HRIM®), version Anboto  |
 | Security | Encrypted and secure computing environment, Secure data exchange capabilities |
@@ -77,143 +72,151 @@ Among other things, you will find in this repository instructions on how to simu
 
 <a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/products/mara/images/v2_MARA6_1-11.png" align="right" hspace="8" vspace="2" width="200"></a>
 
+ - `hros_cognition_mara_components`: Transformations between JointTrajectory messages and module specific HRIM messages.
+ - `individual_trajectories_bridge`: Bridge to connect ROS and ROS 2.0.
  - `mara_bringup`: roslaunch scripts for starting the MARA.
+ - `mara_contact_publisher`: ROS2 publisher to know if a collision takes place.
  - `mara_description`: 3D models of the MARA for simulation and visualization.
  - `mara_gazebo`: Gazebo simulation package for the MARA.
  - `mara_gazebo_plugins`: MARA Gazebo plugins for sensors and motors.
- - `robotiq_140_gripper_description`: 3D models of the Robotiq 140 gripper for simulation and visualization.
- - `robotiq_140_gripper_gazebo_plugins`: Robotiq 140 gripper Gazebo plugins for the gripper.
  - `mara_utils_scripts`: Some scripts to move the MARA or spawn the model.
 
-#### Dependencies
+### Gazebo, ROS 2.0, ROS and MoveIt!
+- **Gazebo 9**: following the official instructions, [one-liner or step-by-step](http://gazebosim.org/tutorials?tut=install_ubuntu)
+- **ROS 2.0 Crystal**: following the official instructions, [source](https://index.ros.org/doc/ros2/Linux-Development-Setup/) or [debian packages](https://index.ros.org/doc/ros2/Linux-Install-Debians/).
 
- - [gazebo_ros_pkgs](https://github.com/acutronicrobotics/gazebo_ros_pkgs) branch: `ros2_gym-gazebo`.
- - [HRIM](https://github.com/erlerobot/HRIM/).
- - [control_msgs](https://github.com/erlerobot/control_msgs) branch: `crystal`.
- - [image_common](https://github.com/ros-perception/image_common) branch: `crystal`.
- - [vision_opencv](https://github.com/ros-perception/vision_opencv) branch: `ros2`
- - sudo apt install python3-numpy
+  ROS and MoveIt! are optional, required if you want to use `ìndividual_trajectories_bridge` to controll the MARA, which means using ROS Melodic with MoveIt through bridges.
 
+- **ROS melodic**: following the official instructions, [source](http://wiki.ros.org/melodic/Installation/Source) or [debian_packages](http://wiki.ros.org/melodic/Installation/Ubuntu).
+- **MoveIt!**: `sudo apt install ros-melodic-moveit`.
 
-### Install
+### Dependent tools
 
-#### Install ROS 2.0
+```sh
+sudo apt install -y python3-vcstool python3-numpy wget ros-melodic-moveit-ros-move-group ros-melodic-moveit-visual-tools
+```
 
-Install ROS 2.0 following the official instructions: [source](https://index.ros.org/doc/ros2/Linux-Development-Setup/) [debian packages](https://index.ros.org/doc/ros2/Linux-Install-Debians/).
+### Create a ROS 2.0 workspace
+Create the workspace and download source files:
 
-#### Create mara ROS 2.0 workspace
-Create a ROS workspace, for example:
-
-```bash
+```sh
 mkdir -p ~/ros2_mara_ws/src
 cd ~/ros2_mara_ws
-sudo apt install -y python3-vcstool python3-numpy
 wget https://raw.githubusercontent.com/acutronicrobotics/MARA/master/mara-ros2.repos
 vcs import src < mara-ros2.repos
 ```
 
-Generate HRIM dependencies:
+Generate [HRIM](https://github.com/AcutronicRobotics/HRIM) dependencies:
 
-```bash
+```sh
 cd ~/ros2_mara_ws/src/HRIM/installator
 python3 setup.py install && cd ..
 hrim generate models/actuator/servo/servo.xml
 hrim generate models/actuator/gripper/gripper.xml
 ```
 
-#### Compile
+### Compile the ROS 2.0 workspace
 
-Right now you can compile the code:
+Please  make sure you are not sourcing ROS1 workspaces via `.bashrc` or any other way.
 
-```bash
+```sh
 source /opt/ros/crystal/setup.bash
 cd ~/ros2_mara_ws && colcon build --merge-install --packages-skip individual_trajectories_bridge
 ```
 
-**Optional note**: If you want to use MoveIT! you need to source ROS 1.0 environment variables. Typically, if you have installed ROS `Melodic`, you need to source the following file and compile `individual_trajectories_bridge`:
+### Set up MoveIt! in ROS 1 (optional)
 
-```bash
+
+Optional `individual_trajectories_bridge`:
+
+```sh
 source /opt/ros/melodic/setup.bash
 cd ~/ros2_mara_ws && colcon build --merge-install --packages-select individual_trajectories_bridge
-# Building ROS1 would create conflicts with this ROS2 workspace in the future. Next line ensures the workspace is completely ROS2.
+# Building ROS 1 creates conflicts with this ROS 2.0 workspace. Next line ensures the workspace is completely ROS 2.0.
 sed -i 's#/opt/ros/melodic#/opt/ros/crystal#g' ~/ros2_mara_ws/install/setup.bash
 ```
 
-#### Set up MoveITt! (for now in ROS)
-
-```bash
+```sh
 mkdir -p ~/ros_mara_ws/src
-cd ~/ros_mara_ws/src
+cd ~/catkin_mara_ws/src
 git clone https://github.com/AcutronicRobotics/MARA_ROS1
-cd ~/ros_mara_ws/
+cd ~/catkin_mara_ws/
 catkin_make_isolated --install
 ```
 
-#### Usage with Gazebo Simulation
+### Usage in Gazebo Simulator
 
-There are launch files available to bringup the MARA robot with MoveIt! and Rviz2, altogether.
+#### Terminal 1 (ROS 2.0):
 
-Don't forget to source the correct setup shell files and use a new terminal for each command!
+To spawn the simulated robot in Gazebo, you can choose one of the following ros2 launch files depending on the gripper that you want to use:
 
-##### Terminal 1:
-
-To bring up the simulated robot in Gazebo. You can choose one of the following ros2 launch depends on the gripper that you want to use:
-
-```
+```sh
 source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_gazebo mara.launch.py
+```
+
+**Optionally**, you can launch one of these launch files, which correspond to different types of grippers.
+
+```sh
 ros2 launch mara_gazebo mara_gripper_140.launch.py
 ros2 launch mara_gazebo mara_gripper_85.launch.py
 ros2 launch mara_gazebo mara_gripper_hande.launch.py
 ```
 
-##### Rviz2
+#### Terminal 2 (ROS):
+```sh
+source ~/catkin_mara_ws/devel/setup.bash
 
-To visualize the robot with Rviz2, you should type the following instructions:
+python3 ~/catkin_mara_ws/src/mara_camera/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/mara_camera/mara_bringup/config/motors.yaml &
+# change the prefix to match with the gripper used in the Terminal 1
+roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
 
 ```
+
+#### Terminal 3 (bridge):
+```sh
+source ~/catkin_mara_ws/devel/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
-rviz2
+
+ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/individual_trajectories_bridge/config/motors_actions.yaml
 ```
 
-##### MoveIT!
+### Usage on the real robot
 
-###### ROS 2.0
-
-###### Terminal 1:
-
-You can run `gazebo`, spawn the model, publish the robot state and run `hros_cognition_mara_components` using the ROS 2.0 launch file. You can choose one of the following `ros2 launch` depends on the gripper that you want to use:
-
-```
+#### Terminal 1 (ROS 2.0)
+```sh
 source ~/ros2_mara_ws/install/setup.bash
-ros2 launch mara_gazebo mara.launch.py
-ros2 launch mara_gazebo mara_gripper_140.launch.py
-ros2 launch mara_gazebo mara_gripper_85.launch.py
-ros2 launch mara_gazebo mara_gripper_hande.launch.py
+# you will need to change the export values according to the SoMs configuration
+export RMW_IMPLEMENTATION=rmw_opensplice_cpp
+export ROS_DOMAIN_ID=22
+
+ros2 launch mara_bringup mara_bringup_real.launch.py
 ```
 
-###### Terminal 2:
-
-We need to run this node to create a bridge bewteen ROS and ROS 2.0. The topics that will be available are `/mara_controller/state`, `/joints_state` and `hros_actuation_servomotor_*********/trajectory`. Type the following command to run the bridge:
+#### Terminal 2 (ROS)
+```sh
+source ~/catkin_mara_ws/devel/setup.bash
+# you will need to change the yaml files to match the topics names on your SoMs
+python3 ~/catkin_mara_ws/src/mara_camera/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/mara_camera/mara_bringup/config/motors.yaml &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
 
 ```
-source /opt/ros/melodic/setup.bash
+
+#### Terminal 3 (bridge)
+```sh
+source ~/catkin_mara_ws/devel/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
-ros2 run individual_trajectories_bridge individual_trajectories_bridge -motors `ros2 pkg prefix individual_trajectories_bridge`/share/individual_trajectories_bridge/motors.yaml
+# you will need to change the export values according to the SoMs configuration, same as in Terminal 1
+export RMW_IMPLEMENTATION=rmw_opensplice_cpp
+export ROS_DOMAIN_ID=22
+# you will need to change the yaml files to match the topics names on your SoMs
+ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/individual_trajectories_bridge/config/motors_actions.yaml &
 ```
 
-###### ROS
-
-You can run the four needed nodes using this launch file. You should use the argument `prefix` to indicate which gripper you are using `85`, `140` or `hande`:
-
-```
-source ~/ros_mara_ws/install_isolated/setup.bash
-roslaunch mara_bringup mara_bringup_moveit.launch prefix:=85
-```
-
-### Example code
+### Examples
 
  - [mara_examples](https://github.com/AcutronicRobotics/mara_examples.git)
+ - [Documentation and tutorials](https://acutronicrobotics.com/docs/products/robots/mara)
 
 ### Help
 
