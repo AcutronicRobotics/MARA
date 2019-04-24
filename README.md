@@ -95,7 +95,7 @@ Among other things, you will find in this repository instructions on how to simu
 ### Dependent tools
 
 ```sh
-sudo apt install -y python3-vcstool python3-numpy wget ros-melodic-moveit-ros-move-group
+sudo apt install -y python3-vcstool python3-numpy wget ros-melodic-moveit-ros-move-group ros-melodic-moveit-visual-tools
 ```
 
 ### Create a ROS workspace
