@@ -152,10 +152,7 @@ To spawn the simulated robot in Gazebo, you can choose one of the following ros2
 
 ```
 source ~/ros2_mara_ws/install/setup.bash
-```
 
-
-```
 ros2 launch mara_gazebo mara.launch.py
 ```
 
