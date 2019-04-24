@@ -45,8 +45,6 @@ Among other things, you will find in this repository instructions on how to simu
     * [Example code](#example-code)
     * [Help](#help)
 
-*Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)*
-
 ### Specifications
 
 ![](https://acutronicrobotics.com/products/mara/images/xMARA_evolution_end.jpg.pagespeed.ic.dVNwzZ6-4i.webp)
@@ -152,9 +150,17 @@ catkin_make_isolated --install
 To spawn the simulated robot in Gazebo, you can choose one of the following ros2 launch files depending on the gripper that you want to use:
 
 ```
-. ~/ros2_mara_ws/install/setup.bash
+source ~/ros2_mara_ws/install/setup.bash
+```
 
+
+```
 ros2 launch mara_gazebo mara.launch.py
+```
+
+"**Optionally**, you can launch one of these other launch files, which correspond to other grippers.
+
+````
 ros2 launch mara_gazebo mara_gripper_140.launch.py
 ros2 launch mara_gazebo mara_gripper_85.launch.py
 ros2 launch mara_gazebo mara_gripper_hande.launch.py
@@ -162,7 +168,7 @@ ros2 launch mara_gazebo mara_gripper_hande.launch.py
 
 #### Terminal 2 (ROS):
 ```
-. ~/catkin_mara_ws/devel/setup.bash
+source ~/catkin_mara_ws/devel/setup.bash
 
 python3 ~/catkin_mara_ws/src/mara_camera/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/mara_camera/mara_bringup/config/motors.yaml &
 # change the prefix to match with the gripper used in the Terminal 1
@@ -216,9 +222,10 @@ export ROS_DOMAIN_ID=22
 ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/individual_trajectories_bridge/config/motors_actions.yaml &
 ```
 
-### Example code
+### Examples
 
  - [mara_examples](https://github.com/AcutronicRobotics/mara_examples.git)
+ - [Documentation and tutorials](https://acutronicrobotics.com/docs/products/robots/mara)
 
 ### Help
 
