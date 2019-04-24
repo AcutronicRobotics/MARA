@@ -38,7 +38,7 @@ Among other things, you will find in this repository instructions on how to simu
         * [Terminal 1 (ROS 2.0):](#terminal-1-ros-2)
         * [Terminal 2 (ROS):](#terminal-2-ros)
         * [Terminal 3 (bridge):](#terminal-3-bridge)
-      * [Usage on the real robot](#usage-on-the-real-robot)
+      * [Real robot](#usage-on-the-real-robot)
         * [Terminal 1 (ROS 2):](#terminal-1-ros-2)
         * [Terminal 2 (ROS):](#terminal-2-ros)
         * [Terminal 3 (bridge):](#terminal-3-bridge)
