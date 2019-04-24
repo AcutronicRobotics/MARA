@@ -168,7 +168,7 @@ ros2 launch mara_gazebo mara_gripper_hande.launch.py
 ```
 
 #### Terminal 2 (ROS):
-```
+```sh
 source ~/catkin_mara_ws/devel/setup.bash
 
 python3 ~/catkin_mara_ws/src/mara_camera/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/mara_camera/mara_bringup/config/motors.yaml &
