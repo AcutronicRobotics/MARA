@@ -159,7 +159,7 @@ source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_gazebo mara.launch.py
 ```
 
-**Optionally**, you can launch one of these other launch files, which correspond to other grippers.
+**Optionally**, you can launch one of these launch files, which correspond to different types of grippers.
 
 ```
 ros2 launch mara_gazebo mara_gripper_140.launch.py
