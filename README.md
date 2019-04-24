@@ -122,7 +122,7 @@ cd ~/ros2_mara_ws && colcon build --merge-install --packages-skip individual_tra
 **Installation completed!** Now make sure you check the **[Examples](#examples)** section! Or follow the MoveIt! installation.
 
 ### MoveIt! in ROS1 (Optional)
-While MoveIt2! is not released (we are activelly developing), we offer the support to use ROS 1.0 MoveIt! through bridges.
+While MoveIt2! is not released (we are activelly developing), we provide the option to use ROS 1.0 MoveIt! through bridges.
 
 Continue the following steps to complete the MoveIt! installation.
 
