@@ -124,16 +124,17 @@ source /opt/ros/crystal/setup.bash
 cd ~/ros2_mara_ws && colcon build --merge-install --packages-skip individual_trajectories_bridge
 ```
 
+### Set up MoveIt! in ROS 1 (optional)
+
+
 Optional `individual_trajectories_bridge`:
 
 ```sh
-. /opt/ros/melodic/setup.bash
+source /opt/ros/melodic/setup.bash
 cd ~/ros2_mara_ws && colcon build --merge-install --packages-select individual_trajectories_bridge
 # Building ROS 1 creates conflicts with this ROS 2.0 workspace. Next line ensures the workspace is completely ROS 2.0.
 sed -i 's#/opt/ros/melodic#/opt/ros/crystal#g' ~/ros2_mara_ws/install/setup.bash
 ```
-
-### Set up (optional) MoveIt! in ROS 1
 
 ```sh
 mkdir -p ~/ros_mara_ws/src
@@ -174,9 +175,6 @@ python3 ~/catkin_mara_ws/src/mara_camera/mara_bringup/scripts/follow_joints_traj
 # change the prefix to match with the gripper used in the Terminal 1
 roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
 
-sleep 4
-roslaunch mara_moveit_config mara_moveit_planning_execution.launch
-
 ```
 
 #### Terminal 3 (bridge):
@@ -205,9 +203,6 @@ source ~/catkin_mara_ws/devel/setup.bash
 # you will need to change the yaml files to match the topics names on your SOMs
 python3 ~/catkin_mara_ws/src/mara_camera/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/mara_camera/mara_bringup/config/motors.yaml &
 roslaunch mara_bringup mara_bringup_camera_moveit_actions.launch prefix:=140 yaml:=motors_camera.yaml &
-
-sleep 3
-roslaunch mara_moveit_config mara_moveit_planning_execution.launch
 
 ```
 
