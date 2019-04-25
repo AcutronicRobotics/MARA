@@ -1,14 +1,26 @@
 # MARA
 
-<a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/assets/images/AcutronicRobotics_logo.jpg" align="left" hspace="8" vspace="2" width="200"></a>
-
-This is the official repository of [MARA](https://acutronicrobotics.com/products/mara/) modular robot, world's first modular cobot. MARA is the first robot which runs ROS 2.0 on each joint empowering new possibilities and applications in the professional and industrial landscapes of robotics. Built out of individual modules that natively run ROS 2.0, the modular robot arm can be physically extended in a seamless manner. MARA delivers industrial-grade features such as time synchronization or deterministic communication latencies.
-
+<a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/products/mara/images/xv2_MARA2-11.jpg.pagespeed.ic.QRaRP5N01r.webp" align="left" hspace="8" vspace="2" width="270"></a>
+<br/>
+<br/>
+<div style="text-align: justify">
+<p>
+This is the official repository of <a href="https://acutronicrobotics.com/products/mara/">MARA</a> modular robot, world's first modular cobot. MARA is the first robot which runs ROS 2.0 on each joint empowering new possibilities and applications in the professional and industrial landscapes of robotics. Built out of individual modules that natively run ROS 2.0, the modular robot arm can be physically extended in a seamless manner. MARA delivers industrial-grade features such as time synchronization or deterministic communication latencies.
+</p>
+<p>
 Among other things, you will find in this repository instructions on how to simulate and control MARA in Gazebo Simulator or on the real robot.
+</p>
+</div>
+<br/>
+<a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/assets/images/AcutronicRobotics_logo_no_border.png" align="left" hspace="8" vspace="2" width="200"></a>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 
-## Features
-
-<a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/products/mara/images/xv2_MARA2-11.jpg.pagespeed.ic.QRaRP5N01r.webp" align="right" hspace="8" vspace="2" width="200"></a>
+### Features
 
 - **Powered by ROS 2.0**: a fully distributed software and hardware robotic architecture.
 
@@ -24,7 +36,10 @@ Among other things, you will find in this repository instructions on how to simu
 
 - **Controllable from any ROS 2.0 enabled computer**: [ORC](https://acutronicrobotics.com/products/orc/) is the ideal complement for MARA, but not mandatory. Choose yourself how you steer MARA.
 
+<br/>
+
 ## Table of Contents
+
 * [Specifications](#specifications)
 * [Packages](#packages)
 * [Install](#install)
@@ -44,17 +59,18 @@ Among other things, you will find in this repository instructions on how to simu
 * [Examples](#examples)
 * [Help](#help)
 
+<br/>
+
 ## Specifications
 
-![](https://acutronicrobotics.com/products/mara/images/xMARA_evolution_end.jpg.pagespeed.ic.dVNwzZ6-4i.webp)
-
+![](https://acutronicrobotics.com/images/ACUTRONIC_modular_robot.png)
 
 | Spec | Value |
 |------|-------|
 | Degrees of freedom | 6 DoF, extensible |
 | Maximum speed | 90º/s |
 | Repeatability | ±0.1 mm |
-| Rated torque | 9.4/30 Nm |
+| Rated torque | 9.4/30/49 Nm |
 | Payload | 3 Kg |
 | Weight | 21 Kg |
 | Height | 871 mm |
@@ -62,23 +78,25 @@ Among other things, you will find in this repository instructions on how to simu
 | Footprint | 204 mm |
 | Robotics framework | ROS 2.0 Crystal Clemmys |
 | Communication interfaces | 1 Gbps Ethernet, Compliant with TSN standards |
-| Information model | Hardware Robot Information Model (HRIM®), version Anboto  |
-| Security | Encrypted and secure computing environment, Secure data exchange capabilities |
+| Information model | Hardware Robot Information Model (HRIM®), version Coliza  |
+| Security | Encrypted and secure computing environment, Secure data exchange capabilities &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |
 | Automatic updates | Over-the-Air (OTA) |
 | Datasheet | [Download datasheet](https://acutronicrobotics.com/products/mara/files/MARA_datasheet_v1.1.pdf) |
 
+<br/>
+
 ## Packages
 
-<a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/products/mara/images/v2_MARA6_1-11.png" align="right" hspace="8" vspace="2" width="200"></a>
+- `hros_cognition_mara_components`: Transformations between JointTrajectory messages and module specific HRIM messages.
+- `individual_trajectories_bridge`: Bridge to connect ROS and ROS 2.0.
+- `mara_bringup`: roslaunch scripts for starting the MARA.
+- `mara_contact_publisher`: ROS 2.0 publisher to know if a collision takes place.
+- `mara_description`: 3D models of the MARA for simulation and visualization.
+- `mara_gazebo`: Gazebo simulation package for the MARA.
+- `mara_gazebo_plugins`: MARA Gazebo plugins for sensors and motors.
+- `mara_utils_scripts`: Some scripts to move the MARA or spawn the model.
 
- - `hros_cognition_mara_components`: Transformations between JointTrajectory messages and module specific HRIM messages.
- - `individual_trajectories_bridge`: Bridge to connect ROS and ROS 2.0.
- - `mara_bringup`: roslaunch scripts for starting the MARA.
- - `mara_contact_publisher`: ROS 2.0 publisher to know if a collision takes place.
- - `mara_description`: 3D models of the MARA for simulation and visualization.
- - `mara_gazebo`: Gazebo simulation package for the MARA.
- - `mara_gazebo_plugins`: MARA Gazebo plugins for sensors and motors.
- - `mara_utils_scripts`: Some scripts to move the MARA or spawn the model.
+<br/>
 
 ## Install
 
@@ -149,6 +167,9 @@ git clone https://github.com/AcutronicRobotics/MARA_ROS1
 cd ~/catkin_mara_ws/
 catkin_make_isolated --install
 ```
+
+<br/>
+
 ## MoveIt!
 Motion planning, manipulation, 3D perception, kinematics, control and navigation through brigdes.
 
@@ -222,10 +243,14 @@ export ROS_DOMAIN_ID=22
 # you will need to change the yaml files to match the topics names on your SoMs
 ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/individual_trajectories_bridge/config/motors_actions.yaml &
 ```
+<br/>
 
 ## Examples
+
  - [Documentation and tutorials](https://acutronicrobotics.com/docs/products/robots/mara)
  - [mara_examples](https://github.com/AcutronicRobotics/mara_examples.git)
+
+<br/>
 
 ## Help
 
