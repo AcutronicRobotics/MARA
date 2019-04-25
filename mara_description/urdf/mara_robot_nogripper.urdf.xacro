@@ -8,9 +8,6 @@
   <!-- mara -->
   <xacro:include filename="$(find mara_description)/urdf/mara.urdf.xacro" />
 
-  <!-- robotiq 140 gripper -->
-  <xacro:include filename="$(find mara_description)/urdf/robotiq_gripper.urdf.xacro" />
-
   <xacro:include filename="$(find mara_description)/urdf/table.urdf.xacro" />
 
   <!-- arm -->
