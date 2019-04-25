@@ -87,6 +87,8 @@ Among other things, you will find in this repository instructions on how to simu
 
 ## Packages
 
+In this section we will install all the necessary dependencies in order to be able to launch MARA.
+
 - `hros_cognition_mara_components`: Transformations between JointTrajectory messages and module specific HRIM messages.
 - `individual_trajectories_bridge`: Bridge to connect ROS and ROS 2.0.
 - `mara_bringup`: roslaunch scripts for starting the MARA.
@@ -99,6 +101,8 @@ Among other things, you will find in this repository instructions on how to simu
 <br/>
 
 ## Install
+
+The installation consists of two steps. The first one takes care of installing Gazebo which is necessary for trying out the MARA robot in a simulated environment. Since the MARA robot publishes all its relevant information via ROS 2.0 topics, installation of ROS 2.0 is also necessary in order to establish communication between user's PC and the robot.
 
 ### ROS 2.0 and Gazebo
 - **Gazebo 9**: following the official instructions, [one-liner or step-by-step](http://gazebosim.org/tutorials?tut=install_ubuntu)
@@ -140,7 +144,8 @@ cd ~/ros2_mara_ws && colcon build --merge-install --packages-skip individual_tra
 **Installation completed!** Now make sure you check the **[Examples](#examples)** section! Or follow the MoveIt! installation.
 
 ### MoveIt! in ROS (Optional)
-While MoveIt2! is not released (we are activelly developing), we provide the option to use ROS MoveIt! through bridges.
+MoveIt! is well known motion planning framework in the robotics community. MoveIt! allows to leverage different motion planners as well evaluate concepts such as manipulation, 3D perceptions, kinematics control and navigation in easy, user friendly way.
+While MoveIt2! is not released (we are actively developing and contributing towards that effort), we provide the option to use ROS MoveIt! through bridges.
 
 Continue the following steps to complete the MoveIt! installation.
 
