@@ -47,6 +47,8 @@ Among other things, you will find in this repository instructions on how to simu
   * [Create a ROS 2.0 workspace](#create-a-ros-20-workspace)
   * [Compile the ROS 2.0 workspace](#compile-the-ros-20-workspace)
   * [MoveIt! in ROS (Optional)](#moveit-in-ROS-optional)
+* [Gazebo](#gazebo)
+* [RViz](#rviz)
 * [MoveIt!](#moveit)
   * [MoveIt! with MARA - Simulation](#moveit-with-mara---simulation)
     * [Terminal 1 (ROS 2.0):](#terminal-1-ros-20)
@@ -175,6 +177,43 @@ catkin_make_isolated --install
 
 <br/>
 
+## Gazebo
+You will find complimentary information in our [documentation's simulation section](https://acutronicrobotics.com/docs/technology/h-ros/api/level1/simulation).
+
+Launch MARA!
+
+```sh
+source ~/ros2_mara_ws/install/setup.bash
+ros2 launch mara_gazebo mara.launch.py
+```
+
+**Optionally**, you can launch one of these launch files, which correspond to different grippers.
+
+```sh
+ros2 launch mara_gazebo mara_gripper_140.launch.py
+ros2 launch mara_gazebo mara_gripper_85.launch.py
+ros2 launch mara_gazebo mara_gripper_hande.launch.py
+```
+
+## RViz
+### Launching MARA's Simulation
+
+Skip this step if you are working with the real MARA. 
+
+You can choose one of the available launch files. Let's launch MARA with the Robotiq's S140 Gripper for instance:
+
+```bash
+ros2 launch mara_gazebo mara_gripper_140.launch.py
+```
+
+### Visualizing MARA in RViz2
+
+3D model visualization via robot_description topic will be supported in the upcoming ROS2 Dashing debian packages ([Rviz2 Issue](https://github.com/ros2/rviz/issues/395)). It is possible to [compile  RViz from sources](https://github.com/ros2/rviz#building-rviz-in-a-separate-workspace) or load the 3D model via URDF file.
+
+```bash
+rviz2 -d `ros2 pkg prefix mara_description`/share/mara_description/rviz/visualization.rviz
+```
+
 ## MoveIt!
 Motion planning, manipulation, 3D perception, kinematics, control and navigation through brigdes.
 
@@ -183,7 +222,7 @@ Plan trajectories in a virtual environment with Gazebo and MoveIt!.
 
 #### Terminal 1 (ROS 2.0)
 
-To spawn the simulated robot in Gazebo, you can choose one of the following ros2 launch files depending on the gripper that you want to use:
+Launch MARA:
 
 ```sh
 source ~/ros2_mara_ws/install/setup.bash
