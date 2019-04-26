@@ -178,7 +178,7 @@ catkin_make_isolated --install
 <br/>
 
 ## Gazebo
-You will find complimentary information in our [documentation's simulation section](https://acutronicrobotics.com/docs/technology/h-ros/api/level1/simulation).
+Complimentary information is available in our [documentation's simulation section](https://acutronicrobotics.com/docs/technology/h-ros/api/level1/simulation).
 
 Launch MARA!
 
@@ -197,6 +197,7 @@ ros2 launch mara_gazebo mara_gripper_hande.launch.py
 
 ## RViz
 ### Launching MARA's Simulation
+Complimentary information is available in our [documentation's simulation section](https://acutronicrobotics.com/docs/technology/h-ros/api/level1/visualization).
 
 Skip this step if you are working with the real MARA. 
 
