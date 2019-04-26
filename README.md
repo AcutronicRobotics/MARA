@@ -174,7 +174,7 @@ ros2 launch mara_gazebo mara_gripper_hande.launch.py
 
 #### Terminal 2 (ROS)
 ```sh
-source ~/catkin_mara_ws/devel/setup.bash
+source ~/catkin_mara_ws/devel_isolated/setup.bash
 
 python3 ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/config/motors.yaml &
 # change the prefix to match with the gripper used in the Terminal 1
@@ -184,7 +184,7 @@ roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
 
 #### Terminal 3 (bridge)
 ```sh
-source ~/catkin_mara_ws/devel/setup.bash
+source ~/catkin_mara_ws/devel_isolated/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
 
 ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/individual_trajectories_bridge/config/motors_actions.yaml
@@ -205,7 +205,7 @@ ros2 launch mara_bringup mara_bringup_real.launch.py
 
 #### Terminal 2 (ROS)
 ```sh
-source ~/catkin_mara_ws/devel/setup.bash
+source ~/catkin_mara_ws/devel_isolated/setup.bash
 # you will need to change the yaml files to match the topics names on your SoMs
 python3 ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/config/motors.yaml &
 roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
@@ -214,7 +214,7 @@ roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
 
 #### Terminal 3 (bridge)
 ```sh
-source ~/catkin_mara_ws/devel/setup.bash
+source ~/catkin_mara_ws/devel_isolated/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
 # you will need to change the export values according to the SoMs configuration, same as in Terminal 1
 export RMW_IMPLEMENTATION=rmw_opensplice_cpp
