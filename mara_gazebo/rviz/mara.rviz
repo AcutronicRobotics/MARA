@@ -46,7 +46,7 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Collision Enabled: false
-      Description File: /home/erle/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_camera_top.urdf
+      Description File: /home/erle/ros2_mara_ws/src/mara/mara_description/urdf/mara_robot_gripper_140.urdf
       Description Source: File
       Description Topic: ""
       Enabled: true
