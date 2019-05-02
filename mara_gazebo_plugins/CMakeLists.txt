@@ -42,6 +42,7 @@ include_directories(include
   ${hrim_actuator_rotaryservo_msgs_INCLUDE_DIRS}
   ${hrim_actuator_rotaryservo_srvs_INCLUDE_DIRS}
   ${hrim_generic_msgs_INCLUDE_DIRS}
+  ${hrim_generic_srvs_INCLUDE_DIRS}
 )
 link_directories(${gazebo_dev_LIBRARY_DIRS})
 
