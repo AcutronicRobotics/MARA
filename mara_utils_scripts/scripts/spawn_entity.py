@@ -16,7 +16,7 @@ def main(args=None):
     assert os.path.isdir(prefix_path)
 
     content = ""
-    with open(prefix_path + "/share/mara_description/urdf/mara_robot_gripper_140.urdf", 'r') as content_file:
+    with open(prefix_path + "/share/mara_description/urdf/mara_robot.urdf", 'r') as content_file:
         content = content_file.read()
 
     req = SpawnEntity.Request()
