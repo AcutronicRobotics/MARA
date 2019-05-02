@@ -167,6 +167,7 @@ ros2 launch mara_gazebo mara.launch.py
 **Optionally**, you can launch one of these launch files, which correspond to different grippers.
 
 ```sh
+ros2 launch mara_gazebo mara_gripper_140_no_table.launch.py
 ros2 launch mara_gazebo mara_gripper_140.launch.py
 ros2 launch mara_gazebo mara_gripper_85.launch.py
 ros2 launch mara_gazebo mara_gripper_hande.launch.py
@@ -178,8 +179,16 @@ source ~/catkin_mara_ws/devel_isolated/setup.bash
 
 python3 ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/config/motors.yaml &
 # change the prefix to match with the gripper used in the Terminal 1
-roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch &
+```
 
+**Optionally**, you can launch one of these launch files, according to the choice in the Terminal 1.
+
+```sh
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 table:=false &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=85 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=hande &
 ```
 
 #### Terminal 3 (bridge)
