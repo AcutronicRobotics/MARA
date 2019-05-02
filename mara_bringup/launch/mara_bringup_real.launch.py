@@ -9,7 +9,7 @@ from launch.actions.execute_process import ExecuteProcess
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    urdf = os.path.join(get_package_share_directory('mara_description'), 'urdf', 'mara_robot_camera_top.urdf')
+    urdf = os.path.join(get_package_share_directory('mara_description'), 'urdf', 'mara_robot_gripper_140.urdf')
     install_dir = get_package_prefix('mara_gazebo_plugins')
 
     try:
