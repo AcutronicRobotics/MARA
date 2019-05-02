@@ -177,7 +177,7 @@ ros2 launch mara_gazebo mara_gripper_hande.launch.py
 ```sh
 source ~/catkin_mara_ws/devel_isolated/setup.bash
 
-python3 ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/config/motors.yaml &
+python ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/config/motors.yaml &
 # change the prefix to match with the gripper used in the Terminal 1
 roslaunch mara_bringup mara_bringup_moveit_actions.launch &
 ```
