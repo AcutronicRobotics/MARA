@@ -143,7 +143,7 @@ sed -i 's#/opt/ros/melodic#/opt/ros/crystal#g' ~/ros2_mara_ws/install/setup.bash
 #### ROS Workspace
 Compile the MARA_ROS1 packages.
 ```sh
-mkdir -p ~/ros_mara_ws/src
+mkdir -p ~/catkin_mara_ws/src
 cd ~/catkin_mara_ws/src
 git clone https://github.com/AcutronicRobotics/MARA_ROS1
 cd ~/catkin_mara_ws/
