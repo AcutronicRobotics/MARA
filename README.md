@@ -82,14 +82,35 @@ Among other things, you will find in this repository instructions on how to simu
 
 ## Install
 
-### ROS 2.0 and Gazebo
-- **Gazebo 9**: following the official instructions, [one-liner or step-by-step](http://gazebosim.org/tutorials?tut=install_ubuntu)
+### ROS 2.0
+
 - **ROS 2.0 Crystal**: following the official instructions, [source](https://index.ros.org/doc/ros2/Linux-Development-Setup/) or [debian packages](https://index.ros.org/doc/ros2/Linux-Install-Debians/).
 
 ### Dependent tools
+**Note**: We recommend installing **Gazebo 9.0.0** via **ROS Crystal Debian packages** and removing previous gazebo installations to avoid undesired conflicts, e.g. `apt-get remove *gazebo*`. You can also use different versions of the simulator such as Gazebo 10, but you must skip the installation of `ros-crystal-gazebo*` packages and add [gazebo_ros_pkgs](https://github.com/ros-simulation/gazebo_ros_pkgs/tree/crystal) to the `ros2_mara_ws` we are going to build in the [Create a ROS workspace](#create-a-ros-workspace) section.
 
 ```sh
-sudo apt install -y python3-vcstool python3-numpy wget ros-melodic-moveit-ros-move-group ros-melodic-moveit-visual-tools
+# ROS 2 extra packages
+sudo apt update && sudo apt install -y \
+ros-crystal-action-msgs \
+ros-crystal-message-filters \
+ros-crystal-yaml-cpp-vendor \
+ros-crystal-urdf \
+ros-crystal-rttest \
+ros-crystal-tf2 \
+ros-crystal-tf2-geometry-msgs \
+ros-crystal-rclcpp-action \
+ros-crystal-cv-bridge \
+ros-crystal-control-msgs \
+ros-crystal-image-transport \
+ros-crystal-gazebo-dev \
+ros-crystal-gazebo-msgs \
+ros-crystal-gazebo-plugins \
+ros-crystal-gazebo-ros \
+ros-crystal-gazebo-ros-pkgs
+
+sudo apt install -y \
+python3-vcstool python3-numpy wget
 ```
 
 ### Create a ROS 2.0 workspace
@@ -129,9 +150,14 @@ Continue the following steps to complete the MoveIt! installation.
 #### ROS and MoveIt!
 ROS and MoveIt! are required if you want to use `ìndividual_trajectories_bridge` to control the MARA, which means using ROS Melodic with MoveIt through bridges.
 - **ROS melodic**: following the official instructions, [source](http://wiki.ros.org/melodic/Installation/Source) or [debian_packages](http://wiki.ros.org/melodic/Installation/Ubuntu).
-- **MoveIt!**: `sudo apt install ros-melodic-moveit`.
-
-#### ROS - ROS 2.0 Bridge
+- **MoveIt!**: Install the following ROS debian packages.
+    ```
+    sudo apt install -y \
+    ros-melodic-moveit \
+    ros-melodic-moveit-ros-move-group \
+    ros-melodic-moveit-visual-tools
+    ```
+ #### ROS - ROS 2.0 Bridge
 Compile the trajectory bridge located in the workspace using ROS as source.
 
 ```sh
