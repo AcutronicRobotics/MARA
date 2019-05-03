@@ -11,7 +11,6 @@
   <url type="repository">https://github.com/erlerobot/mara</url>
   <url type="bugtracker">https://github.com/erlerobot/mara/issues</url>
   <buildtool_depend>ament_cmake</buildtool_depend>
-  <depend>turtlebot3_description</depend>
   <exec_depend>launch</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
   <export>
