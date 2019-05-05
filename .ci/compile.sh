@@ -3,6 +3,7 @@
 set -e
 
 rm -rf src/MARA/* #Remove downloaded MARA to build current Branch
+mkdir src/MARA
 cp -r /tmp/MARA/* src/MARA
 #unset ROS_DISTRO
 source /opt/ros/$ROS2_DISTRO/setup.bash
@@ -11,6 +12,7 @@ colcon build --merge-install --packages-skip individual_trajectories_bridge
 source /opt/ros/$ROS_DISTRO/setup.bash
 colcon build --merge-install --packages-select individual_trajectories_bridge
 sed -i 's#/opt/ros/melodic#/opt/ros/crystal#g' /root/ros2_mara_ws/install/setup.bash
+echo "Build MARA_ROS1"
 #Build ROS workspace
 mkdir -p /root/catkin_mara_ws/src
 cd /root/catkin_mara_ws/src
