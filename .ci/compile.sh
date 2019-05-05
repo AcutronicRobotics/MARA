@@ -2,7 +2,8 @@
 
 set -e
 
-#rm -rf src/MARA #Remove downloaded MARA to build current branch
+rm -rf src/MARA #Remove downloaded MARA to build current branch
+unset ROS_DISTRO
 source /opt/ros/$ROS2_DISTRO/setup.bash
 colcon build --merge-install --packages-skip individual_trajectories_bridge
 # Build ROS-ROS 2.0 Bridge
