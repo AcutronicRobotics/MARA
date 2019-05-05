@@ -6,6 +6,9 @@ This is the official repository of [MARA](https://acutronicrobotics.com/products
 
 Among other things, you will find in this repository instructions on how to simulate and control MARA in Gazebo Simulator or on the real robot.
 
+[![Build
+Status](https://travis-ci.org/AcutronicRobotics/MARA.svg?branch=master)](https://travis-ci.org/AcutronicRobotics/MARA)
+
 ## Features
 
 <a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/products/mara/images/xv2_MARA2-11.jpg.pagespeed.ic.QRaRP5N01r.webp" align="right" hspace="8" vspace="2" width="200"></a>
