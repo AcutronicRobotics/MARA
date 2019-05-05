@@ -18,4 +18,4 @@ before_script:
   - cd .ci/ 
 script:
   - docker build -t mara .
-  - docker run -v /tmp/MARA:/root/ros2_mara_ws/src mara
+  - docker run -v /tmp/MARA:/tmp/MARA mara
