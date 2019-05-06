@@ -43,6 +43,7 @@ Among other things, you will find in this repository instructions on how to simu
 * [Specifications](#specifications)
 * [Packages](#packages)
 * [Install](#install)
+  * [ROS 2.0](#ros-20)
   * [Dependendent tools](#dependent-tools)
   * [Create a ROS 2.0 workspace](#create-a-ros-20-workspace)
   * [Compile the ROS 2.0 workspace](#compile-the-ros-20-workspace)
