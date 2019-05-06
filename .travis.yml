@@ -1,0 +1,21 @@
+notifications:
+  email:
+    recipients:
+      - lander@erlerobotics.com 
+    on_failure: always
+    only: master
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+  services:
+    - docker
+  sudo:
+    - required
+before_script:
+  - mkdir /tmp/MARA 
+  - mv * /tmp/MARA
+  - cd .ci/ 
+script:
+  - docker build -t mara .
+  - docker run -v /tmp/MARA:/tmp/MARA mara
