@@ -19,7 +19,9 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <depend>hrim_actuator_rotaryservo_msgs</depend>
+  <depend>hrim_actuator_rotaryservo_srvs</depend>
   <depend>hrim_generic_msgs</depend>
+  <depend>hrim_generic_srvs</depend>
   <depend>tf2_geometry_msgs</depend>
   <depend>tf2_ros</depend>
 

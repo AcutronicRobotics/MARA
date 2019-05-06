@@ -1,7 +1,0 @@
-motors:
-  - "/hrim_actuation_servomotor_0000000000012/trajectory"
-  - "/hrim_actuation_servomotor_000000000001/trajectory"
-  - "/hrim_actuation_servomotor_000000000002/trajectory"
-  - "/hrim_actuation_servomotor_0000000000022/trajectory"
-  - "/hrim_actuation_servomotor_000000000003/trajectory"
-  - "/hrim_actuation_servomotor_0000000000032/trajectory"

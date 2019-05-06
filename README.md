@@ -104,16 +104,35 @@ In this section we will install all the necessary dependencies in order to be ab
 
 ## Install
 
-The installation consists of two steps. The first one takes care of installing Gazebo which is necessary for trying out the MARA robot in a simulated environment. Since the MARA robot publishes all its relevant information via ROS 2.0 topics, installation of ROS 2.0 is also necessary in order to establish communication between user's PC and the robot.
+### ROS 2.0
 
-### ROS 2.0 and Gazebo
-- **Gazebo 9**: following the official instructions, [one-liner or step-by-step](http://gazebosim.org/tutorials?tut=install_ubuntu)
 - **ROS 2.0 Crystal**: following the official instructions, [source](https://index.ros.org/doc/ros2/Linux-Development-Setup/) or [debian packages](https://index.ros.org/doc/ros2/Linux-Install-Debians/).
 
 ### Dependent tools
+**Note**: We recommend installing **Gazebo 9.0.0** via **ROS Crystal Debian packages** and removing previous gazebo installations to avoid undesired conflicts, e.g. `apt-get remove *gazebo*`. You can also use different versions of the simulator such as Gazebo 10, but you must skip the installation of `ros-crystal-gazebo*` packages and add [gazebo_ros_pkgs](https://github.com/ros-simulation/gazebo_ros_pkgs/tree/crystal) to the `ros2_mara_ws` we are going to build in the [Create a ROS workspace](#create-a-ros-20-workspace) section.
 
 ```sh
-sudo apt install -y python3-vcstool python3-numpy wget ros-melodic-moveit-ros-move-group ros-melodic-moveit-visual-tools
+# ROS 2 extra packages
+sudo apt update && sudo apt install -y \
+ros-crystal-action-msgs \
+ros-crystal-message-filters \
+ros-crystal-yaml-cpp-vendor \
+ros-crystal-urdf \
+ros-crystal-rttest \
+ros-crystal-tf2 \
+ros-crystal-tf2-geometry-msgs \
+ros-crystal-rclcpp-action \
+ros-crystal-cv-bridge \
+ros-crystal-control-msgs \
+ros-crystal-image-transport \
+ros-crystal-gazebo-dev \
+ros-crystal-gazebo-msgs \
+ros-crystal-gazebo-plugins \
+ros-crystal-gazebo-ros \
+ros-crystal-gazebo-ros-pkgs
+
+sudo apt install -y \
+python3-vcstool python3-numpy wget
 ```
 
 ### Create a ROS 2.0 workspace
@@ -154,9 +173,14 @@ Continue the following steps to complete the MoveIt! installation.
 #### ROS and MoveIt!
 ROS and MoveIt! are required if you want to use `ìndividual_trajectories_bridge` to control the MARA, which means using ROS Melodic with MoveIt through bridges.
 - **ROS melodic**: following the official instructions, [source](http://wiki.ros.org/melodic/Installation/Source) or [debian_packages](http://wiki.ros.org/melodic/Installation/Ubuntu).
-- **MoveIt!**: `sudo apt install ros-melodic-moveit`.
-
-#### ROS - ROS 2.0 Bridge
+- **MoveIt!**: Install the following ROS debian packages.
+    ```
+    sudo apt install -y \
+    ros-melodic-moveit \
+    ros-melodic-moveit-ros-move-group \
+    ros-melodic-moveit-visual-tools
+    ```
+ #### ROS - ROS 2.0 Bridge
 Compile the trajectory bridge located in the workspace using ROS as source.
 
 ```sh
@@ -168,7 +192,7 @@ sed -i 's#/opt/ros/melodic#/opt/ros/crystal#g' ~/ros2_mara_ws/install/setup.bash
 #### ROS Workspace
 Compile the MARA_ROS1 packages.
 ```sh
-mkdir -p ~/ros_mara_ws/src
+mkdir -p ~/catkin_mara_ws/src
 cd ~/catkin_mara_ws/src
 git clone https://github.com/AcutronicRobotics/MARA_ROS1
 cd ~/catkin_mara_ws/
@@ -224,33 +248,37 @@ Plan trajectories in a virtual environment with Gazebo and MoveIt!.
 #### Terminal 1 (ROS 2.0)
 
 Launch MARA:
-
 ```sh
 source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_gazebo mara.launch.py
 ```
 
-**Optionally**, you can launch one of these launch files, which correspond to different grippers.
+**Optionally**, you can launch the MARA robot with gripper and/or a table using the `--urdf` flag to indicate the desired urdf to be used:
 
 ```sh
-ros2 launch mara_gazebo mara_gripper_140.launch.py
-ros2 launch mara_gazebo mara_gripper_85.launch.py
-ros2 launch mara_gazebo mara_gripper_hande.launch.py
+ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
 ```
+
+*Available urdfs: `mara_robot_gripper_140`, `mara_robot_gripper_140_no_table`, `mara_robot_gripper_85` and `mara_robot_gripper_hande`*
 
 #### Terminal 2 (ROS)
 ```sh
-source ~/catkin_mara_ws/devel/setup.bash
+source ~/catkin_mara_ws/devel_isolated/setup.bash
+roslaunch mara_bringup mara_bringup_moveit_actions.launch &
+```
 
-python3 ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/config/motors.yaml &
-# change the prefix to match with the gripper used in the Terminal 1
-roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
+**Optionally**, you can launch one of these launch files, according to the choice in the Terminal 1.
 
+```sh
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 table:=false &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=85 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=hande &
 ```
 
 #### Terminal 3 (bridge)
 ```sh
-source ~/catkin_mara_ws/devel/setup.bash
+source ~/catkin_mara_ws/devel_isolated/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
 
 ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/individual_trajectories_bridge/config/motors_actions.yaml
@@ -260,32 +288,53 @@ ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -
 Plan trajectories in a real environment with MoveIt!.
 
 #### Terminal 1 (ROS 2.0)
+
 ```sh
 source ~/ros2_mara_ws/install/setup.bash
-# you will need to change the export values according to the SoMs configuration
+# you will need to change the export values according to the SoMs configuration when running on the real robot.
 export RMW_IMPLEMENTATION=rmw_opensplice_cpp
 export ROS_DOMAIN_ID=22
 
-ros2 launch mara_bringup mara_bringup_real.launch.py
+ros2 launch mara_bringup mara.launch.py
 ```
 
-#### Terminal 2 (ROS)
-```sh
-source ~/catkin_mara_ws/devel/setup.bash
-# you will need to change the yaml files to match the topics names on your SoMs
-python3 ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/config/motors.yaml &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
+If your real robot includes a gripper, you will have to set the `--urdf` flag to indicate the urdf that contains the gripper your robot has:
 
+```sh
+ros2 launch mara_bringup mara.launch.py --urdf mara_robot_gripper_140
+```
+
+*Available urdfs: `mara_robot_gripper_140`, `mara_robot_gripper_140_no_table`, `mara_robot_gripper_85` and `mara_robot_gripper_hande`*
+
+#### Terminal 2 (ROS)
+
+You will need to change the [motors.yaml](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml) file to match the MACs of your SoMs.
+
+```sh
+source ~/catkin_mara_ws/devel_isolated/setup.bash
+roslaunch mara_bringup mara_bringup_moveit_actions.launch &
+```
+
+If you have used a different urdf in the Terminal 1, you will have to launch the corresponding one to match it:
+
+```sh
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 table:=false &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=85 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=hande &
 ```
 
 #### Terminal 3 (bridge)
+
+You will need to change the [motors_actions.yaml](https://github.com/AcutronicRobotics/MARA/blob/master/individual_trajectories_bridge/config/motors_actions.yaml) file to match the MACs of your SoMs (MACs should be the same in this yaml file and in the [motors.yaml](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml) file of the Terminal 2).
+
 ```sh
-source ~/catkin_mara_ws/devel/setup.bash
+source ~/catkin_mara_ws/devel_isolated/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
 # you will need to change the export values according to the SoMs configuration, same as in Terminal 1
 export RMW_IMPLEMENTATION=rmw_opensplice_cpp
 export ROS_DOMAIN_ID=22
-# you will need to change the yaml files to match the topics names on your SoMs
+
 ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/individual_trajectories_bridge/config/motors_actions.yaml &
 ```
 <br/>

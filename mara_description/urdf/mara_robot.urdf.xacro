@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       name="mara" >
+
+  <!-- common stuff -->
+  <xacro:include filename="$(find mara_description)/urdf/mara_gazebo.urdf.xacro" />
+
+  <!-- mara -->
+  <xacro:include filename="$(find mara_description)/urdf/mara.urdf.xacro" />
+
+  <!-- arm -->
+  <xacro:mara_robot prefix="" ee_link_distance="0.0"/>
+
+  <link name="world" />
+
+  <joint name="world_to_base_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+</robot>

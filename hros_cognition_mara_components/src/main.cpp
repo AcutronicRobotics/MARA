@@ -20,7 +20,7 @@ int main(int argc, char * argv[])
     return -2;
   }
 
-  std::string node_name = std::string(hostname);
+  std::string node_name = "hros_cognition_" + std::string(hostname);
   std::replace(node_name.begin(), node_name.end(), '-', '_');
 
   std::cout << "node_name " << node_name << std::endl;
