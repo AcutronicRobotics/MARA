@@ -183,28 +183,22 @@ Plan trajectories in a virtual environment with Gazebo and MoveIt!.
 
 #### Terminal 1 (ROS 2.0)
 
-To spawn the simulated robot in Gazebo, you can choose one of the following ros2 launch files depending on the gripper that you want to use:
-
 ```sh
 source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_gazebo mara.launch.py
 ```
 
-**Optionally**, you can launch one of these launch files, which correspond to different grippers.
+**Optionally**, you can launch the MARA robot with gripper and/or a table using the `--urdf` flag to indicate the desired urdf to be used:
 
 ```sh
-ros2 launch mara_gazebo mara_gripper_140_no_table.launch.py
-ros2 launch mara_gazebo mara_gripper_140.launch.py
-ros2 launch mara_gazebo mara_gripper_85.launch.py
-ros2 launch mara_gazebo mara_gripper_hande.launch.py
+ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
 ```
+
+*Available urdfs: `mara_robot_gripper_140`, `mara_robot_gripper_140_no_table`, `mara_robot_gripper_85` and `mara_robot_gripper_hande`*
 
 #### Terminal 2 (ROS)
 ```sh
 source ~/catkin_mara_ws/devel_isolated/setup.bash
-
-python ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/config/motors.yaml &
-# change the prefix to match with the gripper used in the Terminal 1
 roslaunch mara_bringup mara_bringup_moveit_actions.launch &
 ```
 
@@ -229,32 +223,53 @@ ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -
 Plan trajectories in a real environment with MoveIt!.
 
 #### Terminal 1 (ROS 2.0)
+
 ```sh
 source ~/ros2_mara_ws/install/setup.bash
-# you will need to change the export values according to the SoMs configuration
+# you will need to change the export values according to the SoMs configuration when running on the real robot.
 export RMW_IMPLEMENTATION=rmw_opensplice_cpp
 export ROS_DOMAIN_ID=22
 
-ros2 launch mara_bringup mara_bringup_real.launch.py
+ros2 launch mara_bringup mara.launch.py
 ```
 
+If your real robot includes a gripper, you will have to set the `--urdf` flag to indicate the urdf that contains the gripper your robot has:
+
+```sh
+ros2 launch mara_bringup mara.launch.py --urdf mara_robot_gripper_140
+```
+
+*Available urdfs: `mara_robot_gripper_140`, `mara_robot_gripper_140_no_table`, `mara_robot_gripper_85` and `mara_robot_gripper_hande`*
+
 #### Terminal 2 (ROS)
+
+You will need to change the [motors.yaml](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml) file to match the MACs of your SoMs.
+
 ```sh
 source ~/catkin_mara_ws/devel_isolated/setup.bash
-# you will need to change the yaml files to match the topics names on your SoMs
-python3 ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/scripts/follow_joints_trajectory_actions.py ~/catkin_mara_ws/src/MARA_ROS1/mara_bringup/config/motors.yaml &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch prefix:=140 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch &
+```
 
+If you have used a different urdf in the Terminal 1, you will have to launch the corresponding one to match it:
+
+```sh
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 table:=false &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=85 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=hande &
 ```
 
 #### Terminal 3 (bridge)
+
+You will need to change the [motors_actions.yaml](https://github.com/AcutronicRobotics/MARA/blob/master/individual_trajectories_bridge/config/motors_actions.yaml) file to match the MACs of your SoMs (MACs should be the same in this yaml file and in the [motors.yaml](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml) file of the Terminal 2).
+
 ```sh
 source ~/catkin_mara_ws/devel_isolated/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
 # you will need to change the export values according to the SoMs configuration, same as in Terminal 1
 export RMW_IMPLEMENTATION=rmw_opensplice_cpp
 export ROS_DOMAIN_ID=22
-# you will need to change the yaml files to match the topics names on your SoMs
+
 ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/individual_trajectories_bridge/config/motors_actions.yaml &
 ```
 
