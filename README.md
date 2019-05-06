@@ -226,7 +226,7 @@ Plan trajectories in a real environment with MoveIt!.
 
 ```sh
 source ~/ros2_mara_ws/install/setup.bash
-# you will need to change the export values according to the SoMs configuration
+# you will need to change the export values according to the SoMs configuration when running on the real robot.
 export RMW_IMPLEMENTATION=rmw_opensplice_cpp
 export ROS_DOMAIN_ID=22
 
