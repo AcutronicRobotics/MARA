@@ -1,7 +1,0 @@
-motors:
-  - "/hrim_actuation_servomotor_000A3500010E/trajectory_axis2"
-  - "/hrim_actuation_servomotor_000A3500010E/trajectory_axis1"
-  - "/hrim_actuation_servomotor_70B3D521A0A6/trajectory_axis1"
-  - "/hrim_actuation_servomotor_70B3D521A0A6/trajectory_axis2"
-  - "/hrim_actuation_servomotor_70B3D521A0A4/trajectory_axis1"
-  - "/hrim_actuation_servomotor_70B3D521A0A4/trajectory_axis2"
