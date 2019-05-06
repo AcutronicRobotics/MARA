@@ -12,7 +12,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(urdf REQUIRED)
 
-install(DIRECTORY worlds launch rviz
+install(DIRECTORY worlds launch
   DESTINATION share/${PROJECT_NAME}
 )
 
