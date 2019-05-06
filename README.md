@@ -12,9 +12,6 @@ This is the official repository of <a href="https://acutronicrobotics.com/produc
 </p>
 <p>
 Among other things, you will find in this repository instructions on how to simulate and control MARA in Gazebo Simulator or on the real robot.
-
-<a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/products/mara/images/v2_MARA2-11.jpg" align="right" hspace="8" vspace="2" width="200"></a>
-
 </p>
 </div>
 <br/>
