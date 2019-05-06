@@ -1,26 +1,19 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from gazebo_msgs.srv import SpawnEntity
-
-import rclpy
-from ros2pkg.api import get_prefix_path
 import os
 import sys
+import rclpy
+from gazebo_msgs.srv import SpawnEntity
 
 def main(args=None):
     rclpy.init(args=args)
     node = rclpy.create_node('minimal_client')
     cli = node.create_client(SpawnEntity, '/spawn_entity')
 
-    prefix_path = get_prefix_path('mara_description')
-    assert os.path.isdir(prefix_path)
-
     content = ""
     if sys.argv[1] is not None:
-        urdf_path = prefix_path + "/share/mara_description/urdf/" + str(sys.argv[1])
-        assert os.path.exists(urdf_path)
-        with open(urdf_path, 'r') as content_file:
+        with open(sys.argv[1], 'r') as content_file:
             content = content_file.read()
 
     req = SpawnEntity.Request()
