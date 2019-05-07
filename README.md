@@ -215,13 +215,13 @@ source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_gazebo mara.launch.py
 ```
 
-**Optionally**, you can launch one of these launch files, which correspond to different grippers.
+**Optionally**, you can launch the MARA robot with gripper and/or a table using the `--urdf` flag to indicate the desired urdf to be used:
 
 ```sh
-ros2 launch mara_gazebo mara_gripper_140.launch.py
-ros2 launch mara_gazebo mara_gripper_85.launch.py
-ros2 launch mara_gazebo mara_gripper_hande.launch.py
+ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
 ```
+
+*Available urdfs: `mara_robot_gripper_140`, `mara_robot_gripper_140_no_table`, `mara_robot_gripper_85` and `mara_robot_gripper_hande`*
 
 ## RViz
 ### Launching MARA's Simulation
