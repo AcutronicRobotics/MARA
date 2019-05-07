@@ -213,7 +213,7 @@ source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_gazebo mara.launch.py
 ```
 
-**Optionally**, you can launch the MARA robot with gripper and/or a table using the `--urdf` flag to indicate the desired urdf to be used:
+**Optionally**, you can launch the MARA robot with gripper and/or a table using the `--urdf` flag to indicate the desired urdf to be spawned:
 
 ```sh
 ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
@@ -237,11 +237,15 @@ ros2 launch mara_gazebo mara_gripper_140.launch.py
 
 ### Visualizing MARA in RViz2
 
-3D model visualization via robot_description topic will be supported in the upcoming ROS2 Dashing debian packages ([Rviz2 Issue](https://github.com/ros2/rviz/issues/395)). It is possible to [compile  RViz from sources](https://github.com/ros2/rviz#building-rviz-in-a-separate-workspace) or load the 3D model via URDF file.
+3D model visualization via robot_description topic will be supported in the upcoming ROS2 Dashing debian packages ([Rviz2 Issue](https://github.com/ros2/rviz/issues/395)). We recommend to [compile  RViz from sources](https://github.com/ros2/rviz#building-rviz-in-a-separate-workspace) in the meantime.
 
 ```bash
+source ~/rviz2_ws/install/setup.bash
+source ~/ros2_mara_ws/install/setup.bash
 rviz2 -d `ros2 pkg prefix mara_description`/share/mara_description/rviz/visualization.rviz
 ```
+
+Alternatively, instead of using the `robot_description` topic, you can load the 3D model manually selecting the URDF file in RViz.
 
 <br/>
 
@@ -269,16 +273,16 @@ ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
 #### Terminal 2 (ROS)
 ```sh
 source ~/catkin_mara_ws/devel_isolated/setup.bash
-roslaunch mara_bringup mara_bringup_moveit_actions.launch &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch
 ```
 
 **Optionally**, you can launch one of these launch files, according to the choice in the Terminal 1.
 
 ```sh
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 table:=false &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=85 &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=hande &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 table:=false
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=85
+roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=hande
 ```
 
 #### Terminal 3 (bridge)
