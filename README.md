@@ -225,15 +225,7 @@ ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
 
 ## RViz
 ### Launching MARA's Simulation
-Complimentary information is available in our [documentation's simulation section](https://acutronicrobotics.com/docs/technology/h-ros/api/level1/visualization).
-
-Skip this step if you are working with the real MARA.
-
-You can choose one of the available launch files. Let's launch MARA with the Robotiq's S140 Gripper for instance:
-
-```bash
-ros2 launch mara_gazebo mara_gripper_140.launch.py
-```
+You need first to [launch MARA in Gazebo](https://github.com/AcutronicRobotics/MARA#gazebo).
 
 ### Visualizing MARA in RViz2
 
@@ -290,7 +282,7 @@ roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=
 source ~/catkin_mara_ws/devel_isolated/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
 
-ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/motors.yaml sim &
+ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/motors.yaml sim
 ```
 
 ### MoveIt! with MARA - Real Robot
