@@ -248,19 +248,7 @@ Motion planning, manipulation, 3D perception, kinematics, control and navigation
 Plan trajectories in a virtual environment with Gazebo and MoveIt!.
 
 #### Terminal 1 (ROS 2.0)
-
-```sh
-source ~/ros2_mara_ws/install/setup.bash
-ros2 launch mara_gazebo mara.launch.py
-```
-
-**Optionally**, you can launch the MARA robot with gripper and/or a table using the `--urdf` flag to indicate the desired urdf to be used:
-
-```sh
-ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
-```
-
-*Available urdfs: `mara_robot_gripper_140`, `mara_robot_gripper_140_no_table`, `mara_robot_gripper_85` and `mara_robot_gripper_hande`*
+[Launch MARA in Gazebo](https://github.com/AcutronicRobotics/MARA#gazebo).
 
 #### Terminal 2 (ROS)
 ```sh
