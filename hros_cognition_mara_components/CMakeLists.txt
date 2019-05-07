@@ -61,7 +61,7 @@ install(  TARGETS
 
 install(
   PROGRAMS
-  config/link_order.yaml
+  config/motors.yaml
   DESTINATION share/${PROJECT_NAME}
 )
 
