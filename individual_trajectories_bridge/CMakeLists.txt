@@ -73,25 +73,6 @@ include_directories(include
   ${rviz_yaml_cpp_vendor_INCLUDE_DIRS}
 )
 
-add_executable(${PROJECT_NAME} "src/main.cpp")
-
-ament_target_dependencies(${PROJECT_NAME}
-    "rclcpp"
-    "rclcpp_action"
-    "trajectory_msgs"
-    "control_msgs"
-    "yaml_cpp_vendor"
-    ${prefixed_ros1_message_packages}
-    ${ros2_message_packages}
-    "ros1_roscpp"
-		"ros1_control_msgs"
-		"ros1_trajectory_msgs"
-)
-
-target_link_libraries(${PROJECT_NAME}
-  ${YAML_CPP_LIBRARIES}
-)
-
 add_executable(${PROJECT_NAME}_actions
         src/main_actions.cpp
         src/FollowJointTrajectoryAction.cpp)
@@ -116,11 +97,5 @@ target_link_libraries(${PROJECT_NAME}_actions
   ${YAML_CPP_LIBRARIES}
 )
 
-install(
-  PROGRAMS
-  config/motors_actions.yaml
-  DESTINATION share/${PROJECT_NAME}
-)
-
-install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_actions
+install(TARGETS ${PROJECT_NAME}_actions
   DESTINATION lib/${PROJECT_NAME})
