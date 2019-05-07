@@ -215,7 +215,7 @@ source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_gazebo mara.launch.py
 ```
 
-**Optionally**, you can launch the MARA robot with gripper and/or a table using the `--urdf` flag to indicate the desired urdf to be used:
+**Optionally**, you can launch the MARA robot with gripper and/or a table using the `--urdf` flag to indicate the desired urdf to be spawned:
 
 ```sh
 ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
@@ -245,7 +245,7 @@ source ~/ros2_mara_ws/install/setup.bash
 rviz2 -d `ros2 pkg prefix mara_description`/share/mara_description/rviz/visualization.rviz
 ```
 
-Alternatively, instead of using the robot_description topic, you can load the 3D model manually picking the URDF file after launching RViz.
+Alternatively, instead of using the `robot_description` topic, you can load the 3D model manually selecting the URDF file in RViz.
 
 ## MoveIt!
 Motion planning, manipulation, 3D perception, kinematics, control and navigation through brigdes.
