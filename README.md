@@ -227,7 +227,7 @@ ros2 launch mara_gazebo mara_gripper_hande.launch.py
 ### Launching MARA's Simulation
 Complimentary information is available in our [documentation's simulation section](https://acutronicrobotics.com/docs/technology/h-ros/api/level1/visualization).
 
-Skip this step if you are working with the real MARA. 
+Skip this step if you are working with the real MARA.
 
 You can choose one of the available launch files. Let's launch MARA with the Robotiq's S140 Gripper for instance:
 
@@ -237,11 +237,15 @@ ros2 launch mara_gazebo mara_gripper_140.launch.py
 
 ### Visualizing MARA in RViz2
 
-3D model visualization via robot_description topic will be supported in the upcoming ROS2 Dashing debian packages ([Rviz2 Issue](https://github.com/ros2/rviz/issues/395)). It is possible to [compile  RViz from sources](https://github.com/ros2/rviz#building-rviz-in-a-separate-workspace) or load the 3D model via URDF file.
+3D model visualization via robot_description topic will be supported in the upcoming ROS2 Dashing debian packages ([Rviz2 Issue](https://github.com/ros2/rviz/issues/395)). We recommend to [compile  RViz from sources](https://github.com/ros2/rviz#building-rviz-in-a-separate-workspace) to solve this issue.
 
 ```bash
+source ~/rviz2_ws/install/setup.bash
+source ~/ros2_mara_ws/install/setup.bash
 rviz2 -d `ros2 pkg prefix mara_description`/share/mara_description/rviz/visualization.rviz
 ```
+
+Alternatively, instead of using the robot_description topic, you can load the 3D model manually picking the URDF file after launching RViz.
 
 ## MoveIt!
 Motion planning, manipulation, 3D perception, kinematics, control and navigation through brigdes.
