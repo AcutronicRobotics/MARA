@@ -237,7 +237,7 @@ ros2 launch mara_gazebo mara_gripper_140.launch.py
 
 ### Visualizing MARA in RViz2
 
-3D model visualization via robot_description topic will be supported in the upcoming ROS2 Dashing debian packages ([Rviz2 Issue](https://github.com/ros2/rviz/issues/395)). We recommend to [compile  RViz from sources](https://github.com/ros2/rviz#building-rviz-in-a-separate-workspace) to solve this issue.
+3D model visualization via robot_description topic will be supported in the upcoming ROS2 Dashing debian packages ([Rviz2 Issue](https://github.com/ros2/rviz/issues/395)). We recommend to [compile  RViz from sources](https://github.com/ros2/rviz#building-rviz-in-a-separate-workspace) in the meantime.
 
 ```bash
 source ~/rviz2_ws/install/setup.bash
