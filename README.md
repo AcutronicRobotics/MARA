@@ -313,16 +313,16 @@ ros2 launch mara_bringup mara.launch.py --urdf mara_robot_gripper_140
 
 ```sh
 source ~/catkin_mara_ws/devel_isolated/setup.bash
-roslaunch mara_bringup mara_bringup_moveit_actions.launch &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real &
 ```
 
 If you have used a different urdf in the Terminal 1, you will have to launch the corresponding one to match it:
 
 ```sh
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 table:=false &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=85 &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=hande &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=140 table:=false &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=140 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=85 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=hande &
 ```
 
 #### Terminal 3 (bridge)
