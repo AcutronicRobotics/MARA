@@ -3,6 +3,8 @@
 ros::Publisher pub_joint_state_ros1;
 std::vector<rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr> list_pub_trajectory;
 std::vector<rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr> pub_ros2_lista;
+std::string environment;
+std::string motor_key;
 
 void motorStateCallback(const control_msgs::msg::JointTrajectoryControllerState::SharedPtr ros2_msg)
 {
@@ -29,7 +31,7 @@ void motorStateCallback(const control_msgs::msg::JointTrajectoryControllerState:
   for(unsigned int j = 0; j < ros1_joint_state_msg.effort.size(); j++){
     ros1_joint_state_msg.effort[j] = ros2_msg->actual.effort[j];
   }
-  
+
   pub_joint_state_ros1.publish(ros1_joint_state_msg);
 }
 
@@ -65,7 +67,13 @@ int main(int argc, char * argv[])
 
   std::vector<std::string> lista_subscribers;
 
-  for (auto motor : config["motors"]) {
+  environment = argv[3];
+  if (environment == "sim")
+    motor_key = "simulated_motors";
+  else if (environment == "real")
+    motor_key = "real_motors";
+
+  for (auto motor : config[motor_key]) {
     std::string s = motor.as<std::string>();
     lista_subscribers.push_back(s);
   }

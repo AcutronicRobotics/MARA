@@ -208,8 +208,6 @@ catkin_make_isolated --install
 ## Gazebo
 Complimentary information is available in our [documentation's simulation section](https://acutronicrobotics.com/docs/technology/h-ros/api/level1/simulation).
 
-Launch MARA!
-
 ```sh
 source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_gazebo mara.launch.py
@@ -223,17 +221,11 @@ ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
 
 *Available urdfs: `mara_robot_gripper_140`, `mara_robot_gripper_140_no_table`, `mara_robot_gripper_85` and `mara_robot_gripper_hande`*
 
+<br/>
+
 ## RViz
 ### Launching MARA's Simulation
-Complimentary information is available in our [documentation's simulation section](https://acutronicrobotics.com/docs/technology/h-ros/api/level1/visualization).
-
-Skip this step if you are working with the real MARA.
-
-You can choose one of the available launch files. Let's launch MARA with the Robotiq's S140 Gripper for instance:
-
-```bash
-ros2 launch mara_gazebo mara_gripper_140.launch.py
-```
+You need first to [launch MARA in Gazebo](https://github.com/AcutronicRobotics/MARA#gazebo).
 
 ### Visualizing MARA in RViz2
 
@@ -247,6 +239,8 @@ rviz2 -d `ros2 pkg prefix mara_description`/share/mara_description/rviz/visualiz
 
 Alternatively, instead of using the `robot_description` topic, you can load the 3D model manually selecting the URDF file in RViz.
 
+<br/>
+
 ## MoveIt!
 Motion planning, manipulation, 3D perception, kinematics, control and navigation through brigdes.
 
@@ -255,7 +249,6 @@ Plan trajectories in a virtual environment with Gazebo and MoveIt!.
 
 #### Terminal 1 (ROS 2.0)
 
-Launch MARA:
 ```sh
 source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_gazebo mara.launch.py
@@ -289,11 +282,13 @@ roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=
 source ~/catkin_mara_ws/devel_isolated/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
 
-ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/individual_trajectories_bridge/config/motors_actions.yaml
+ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/motors.yaml sim
 ```
 
 ### MoveIt! with MARA - Real Robot
 Plan trajectories in a real environment with MoveIt!.
+
+:warning: You will need to change the names of the real motors in [MARA/hros_cognition_mara_components](https://github.com/AcutronicRobotics/MARA/blob/master/hros_cognition_mara_components/config/motors.yaml#L10-L15) and in [MARA_ROS1/mara_bringup](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml#L10-L15) files to match the MACs of your SoMs.
 
 #### Terminal 1 (ROS 2.0)
 
@@ -316,25 +311,21 @@ ros2 launch mara_bringup mara.launch.py --urdf mara_robot_gripper_140
 
 #### Terminal 2 (ROS)
 
-You will need to change the [motors.yaml](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml) file to match the MACs of your SoMs.
-
 ```sh
 source ~/catkin_mara_ws/devel_isolated/setup.bash
-roslaunch mara_bringup mara_bringup_moveit_actions.launch &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real &
 ```
 
 If you have used a different urdf in the Terminal 1, you will have to launch the corresponding one to match it:
 
 ```sh
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 table:=false &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=85 &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=hande &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=140 table:=false &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=140 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=85 &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=hande &
 ```
 
 #### Terminal 3 (bridge)
-
-You will need to change the [motors_actions.yaml](https://github.com/AcutronicRobotics/MARA/blob/master/individual_trajectories_bridge/config/motors_actions.yaml) file to match the MACs of your SoMs (MACs should be the same in this yaml file and in the [motors.yaml](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml) file of the Terminal 2).
 
 ```sh
 source ~/catkin_mara_ws/devel_isolated/setup.bash
@@ -343,7 +334,7 @@ source ~/ros2_mara_ws/install/setup.bash
 export RMW_IMPLEMENTATION=rmw_opensplice_cpp
 export ROS_DOMAIN_ID=22
 
-ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/individual_trajectories_bridge/config/motors_actions.yaml &
+ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/motors.yaml real &
 ```
 <br/>
 

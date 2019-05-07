@@ -80,6 +80,8 @@ private:
 	control_msgs::msg::JointTrajectoryControllerState msg_actuators_;
 
   std::string file_motors;
+  std::string environment;
+  std::string motor_key;
 
   std::vector<bool> msg_actuators_callback_sync;
 

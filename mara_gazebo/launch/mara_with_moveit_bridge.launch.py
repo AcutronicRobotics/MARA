@@ -36,15 +36,10 @@ def generate_launch_description():
         return None
 
     ld = LaunchDescription([
-        ExecuteProcess(
-            cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_factory.so'], output='screen',
-            env=envs
-        ),
+        ExecuteProcess(cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_factory.so'], output='screen', env=envs),
         Node(package='robot_state_publisher', node_executable='robot_state_publisher', output='screen', arguments=[urdf]),
         Node(package='mara_utils_scripts', node_executable='spawn_entity.py', output='screen'),
-        Node(package='hros_cognition_mara_components', node_executable='hros_cognition_mara_components', output='screen',
-            arguments=["-motors", install_dir + "/share/hros_cognition_mara_components/link_order.yaml"]),
-        Node(package='individual_trajectories_bridge', node_executable='individual_trajectories_bridge', output='screen',
-            arguments=["-motors", install_dir + "/share/individual_trajectories_bridge/motors.yaml"])
+        Node(package='hros_cognition_mara_components', node_executable='hros_cognition_mara_components', output='screen', arguments=["-motors", install_dir + "/share/hros_cognition_mara_components/motors.yaml" "sim"]),
+        Node(package='individual_trajectories_bridge', node_executable='individual_trajectories_bridge', output='screen', arguments=["-motors", install_dir + "/share/hros_cognition_mara_components/motors.yaml" "sim"])
     ])
     return ld
