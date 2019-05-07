@@ -248,19 +248,7 @@ Motion planning, manipulation, 3D perception, kinematics, control and navigation
 Plan trajectories in a virtual environment with Gazebo and MoveIt!.
 
 #### Terminal 1 (ROS 2.0)
-
-```sh
-source ~/ros2_mara_ws/install/setup.bash
-ros2 launch mara_gazebo mara.launch.py
-```
-
-**Optionally**, you can launch the MARA robot with gripper and/or a table using the `--urdf` flag to indicate the desired urdf to be used:
-
-```sh
-ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
-```
-
-*Available urdfs: `mara_robot_gripper_140`, `mara_robot_gripper_140_no_table`, `mara_robot_gripper_85` and `mara_robot_gripper_hande`*
+[Launch MARA in Gazebo](https://github.com/AcutronicRobotics/MARA#gazebo).
 
 #### Terminal 2 (ROS)
 ```sh
@@ -313,16 +301,16 @@ ros2 launch mara_bringup mara.launch.py --urdf mara_robot_gripper_140
 
 ```sh
 source ~/catkin_mara_ws/devel_isolated/setup.bash
-roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real
 ```
 
 If you have used a different urdf in the Terminal 1, you will have to launch the corresponding one to match it:
 
 ```sh
-roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=140 table:=false &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=140 &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=85 &
-roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=hande &
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=140 table:=false
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=140
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=85
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=hande
 ```
 
 #### Terminal 3 (bridge)
@@ -334,7 +322,7 @@ source ~/ros2_mara_ws/install/setup.bash
 export RMW_IMPLEMENTATION=rmw_opensplice_cpp
 export ROS_DOMAIN_ID=22
 
-ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/motors.yaml real &
+ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/motors.yaml real
 ```
 <br/>
 
