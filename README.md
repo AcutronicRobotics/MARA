@@ -236,7 +236,7 @@ source ~/ros2_mara_ws/install/setup.bash
 rviz2 -d `ros2 pkg prefix mara_description`/share/mara_description/rviz/visualization.rviz
 ```
 
-Alternatively, instead of using the `robot_description` topic, you can load the 3D model manually selecting the URDF file in the RobotModel.
+Alternatively, instead of using the `robot_description` topic, you can load the 3D model manually selecting the URDF file in the RobotModel section of RViz.
 
 <br/>
 
