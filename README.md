@@ -225,10 +225,8 @@ ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
 <br/>
 
 ## RViz
-### Launching MARA's Simulation
-You need first to [launch MARA in Gazebo](#gazebo).
 
-### Visualizing MARA in RViz2
+First, you will need to [launch MARA in Gazebo](#gazebo) in another terminal.
 
 3D model visualization via robot_description topic will be supported in the upcoming ROS2 Dashing debian packages ([Rviz2 Issue](https://github.com/ros2/rviz/issues/395)). We recommend to [compile  RViz from sources](https://github.com/ros2/rviz#building-rviz-in-a-separate-workspace) in the meantime.
 
