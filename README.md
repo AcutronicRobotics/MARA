@@ -225,7 +225,7 @@ ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
 
 ## RViz
 ### Launching MARA's Simulation
-You need first to [launch MARA in Gazebo](https://github.com/AcutronicRobotics/MARA#gazebo).
+You need first to [launch MARA in Gazebo](#gazebo).
 
 ### Visualizing MARA in RViz2
 
