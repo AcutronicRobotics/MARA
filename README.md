@@ -207,7 +207,7 @@ catkin_make_isolated --install
 <br/>
 
 ## Gazebo
-Complimentary information is available in our [documentation's simulation section](https://acutronicrobotics.com/docs/technology/h-ros/api/level1/simulation).
+Complementary information is available in our [documentation's simulation section](https://acutronicrobotics.com/docs/technology/h-ros/api/level1/simulation).
 
 ```sh
 source ~/ros2_mara_ws/install/setup.bash
