@@ -11,7 +11,7 @@ FollowJointTrajectoryAction::FollowJointTrajectoryAction(std::string name, ros::
   sub_action_cancel_ = nh.subscribe( action_name_ + std::string("/cancel"), 1, &FollowJointTrajectoryAction::actionCancelCallback, this);
 }
 
-void FollowJointTrajectoryAction::actionCancelCallback(const actionlib_msgs::GoalID::ConstPtr& msg)
+void FollowJointTrajectoryAction::actionCancelCallback(const actionlib_msgs::GoalID::ConstPtr&)
 {
 
   auto cancel_result_future = action_client->async_cancel_goal(goal_handle);
