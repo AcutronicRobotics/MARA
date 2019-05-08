@@ -183,6 +183,7 @@ ROS and MoveIt! are required if you want to use `ìndividual_trajectories_bridge
     ros-melodic-moveit \
     ros-melodic-moveit-ros-move-group \
     ros-melodic-moveit-visual-tools
+    ros-melodic-moveit-simple-controller-manager
     ```
  #### ROS - ROS 2.0 Bridge
 Compile the trajectory bridge located in the workspace using ROS as source.
