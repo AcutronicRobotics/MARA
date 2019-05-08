@@ -249,7 +249,7 @@ Motion planning, manipulation, 3D perception, kinematics, control and navigation
 Plan trajectories in a virtual environment with Gazebo and MoveIt!.
 
 #### Terminal 1 (ROS 2.0)
-[Launch MARA in Gazebo](https://github.com/AcutronicRobotics/MARA#gazebo).
+[Launch MARA in Gazebo](#gazebo).
 
 #### Terminal 2 (ROS)
 ```sh
