@@ -59,9 +59,9 @@ Among other things, you will find in this repository instructions on how to simu
     * [Terminal 2 (ROS):](#terminal-2-ros)
     * [Terminal 3 (bridge):](#terminal-3-bridge)
   * [MoveIt! with MARA - Real](#moveit-with-mara---real-robot)
-    * [Terminal 1 (ROS 2.0):](#terminal-1-ros-20)
-    * [Terminal 2 (ROS):](#terminal-2-ros)
-    * [Terminal 3 (bridge):](#terminal-3-bridge)
+    * [Terminal 1 (ROS 2.0):](#terminal-1-ros-20-1)
+    * [Terminal 2 (ROS):](#terminal-2-ros-1)
+    * [Terminal 3 (bridge):](#terminal-3-bridge-1)
 * [Examples](#examples)
 * [Help](#help)
 
@@ -225,10 +225,8 @@ ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
 <br/>
 
 ## RViz
-### Launching MARA's Simulation
-You need first to [launch MARA in Gazebo](#gazebo).
 
-### Visualizing MARA in RViz2
+First, you will need to [launch MARA in Gazebo](#gazebo) in another terminal.
 
 3D model visualization via robot_description topic will be supported in the upcoming ROS2 Dashing debian packages ([Rviz2 Issue](https://github.com/ros2/rviz/issues/395)). We recommend to [compile  RViz from sources](https://github.com/ros2/rviz#building-rviz-in-a-separate-workspace) in the meantime.
 
@@ -238,7 +236,7 @@ source ~/ros2_mara_ws/install/setup.bash
 rviz2 -d `ros2 pkg prefix mara_description`/share/mara_description/rviz/visualization.rviz
 ```
 
-Alternatively, instead of using the `robot_description` topic, you can load the 3D model manually selecting the URDF file in RViz.
+Alternatively, instead of using the `robot_description` topic, you can load the 3D model manually selecting the URDF file in the RobotModel section of RViz.
 
 <br/>
 
