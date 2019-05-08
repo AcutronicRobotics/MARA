@@ -1,4 +1,4 @@
-#include "hros_cognition_mara_components/HROSCognitionMaraComponents.hpp"
+#include "HROSCognitionMaraComponents.hpp"
 
 void HROSCognitionMaraComponentsNode::stateCallback(std::string motor_name, float velocity, float position, float effort)
 {

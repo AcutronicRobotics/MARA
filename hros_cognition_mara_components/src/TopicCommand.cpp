@@ -1,4 +1,4 @@
-#include "hros_cognition_mara_components/HROSCognitionMaraComponents.hpp"
+#include "HROSCognitionMaraComponents.hpp"
 
 void HROSCognitionMaraComponentsNode::commandCallback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg)
 {

@@ -1,4 +1,4 @@
-#include "hros_cognition_mara_components/HROSCognitionMaraComponents.hpp"
+#include "HROSCognitionMaraComponents.hpp"
 
 #include <rttest/rttest.h>
 #include <unistd.h>
