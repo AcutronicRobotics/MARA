@@ -17,7 +17,8 @@ RUN \
       # setup sources.list
       && echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list \
       && echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list \
-      && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 \
+      && counter=1 \
+      && while [ ! "$(apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116)" ]; do /bin/sleep 2; if [ $counter -eq 3 ]; then break;else counter=$((counter+1)); fi done \
       && apt-get update -qq && apt-get install -qq -y \
         build-essential \
         cmake \
