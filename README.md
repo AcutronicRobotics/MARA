@@ -59,9 +59,9 @@ Among other things, you will find in this repository instructions on how to simu
     * [Terminal 2 (ROS):](#terminal-2-ros)
     * [Terminal 3 (bridge):](#terminal-3-bridge)
   * [MoveIt! with MARA - Real](#moveit-with-mara---real-robot)
-    * [Terminal 1 (ROS 2.0):](#terminal-1-ros-20)
-    * [Terminal 2 (ROS):](#terminal-2-ros)
-    * [Terminal 3 (bridge):](#terminal-3-bridge)
+    * [Terminal 1 (ROS 2.0):](#terminal-1-ros-20-1)
+    * [Terminal 2 (ROS):](#terminal-2-ros-1)
+    * [Terminal 3 (bridge):](#terminal-3-bridge-1)
 * [Examples](#examples)
 * [Help](#help)
 
@@ -236,7 +236,7 @@ source ~/ros2_mara_ws/install/setup.bash
 rviz2 -d `ros2 pkg prefix mara_description`/share/mara_description/rviz/visualization.rviz
 ```
 
-Alternatively, instead of using the `robot_description` topic, you can load the 3D model manually selecting the URDF file in RViz.
+Alternatively, instead of using the `robot_description` topic, you can load the 3D model manually selecting the URDF file in the RobotModel.
 
 <br/>
 
