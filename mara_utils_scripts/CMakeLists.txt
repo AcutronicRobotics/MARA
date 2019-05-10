@@ -14,8 +14,7 @@ find_package(ament_cmake REQUIRED)
 
 install(
   PROGRAMS
-  scripts/gripper_interface.py
-  scripts/mara_joint_control.py
+  scripts/mara_control.py
   scripts/spawn_mara.py
   DESTINATION lib/${PROJECT_NAME}
 )
