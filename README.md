@@ -136,7 +136,7 @@ ros-crystal-gazebo-ros \
 ros-crystal-gazebo-ros-pkgs
 
 sudo apt install -y \
-python3-vcstool python3-numpy wget
+python3-vcstool python3-numpy wget python3-pyqt5
 ```
 
 ### Create a ROS 2.0 workspace
