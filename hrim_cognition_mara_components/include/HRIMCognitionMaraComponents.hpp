@@ -1,5 +1,5 @@
-#ifndef HROSCOGNITIONSCARACOMPONETSNODE_H
-#define HROSCOGNITIONSCARACOMPONETSNODE_H
+#ifndef HRIMCOGNITIONSCARACOMPONETSNODE_H
+#define HRIMCOGNITIONSCARACOMPONETSNODE_H
 
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp/publisher.hpp"
@@ -18,7 +18,7 @@ using namespace std::placeholders;
 #include <yaml-cpp/yaml.h>
 
 
-class HROSCognitionMaraComponentsNode : public rclcpp::Node
+class HRIMCognitionMaraComponentsNode : public rclcpp::Node
 {
   public:
   /// LifecycleTalker constructor
@@ -26,7 +26,7 @@ class HROSCognitionMaraComponentsNode : public rclcpp::Node
    * The lifecycletalker/lifecyclenode constructor has the same
    * arguments a regular node.
    */
-  explicit HROSCognitionMaraComponentsNode(const std::string & node_name,
+  explicit HRIMCognitionMaraComponentsNode(const std::string & node_name,
                       int argc, char **argv, bool intra_process_comms = false);
 
   /// Callback for walltimer in order to publish the message.
@@ -87,4 +87,4 @@ private:
 
 };
 
-#endif // HROSCOGNITIONSCARACOMPONETSNODE_H
+#endif // HRIMCOGNITIONSCARACOMPONETSNODE_H

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="2">
-  <name>hros_cognition_mara_components</name>
+  <name>hrim_cognition_mara_components</name>
   <version>0.0.2</version>
   <description>
-    hros_cognition_mara_components
+    hrim_cognition_mara_components
   </description>
   <maintainer email="risto@erlerobotics.com">Risto Kojcev</maintainer>
   <maintainer email="alex@erlerobotics.com">Alejandro Hernández</maintainer>

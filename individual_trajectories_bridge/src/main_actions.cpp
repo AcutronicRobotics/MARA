@@ -52,8 +52,8 @@ int main(int argc, char * argv[])
   ros::NodeHandle ros1_node;
 
   std::string file_motors;
-  if (rcutils_cli_option_exist(argv, argv + argc, "-motors")){
-    file_motors = std::string(rcutils_cli_get_option(argv, argv + argc, "-motors"));
+  if (rcutils_cli_option_exist(argv, argv + argc, "-mara")){
+    file_motors = std::string(rcutils_cli_get_option(argv, argv + argc, "-mara"));
   }
 
   std::cout << "Trying to open  " << file_motors << std::endl;

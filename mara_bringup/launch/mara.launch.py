@@ -35,6 +35,6 @@ def generate_launch_description():
 
     ld = LaunchDescription([
         Node(package='robot_state_publisher', node_executable='robot_state_publisher', output='screen', arguments=[urdf]),
-        Node(package='hros_cognition_mara_components', node_executable='hros_cognition_mara_components', output='screen', arguments=["-motors", install_dir + "/share/hros_cognition_mara_components/motors.yaml", "real"])
+        Node(package='hrim_cognition_mara_components', node_executable='hrim_cognition_mara_components', output='screen', arguments=["-mara", install_dir + "/share/hrim_cognition_mara_components/mara.yaml", "real"])
     ])
     return ld

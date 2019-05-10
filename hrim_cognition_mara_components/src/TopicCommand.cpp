@@ -1,6 +1,6 @@
-#include "HROSCognitionMaraComponents.hpp"
+#include "HRIMCognitionMaraComponents.hpp"
 
-void HROSCognitionMaraComponentsNode::commandCallback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg)
+void HRIMCognitionMaraComponentsNode::commandCallback(const trajectory_msgs::msg::JointTrajectory::SharedPtr msg)
 {
   pthread_mutex_lock( &mutex_command );
   cmd_to_send.clear();
@@ -12,7 +12,7 @@ void HROSCognitionMaraComponentsNode::commandCallback(const trajectory_msgs::msg
       cmd_msg1.velocity = abs(msg->points[0].velocities[i]);
     }else{
       cmd_msg1.velocity = 0.0;
-      RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::commandCallback() you are not defining the velocities!!.");
+      RCUTILS_LOG_INFO_NAMED(get_name(), "HRIMCognitionMaraComponentsNode::commandCallback() you are not defining the velocities!!.");
     }
     cmd_msg1.effort = 0;
     cmd_msg1.control_type = hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::CONTROL_TYPE_POSITION_VELOCITY;
@@ -30,7 +30,7 @@ void HROSCognitionMaraComponentsNode::commandCallback(const trajectory_msgs::msg
   pthread_mutex_unlock( &mutex_command );
 }
 
-void HROSCognitionMaraComponentsNode::timer_commandPublisher()
+void HRIMCognitionMaraComponentsNode::timer_commandPublisher()
 {
   msg_actuators_.error.positions.clear();
   if(cmd_to_send.size()>0){

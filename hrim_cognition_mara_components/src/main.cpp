@@ -1,4 +1,4 @@
-#include "HROSCognitionMaraComponents.hpp"
+#include "HRIMCognitionMaraComponents.hpp"
 
 #include <rttest/rttest.h>
 #include <unistd.h>
@@ -20,7 +20,7 @@ int main(int argc, char * argv[])
     return -2;
   }
 
-  std::string node_name = "hros_cognition_" + std::string(hostname);
+  std::string node_name = "hrim_cognition_" + std::string(hostname);
   std::replace(node_name.begin(), node_name.end(), '-', '_');
 
   std::cout << "node_name " << node_name << std::endl;
@@ -29,8 +29,8 @@ int main(int argc, char * argv[])
 
   rclcpp::executors::MultiThreadedExecutor exe;
 
-  std::shared_ptr<HROSCognitionMaraComponentsNode> lc_node =
-     std::make_shared<HROSCognitionMaraComponentsNode>(node_name, argc, argv);
+  std::shared_ptr<HRIMCognitionMaraComponentsNode> lc_node =
+     std::make_shared<HRIMCognitionMaraComponentsNode>(node_name, argc, argv);
 
   exe.add_node(lc_node->get_node_base_interface());
 

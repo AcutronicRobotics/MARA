@@ -1,6 +1,6 @@
-#include "HROSCognitionMaraComponents.hpp"
+#include "HRIMCognitionMaraComponents.hpp"
 
-HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::string & node_name,
+HRIMCognitionMaraComponentsNode::HRIMCognitionMaraComponentsNode(const std::string & node_name,
                    int argc, char **argv, bool intra_process_comms )
 : rclcpp::Node(node_name, "", intra_process_comms)
 {
@@ -15,11 +15,11 @@ HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::stri
 
   trajectory_sub_ = create_subscription<trajectory_msgs::msg::JointTrajectory>(
          "/mara_controller/command",
-         std::bind(&HROSCognitionMaraComponentsNode::commandCallback, this, _1),
+         std::bind(&HRIMCognitionMaraComponentsNode::commandCallback, this, _1),
          rmw_qos_profile_sensor_data);
 
-  if (rcutils_cli_option_exist(argv, argv + argc, "-motors")){
-    file_motors = std::string(rcutils_cli_get_option(argv, argv + argc, "-motors"));
+  if (rcutils_cli_option_exist(argv, argv + argc, "-mara")){
+    file_motors = std::string(rcutils_cli_get_option(argv, argv + argc, "-mara"));
   }
 
   pthread_mutex_init(&mtx, NULL);
@@ -27,7 +27,7 @@ HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::stri
 
   nan = std::numeric_limits<float>::quiet_NaN();
 
-  RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::on_configure() is called.");
+  RCUTILS_LOG_INFO_NAMED(get_name(), "HRIMCognitionMaraComponentsNode::on_configure() is called.");
 
 	std::vector<std::string> node_names;
 
@@ -107,5 +107,5 @@ HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::stri
     msg_actuators_callback_sync[i] =  false;
   }
 
-  RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::on_configure() is finished.");
+  RCUTILS_LOG_INFO_NAMED(get_name(), "HRIMCognitionMaraComponentsNode::on_configure() is finished.");
 }

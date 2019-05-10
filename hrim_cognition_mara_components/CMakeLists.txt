@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(hros_cognition_mara_components)
+project(hrim_cognition_mara_components)
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
@@ -26,7 +26,7 @@ include_directories(include
 # Declare a C++ executable
 set(${PROJECT_NAME}_SOURCES
   src/main.cpp
-  src/HROSCognitionMaraComponents.cpp
+  src/HRIMCognitionMaraComponents.cpp
   src/TopicCommand.cpp
   src/TopicState.cpp
 )
@@ -61,7 +61,7 @@ install(  TARGETS
 
 install(
   PROGRAMS
-  config/motors.yaml
+  config/mara.yaml
   DESTINATION share/${PROJECT_NAME}
 )
 

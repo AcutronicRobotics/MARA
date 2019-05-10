@@ -95,7 +95,7 @@ Among other things, you will find in this repository instructions on how to simu
 
 In this section we will install all the necessary dependencies in order to be able to launch MARA.
 
-- `hros_cognition_mara_components`: Transformations between JointTrajectory messages and module specific HRIM messages.
+- `hrim_cognition_mara_components`: Transformations between JointTrajectory messages and module specific HRIM messages.
 - `individual_trajectories_bridge`: Bridge to connect ROS and ROS 2.0.
 - `mara_bringup`: roslaunch scripts for starting the MARA.
 - `mara_contact_publisher`: ROS 2.0 publisher to know if a collision takes place.
@@ -269,13 +269,13 @@ roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=
 source ~/catkin_mara_ws/devel_isolated/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
 
-ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/motors.yaml sim
+ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -mara ~/ros2_mara_ws/src/mara/hrim_cognition_mara_components/config/mara.yaml sim
 ```
 
 ### MoveIt! with MARA - Real Robot
 Plan trajectories in a real environment with MoveIt!.
 
-:warning: You will need to change the names of the real motors in [MARA/hros_cognition_mara_components](https://github.com/AcutronicRobotics/MARA/blob/master/hros_cognition_mara_components/config/motors.yaml#L10-L15) and in [MARA_ROS1/mara_bringup](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml#L10-L15) files to match the MACs of your SoMs.
+:warning: You will need to change the names of the real motors in [MARA/hrim_cognition_mara_components](https://github.com/AcutronicRobotics/MARA/blob/master/hrim_cognition_mara_components/config/mara.yaml#L10-L15) and in [MARA_ROS1/mara_bringup](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/mara.yaml#L10-L15) files to match the MACs of your SoMs.
 
 #### Terminal 1 (ROS 2.0)
 
@@ -321,7 +321,7 @@ source ~/ros2_mara_ws/install/setup.bash
 export RMW_IMPLEMENTATION=rmw_opensplice_cpp
 export ROS_DOMAIN_ID=22
 
-ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/motors.yaml real
+ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -mara ~/ros2_mara_ws/src/mara/hrim_cognition_mara_components/config/mara.yaml real
 ```
 <br/>
 

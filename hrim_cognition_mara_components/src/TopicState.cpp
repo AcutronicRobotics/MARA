@@ -1,6 +1,6 @@
-#include "HROSCognitionMaraComponents.hpp"
+#include "HRIMCognitionMaraComponents.hpp"
 
-void HROSCognitionMaraComponentsNode::stateCallback(std::string motor_name, float velocity, float position, float effort)
+void HRIMCognitionMaraComponentsNode::stateCallback(std::string motor_name, float velocity, float position, float effort)
 {
   pthread_mutex_lock( &mtx );
 
@@ -24,7 +24,7 @@ void HROSCognitionMaraComponentsNode::stateCallback(std::string motor_name, floa
   pthread_mutex_unlock( &mtx );
 }
 
-void HROSCognitionMaraComponentsNode::timer_stateCommonPublisher()
+void HRIMCognitionMaraComponentsNode::timer_stateCommonPublisher()
 {
   control_msgs::msg::JointTrajectoryControllerState msg_actuators;
 

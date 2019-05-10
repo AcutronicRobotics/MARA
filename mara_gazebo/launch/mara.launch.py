@@ -48,6 +48,6 @@ def generate_launch_description():
         ),
         Node(package='robot_state_publisher', node_executable='robot_state_publisher', output='screen', arguments=[urdf]),
         Node(package='mara_utils_scripts', node_executable='spawn_mara.py', arguments=[urdf], output='screen'),
-        Node(package='hros_cognition_mara_components', node_executable='hros_cognition_mara_components', output='screen', arguments=["-motors", install_dir + "/share/hros_cognition_mara_components/motors.yaml", "sim"])
+        Node(package='hrim_cognition_mara_components', node_executable='hrim_cognition_mara_components', output='screen', arguments=["-mara", install_dir + "/share/hrim_cognition_mara_components/mara.yaml", "sim"])
     ])
     return ld
