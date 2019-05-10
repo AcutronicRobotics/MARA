@@ -447,19 +447,19 @@
       <joint_name>motor6</joint_name>
       <joint_name>joint_finger</joint_name>
     </plugin>
-    <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuation_servomotor_000000000001">
+    <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuator_rotaryservo_000000000001">
       <ros/>
       <axis1>motor2</axis1>
       <axis2>motor1</axis2>
       <type>series14</type>
     </plugin>
-    <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuation_servomotor_000000000002">
+    <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuator_rotaryservo_000000000002">
       <ros/>
       <axis1>motor3</axis1>
       <axis2>motor4</axis2>
       <type>series17</type>
     </plugin>
-    <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuation_servomotor_000000000003">
+    <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuator_rotaryservo_000000000003">
       <ros/>
       <axis1>motor5</axis1>
       <axis2>motor6</axis2>
@@ -817,7 +817,7 @@
         </limit>
       </axis>
     </joint>
-    <plugin filename="librobotiq_gripper_gazebo_plugin.so" name="hrim_actuation_gripper_000000000004">
+    <plugin filename="librobotiq_gripper_gazebo_plugin.so" name="hrim_actuator_gripper_000000000004">
       <joint>left_inner_knuckle_joint</joint>
       <joint>left_outer_knuckle_joint</joint>
       <joint>right_inner_knuckle_joint</joint>

@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:macro name="mara_gazebo_train" params="prefix">
     <gazebo>
-      <plugin filename="libmara_gazebo_joint_training_plugin.so" name="hrim_actuation_servomotor_00000000000">
+      <plugin filename="libmara_gazebo_joint_training_plugin.so" name="hrim_actuator_rotaryservo_00000000000">
         <ros/>
         <axis1>motor2</axis1>
         <axis2>motor1</axis2>

@@ -409,7 +409,7 @@
     </actuator>
   </transmission>
   <gazebo>
-    <plugin filename="libmara_gazebo_joint_training_plugin.so" name="hrim_actuation_servomotor_00000000000">
+    <plugin filename="libmara_gazebo_joint_training_plugin.so" name="hrim_actuator_rotaryservo_00000000000">
       <ros/>
       <axis1>motor2</axis1>
       <axis2>motor1</axis2>
@@ -758,7 +758,7 @@
         </limit>
       </axis>
     </joint>
-    <plugin filename="librobotiq_gripper_gazebo_plugin.so" name="hrim_actuation_gripper_000000000004">
+    <plugin filename="librobotiq_gripper_gazebo_plugin.so" name="hrim_actuator_gripper_000000000004">
       <joint>left_inner_knuckle_joint</joint>
       <joint>left_outer_knuckle_joint</joint>
       <joint>right_inner_knuckle_joint</joint>
