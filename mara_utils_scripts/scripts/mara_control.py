@@ -1,12 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-#TODO
-"""
-For loop WIP
-The rest of the script will works once the naming is fixed
-"""
-
 import os
 import sys
 import time
@@ -16,23 +10,10 @@ import argparse
 
 from hrim_actuator_gripper_srvs.srv import ControlFinger
 from hrim_actuator_rotaryservo_msgs.msg import GoalRotaryServo
-from rclpy.qos import qos_profile_default, qos_profile_sensor_data
+from rclpy.qos import qos_profile_sensor_data
 from ament_index_python.packages import get_package_share_directory
-from PyQt5.QtCore import Qt, QThread
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QSlider, QGridLayout, QPushButton, QLabel, QApplication
-
-class Thread(QThread):
-
-    def __init__(self, example):
-
-        QThread.__init__(self)
-        self.example = example
-
-    def __del__(self):
-        self.wait()
-
-    def run(self):
-        self.example.buttonStopLoop.clicked.connect(self.example.stopLoop)
 
 class Example(QWidget):
 
@@ -58,8 +39,6 @@ class Example(QWidget):
         self.msg = GoalRotaryServo()
         self.msg.velocity = 0.1
         self.msg.control_type = 4
-
-        self.loop = False
 
         grid = QGridLayout()
         self.setLayout(grid)
@@ -189,16 +168,10 @@ class Example(QWidget):
         self.buttonA.clicked.connect(self.goA)
         self.buttonB = QPushButton('Go B', self)
         self.buttonB.clicked.connect(self.goB)
-        self.buttonLoop = QPushButton('LOOP', self)
-        self.buttonLoop.clicked.connect(self.startLoop)
-        self.buttonStopLoop = QPushButton('STOP LOOP', self)
-        # self.buttonStopLoop.clicked.connect(self.stopLoop)
 
         grid.addWidget(self.buttonHome, 7, 0)
         grid.addWidget(self.buttonA, 8, 0)
         grid.addWidget(self.buttonB, 8, 1)
-        grid.addWidget(self.buttonLoop, 9, 0)
-        grid.addWidget(self.buttonStopLoop, 9, 1)
 
         self.setWindowTitle("MARA")
         self.show()
@@ -263,30 +236,6 @@ class Example(QWidget):
         self.sldJoint4.setValue(-63)
         self.sldJoint5.setValue(21)
         self.sldJoint6.setValue(-36)
-
-    def startLoop(self):
-        self.loop = True
-
-        thread = Thread(self)
-        thread.start()
-
-        while self.loop:
-            self.sldJoint1.setValue(40)
-            self.sldJoint2.setValue(40)
-            self.sldJoint3.setValue(40)
-            self.sldJoint4.setValue(40)
-            self.sldJoint5.setValue(40)
-            self.sldJoint6.setValue(40)
-
-            self.sldJoint1.setValue(-40)
-            self.sldJoint2.setValue(-40)
-            self.sldJoint3.setValue(-40)
-            self.sldJoint4.setValue(-40)
-            self.sldJoint5.setValue(-40)
-            self.sldJoint6.setValue(-40)
-
-    def stopLoop(self):
-        self.loop = False
 
     def changePositionGripper(self, value):
         if self.gripper == 'hande':
