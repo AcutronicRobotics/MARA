@@ -1,4 +1,4 @@
-#include "hros_cognition_mara_components/HROSCognitionMaraComponents.hpp"
+#include "HROSCognitionMaraComponents.hpp"
 
 HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::string & node_name,
                    int argc, char **argv, bool intra_process_comms )
