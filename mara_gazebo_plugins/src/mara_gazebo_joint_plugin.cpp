@@ -41,7 +41,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
     const std::array<uint8_t, 16> & uuid,
     std::shared_ptr<const hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Goal>)
   {
-    RCUTILS_LOG_ERROR_NAMED("hros_actuation_servomotor_hans_lifecycle", "Got goal axis1 request");
+    RCUTILS_LOG_INFO_NAMED("hros_actuation_servomotor_hans_lifecycle", "Got goal axis1 request");
     (void)uuid;
     if(goal_handle_axis1_!=NULL){
       if(goal_handle_axis1_->is_active()){
@@ -61,7 +61,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
     const std::array<uint8_t, 16> & uuid,
     std::shared_ptr<const hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Goal>)
   {
-    RCUTILS_LOG_ERROR_NAMED("hros_actuation_servomotor_hans_lifecycle", "Got goal axis2 request");
+    RCUTILS_LOG_INFO_NAMED("hros_actuation_servomotor_hans_lifecycle", "Got goal axis2 request");
     (void)uuid;
     if(goal_handle_axis2_!=NULL){
       if(goal_handle_axis2_->is_active()){
@@ -339,7 +339,7 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
 
   impl_->state_comm_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::StateCommunication>(topic_name_state_comm,
                 rmw_qos_profile_default);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_state_comm.c_str());
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_state_comm.c_str());
 
 
   printf("Creating action %s\n", std::string(node_name + "/trajectory_axis1").c_str());
