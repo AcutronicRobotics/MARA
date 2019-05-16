@@ -14,24 +14,22 @@ MARAGazeboPluginRos::~MARAGazeboPluginRos()
 
 void MARAGazeboPluginRosPrivate::handle_trajectory_axis1_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
 {
-  printf("is active %d\n", goal_handle->is_active());
-  printf("is executing %d\n", goal_handle->is_executing());
+  printf("Server handle is %sactive and %sexecuting\n", goal_handle->is_active()?"":"not", goal_handle->is_executing()?"":"not ");
 
   goal_handle_axis1_ = goal_handle;
 
-  printf("handle_trajectory_accepted\n");
+  printf("Trajectory has been accepted!\n");
   // this needs to return quickly to avoid blocking the executor, so spin up a new thread
   std::thread(&MARAGazeboPluginRosPrivate::execute_trajectory_axis1, this, goal_handle).detach();
 }
 
 void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
 {
-  printf("is active %d\n", goal_handle->is_active());
-  printf("is executing %d\n", goal_handle->is_executing());
+  printf("Server handle is %sactive and %sexecuting\n", goal_handle->is_active()?"":"not", goal_handle->is_executing()?"":"not ");
 
-  printf("handle_trajectory_accepted\n");
+  goal_handle_axis1_ = goal_handle;
 
-  goal_handle_axis2_ = goal_handle;
+  printf("Trajectory has been accepted!\n");
 
   // this needs to return quickly to avoid blocking the executor, so spin up a new thread
   std::thread(&MARAGazeboPluginRosPrivate::execute_trajectory_axis2, this, goal_handle).detach();
@@ -98,7 +96,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
   void MARAGazeboPluginRosPrivate::execute_trajectory_axis1(
     const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
   {
-    printf("trajectory_execute\n");
+    printf("Executing trajectory...\n");
     const auto goal = goal_handle->get_goal();
 
     if( goal->trajectory.points.size() == 0){
@@ -172,7 +170,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
   void MARAGazeboPluginRosPrivate::execute_trajectory_axis2(
     const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
   {
-    printf("trajectory_execute\n");
+    printf("Executing trajectory...\n");
     const auto goal = goal_handle->get_goal();
 
     if( goal->trajectory.points.size() == 0){
