@@ -14,24 +14,22 @@ MARAGazeboPluginRos::~MARAGazeboPluginRos()
 
 void MARAGazeboPluginRosPrivate::handle_trajectory_axis1_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
 {
-  printf("is active %d\n", goal_handle->is_active());
-  printf("is executing %d\n", goal_handle->is_executing());
+  printf("Server handle is %sactive and %sexecuting\n", goal_handle->is_active()?"":"not", goal_handle->is_executing()?"":"not ");
 
   goal_handle_axis1_ = goal_handle;
 
-  printf("handle_trajectory_accepted\n");
+  printf("Trajectory has been accepted!\n");
   // this needs to return quickly to avoid blocking the executor, so spin up a new thread
   std::thread(&MARAGazeboPluginRosPrivate::execute_trajectory_axis1, this, goal_handle).detach();
 }
 
 void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
 {
-  printf("is active %d\n", goal_handle->is_active());
-  printf("is executing %d\n", goal_handle->is_executing());
+  printf("Server handle is %sactive and %sexecuting\n", goal_handle->is_active()?"":"not", goal_handle->is_executing()?"":"not ");
 
-  printf("handle_trajectory_accepted\n");
+  goal_handle_axis1_ = goal_handle;
 
-  goal_handle_axis2_ = goal_handle;
+  printf("Trajectory has been accepted!\n");
 
   // this needs to return quickly to avoid blocking the executor, so spin up a new thread
   std::thread(&MARAGazeboPluginRosPrivate::execute_trajectory_axis2, this, goal_handle).detach();
@@ -41,7 +39,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
     const std::array<uint8_t, 16> & uuid,
     std::shared_ptr<const hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Goal>)
   {
-    RCUTILS_LOG_ERROR_NAMED("hros_actuation_servomotor_hans_lifecycle", "Got goal axis1 request");
+    RCUTILS_LOG_INFO_NAMED("hros_actuation_servomotor_hans_lifecycle", "Got goal axis1 request");
     (void)uuid;
     if(goal_handle_axis1_!=NULL){
       if(goal_handle_axis1_->is_active()){
@@ -61,7 +59,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
     const std::array<uint8_t, 16> & uuid,
     std::shared_ptr<const hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Goal>)
   {
-    RCUTILS_LOG_ERROR_NAMED("hros_actuation_servomotor_hans_lifecycle", "Got goal axis2 request");
+    RCUTILS_LOG_INFO_NAMED("hros_actuation_servomotor_hans_lifecycle", "Got goal axis2 request");
     (void)uuid;
     if(goal_handle_axis2_!=NULL){
       if(goal_handle_axis2_->is_active()){
@@ -98,7 +96,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
   void MARAGazeboPluginRosPrivate::execute_trajectory_axis1(
     const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
   {
-    printf("trajectory_execute\n");
+    printf("Executing trajectory...\n");
     const auto goal = goal_handle->get_goal();
 
     if( goal->trajectory.points.size() == 0){
@@ -172,7 +170,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
   void MARAGazeboPluginRosPrivate::execute_trajectory_axis2(
     const std::shared_ptr<rclcpp_action::ServerGoalHandle<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory>> goal_handle)
   {
-    printf("trajectory_execute\n");
+    printf("Executing trajectory...\n");
     const auto goal = goal_handle->get_goal();
 
     if( goal->trajectory.points.size() == 0){
@@ -339,7 +337,7 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
 
   impl_->state_comm_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::StateCommunication>(topic_name_state_comm,
                 rmw_qos_profile_default);
-  RCLCPP_ERROR(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_state_comm.c_str());
+  RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_state_comm.c_str());
 
 
   printf("Creating action %s\n", std::string(node_name + "/trajectory_axis1").c_str());
