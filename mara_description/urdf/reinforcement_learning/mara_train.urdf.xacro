@@ -322,7 +322,7 @@
     </joint>
 
     <joint name="${prefix}ee_link" type="fixed">
-      <origin rpy="0 0 0" xyz="0 0.0 ${ee_link_distance}"/> <!-- 0.24 -->
+      <origin rpy="0 0 0" xyz="0 0.0 ${ee_link_distance}"/>
       <parent link="${prefix}motor6_link"/>
       <child link="${prefix}ee_link"/>
     </joint>

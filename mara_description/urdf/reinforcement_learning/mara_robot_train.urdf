@@ -303,7 +303,6 @@
   </joint>
   <joint name="ee_link" type="fixed">
     <origin rpy="0 0 0" xyz="0 0.0 0.0"/>
-    <!-- 0.24 -->
     <parent link="motor6_link"/>
     <child link="ee_link"/>
   </joint>
