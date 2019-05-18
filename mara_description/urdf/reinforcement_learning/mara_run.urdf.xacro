@@ -327,13 +327,6 @@
       <child link="${prefix}ee_link"/>
     </joint>
 
-    <link name="${prefix}tool0"/>
-    <joint name="${prefix}${prefix}motor6_link-tool0_fixed_joint" type="fixed">
-      <origin rpy="0 0 0" xyz="0 0.0 ${ee_link_distance}"/>
-      <parent link="${prefix}${prefix}motor6_link"/>
-      <child link="${prefix}tool0"/>
-    </joint>
-
     <xacro:mara_transmission prefix="${prefix}"/>
     <xacro:mara_gazebo_run prefix="${prefix}"/>
 

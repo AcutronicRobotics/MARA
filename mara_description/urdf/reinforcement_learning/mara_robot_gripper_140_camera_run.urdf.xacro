@@ -13,7 +13,7 @@
 
   <!-- arm -->
   <xacro:mara_robot_run prefix="" ee_link_distance="0.2"/>
-  <xacro:mara_camera_gripper_support prefix="" />
+  <xacro:camera_gripper_support prefix="" />
   <xacro:rs_d435_camera prefix="" />
   <xacro:robotiq_gripper prefix="mara" />
 
@@ -88,21 +88,21 @@
     <dynamics damping="0" friction="0"/>
   </joint>
 
-  <joint name="motor6_to_mara_camera_gripper_support" type="fixed">
+  <joint name="motor6_to_camera_gripper_support" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="motor6_link"/>
-    <child link="mara_gripper_adapter"/>
+    <child link="gripper_adapter"/>
   </joint>
 
   <joint name="camera_support2_to_camera" type="fixed">
     <origin rpy="0 0 0" xyz="0 0.018 0.012"/>
-    <parent link="mara_camera_support2_link"/>
+    <parent link="camera_support2_link"/>
     <child link="camera_link"/>
   </joint>
 
-  <joint name="mara_camera_gripper_support_to_robotiq_adapter" type="fixed">
+  <joint name="camera_gripper_support_to_robotiq_adapter" type="fixed">
     <origin rpy="0 0 1.57" xyz=" 0 0 0"/>
-    <parent link="mara_gripper_adapter"/>
+    <parent link="gripper_adapter"/>
     <child link="robotiq_adapter_link"/>
   </joint>
 

@@ -306,12 +306,6 @@
     <parent link="motor6_link"/>
     <child link="ee_link"/>
   </joint>
-  <link name="tool0"/>
-  <joint name="motor6_link-tool0_fixed_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.0 0.0"/>
-    <parent link="motor6_link"/>
-    <child link="tool0"/>
-  </joint>
   <transmission name="shoulder_pan_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="motor1">
