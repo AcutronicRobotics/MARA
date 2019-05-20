@@ -302,7 +302,7 @@
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="ee_link" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.0 0.2"/>
+    <origin rpy="0 0 0" xyz="0 0.0 0.24"/>
     <parent link="motor6_link"/>
     <child link="ee_link"/>
   </joint>
@@ -380,7 +380,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/ROBOTIQ_Gripper_Adapter.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/gripper_adapter.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Wood">
         <color rgba="0. 0. 0. 1"/>
@@ -389,7 +389,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/ROBOTIQ_Gripper_Adapter.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/gripper_adapter.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -450,12 +450,12 @@
     <selfCollide>True</selfCollide>
   </gazebo>
   <joint name="gripper_adapter_to_camera_support1" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.03956 -0.0213"/>
+    <origin rpy="0 0 0" xyz="0 0.03956 -0.00213"/>
     <parent link="gripper_adapter"/>
     <child link="camera_support1_link"/>
   </joint>
   <joint name="camera_support1_to_support2" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.01029 -0.0128"/>
+    <origin rpy="0 0 0" xyz="0 0.01029 -0.00128"/>
     <parent link="camera_support1_link"/>
     <child link="camera_support2_link"/>
   </joint>
@@ -888,18 +888,18 @@
       <inertia ixx="0.00020005" ixy="0" ixz="0" iyy="0.00017832" iyz="0" izz="0.00013478"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 1.57" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/hros_robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0.0 0.0 0.0 1"/>
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 1.57" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/hros_robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -920,23 +920,23 @@
     <limit effort="104.0" lower="-3.1416" upper="3.1416" velocity="1.57"/>
     <dynamics damping="0" friction="0"/>
   </joint>
-  <joint name="motor6_to_camera_gripper_support" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
+  <joint name="motor6_to_gripper_adapter" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 -0.02026"/>
     <parent link="motor6_link"/>
     <child link="gripper_adapter"/>
+  </joint>
+  <joint name="gripper_adapter_to_robotiq_adapter" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.05679"/>
+    <parent link="gripper_adapter"/>
+    <child link="robotiq_adapter_link"/>
   </joint>
   <joint name="camera_support2_to_camera" type="fixed">
     <origin rpy="0 0 0" xyz="0 0.018 0.012"/>
     <parent link="camera_support2_link"/>
     <child link="camera_link"/>
   </joint>
-  <joint name="camera_gripper_support_to_robotiq_adapter" type="fixed">
-    <origin rpy="0 0 1.57" xyz=" 0 0 0"/>
-    <parent link="gripper_adapter"/>
-    <child link="robotiq_adapter_link"/>
-  </joint>
   <joint name="robotiq_adapter_link_to_robotiq_arg2f_base_link" type="fixed">
-    <origin rpy="0 0 1.57" xyz=" 0 0 0"/>
+    <origin rpy="0 0 0" xyz=" 0 0 0"/>
     <parent link="robotiq_adapter_link"/>
     <child link="robotiq_arg2f_base_link"/>
   </joint>
