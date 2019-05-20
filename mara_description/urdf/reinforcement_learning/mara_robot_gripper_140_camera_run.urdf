@@ -302,7 +302,7 @@
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="ee_link" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.0 0.24"/>
+    <origin rpy="0 0 0" xyz="0 0.0 0.24497"/>
     <parent link="motor6_link"/>
     <child link="ee_link"/>
   </joint>

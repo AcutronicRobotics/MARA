@@ -12,7 +12,7 @@
   <xacro:include filename="$(find robotiq_140_gripper_description)/urdf/robotiq_140.urdf.xacro" />
 
   <!-- arm -->
-  <xacro:mara_robot_run prefix="" ee_link_distance="0.24"/>
+  <xacro:mara_robot_run prefix="" ee_link_distance="0.24497"/>
   <xacro:camera_gripper_support prefix="" />
   <xacro:rs_d435_camera prefix="" />
   <xacro:robotiq_gripper prefix="mara" />
