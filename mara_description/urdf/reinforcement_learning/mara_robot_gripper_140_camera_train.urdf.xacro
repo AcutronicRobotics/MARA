@@ -12,7 +12,7 @@
   <xacro:include filename="$(find robotiq_140_gripper_description)/urdf/robotiq_140.urdf.xacro" />
 
   <!-- arm -->
-  <xacro:mara_robot_train prefix="" ee_link_distance="0.2"/>
+  <xacro:mara_robot_train prefix="" ee_link_distance="0.24"/>
   <xacro:camera_gripper_support prefix="" />
   <xacro:rs_d435_camera prefix="" />
   <xacro:robotiq_gripper prefix="mara" />
@@ -53,18 +53,18 @@
       <inertia ixx="0.00020005" ixy="0" ixz="0" iyy="0.00017832" iyz="0" izz="0.00013478" />
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 1.57" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/hros_robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Gazebo/Black">
         <color rgba="0.0 0.0 0.0 1" />
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 1.57" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://robotiq_140_gripper_description/meshes/hros_robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://mara_description/meshes/robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -88,10 +88,16 @@
     <dynamics damping="0" friction="0"/>
   </joint>
 
-  <joint name="motor6_to_camera_gripper_support" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
+  <joint name="motor6_to_gripper_adapter" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 -0.02026"/>
     <parent link="motor6_link"/>
     <child link="gripper_adapter"/>
+  </joint>
+
+  <joint name="gripper_adapter_to_robotiq_adapter" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.05679"/>
+    <parent link="gripper_adapter"/>
+    <child link="robotiq_adapter_link"/>
   </joint>
 
   <joint name="camera_support2_to_camera" type="fixed">
@@ -100,14 +106,8 @@
     <child link="camera_link"/>
   </joint>
 
-  <joint name="camera_gripper_support_to_robotiq_adapter" type="fixed">
-    <origin rpy="0 0 1.57" xyz=" 0 0 0"/>
-    <parent link="gripper_adapter"/>
-    <child link="robotiq_adapter_link"/>
-  </joint>
-
   <joint name="robotiq_adapter_link_to_robotiq_arg2f_base_link" type="fixed">
-    <origin rpy="0 0 1.57" xyz=" 0 0 0"/>
+    <origin rpy="0 0 0" xyz=" 0 0 0"/>
     <parent link="robotiq_adapter_link"/>
     <child link="robotiq_arg2f_base_link"/>
   </joint>
