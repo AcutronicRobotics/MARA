@@ -2,7 +2,7 @@ repositories:
   mara:
     type: git
     url: https://github.com/acutronicrobotics/MARA.git
-    version: master
+    version: dashing
   HRIM:
     type: git
     url: https://github.com/erlerobot/HRIM.git
