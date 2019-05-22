@@ -2,7 +2,7 @@
 
 HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::string & node_name,
                    int argc, char **argv, bool intra_process_comms )
-: rclcpp::Node(node_name, "", intra_process_comms)
+: rclcpp::Node(node_name)
 {
 
   this->node_name = node_name;
