@@ -165,7 +165,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
 
     auto result_response = std::make_shared<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Result>();
     result_response->error = 0;
-    goal_handle->set_succeeded(result_response);
+    goal_handle->succeed(result_response);
     RCLCPP_INFO(rclcpp::get_logger("server"), "Goal Suceeded");
   }
 
@@ -239,7 +239,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
 
     auto result_response = std::make_shared<hrim_actuator_rotaryservo_actions::action::GoalJointTrajectory::Result>();
     result_response->error = 0;
-    goal_handle->set_succeeded(result_response);
+    goal_handle->succeed(result_response);
     RCLCPP_INFO(rclcpp::get_logger("server"), "Goal Suceeded");
 
   }
@@ -359,13 +359,13 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
       std::bind(&MARAGazeboPluginRosPrivate::handle_trajectory_axis2_cancel, impl_.get(), std::placeholders::_1),
       std::bind(&MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted, impl_.get(), std::placeholders::_1));
 
-  impl_->ros_node_->set_parameters({
-    rclcpp::Parameter("joint_name", node_name),
-    rclcpp::Parameter("origin", 0),
-    rclcpp::Parameter("publish_rate", 100),
-    rclcpp::Parameter("min_temperature", -25),
-    rclcpp::Parameter("max_temperature", 75),
-  });
+  // impl_->ros_node_->set_parameters({
+  //   rclcpp::Parameter("joint_name", node_name),
+  //   rclcpp::Parameter("origin", 0),
+  //   rclcpp::Parameter("publish_rate", 100),
+  //   rclcpp::Parameter("min_temperature", -25),
+  //   rclcpp::Parameter("max_temperature", 75),
+  // });
 
   impl_->timer_status_ = impl_->ros_node_->create_wall_timer(
       1s, std::bind(&MARAGazeboPluginRosPrivate::timer_status_msgs, impl_.get()));
