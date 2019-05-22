@@ -33,5 +33,5 @@ repositories:
     version: ros2
   vision_opencv:
     type: git
-    url: https://github.com/vision_opencv/
+    url: https://github.com/ros-perception/vision_opencv
     version: ros2
