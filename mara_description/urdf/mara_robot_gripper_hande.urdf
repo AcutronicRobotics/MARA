@@ -267,38 +267,27 @@
     <material>Gazebo/Black</material>
     <selfCollide>True</selfCollide>
   </gazebo>
+  <!-- dummy link with the required tags-->
   <link name="motor6_link">
     <inertial>
-      <origin rpy="0 0 0" xyz="0.0 0.0 -0.0173"/>
-      <mass value="0.14"/>
-      <inertia ixx="9.22e-05" ixy="6.35e-7" ixz="2.00e-11" iyy="9.73e-5" iyz="2.36e-9" izz="1.77e-4"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.00001"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/MARA_GripperAdapter.dae" scale="0.001 0.001 0.001"/>
+        <sphere radius="0"/>
       </geometry>
-      <material name="Gazebo/Black">
-        <color rgba="0. 0. 0. 1"/>
-      </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mara_description/meshes/MARA_GripperAdapter.dae" scale="0.001 0.001 0.001"/>
+        <sphere radius="0"/>
       </geometry>
     </collision>
   </link>
-  <gazebo reference="motor6_link">
-    <material>Gazebo/Black</material>
-    <selfCollide>True</selfCollide>
-  </gazebo>
-  <link name="ee_link">
-    </link>
-  <gazebo reference="ee_link">
-    <material>Gazebo/Blue</material>
-    <selfCollide>False</selfCollide>
-  </gazebo>
+  <link name="ee_link"/>
   <joint name="joint_bases" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.04"/>
     <parent link="base_link"/>
@@ -368,14 +357,13 @@
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="ee_link" type="fixed">
-    <origin rpy="0 -1.57 0" xyz="0 0.0 0.18"/>
-    <!-- 0.24 -->
+    <origin rpy="0 -1.57 0" xyz="0 0.0 0.18253"/>
     <parent link="motor6_link"/>
     <child link="ee_link"/>
   </joint>
   <link name="tool0"/>
   <joint name="motor6_link-tool0_fixed_joint" type="fixed">
-    <origin rpy="0 -1.57 0" xyz="0 0.0 0.18"/>
+    <origin rpy="0 -1.57 0" xyz="0 0.0 0.18253"/>
     <parent link="motor6_link"/>
     <child link="tool0"/>
   </joint>
@@ -466,40 +454,14 @@
       <type>series20</type>
     </plugin>
   </gazebo>
-  <link name="robotiq_adapter_link">
-    <inertial>
-      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="0.22652"/>
-      <inertia ixx="0.00020005" ixy="0" ixz="0" iyy="0.00017832" iyz="0" izz="0.00013478"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://robotiq_hande_gripper_description/meshes/hros_robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
-      </geometry>
-      <material name="Gazebo/Black">
-        <color rgba="0.0 0.0 0.0 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://robotiq_hande_gripper_description/meshes/hros_robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
-      </geometry>
-    </collision>
-  </link>
-  <gazebo reference="robotiq_adapter_link">
-    <material>Gazebo/Black</material>
-    <selfCollide>False</selfCollide>
-  </gazebo>
   <link name="robotiq_hande_base_link">
     <inertial>
-      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="0.22652"/>
-      <inertia ixx="0.00020005" ixy="0" ixz="0" iyy="0.00017832" iyz="0" izz="0.00013478"/>
+      <origin rpy="0 0 0" xyz="0 0 0.04607"/>
+      <mass value="0.86387"/>
+      <inertia ixx="1017560E-9" ixy="0" ixz="2235E-9" iyy="1028041E-9" iyz="0" izz="489810E-9"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 1.57" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://robotiq_hande_gripper_description/meshes/hand-e.dae" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -508,7 +470,7 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 1.57" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://robotiq_hande_gripper_description/meshes/hand-e.dae" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -516,16 +478,16 @@
   </link>
   <gazebo reference="robotiq_hande_base_link">
     <material>Gazebo/Black</material>
-    <selfCollide>True</selfCollide>
+    <selfCollide>False</selfCollide>
   </gazebo>
-  <link name="finger1">
+  <link name="left_finger">
     <inertial>
-      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="0.22652"/>
-      <inertia ixx="0.00020005" ixy="0" ixz="0" iyy="0.00017832" iyz="0" izz="0.00013478"/>
+      <origin rpy="0 0 0" xyz="0.02262 -0.00759 0.00738"/>
+      <mass value="0.03804"/>
+      <inertia ixx="13567E-9" ixy="1849E-9" ixz="3622E-9" iyy="15784E-9" iyz="3616E-9" izz="7478E-9"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 1.57" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://robotiq_hande_gripper_description/meshes/finger_1.dae" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -534,24 +496,24 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 1.57" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://robotiq_hande_gripper_description/meshes/finger_1.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <gazebo reference="finger1">
+  <gazebo reference="left_finger">
     <material>Gazebo/Grey</material>
-    <selfCollide>True</selfCollide>
+    <selfCollide>False</selfCollide>
   </gazebo>
-  <link name="finger2">
+  <link name="right_finger">
     <inertial>
-      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="0.22652"/>
-      <inertia ixx="0.00020005" ixy="0" ixz="0" iyy="0.00017832" iyz="0" izz="0.00013478"/>
+      <origin rpy="0 0 0" xyz="-0.02262 0.00759 0.00738"/>
+      <mass value="0.03804"/>
+      <inertia ixx="13567E-9" ixy="1849E-9" ixz="-3622E-9" iyy="15784E-9" iyz="-3616E-9" izz="7478E-9"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 1.57" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://robotiq_hande_gripper_description/meshes/finger_2.dae" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -560,23 +522,38 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 1.57" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://robotiq_hande_gripper_description/meshes/finger_2.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <gazebo reference="finger2">
+  <gazebo reference="right_finger">
     <material>Gazebo/Grey</material>
-    <selfCollide>True</selfCollide>
+    <selfCollide>False</selfCollide>
   </gazebo>
+  <joint name="joint_finger" type="prismatic">
+    <origin rpy="0 0 0" xyz="0 0 0.099"/>
+    <parent link="robotiq_hande_base_link"/>
+    <child link="left_finger"/>
+    <axis xyz="-1 0 0"/>
+    <limit effort="130" lower="0" upper="0.025" velocity="0.15"/>
+  </joint>
+  <joint name="robotiq_hande_base_to_right_finger" type="prismatic">
+    <origin rpy="0 0 0" xyz="0 0 0.099"/>
+    <parent link="robotiq_hande_base_link"/>
+    <child link="right_finger"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="130" lower="0" upper="0.025" velocity="0.15"/>
+    <mimic joint="joint_finger" multiplier="1" offset="0"/>
+  </joint>
   <gazebo>
     <plugin filename="librobotiq_gripper_gazebo_plugin.so" name="hrim_actuation_gripper_000000000004">
-      <kp>10</kp>
+      <kp>100</kp>
       <ki>3</ki>
-      <kd>5</kd>
+      <kd>9</kd>
       <joint>joint_finger</joint>
-      <joint>finger2_joint</joint>
+      <joint>robotiq_hande_base_to_right_finger</joint>
     </plugin>
     <plugin filename="libgazebo_ros_joint_state_publisher.so" name="mara_joint_state">
       <ros>
@@ -586,26 +563,6 @@
       <joint_name>joint_finger</joint_name>
     </plugin>
   </gazebo>
-  <joint name="base_adapter_to_base_robotiq_joint" type="fixed">
-    <origin rpy="0 1.57 0" xyz=" 0 0 0.10653"/>
-    <parent link="robotiq_adapter_link"/>
-    <child link="robotiq_hande_base_link"/>
-  </joint>
-  <joint name="joint_finger" type="prismatic">
-    <origin rpy="0 0 0" xyz="0 0 0.0"/>
-    <parent link="robotiq_hande_base_link"/>
-    <child link="finger1"/>
-    <axis xyz="0 0 -1"/>
-    <limit effort="1000" lower="0" upper="0.024858" velocity="2.0"/>
-  </joint>
-  <joint name="finger2_joint" type="prismatic">
-    <origin rpy="0 0 0" xyz="0 0 0.0"/>
-    <parent link="robotiq_hande_base_link"/>
-    <child link="finger2"/>
-    <axis xyz="0 0 1"/>
-    <limit effort="1000" lower="0" upper="0.024858" velocity="2.0"/>
-    <mimic joint="joint_finger" multiplier="1" offset="0"/>
-  </joint>
   <link name="table">
     <contact>
       <lateral_friction value="1.0"/>
@@ -663,11 +620,58 @@
     <selfCollide>True</selfCollide>
   </gazebo>
   <link name="world"/>
-  <joint name="end_effector_adapter_to_robotiq" type="fixed">
-    <origin rpy="0 0 0" xyz=" 0 0 0.0"/>
-    <parent link="motor6_link"/>
-    <child link="robotiq_adapter_link"/>
-  </joint>
+  <link name="gripper_adapter">
+    <inertial>
+      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+      <mass value="0.13969"/>
+      <inertia ixx="91283.23E-9" ixy="634.87E-9" ixz="-0.02E-9" iyy="97239.94E-9" iyz="93.72E-9" izz="175963.64E-9"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/gripper_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Wood">
+        <color rgba="0. 0. 0. 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/gripper_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="gripper_adapter">
+    <material>Gazebo/Black</material>
+    <selfCollide>False</selfCollide>
+  </gazebo>
+  <link name="robotiq_adapter_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+      <mass value="0.22652"/>
+      <inertia ixx="0.00020005" ixy="0" ixz="0" iyy="0.00017832" iyz="0" izz="0.00013478"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Black">
+        <color rgba="0.0 0.0 0.0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="robotiq_adapter_link">
+    <material>Gazebo/Black</material>
+    <selfCollide>False</selfCollide>
+  </gazebo>
   <joint name="world_to_table_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.02"/>
     <parent link="world"/>
@@ -677,5 +681,20 @@
     <origin rpy="0 0 0" xyz="0 0 0.62"/>
     <parent link="table"/>
     <child link="base_link"/>
+  </joint>
+  <joint name="motor6_to_gripper_adapter" type="fixed">
+    <origin rpy="0 0 0" xyz=" 0 0 0.0"/>
+    <parent link="motor6_link"/>
+    <child link="gripper_adapter"/>
+  </joint>
+  <joint name="gripper_adapter_to_robotiq_adapter" type="fixed">
+    <origin rpy="0 0 0" xyz=" 0 0 0.0"/>
+    <parent link="gripper_adapter"/>
+    <child link="robotiq_adapter_link"/>
+  </joint>
+  <joint name="robotiq_adapter_to_hande_base" type="fixed">
+    <origin rpy="0 0 0" xyz=" 0 0 0"/>
+    <parent link="robotiq_adapter_link"/>
+    <child link="robotiq_hande_base_link"/>
   </joint>
 </robot>
