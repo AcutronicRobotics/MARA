@@ -34,6 +34,10 @@
 #include <unistd.h>
 #include <cstring>
 
+// FT
+#include "hrim_sensor_forcetorque_msgs/msg/force_torque.hpp"
+#include <geometry_msgs/Wrench.h>
+
 using namespace std::chrono_literals;
 
 class FollowJointTrajectoryAction
@@ -69,3 +73,4 @@ protected:
 
 };
 #endif // FOLLOWJOINTTRAJECTORYACTION_H
+

@@ -1,6 +1,7 @@
 #include "FollowJointTrajectoryAction.hpp"
 
-ros::Publisher pub_joint_state_ros1;
+
+ros::Publisher pub_joint_state_ros1, pub_forcetorque_state_ros1;
 std::vector<rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr> list_pub_trajectory;
 std::vector<rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr> pub_ros2_lista;
 std::string environment;
@@ -35,6 +36,21 @@ void motorStateCallback(const control_msgs::msg::JointTrajectoryControllerState:
   pub_joint_state_ros1.publish(ros1_joint_state_msg);
 }
 
+void forceTorqueCallback(const hrim_sensor_forcetorque_msgs::msg::ForceTorque::SharedPtr ros2_msg)
+{
+  geometry_msgs::Wrench ros1_forcetorque_msg;
+
+  ros1_forcetorque_msg.force.x = ros2_msg->axis_forces[0].force;
+  ros1_forcetorque_msg.force.y = ros2_msg->axis_forces[1].force;
+  ros1_forcetorque_msg.force.z = ros2_msg->axis_forces[2].force;
+
+  ros1_forcetorque_msg.torque.x = ros2_msg->axis_torques[0].torque;
+  ros1_forcetorque_msg.torque.y = ros2_msg->axis_torques[1].torque;
+  ros1_forcetorque_msg.torque.z = ros2_msg->axis_torques[2].torque;
+
+  pub_forcetorque_state_ros1.publish(ros1_forcetorque_msg);
+}
+
 int main(int argc, char * argv[])
 {
 
@@ -51,9 +67,13 @@ int main(int argc, char * argv[])
   ros::init(argc, argv, "mara_bridge");
   ros::NodeHandle ros1_node;
 
-  std::string file_motors;
+  std::string file_motors, ft_topic;
   if (rcutils_cli_option_exist(argv, argv + argc, "-motors")){
     file_motors = std::string(rcutils_cli_get_option(argv, argv + argc, "-motors"));
+  }
+
+  if (rcutils_cli_option_exist(argv, argv + argc, "-ft_topic")){
+    ft_topic = std::string(rcutils_cli_get_option(argv, argv + argc, "-ft_topic"));
   }
 
   std::cout << "Trying to open  " << file_motors << std::endl;
@@ -94,6 +114,12 @@ int main(int argc, char * argv[])
   auto sub_servoMotorGoal = ros2_node->create_subscription<control_msgs::msg::JointTrajectoryControllerState>(
       "/mara_controller/state", motorStateCallback, rmw_qos_profile_sensor_data);
 
+  // ForceTorque Sensor
+  std::cout << "Creating ForceTorque Subscription " << ft_topic << std::endl;
+  pub_forcetorque_state_ros1 = ros1_node.advertise<geometry_msgs::Wrench>(ft_topic, 10);
+  auto sub_forceTorqueSensor = ros2_node->create_subscription<hrim_sensor_forcetorque_msgs::msg::ForceTorque>(
+    ft_topic, forceTorqueCallback, rmw_qos_profile_sensor_data);
+
   //////////////////////////////////////////////////////////////////////////
   // ROS 1 asynchronous spinner
   ros::AsyncSpinner async_spinner(1);
@@ -107,3 +133,4 @@ int main(int argc, char * argv[])
 
   return 0;
 }
+

@@ -321,7 +321,7 @@ source ~/ros2_mara_ws/install/setup.bash
 export RMW_IMPLEMENTATION=rmw_opensplice_cpp
 export ROS_DOMAIN_ID=22
 
-ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/motors.yaml real
+ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -ft_topic /hrim_sensor_torque_000000000005/forcetorque -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/motors.yaml real
 ```
 <br/>
 
