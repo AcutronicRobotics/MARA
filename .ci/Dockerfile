@@ -53,6 +53,6 @@ RUN \
        && wget https://raw.githubusercontent.com/acutronicrobotics/MARA/master/mara-ros2.repos \
        && vcs import src < mara-ros2.repos \
        && pip3 install hrim \
-       && cd src/HRIM && hrim generate models/actuator/servo/servo.xml && hrim generate models/actuator/gripper/gripper.xml
+       && cd src/HRIM && hrim generate models/actuator/servo/servo.xml && hrim generate models/actuator/gripper/gripper.xml && hrim generate models/sensor/forcetorque/forcetorque.xml
 COPY ./compile.sh /root/ros2_mara_ws
 ENTRYPOINT ["/root/ros2_mara_ws/compile.sh"]
