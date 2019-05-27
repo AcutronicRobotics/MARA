@@ -25,6 +25,7 @@ find_package(trajectory_msgs REQUIRED)
 find_package(yaml_cpp_vendor REQUIRED)
 find_package(Boost 1.58 REQUIRED)
 find_package(hrim_actuator_rotaryservo_actions REQUIRED)
+find_package(hrim_sensor_forcetorque_msgs REQUIRED)
 
 # find ROS 1 packages
 include(cmake/find_ros1_package.cmake)
@@ -86,9 +87,10 @@ ament_target_dependencies(${PROJECT_NAME}_actions
     ${prefixed_ros1_message_packages}
     ${ros2_message_packages}
     "ros1_roscpp"
-		"ros1_control_msgs"
-		"ros1_trajectory_msgs"
+    "ros1_control_msgs"
+    "ros1_trajectory_msgs"
     "hrim_actuator_rotaryservo_actions"
+    "hrim_sensor_forcetorque_msgs"
     "ros1_actionlib_msgs"
     "ros1_actionlib"
 )
