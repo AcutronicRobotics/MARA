@@ -6,33 +6,6 @@
 
   <xacro:macro name="mara_robot_run"  params="prefix ee_link_distance">
 
-    <link name="${prefix}base_link">
-      <inertial>
-        <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-        <mass value="7.033"/>
-        <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
-      </inertial>
-      <visual>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
-        <geometry>
-          <mesh filename="package://mara_description/meshes/Base_plancha.dae" scale="0.001 0.001 0.001"/>
-        </geometry>
-        <material name="Gazebo/Grey">
-          <color rgba="0. 0. 0. 1"/>
-        </material>
-      </visual>
-      <collision>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
-        <geometry>
-          <mesh filename="package://mara_description/meshes/Base_plancha.dae" scale="0.001 0.001 0.001"/>
-        </geometry>
-      </collision>
-    </link>
-    <gazebo reference="${prefix}base_link">
-      <material>Gazebo/Grey</material>
-      <selfCollide>True</selfCollide>
-    </gazebo>
-
     <link name="${prefix}motor1_link">
       <inertial>
         <origin rpy="0 0 0" xyz="0.02066 0 0.12051"/>
@@ -251,54 +224,38 @@
 
     <link name="${prefix}motor6_link">
       <inertial>
-        <origin rpy="0 0 0" xyz="0.0 0.0 -0.0173"/>
-        <mass value="0.14"/>
-        <inertia ixx="9.22e-05" ixy="6.35e-7" ixz="2.00e-11" iyy="9.73e-5" iyz="2.36e-9" izz="1.77e-4"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <mass value="0.00001"/>
+        <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
       </inertial>
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="package://mara_description/meshes/MARA_GripperAdapter.dae" scale="0.001 0.001 0.001"/>
+          <sphere radius="0"/>
         </geometry>
-        <material name="Gazebo/Black">
-          <color rgba="0. 0. 0. 1"/>
-        </material>
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="package://mara_description/meshes/MARA_GripperAdapter.dae" scale="0.001 0.001 0.001"/>
+          <sphere radius="0"/>
         </geometry>
       </collision>
     </link>
-    <gazebo reference="${prefix}motor6_link">
-      <material>Gazebo/Black</material>
-      <selfCollide>True</selfCollide>
-    </gazebo>
 
     <link name="${prefix}ee_link">
-      <visual>
+      <!-- <visual>
         <geometry>
           <sphere radius="0.01"/>
         </geometry>
         <material name="Gazebo/Grey">
           <color rgba="0. 0. 0. 1"/>
         </material>
-      </visual>
+      </visual> -->
     </link>
     <gazebo reference="${prefix}ee_link">
       <material>Gazebo/Blue</material>
       <selfCollide>False</selfCollide>
     </gazebo>
-
-    <joint name="${prefix}motor1" type="revolute">
-      <origin rpy="0 0 0" xyz="0 0 0.02125"/>
-      <parent link="${prefix}base_link"/>
-      <child link="${prefix}motor1_link"/>
-      <axis xyz="0 0 1"/>
-      <limit effort="104.0" lower="-3.1416" upper="3.1416" velocity="1.57"/>
-      <dynamics damping="0" friction="0"/>
-    </joint>
 
     <joint name="${prefix}motor1_cover_joint" type="fixed">
       <origin rpy="0 0 0" xyz="0 0 0.0"/>
