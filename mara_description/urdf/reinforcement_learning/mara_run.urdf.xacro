@@ -10,7 +10,7 @@
       <inertial>
         <origin rpy="0 0 0" xyz="0.02066 0 0.12051"/>
         <mass value="5.6"/>
-        <inertia ixx="0.0200769278" ixy="-7.72273E-006" ixz="0.0050158708" iyy="0.0257088151" iyz="5.49229E-006" izz="0.0120821377"/>
+        <inertia ixx="0.0200769278" ixy="-7.72273E-006" ixz="-0.0050158708" iyy="0.0257088151" iyz="5.49229E-006" izz="0.0120821377"/>
       </inertial>
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -35,7 +35,7 @@
 
     <link name="${prefix}motor1_cover">
       <inertial>
-        <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
         <mass value="0.0"/>
         <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
       </inertial>
@@ -63,8 +63,8 @@
     <link name="${prefix}motor2_link">
       <inertial>
         <origin rpy="0 0 0" xyz="-0.01665 0.0 0.09639"/>
-        <mass value="1.236"/>
-        <inertia ixx="0.0079614839" ixy="0.000000037" ixz="-0.0003203013" iyy="0.007135338" iyz="-0.000001062" izz="0.001111114"/>
+        <mass value="1.24"/>
+        <inertia ixx="0.0079614839" ixy="0.000000037" ixz="0.0003203013" iyy="0.007135338" iyz="-0.000001062" izz="0.001111114"/>
       </inertial>
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -89,9 +89,9 @@
 
     <link name="${prefix}motor3_link">
       <inertial>
-        <origin rpy="0 0 0" xyz="-0.08963 0.0 0.0403"/>
+        <origin rpy="0 0 0" xyz="-0.08963 0 0.0403"/>
         <mass value="3.95"/>
-        <inertia ixx="0.0115136615" ixy="-1.231046E-005" ixz="-0.003148516" iyy="0.0149841676" iyz="-8.81378E-006" izz="0.0070387807"/>
+        <inertia ixx="0.0115136615" ixy="-1.231046E-005" ixz="0.003148516" iyy="0.0149841676" iyz="-8.81378E-006" izz="0.0070387807"/>
       </inertial>
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -116,7 +116,7 @@
 
     <link name="${prefix}motor3_cover">
       <inertial>
-        <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
         <mass value="0.0"/>
         <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
       </inertial>
@@ -144,8 +144,8 @@
     <link name="${prefix}motor4_link">
       <inertial>
         <origin rpy="0 0 0" xyz="0.06357 0.0 0.05698"/>
-        <mass value="1.258"/>
-        <inertia ixx="0.005919676" ixy="0.000000923" ixz="0.0022280208" iyy="0.0068807393" iyz="6.1373E-007" izz="0.00257485"/>
+        <mass value="1.26"/>
+        <inertia ixx="0.005919676" ixy="0.000000923" ixz="-0.0022280208" iyy="0.0068807393" iyz="6.1373E-007" izz="0.00257485"/>
       </inertial>
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -172,7 +172,7 @@
       <inertial>
         <origin rpy="0 0 0" xyz="-0.09105 0.0 0.03676"/>
         <mass value="2.85"/>
-        <inertia ixx="0.0072829492" ixy="3.77994E-006" ixz="-0.0015682105" iyy="0.0098263499" iyz="2.52745E-006" izz="0.0045615321"/>
+        <inertia ixx="0.0072829492" ixy="3.77994E-006" ixz="0.0015682105" iyy="0.0098263499" iyz="2.52745E-006" izz="0.0045615321"/>
       </inertial>
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -197,7 +197,7 @@
 
     <link name="${prefix}motor5_cover">
       <inertial>
-        <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
         <mass value="0.0"/>
         <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
       </inertial>
