@@ -48,9 +48,9 @@
 
   <link name="robotiq_adapter_link">
     <inertial>
-      <origin xyz="8.625E-08 -4.6583E-06 0.03145" rpy="0 0 0" />
-      <mass value="0.22652" />
-      <inertia ixx="0.00020005" ixy="0" ixz="0" iyy="0.00017832" iyz="0" izz="0.00013478" />
+      <origin xyz="0 0 -0.0253" rpy="0 0 0" />
+      <mass value="0.317" />
+      <inertia ixx="298526E-9" ixy="3928E-9" ixz="-926E-9" iyy="354661E-9" iyz="42E-9" izz="415572E-9" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
