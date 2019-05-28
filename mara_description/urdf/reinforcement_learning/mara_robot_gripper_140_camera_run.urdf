@@ -942,7 +942,7 @@
   </link>
   <gazebo reference="robotiq_adapter_link">
     <material>Gazebo/Black</material>
-    <selfCollide>False</selfCollide>
+    <selfCollide>True</selfCollide>
   </gazebo>
   <joint name="world_to_base_robot" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>

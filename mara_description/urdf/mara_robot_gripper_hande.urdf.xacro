@@ -42,7 +42,7 @@
   </link>
   <gazebo reference="gripper_adapter">
     <material>Gazebo/Black</material>
-    <selfCollide>False</selfCollide>
+    <selfCollide>True</selfCollide>
   </gazebo>
 
   <link name="robotiq_adapter_link">
@@ -69,7 +69,7 @@
   </link>
   <gazebo reference="robotiq_adapter_link">
     <material>Gazebo/Black</material>
-    <selfCollide>False</selfCollide>
+    <selfCollide>True</selfCollide>
   </gazebo>
 
   <joint name="world_to_table_joint" type="fixed">

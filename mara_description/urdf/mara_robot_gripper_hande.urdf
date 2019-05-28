@@ -644,7 +644,7 @@
   </link>
   <gazebo reference="gripper_adapter">
     <material>Gazebo/Black</material>
-    <selfCollide>False</selfCollide>
+    <selfCollide>True</selfCollide>
   </gazebo>
   <link name="robotiq_adapter_link">
     <inertial>
@@ -670,7 +670,7 @@
   </link>
   <gazebo reference="robotiq_adapter_link">
     <material>Gazebo/Black</material>
-    <selfCollide>False</selfCollide>
+    <selfCollide>True</selfCollide>
   </gazebo>
   <joint name="world_to_table_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.02"/>

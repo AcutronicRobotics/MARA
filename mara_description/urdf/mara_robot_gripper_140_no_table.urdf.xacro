@@ -66,7 +66,7 @@
   </link>
   <gazebo reference="robotiq_adapter_link">
     <material>Gazebo/Black</material>
-    <selfCollide>False</selfCollide>
+    <selfCollide>True</selfCollide>
   </gazebo>
 
   <joint name="world_to_table" type="fixed">
