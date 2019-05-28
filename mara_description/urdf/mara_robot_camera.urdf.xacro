@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="mara" >
+
+  <!-- common stuff -->
+  <xacro:include filename="$(find mara_description)/urdf/mara_gazebo.urdf.xacro" />
+
+  <!-- mara -->
+  <xacro:include filename="$(find mara_description)/urdf/mara.urdf.xacro" />
+  <xacro:include filename="$(find mara_description)/urdf/camera_gripper_support.urdf.xacro" />
+  <xacro:include filename="$(find mara_description)/urdf/rs_d435.urdf.xacro" />
+
+  <!-- arm -->
+  <xacro:mara_robot prefix="" ee_link_distance="0.0"/>
+  <xacro:mara_camera_gripper_support prefix="" />
+  <xacro:rs_d435_camera prefix="" />
+
+  <link name="world" />
+
+  <joint name="world_to_base_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+
+  <joint name="motor6_to_gripper_adapter" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 -0.02026"/>
+    <parent link="motor6_link"/>
+    <child link="mara_gripper_adapter"/>
+  </joint>
+
+  <joint name="camera_support2_to_camera" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.018 0.012"/>
+    <parent link="mara_camera_support2_link"/>
+    <child link="camera_link"/>
+  </joint>
+</robot>
