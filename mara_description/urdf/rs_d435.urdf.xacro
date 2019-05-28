@@ -36,7 +36,7 @@
     <gazebo reference="${prefix}camera_color">
       <sensor name="sensor_camera" type="camera">
         <alwaysOn>true</alwaysOn>
-        <!-- <visualize>true</visualize> -->
+        <visualize>true</visualize>
         <camera>
           <image>
             <width>640</width>
