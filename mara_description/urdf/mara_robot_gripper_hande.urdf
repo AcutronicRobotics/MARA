@@ -683,12 +683,12 @@
     <child link="base_link"/>
   </joint>
   <joint name="motor6_to_gripper_adapter" type="fixed">
-    <origin rpy="0 0 0" xyz=" 0 0 0.0"/>
+    <origin rpy="0 0 0" xyz=" 0 0 -0.02026"/>
     <parent link="motor6_link"/>
     <child link="gripper_adapter"/>
   </joint>
   <joint name="gripper_adapter_to_robotiq_adapter" type="fixed">
-    <origin rpy="0 0 0" xyz=" 0 0 0.0"/>
+    <origin rpy="0 0 0" xyz=" 0 0 0.05679"/>
     <parent link="gripper_adapter"/>
     <child link="robotiq_adapter_link"/>
   </joint>
