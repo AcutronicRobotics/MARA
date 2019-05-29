@@ -40,7 +40,7 @@
       <inertia ixx="0.1478344" ixy="0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 1.57" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://mara_description/meshes/Base.dae" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -49,7 +49,7 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 1.57" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://mara_description/meshes/Base.dae" scale="0.001 0.001 0.001"/>
       </geometry>
