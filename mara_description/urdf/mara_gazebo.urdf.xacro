@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="mara_gazebo" params="prefix">
+  <xacro:macro name="mara_gazebo" params="prefix MAC1 MAC2 MAC3">
 
     <gazebo>
       <plugin name="mara_joint_state" filename="libgazebo_ros_joint_state_publisher.so">
@@ -9,33 +9,33 @@
     			<argument>~/out:=joint_states</argument>
     		</ros>
     		<update_rate>25</update_rate>
-    		<joint_name>motor1</joint_name>
-    		<joint_name>motor2</joint_name>
-    		<joint_name>motor3</joint_name>
-    		<joint_name>motor4</joint_name>
-    		<joint_name>motor5</joint_name>
-        <joint_name>motor6</joint_name>
-        <joint_name>joint_finger</joint_name>
+    		<joint_name>${prefix}motor1</joint_name>
+    		<joint_name>${prefix}motor2</joint_name>
+    		<joint_name>${prefix}motor3</joint_name>
+    		<joint_name>${prefix}motor4</joint_name>
+    		<joint_name>${prefix}motor5</joint_name>
+        <joint_name>${prefix}motor6</joint_name>
+        <joint_name>${prefix}joint_finger</joint_name>
     	</plugin>
 
-      <plugin name="hrim_actuation_servomotor_000000000001" filename="libmara_gazebo_joint_plugin.so">
+      <plugin name="hrim_actuation_servomotor${MAC1}" filename="libmara_gazebo_joint_plugin.so">
         <ros></ros>
-        <axis1>motor2</axis1>
-        <axis2>motor1</axis2>
+        <axis1>${prefix}motor2</axis1>
+        <axis2>${prefix}motor1</axis2>
         <type>series14</type>
       </plugin>
 
-      <plugin name="hrim_actuation_servomotor_000000000002" filename="libmara_gazebo_joint_plugin.so">
+      <plugin name="hrim_actuation_servomotor${MAC2}" filename="libmara_gazebo_joint_plugin.so">
         <ros></ros>
-        <axis1>motor3</axis1>
-        <axis2>motor4</axis2>
+        <axis1>${prefix}motor3</axis1>
+        <axis2>${prefix}motor4</axis2>
         <type>series17</type>
       </plugin>
 
-      <plugin name="hrim_actuation_servomotor_000000000003" filename="libmara_gazebo_joint_plugin.so">
+      <plugin name="hrim_actuation_servomotor${MAC3}" filename="libmara_gazebo_joint_plugin.so">
         <ros></ros>
-        <axis1>motor5</axis1>
-        <axis2>motor6</axis2>
+        <axis1>${prefix}motor5</axis1>
+        <axis2>${prefix}motor6</axis2>
         <type>series20</type>
       </plugin>
 
