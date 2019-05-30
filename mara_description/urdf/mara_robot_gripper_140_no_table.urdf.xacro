@@ -10,8 +10,8 @@
   <xacro:include filename="$(find robotiq_140_gripper_description)/urdf/robotiq_140.urdf.xacro" />
 
   <!-- arm -->
-  <xacro:mara_robot prefix="" ee_link_distance="0.24497"/>
-  <xacro:robotiq_gripper prefix="mara" />
+  <xacro:mara_robot prefix="" ee_link_distance="0.24497" MAC1="_000000000001" MAC2="_000000000002" MAC3="_000000000003"/>
+  <xacro:robotiq_gripper prefix="" MAC="_000000000004"/>
 
   <link name="world" />
 

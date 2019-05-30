@@ -5,6 +5,12 @@ simulated_motors:
   - "/hrim_actuation_servomotor_000000000002/trajectory_axis2"
   - "/hrim_actuation_servomotor_000000000003/trajectory_axis1"
   - "/hrim_actuation_servomotor_000000000003/trajectory_axis2"
+  # - "/hrim_actuation_servomotor_000000000005/trajectory_axis2"
+  # - "/hrim_actuation_servomotor_000000000005/trajectory_axis1"
+  # - "/hrim_actuation_servomotor_000000000006/trajectory_axis1"
+  # - "/hrim_actuation_servomotor_000000000006/trajectory_axis2"
+  # - "/hrim_actuation_servomotor_000000000007/trajectory_axis1"
+  # - "/hrim_actuation_servomotor_000000000007/trajectory_axis2"
 
 real_motors:
   - "/hrim_actuation_servomotor_70B3D521A042/trajectory_axis2"

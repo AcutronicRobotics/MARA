@@ -12,7 +12,7 @@
   <xacro:include filename="$(find mara_description)/urdf/table.urdf.xacro" />
 
   <!-- arm -->
-  <xacro:mara_robot prefix="" ee_link_distance="0.18491"/>
+  <xacro:mara_robot prefix="" ee_link_distance="0.18491" MAC1="_000000000001" MAC2="_000000000002" MAC3="_000000000003"/>
   <xacro:robotiq_85 prefix="mara" />
   <xacro:table prefix="" />
 
