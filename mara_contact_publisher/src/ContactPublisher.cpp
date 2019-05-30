@@ -44,7 +44,6 @@ void cb(ConstContactsPtr &_msg)
 
 
   if (_msg->contact_size() > 0){
-    // if (_msg->contact(0).collision1() != "ground_plane::link::collision" && _msg->contact(0).collision2() != "ground_plane::link::collision"){
     contact.collision1_name = _msg->contact(0).collision1();
     contact.collision2_name = _msg->contact(0).collision2();
 
@@ -64,7 +63,6 @@ void cb(ConstContactsPtr &_msg)
 
       contact.depths.push_back(static_cast<float>(_msg->contact(0).depth(0)));
     }
-    // }
   }
   contacts_pub->publish(contact);
 
