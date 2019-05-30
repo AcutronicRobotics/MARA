@@ -775,7 +775,7 @@
       </axis>
     </joint>
     <plugin filename="librobotiq_gripper_gazebo_plugin.so" name="hrim_actuation_gripper_000000000004">
-      <kp>1000</kp>
+      <kp>500</kp>
       <ki>0.1</ki>
       <kd>0.01</kd>
       <joint>robotiq_arg2f_base_to_left_inner_knuckle</joint>
