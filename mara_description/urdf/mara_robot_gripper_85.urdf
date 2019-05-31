@@ -748,8 +748,8 @@
   <gazebo>
     <joint name="left_inner_knuckle_to_finger" type="revolute">
       <pose frame="">-0.0179 0 0.00652 0 0 0</pose>
-      <parent>mara::left_inner_knuckle</parent>
-      <child>mara::left_inner_finger</child>
+      <parent>left_inner_knuckle</parent>
+      <child>left_inner_finger</child>
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
@@ -762,8 +762,8 @@
     </joint>
     <joint name="right_inner_knuckle_to_finger" type="revolute">
       <pose frame="">0.0179 0 0.00652 0 0 0</pose>
-      <parent>mara::right_inner_knuckle</parent>
-      <child>mara::right_inner_finger</child>
+      <parent>right_inner_knuckle</parent>
+      <child>right_inner_finger</child>
       <axis>
         <xyz>0 -1 0</xyz>
         <limit>
@@ -774,7 +774,7 @@
         </limit>
       </axis>
     </joint>
-    <plugin filename="librobotiq_gripper_gazebo_plugin.so" name="hrim_actuation_gripper_000000000004">
+    <plugin filename="librobotiq_gripper_gazebo_plugin.so" name="hrim_actuator_gripper_000000000004">
       <kp>10</kp>
       <ki>10</ki>
       <kd>0.1</kd>

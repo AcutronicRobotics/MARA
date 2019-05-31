@@ -548,7 +548,7 @@
     <mimic joint="joint_finger" multiplier="1" offset="0"/>
   </joint>
   <gazebo>
-    <plugin filename="librobotiq_gripper_gazebo_plugin.so" name="hrim_actuation_gripper_000000000004">
+    <plugin filename="librobotiq_gripper_gazebo_plugin.so" name="hrim_actuator_gripper_000000000004">
       <kp>500</kp>
       <ki>3</ki>
       <kd>9</kd>
