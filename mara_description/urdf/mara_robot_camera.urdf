@@ -276,13 +276,13 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <sphere radius="0"/>
+        <sphere radius="0.01"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <sphere radius="0"/>
+        <sphere radius="0.01"/>
       </geometry>
     </collision>
   </link>
@@ -596,7 +596,6 @@
         </ros>
         <camera_name>rs_d435</camera_name>
         <frame_name>rs_camera_frame</frame_name>
-        <hack_baseline>0.07</hack_baseline>
       </plugin>
     </sensor>
   </gazebo>
