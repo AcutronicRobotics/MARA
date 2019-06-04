@@ -86,8 +86,8 @@ ament_target_dependencies(${PROJECT_NAME}_actions
     ${prefixed_ros1_message_packages}
     ${ros2_message_packages}
     "ros1_roscpp"
-		"ros1_control_msgs"
-		"ros1_trajectory_msgs"
+    "ros1_control_msgs"
+    "ros1_trajectory_msgs"
     "hrim_actuator_rotaryservo_actions"
     "ros1_actionlib_msgs"
     "ros1_actionlib"
