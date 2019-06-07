@@ -1,5 +1,6 @@
 #include "FollowJointTrajectoryAction.hpp"
 
+
 ros::Publisher pub_joint_state_ros1;
 std::vector<rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr> list_pub_trajectory;
 std::vector<rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr> pub_ros2_lista;
@@ -51,7 +52,7 @@ int main(int argc, char * argv[])
   ros::init(argc, argv, "mara_bridge");
   ros::NodeHandle ros1_node;
 
-  std::string file_motors;
+  std::string file_motors, ft_topic;
   if (rcutils_cli_option_exist(argv, argv + argc, "-motors")){
     file_motors = std::string(rcutils_cli_get_option(argv, argv + argc, "-motors"));
   }
@@ -107,3 +108,4 @@ int main(int argc, char * argv[])
 
   return 0;
 }
+
