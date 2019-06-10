@@ -1,6 +1,6 @@
 #include "HROSCognitionMaraComponents.hpp"
 
-HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::string & node_name, int argc, char **argv, bool intra_process_comms): rclcpp::Node(node_name, "", intra_process_comms)
+HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::string & node_name, int argc, char **argv, bool intra_process_comms ): rclcpp::Node(node_name)
 {
   RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::on_configure() is called.");
 

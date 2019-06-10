@@ -2,7 +2,7 @@ FROM ubuntu:bionic
 
 LABEL maintainer="Lander Usategui <lander at erlerobotics dot com>"
 
-ENV ROS2_DISTRO crystal
+ENV ROS2_DISTRO dashing
 ENV ROS_DISTRO melodic
 #Prepare work-space
 RUN mkdir -p /root/ros2_mara_ws/src
@@ -30,22 +30,6 @@ RUN \
         python3-vcstool \
         wget \
         ros-$ROS2_DISTRO-ros-base \
-        ros-$ROS2_DISTRO-action-msgs \
-        ros-$ROS2_DISTRO-message-filters \
-        ros-$ROS2_DISTRO-yaml-cpp-vendor \
-        ros-$ROS2_DISTRO-urdf \
-        ros-$ROS2_DISTRO-rttest \
-        ros-$ROS2_DISTRO-tf2 \
-        ros-$ROS2_DISTRO-tf2-geometry-msgs \
-        ros-$ROS2_DISTRO-rclcpp-action \
-        ros-$ROS2_DISTRO-cv-bridge \
-        ros-$ROS2_DISTRO-control-msgs \
-        ros-$ROS2_DISTRO-image-transport \
-        ros-$ROS2_DISTRO-gazebo-dev \
-        ros-$ROS2_DISTRO-gazebo-msgs \
-        ros-$ROS2_DISTRO-gazebo-plugins \
-        ros-$ROS2_DISTRO-gazebo-ros \
-        ros-$ROS2_DISTRO-gazebo-ros-pkgs \
         ros-$ROS_DISTRO-desktop \
         ros-$ROS_DISTRO-moveit \
         ros-$ROS_DISTRO-moveit-ros-move-group \
@@ -55,4 +39,5 @@ RUN \
        && pip3 install hrim \
        && cd src/HRIM && hrim generate models/actuator/servo/servo.xml && hrim generate models/actuator/gripper/gripper.xml && hrim generate models/sensor/forcetorque/forcetorque.xml
 COPY ./compile.sh /root/ros2_mara_ws
-ENTRYPOINT ["/root/ros2_mara_ws/compile.sh"]
+#ENTRYPOINT ["/root/ros2_mara_ws/compile.sh"]
+CMD ["bash"]

@@ -82,7 +82,7 @@ Among other things, you will find in this repository instructions on how to simu
 | Height | 871 mm |
 | Reach | 656 mm |
 | Footprint | 204 mm |
-| Robotics framework | ROS 2.0 Crystal Clemmys |
+| Robotics framework | ROS 2.0 Dashing Diademata  |
 | Communication interfaces | 1 Gbps Ethernet, Compliant with TSN standards |
 | Information model | Hardware Robot Information Model (HRIM®), version Coliza  |
 | Security | Encrypted and secure computing environment, Secure data exchange capabilities &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |
@@ -110,30 +110,30 @@ In this section we will install all the necessary dependencies in order to be ab
 
 ### ROS 2.0
 
-- **ROS 2.0 Crystal**: following the official instructions, [source](https://index.ros.org/doc/ros2/Linux-Development-Setup/) or [debian packages](https://index.ros.org/doc/ros2/Linux-Install-Debians/).
+- **ROS 2.0 Dashing**: following the official instructions, [source](https://index.ros.org/doc/ros2/Installation/Dashing/Linux-Development-Setup/) or [debian packages](https://index.ros.org/doc/ros2/Installation/Dashing/Linux-Install-Debians/).
 
 ### Dependent tools
-**Note**: We recommend installing **Gazebo 9.9.0** via **ROS Crystal Debian packages** and removing previous gazebo installations to avoid undesired conflicts, e.g. `apt-get remove *gazebo*`. You can also use different versions of the simulator such as Gazebo 10, but you must skip the installation of `ros-crystal-gazebo*` packages.
+**Note**: We recommend installing **Gazebo 9.9.0** via **ROS Dashing Debian packages** and removing previous gazebo installations to avoid undesired conflicts, e.g. `apt-get remove *gazebo*`. You can also use different versions of the simulator such as Gazebo 10, but you must skip the installation of `ros-dashing-gazebo*` packages.
 
 ```sh
 # ROS 2 extra packages
 sudo apt update && sudo apt install -y \
-ros-crystal-action-msgs \
-ros-crystal-message-filters \
-ros-crystal-yaml-cpp-vendor \
-ros-crystal-urdf \
-ros-crystal-rttest \
-ros-crystal-tf2 \
-ros-crystal-tf2-geometry-msgs \
-ros-crystal-rclcpp-action \
-ros-crystal-cv-bridge \
-ros-crystal-control-msgs \
-ros-crystal-image-transport \
-ros-crystal-gazebo-dev \
-ros-crystal-gazebo-msgs \
-ros-crystal-gazebo-plugins \
-ros-crystal-gazebo-ros \
-ros-crystal-gazebo-ros-pkgs
+ros-dashing-action-msgs \
+ros-dashing-message-filters \
+ros-dashing-yaml-cpp-vendor \
+ros-dashing-urdf \
+ros-dashing-rttest \
+ros-dashing-tf2 \
+ros-dashing-tf2-geometry-msgs \
+ros-dashing-rclcpp-action \
+ros-dashing-cv-bridge \
+ros-dashing-control-msgs \
+ros-dashing-image-transport \
+ros-dashing-gazebo-dev \
+ros-dashing-gazebo-msgs \
+ros-dashing-gazebo-plugins \
+ros-dashing-gazebo-ros \
+ros-dashing-gazebo-ros-pkgs
 
 sudo apt install -y \
 python3-vcstool python3-numpy wget python3-pyqt5
@@ -145,7 +145,7 @@ Create the workspace and download source files:
 ```sh
 mkdir -p ~/ros2_mara_ws/src
 cd ~/ros2_mara_ws
-wget https://raw.githubusercontent.com/acutronicrobotics/MARA/master/mara-ros2.repos
+wget https://raw.githubusercontent.com/acutronicrobotics/MARA/dashing/mara-ros2.repos
 vcs import src < mara-ros2.repos
 ```
 
@@ -163,7 +163,7 @@ hrim generate models/actuator/gripper/gripper.xml
 Please  make sure you are not sourcing ROS workspaces via `.bashrc` or any other way.
 
 ```sh
-source /opt/ros/crystal/setup.bash
+source /opt/ros/dashing/setup.bash
 cd ~/ros2_mara_ws && colcon build --merge-install --packages-skip individual_trajectories_bridge
 ```
 **Installation completed!** Now make sure you check the **[Examples](#examples)** section! Or follow the MoveIt! installation.
@@ -192,7 +192,7 @@ Compile the trajectory bridge located in the workspace using ROS as source.
 source /opt/ros/melodic/setup.bash
 cd ~/ros2_mara_ws && colcon build --merge-install --packages-select individual_trajectories_bridge
 # Building ROS 1 creates conflicts with this ROS 2.0 workspace. Next line ensures the workspace is completely ROS 2.0.
-sed -i 's#/opt/ros/melodic#/opt/ros/crystal#g' ~/ros2_mara_ws/install/setup.bash
+sed -i 's#/opt/ros/melodic#/opt/ros/dashing#g' ~/ros2_mara_ws/install/setup.bash
 ```
 #### ROS Workspace
 Compile the MARA_ROS1 packages.
@@ -351,7 +351,7 @@ ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -
 ## Examples
 
  - [Documentation and tutorials](https://acutronicrobotics.com/docs/products/robots/mara)
- - [mara_examples](https://github.com/AcutronicRobotics/mara_examples.git)
+ - [mara_examples](https://github.com/AcutronicRobotics/mara_examples.git) (_Not ported to dashing yet_)
 
 <br/>
 

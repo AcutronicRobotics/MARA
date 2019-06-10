@@ -2,15 +2,11 @@ repositories:
   mara:
     type: git
     url: https://github.com/acutronicrobotics/MARA.git
-    version: master
+    version: dashing
   HRIM:
     type: git
     url: https://github.com/erlerobot/HRIM.git
     version: Coliza
-  mara_examples:
-    type: git
-    url: https://github.com/AcutronicRobotics/mara_examples.git
-    version: master
   robotiq_modular_gripper:
     type: git
     url: https://github.com/AcutronicRobotics/robotiq_modular_gripper.git
@@ -19,3 +15,23 @@ repositories:
     type: git
     url: https://github.com/AcutronicRobotics/hans_modular_servomotor.git
     version: master
+  gazebo_ros_pkgs:
+      type: git
+      url: https://github.com/ros-simulation/gazebo_ros_pkgs
+      version: ros2
+  control_msgs:
+    type: git
+    url: https://github.com/erlerobot/control_msgs/
+    version: crystal
+  geometry2:
+    type: git
+    url: https://github.com/acutronicrobotics/geometry2/
+    version: ros2
+  image_common:
+    type: git
+    url: https://github.com/ros-perception/image_common
+    version: ros2
+  vision_opencv:
+    type: git
+    url: https://github.com/ros-perception/vision_opencv
+    version: ros2
