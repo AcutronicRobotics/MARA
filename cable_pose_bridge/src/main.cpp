@@ -10,37 +10,39 @@
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunused-parameter"
 #endif
-#include "geometry_msgs/Pose.h"
+#include "geometry_msgs/PoseStamped.h"
 #ifdef __clang__
 # pragma clang diagnostic pop
 #endif
 
 // include ROS 2
 #include "rclcpp/rclcpp.hpp"
-#include "geometry_msgs/msg/pose.hpp"
+#include "geometry_msgs/msg/pose_stamped.hpp"
 
 
 ros::Publisher ros1_pub;
 
-void ros2Callback(const geometry_msgs::msg::Pose::SharedPtr ros2_msg)
+void ros2Callback(const geometry_msgs::msg::PoseStamped::SharedPtr ros2_msg)
 {
   printf("Received message from ROS2!\n");
 
-  geometry_msgs::Pose ros1_msg;
-  ros1_msg.position.x = ros2_msg->position.x;
-  ros1_msg.position.y = ros2_msg->position.y;
-  ros1_msg.position.z = ros2_msg->position.z;
-  ros1_msg.orientation.w = ros2_msg->orientation.w;
-  ros1_msg.orientation.x = ros2_msg->orientation.x;
-  ros1_msg.orientation.y = ros2_msg->orientation.y;
-  ros1_msg.orientation.z = ros2_msg->orientation.z;
+  geometry_msgs::PoseStamped ros1_msg;
+  ros1_msg.header.stamp = ros::Time::now();
+  ros1_msg.header.frame_id = ros2_msg->header.frame_id;
+  ros1_msg.pose.position.y = ros2_msg->pose.position.y;
+  ros1_msg.pose.position.x = ros2_msg->pose.position.x;
+  ros1_msg.pose.position.z = ros2_msg->pose.position.z;
+  ros1_msg.pose.orientation.w = ros2_msg->pose.orientation.w;
+  ros1_msg.pose.orientation.x = ros2_msg->pose.orientation.x;
+  ros1_msg.pose.orientation.y = ros2_msg->pose.orientation.y;
+  ros1_msg.pose.orientation.z = ros2_msg->pose.orientation.z;
 
   printf("Passing along to ROS 1\n");
   ros1_pub.publish(ros1_msg);
 }
 
 
-rclcpp::Publisher<geometry_msgs::msg::Pose>::SharedPtr ros2_pub;
+rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr ros2_pub;
 
 // void ros1Callback(const ros::MessageEvent<std_msgs::String const> & ros1_msg_event)
 // {
@@ -71,7 +73,7 @@ int main(int argc, char * argv[])
   // ROS 1 node and publisher
   ros::init(argc, argv, "cable_bridge_ros1");
   ros::NodeHandle ros1_node;
-  ros1_pub = ros1_node.advertise<geometry_msgs::Pose>("/mara/pred_target", 10);
+  ros1_pub = ros1_node.advertise<geometry_msgs::PoseStamped>("/mara/pred_target", 10);
   // ros::Subscriber ros1_sub = ros1_node.subscribe(
   //   "/mara/pred_target", 10, ros1Callback);
 
@@ -79,7 +81,7 @@ int main(int argc, char * argv[])
   rclcpp::init(argc, argv);
   auto ros2_node = rclcpp::Node::make_shared("cable_bridge_ros2");
   // auto pub_ros2 = ros2_node->create_publisher<geometry_msgs::msg::Pose>("/mara/pred_target");
-  auto sub_ros2 = ros2_node->create_subscription<geometry_msgs::msg::Pose>(
+  auto sub_ros2 = ros2_node->create_subscription<geometry_msgs::msg::PoseStamped>(
     "/mara/pred_target", ros2Callback);
 
   //////////////////////////////////////////////////////////////////////////
