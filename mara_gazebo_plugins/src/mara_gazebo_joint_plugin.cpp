@@ -651,8 +651,9 @@ void MARAGazeboPluginRosPrivate::IDService(
   (void)req;
 
   res->device_kind_id = hrim_generic_srvs::srv::ID::Response::HRIM_ACTUATOR;
-  res->hros_version = "Ardent";
-  res->hrim_version = "Anboto";
+  res->hros_version = "Dashing";
+  res->hrim_version = "Coliza";
+  res->device_name = "Servo";
 }
 
 void MARAGazeboPluginRosPrivate::URDFService(
