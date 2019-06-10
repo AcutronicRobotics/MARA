@@ -44,26 +44,24 @@ void cb(ConstContactsPtr &_msg)
 
 
   if (_msg->contact_size() > 0){
-    if (_msg->contact(0).collision1() != "ground_plane::link::collision" && _msg->contact(0).collision2() != "ground_plane::link::collision"){
+    contact.collision1_name = _msg->contact(0).collision1();
+    contact.collision2_name = _msg->contact(0).collision2();
+
+    for (int j = 0; j <  _msg->contact(0).position_size(); ++j){
       contact.collision1_name = _msg->contact(0).collision1();
       contact.collision2_name = _msg->contact(0).collision2();
 
-      for (int j = 0; j <  _msg->contact(0).position_size(); ++j){
-        contact.collision1_name = _msg->contact(0).collision1();
-        contact.collision2_name = _msg->contact(0).collision2();
+      position.x =  _msg->contact(0).position(j).x();
+      position.y =  _msg->contact(0).position(j).y();
+      position.z =  _msg->contact(0).position(j).z();
+      contact.contact_positions.push_back(position);
 
-        position.x =  _msg->contact(0).position(j).x();
-        position.y =  _msg->contact(0).position(j).y();
-        position.z =  _msg->contact(0).position(j).z();
-        contact.contact_positions.push_back(position);
+      normals.x =  _msg->contact(0).normal(j).x();
+      normals.y =  _msg->contact(0).normal(j).y();
+      normals.z =  _msg->contact(0).normal(j).z();
+      contact.contact_normals.push_back(normals);
 
-        normals.x =  _msg->contact(0).normal(j).x();
-        normals.y =  _msg->contact(0).normal(j).y();
-        normals.z =  _msg->contact(0).normal(j).z();
-        contact.contact_normals.push_back(normals);
-
-        contact.depths.push_back(static_cast<float>(_msg->contact(0).depth(0)));
-      }
+      contact.depths.push_back(static_cast<float>(_msg->contact(0).depth(0)));
     }
   }
   contacts_pub->publish(contact);

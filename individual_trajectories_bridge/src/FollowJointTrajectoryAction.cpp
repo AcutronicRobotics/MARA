@@ -1,8 +1,6 @@
 #include "FollowJointTrajectoryAction.hpp"
 
-FollowJointTrajectoryAction::FollowJointTrajectoryAction(std::string name, ros::NodeHandle nh, rclcpp::Node::SharedPtr node_ros2) :
-  as_(nh, name, boost::bind(&FollowJointTrajectoryAction::executeCB, this, _1), false),
-  action_name_(name)
+FollowJointTrajectoryAction::FollowJointTrajectoryAction(std::string name, ros::NodeHandle nh, rclcpp::Node::SharedPtr node_ros2) : as_(nh, name, boost::bind(&FollowJointTrajectoryAction::executeCB, this, _1), false), action_name_(name)
 {
   as_.start();
   this->node_ros2 = node_ros2;
@@ -125,7 +123,7 @@ void FollowJointTrajectoryAction::executeCB(const control_msgs::FollowJointTraje
   auto result_future = action_client->async_get_result(goal_handle);
 
   RCLCPP_INFO(node_ros2->get_logger(), "Waiting for result %d seconds", ((int)wait_time) + 1);
-  printf("Waiting for result %d seconds\n", ((int)wait_time) + 1);
+
   if (result_future.wait_for(std::chrono::seconds(((int)wait_time) + 1 )) != std::future_status::ready){
     RCLCPP_ERROR(node_ros2->get_logger(), "get result call failed :(");
     return;
