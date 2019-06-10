@@ -113,7 +113,7 @@ In this section we will install all the necessary dependencies in order to be ab
 - **ROS 2.0 Crystal**: following the official instructions, [source](https://index.ros.org/doc/ros2/Linux-Development-Setup/) or [debian packages](https://index.ros.org/doc/ros2/Linux-Install-Debians/).
 
 ### Dependent tools
-**Note**: We recommend installing **Gazebo 9.0.0** via **ROS Crystal Debian packages** and removing previous gazebo installations to avoid undesired conflicts, e.g. `apt-get remove *gazebo*`. You can also use different versions of the simulator such as Gazebo 10, but you must skip the installation of `ros-crystal-gazebo*` packages and add [gazebo_ros_pkgs](https://github.com/ros-simulation/gazebo_ros_pkgs/tree/crystal) to the `ros2_mara_ws` we are going to build in the [Create a ROS workspace](#create-a-ros-20-workspace) section.
+**Note**: We recommend installing **Gazebo 9.9.0** via **ROS Crystal Debian packages** and removing previous gazebo installations to avoid undesired conflicts, e.g. `apt-get remove *gazebo*`. You can also use different versions of the simulator such as Gazebo 10, but you must skip the installation of `ros-crystal-gazebo*` packages.
 
 ```sh
 # ROS 2 extra packages
@@ -214,13 +214,15 @@ source ~/ros2_mara_ws/install/setup.bash
 ros2 launch mara_gazebo mara.launch.py
 ```
 
-**Optionally**, you can launch the MARA robot with gripper and/or a table using the `--urdf` flag to indicate the desired urdf to be spawned:
+**Optionally**, you can launch a different versions of MARA robot using the `--urdf` flag to indicate the desired urdf to be spawned:
 
 ```sh
 ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
 ```
 
-*Available urdfs: `mara_robot_gripper_140`, `mara_robot_gripper_140_no_table`, `mara_robot_gripper_85` and `mara_robot_gripper_hande`*
+*Available urdfs: `mara_robot_gripper_140`, `mara_robot_gripper_140_no_table`, `mara_robot_gripper_85`, `mara_robot_gripper_hande`, `two_mara_robots` and `two_mara_robots_gripper_140_no_table`*
+
+*In case you use two mara robots, you will need to add extra [simulated_motors](https://github.com/AcutronicRobotics/MARA/blob/master/hros_cognition_mara_components/config/motors.yaml#L8-L13) and [motors](https://github.com/AcutronicRobotics/MARA/blob/master/hros_cognition_mara_components/config/motors.yaml#L30-L35), and compile the ros2 package again (make sure you only source crystal): `cd ~/ros2_mara_ws && colcon build --merge-install --packages-select hros_cognition_mara_components`.*
 
 <br/>
 
@@ -255,14 +257,13 @@ source ~/catkin_mara_ws/devel_isolated/setup.bash
 roslaunch mara_bringup mara_bringup_moveit_actions.launch
 ```
 
-**Optionally**, you can launch one of these launch files, according to the choice in the Terminal 1.
+If you have used a different urdf in the Terminal 1, you will need to use `urdf:=` to launch the same one:
 
 ```sh
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140 table:=false
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=140
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=85
-roslaunch mara_bringup mara_bringup_moveit_actions.launch gripper:=true prefix:=hande
+roslaunch mara_bringup mara_bringup_moveit_actions.launch urdf:=mara_robot_gripper_140
 ```
+
+*In case you have used two mara robots, you will need to add extra [simulated_motors](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml#L8-L13) and compile the ros package again (make sure you only source melodic): `cd ~/catkin_mara_ws && catkin_make_isolated --install --pkg mara_bringup`*
 
 #### Terminal 3 (bridge)
 ```sh
@@ -275,7 +276,19 @@ ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -
 ### MoveIt! with MARA - Real Robot
 Plan trajectories in a real environment with MoveIt!.
 
-:warning: You will need to change the names of the real motors in [MARA/hros_cognition_mara_components](https://github.com/AcutronicRobotics/MARA/blob/master/hros_cognition_mara_components/config/motors.yaml#L10-L15) and in [MARA_ROS1/mara_bringup](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml#L10-L15) files to match the MACs of your SoMs.
+:warning: You will need to change the names of the real motors in [MARA/hros_cognition_mara_components](https://github.com/AcutronicRobotics/MARA/blob/master/hros_cognition_mara_components/config/motors.yaml#L16-L21) and in [MARA_ROS1/mara_bringup](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml#L10-L15) files to match the MACs of your SoMs.
+
+In case you want to control two real robots you will need to add the new real_motors of the new robot in [ros2_mara_ws](https://github.com/AcutronicRobotics/MARA/blob/master/hros_cognition_mara_components/config/motors.yaml#L15) and [catkin_mara_ws](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml#L15), and add extra [motors](https://github.com/AcutronicRobotics/MARA/blob/master/hros_cognition_mara_components/config/motors.yaml#L30-L35).
+
+:warning: Any change in the yaml files you will have to recompile the ros2 and ros packages (make sure you source only the corresponding ros/ros2):
+```sh
+source /opt/ros/crystal/setup.bash
+cd ~/ros2_mara_ws && colcon build --merge-install --packages-select hros_cognition_mara_components
+```
+```sh
+source /opt/ros/melodic/setup.bash
+cd ~/catkin_mara_ws && catkin_make_isolated --install --pkg mara_bringup
+```
 
 #### Terminal 1 (ROS 2.0)
 
@@ -288,13 +301,13 @@ export ROS_DOMAIN_ID=22
 ros2 launch mara_bringup mara.launch.py
 ```
 
-If your real robot includes a gripper, you will have to set the `--urdf` flag to indicate the urdf that contains the gripper your robot has:
+If your real robot has any extra component or you want to control more than one robot, you will need to set the `--urdf` flag to indicate the urdf that corresponds to your real robot (environment):
 
 ```sh
 ros2 launch mara_bringup mara.launch.py --urdf mara_robot_gripper_140
 ```
 
-*Available urdfs: `mara_robot_gripper_140`, `mara_robot_gripper_140_no_table`, `mara_robot_gripper_85` and `mara_robot_gripper_hande`*
+*Available urdfs: `mara_robot_gripper_140`, `mara_robot_gripper_140_no_table`, `mara_robot_gripper_85`, `mara_robot_gripper_hande`, `two_mara_robots` and `two_mara_robots_gripper_140_no_table`*
 
 #### Terminal 2 (ROS)
 
@@ -303,14 +316,14 @@ source ~/catkin_mara_ws/devel_isolated/setup.bash
 roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real
 ```
 
-If you have used a different urdf in the Terminal 1, you will have to launch the corresponding one to match it:
+If you have used a different urdf in the Terminal 1, you will need to use `urdf:=` to launch the same one:
 
 ```sh
-roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=140 table:=false
-roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=140
-roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=85
-roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real gripper:=true prefix:=hande
+roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real urdf:=mara_robot_gripper_140
 ```
+
+*If case you want to control two robots you will need to add `multiple_robots:=true`*
+
 
 #### Terminal 3 (bridge)
 
