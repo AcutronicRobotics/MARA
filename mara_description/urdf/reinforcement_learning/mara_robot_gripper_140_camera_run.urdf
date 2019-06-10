@@ -878,6 +878,9 @@
       <kp>600</kp>
       <ki>0.1</ki>
       <kd>0.01</kd>
+      <min_velocity>30</min_velocity>
+      <max_velocity>250</max_velocity>
+      <radius>156</radius>
       <joint>robotiq_arg2f_base_to_left_inner_knuckle</joint>
       <joint>robotiq_arg2f_base_to_left_outer_knuckle</joint>
       <joint>robotiq_arg2f_base_to_right_inner_knuckle</joint>
