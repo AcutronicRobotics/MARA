@@ -7,7 +7,7 @@
   <!--
   Author: Alejandro  Hernandez
 -->
-  <link name="mara1_base_link">
+  <link name="base_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
       <mass value="7.033"/>
@@ -29,11 +29,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_base_link">
+  <gazebo reference="base_link">
     <material>Gazebo/Grey</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_base_robot">
+  <link name="base_robot">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
       <mass value="7.033"/>
@@ -55,11 +55,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_base_robot">
+  <gazebo reference="base_robot">
     <material>Gazebo/Black</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_motor1_link">
+  <link name="motor1_link">
     <inertial>
       <origin rpy="0 0 0" xyz="0.02066 0 0.12051"/>
       <mass value="5.6"/>
@@ -81,11 +81,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_motor1_link">
+  <gazebo reference="motor1_link">
     <material>Gazebo/White</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_motor1_cover">
+  <link name="motor1_cover">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.0"/>
@@ -107,11 +107,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_motor1_cover">
+  <gazebo reference="motor1_cover">
     <material>Gazebo/Black</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_motor2_link">
+  <link name="motor2_link">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.01665 0.0 0.09639"/>
       <mass value="1.24"/>
@@ -133,11 +133,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_motor2_link">
+  <gazebo reference="motor2_link">
     <material>Gazebo/Black</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_motor3_link">
+  <link name="motor3_link">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.08963 0 0.0403"/>
       <mass value="3.95"/>
@@ -159,11 +159,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_motor3_link">
+  <gazebo reference="motor3_link">
     <material>Gazebo/White</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_motor3_cover">
+  <link name="motor3_cover">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.0"/>
@@ -185,11 +185,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_motor3_cover">
+  <gazebo reference="motor3_cover">
     <material>Gazebo/Black</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_motor4_link">
+  <link name="motor4_link">
     <inertial>
       <origin rpy="0 0 0" xyz="0.06357 0.0 0.05698"/>
       <mass value="1.26"/>
@@ -211,11 +211,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_motor4_link">
+  <gazebo reference="motor4_link">
     <material>Gazebo/Black</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_motor5_link">
+  <link name="motor5_link">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.09105 0.0 0.03676"/>
       <mass value="2.85"/>
@@ -237,11 +237,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_motor5_link">
+  <gazebo reference="motor5_link">
     <material>Gazebo/White</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_motor5_cover">
+  <link name="motor5_cover">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.0"/>
@@ -263,12 +263,12 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_motor5_cover">
+  <gazebo reference="motor5_cover">
     <material>Gazebo/Black</material>
     <selfCollide>True</selfCollide>
   </gazebo>
   <!-- dummy link with the required tags-->
-  <link name="mara1_motor6_link">
+  <link name="motor6_link">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.00001"/>
@@ -287,174 +287,174 @@
       </geometry>
     </collision>
   </link>
-  <link name="mara1_ee_link"/>
-  <joint name="mara1_joint_bases" type="fixed">
+  <link name="ee_link"/>
+  <joint name="joint_bases" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.04"/>
-    <parent link="mara1_base_link"/>
-    <child link="mara1_base_robot"/>
+    <parent link="base_link"/>
+    <child link="base_robot"/>
   </joint>
-  <joint name="mara1_motor1" type="revolute">
+  <joint name="motor1" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.05122"/>
-    <parent link="mara1_base_robot"/>
-    <child link="mara1_motor1_link"/>
+    <parent link="base_robot"/>
+    <child link="motor1_link"/>
     <axis xyz="0 0 1"/>
     <limit effort="104.0" lower="-3.1416" upper="3.1416" velocity="1.57"/>
     <dynamics damping="0" friction="0"/>
   </joint>
-  <joint name="mara1_motor1_cover_joint" type="fixed">
+  <joint name="motor1_cover_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.0"/>
-    <parent link="mara1_motor1_link"/>
-    <child link="mara1_motor1_cover"/>
+    <parent link="motor1_link"/>
+    <child link="motor1_cover"/>
   </joint>
-  <joint name="mara1_motor2" type="revolute">
+  <joint name="motor2" type="revolute">
     <origin rpy="0 0 0" xyz="0.118 0 0.1637"/>
-    <parent link="mara1_motor1_link"/>
-    <child link="mara1_motor2_link"/>
+    <parent link="motor1_link"/>
+    <child link="motor2_link"/>
     <axis xyz="1 0 0"/>
     <limit effort="104.0" lower="-2.35" upper="2.35" velocity="1.57"/>
     <dynamics damping="0" friction="0"/>
   </joint>
-  <joint name="mara1_motor3" type="revolute">
+  <joint name="motor3" type="revolute">
     <origin rpy="0 0 0" xyz="-0.009 0 0.2"/>
-    <parent link="mara1_motor2_link"/>
-    <child link="mara1_motor3_link"/>
+    <parent link="motor2_link"/>
+    <child link="motor3_link"/>
     <axis xyz="-1 0 0"/>
     <limit effort="69" lower="-2.61" upper="2.61" velocity="1.57"/>
     <dynamics damping="0" friction="0"/>
   </joint>
-  <joint name="mara1_motor3_cover_joint" type="fixed">
+  <joint name="motor3_cover_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.0"/>
-    <parent link="mara1_motor3_link"/>
-    <child link="mara1_motor3_cover"/>
+    <parent link="motor3_link"/>
+    <child link="motor3_cover"/>
   </joint>
-  <joint name="mara1_motor4" type="revolute">
+  <joint name="motor4" type="revolute">
     <origin rpy="0 0 0" xyz="-0.109255 0 0.149255"/>
-    <parent link="mara1_motor3_link"/>
-    <child link="mara1_motor4_link"/>
+    <parent link="motor3_link"/>
+    <child link="motor4_link"/>
     <axis xyz="0 0 1"/>
     <limit effort="69" lower="-3.14" upper="3.14" velocity="1.57"/>
     <dynamics damping="0" friction="0"/>
   </joint>
-  <joint name="mara1_motor5" type="revolute">
+  <joint name="motor5" type="revolute">
     <origin rpy="0 0 0" xyz="0.1054570 0 0.16074"/>
-    <parent link="mara1_motor4_link"/>
-    <child link="mara1_motor5_link"/>
+    <parent link="motor4_link"/>
+    <child link="motor5_link"/>
     <axis xyz="-1 0 0"/>
     <limit effort="34" lower="-2.56" upper="2.56" velocity="1.57"/>
     <dynamics damping="0" friction="0"/>
   </joint>
-  <joint name="mara1_motor5_cover_joint" type="fixed">
+  <joint name="motor5_cover_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.0"/>
-    <parent link="mara1_motor5_link"/>
-    <child link="mara1_motor5_cover"/>
+    <parent link="motor5_link"/>
+    <child link="motor5_cover"/>
   </joint>
-  <joint name="mara1_motor6" type="revolute">
+  <joint name="motor6" type="revolute">
     <origin rpy="0 0 0" xyz="-0.10625569 0 0.14675569"/>
-    <parent link="mara1_motor5_link"/>
-    <child link="mara1_motor6_link"/>
+    <parent link="motor5_link"/>
+    <child link="motor6_link"/>
     <axis xyz="0 0 1"/>
     <limit effort="34" lower="-3.14" upper="3.14" velocity="1.57"/>
     <dynamics damping="0" friction="0"/>
   </joint>
-  <joint name="mara1_ee_link" type="fixed">
+  <joint name="ee_link" type="fixed">
     <origin rpy="0 -1.57 0" xyz="0 0.0 0.24497"/>
-    <parent link="mara1_motor6_link"/>
-    <child link="mara1_ee_link"/>
+    <parent link="motor6_link"/>
+    <child link="ee_link"/>
   </joint>
-  <link name="mara1_tool0"/>
-  <joint name="mara1_motor6_link-tool0_fixed_joint" type="fixed">
+  <link name="tool0"/>
+  <joint name="motor6_link-tool0_fixed_joint" type="fixed">
     <origin rpy="0 -1.57 0" xyz="0 0.0 0.24497"/>
-    <parent link="mara1_motor6_link"/>
-    <child link="mara1_tool0"/>
+    <parent link="motor6_link"/>
+    <child link="tool0"/>
   </joint>
-  <transmission name="mara1_shoulder_pan_trans">
+  <transmission name="shoulder_pan_trans">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="mara1_motor1">
+    <joint name="motor1">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
-    <actuator name="mara1_shoulder_pan_motor">
+    <actuator name="shoulder_pan_motor">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="mara1_shoulder_lift_trans">
+  <transmission name="shoulder_lift_trans">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="mara1_motor2">
+    <joint name="motor2">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
-    <actuator name="mara1_shoulder_lift_motor">
+    <actuator name="shoulder_lift_motor">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="mara1_elbow_trans">
+  <transmission name="elbow_trans">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="mara1_motor3">
+    <joint name="motor3">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
-    <actuator name="mara1_elbow_motor">
+    <actuator name="elbow_motor">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="mara1_wrist_1_trans">
+  <transmission name="wrist_1_trans">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="mara1_motor4">
+    <joint name="motor4">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
-    <actuator name="mara1_wrist_1_motor">
+    <actuator name="wrist_1_motor">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="mara1_wrist_2_trans">
+  <transmission name="wrist_2_trans">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="mara1_motor5">
+    <joint name="motor5">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
-    <actuator name="mara1_wrist_2_motor">
+    <actuator name="wrist_2_motor">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="mara1_wrist_3_trans">
+  <transmission name="wrist_3_trans">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="mara1_motor6">
+    <joint name="motor6">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
-    <actuator name="mara1_wrist_3_motor">
+    <actuator name="wrist_3_motor">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <gazebo>
-    <plugin filename="libgazebo_ros_joint_state_publisher.so" name="mara1_joint_state">
+    <plugin filename="libgazebo_ros_joint_state_publisher.so" name="joint_state">
       <ros>
-        <argument>~/out:=mara1_joint_states</argument>
+        <argument>~/out:=joint_states</argument>
       </ros>
       <update_rate>25</update_rate>
-      <joint_name>mara1_motor1</joint_name>
-      <joint_name>mara1_motor2</joint_name>
-      <joint_name>mara1_motor3</joint_name>
-      <joint_name>mara1_motor4</joint_name>
-      <joint_name>mara1_motor5</joint_name>
-      <joint_name>mara1_motor6</joint_name>
-      <joint_name>mara1_joint_finger</joint_name>
+      <joint_name>motor1</joint_name>
+      <joint_name>motor2</joint_name>
+      <joint_name>motor3</joint_name>
+      <joint_name>motor4</joint_name>
+      <joint_name>motor5</joint_name>
+      <joint_name>motor6</joint_name>
+      <joint_name>joint_finger</joint_name>
     </plugin>
     <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuation_servomotor_000000000001">
       <ros/>
-      <axis1>mara1_motor2</axis1>
-      <axis2>mara1_motor1</axis2>
+      <axis1>motor2</axis1>
+      <axis2>motor1</axis2>
       <type>series14</type>
     </plugin>
     <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuation_servomotor_000000000002">
       <ros/>
-      <axis1>mara1_motor3</axis1>
-      <axis2>mara1_motor4</axis2>
+      <axis1>motor3</axis1>
+      <axis2>motor4</axis2>
       <type>series17</type>
     </plugin>
     <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuation_servomotor_000000000003">
       <ros/>
-      <axis1>mara1_motor5</axis1>
-      <axis2>mara1_motor6</axis2>
+      <axis1>motor5</axis1>
+      <axis2>motor6</axis2>
       <type>series20</type>
     </plugin>
   </gazebo>
-  <link name="mara1_robotiq_arg2f_base_link">
+  <link name="robotiq_arg2f_base_link">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.00013 0.00011 0.03284"/>
       <mass value="0.52954"/>
@@ -476,11 +476,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_robotiq_arg2f_base_link">
+  <gazebo reference="robotiq_arg2f_base_link">
     <material>Gazebo/Black</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_left_outer_knuckle">
+  <link name="left_outer_knuckle">
     <inertial>
       <origin rpy="0 0 0" xyz="0.01616 0 -0.00133"/>
       <mass value="0.0131"/>
@@ -502,11 +502,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_left_outer_knuckle">
+  <gazebo reference="left_outer_knuckle">
     <material>Gazebo/Grey</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_right_outer_knuckle">
+  <link name="right_outer_knuckle">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.01616 0 -0.00133"/>
       <mass value="0.0131"/>
@@ -528,11 +528,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_right_outer_knuckle">
+  <gazebo reference="right_outer_knuckle">
     <material>Gazebo/Grey</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_left_inner_knuckle">
+  <link name="left_inner_knuckle">
     <inertial>
       <origin rpy="0 0 0" xyz="0.03332 0 0.0379"/>
       <mass value="0.04476"/>
@@ -554,11 +554,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_left_inner_knuckle">
+  <gazebo reference="left_inner_knuckle">
     <material>Gazebo/Black</material>
     <selfCollide>False</selfCollide>
   </gazebo>
-  <link name="mara1_right_inner_knuckle">
+  <link name="right_inner_knuckle">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.03332 0 0.0379"/>
       <mass value="0.04476"/>
@@ -580,11 +580,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_right_inner_knuckle">
+  <gazebo reference="right_inner_knuckle">
     <material>Gazebo/Black</material>
     <selfCollide>False</selfCollide>
   </gazebo>
-  <link name="mara1_left_inner_finger">
+  <link name="left_inner_finger">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.01563 0 0.02522"/>
       <mass value="0.045"/>
@@ -606,11 +606,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_left_inner_finger">
+  <gazebo reference="left_inner_finger">
     <material>Gazebo/Black</material>
     <selfCollide>False</selfCollide>
   </gazebo>
-  <link name="mara1_right_inner_finger">
+  <link name="right_inner_finger">
     <inertial>
       <origin rpy="0 0 0" xyz="0.01563 0 0.02522"/>
       <mass value="0.045"/>
@@ -632,11 +632,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_right_inner_finger">
+  <gazebo reference="right_inner_finger">
     <material>Gazebo/Black</material>
     <selfCollide>False</selfCollide>
   </gazebo>
-  <link name="mara1_left_outer_finger">
+  <link name="left_outer_finger">
     <inertial>
       <origin rpy="0 0 0" xyz="0.01482 0 0.03451"/>
       <mass value="0.07637"/>
@@ -658,11 +658,11 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_left_outer_finger">
+  <gazebo reference="left_outer_finger">
     <material>Gazebo/Black</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_right_outer_finger">
+  <link name="right_outer_finger">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.01482 0 0.03451"/>
       <mass value="0.07637"/>
@@ -684,72 +684,72 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="mara1_right_outer_finger">
+  <gazebo reference="right_outer_finger">
     <material>Gazebo/Black</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <joint name="robotiq_arg2f_base_to_mara1_left_outer_knuckle" type="revolute">
+  <joint name="robotiq_arg2f_base_to_left_outer_knuckle" type="revolute">
     <origin rpy="0 0 0" xyz="0.0306 0 0.05466"/>
-    <parent link="mara1_robotiq_arg2f_base_link"/>
-    <child link="mara1_left_outer_knuckle"/>
+    <parent link="robotiq_arg2f_base_link"/>
+    <child link="left_outer_knuckle"/>
     <axis xyz="0 -1 0"/>
     <limit effort="18.65" lower="0" upper="0.78574722925" velocity="2.0"/>
-    <mimic joint="mara1_joint_finger" multiplier="1" offset="0"/>
+    <mimic joint="joint_finger" multiplier="1" offset="0"/>
   </joint>
-  <joint name="mara1_joint_finger" type="revolute">
+  <joint name="joint_finger" type="revolute">
     <origin rpy="0 0 0" xyz="-0.0306 0 0.05466"/>
-    <parent link="mara1_robotiq_arg2f_base_link"/>
-    <child link="mara1_right_outer_knuckle"/>
+    <parent link="robotiq_arg2f_base_link"/>
+    <child link="right_outer_knuckle"/>
     <axis xyz="0 1 0"/>
     <limit effort="18.65" lower="0" upper="0.78574722925" velocity="3.54"/>
   </joint>
-  <joint name="robotiq_arg2f_base_to_mara1_left_inner_knuckle" type="revolute">
+  <joint name="robotiq_arg2f_base_to_left_inner_knuckle" type="revolute">
     <origin rpy="0 0 0" xyz="0.0127 0 0.06118"/>
-    <parent link="mara1_robotiq_arg2f_base_link"/>
-    <child link="mara1_left_inner_knuckle"/>
+    <parent link="robotiq_arg2f_base_link"/>
+    <child link="left_inner_knuckle"/>
     <axis xyz="0 -1 0"/>
     <limit effort="18.65" lower="0" upper="0.78574722925" velocity="3.54"/>
-    <mimic joint="mara1_joint_finger" multiplier="1" offset="0"/>
+    <mimic joint="joint_finger" multiplier="1" offset="0"/>
   </joint>
-  <joint name="robotiq_arg2f_base_to_mara1_right_inner_knuckle" type="revolute">
+  <joint name="robotiq_arg2f_base_to_right_inner_knuckle" type="revolute">
     <origin rpy="0 0 0" xyz="-0.0127 0 0.06118"/>
-    <parent link="mara1_robotiq_arg2f_base_link"/>
-    <child link="mara1_right_inner_knuckle"/>
+    <parent link="robotiq_arg2f_base_link"/>
+    <child link="right_inner_knuckle"/>
     <axis xyz="0 1 0"/>
     <limit effort="18.65" lower="0" upper="0.78574722925" velocity="3.54"/>
-    <mimic joint="mara1_joint_finger" multiplier="1" offset="0"/>
+    <mimic joint="joint_finger" multiplier="1" offset="0"/>
   </joint>
-  <joint name="mara1_left_outer_knuckle_to_finger" type="fixed">
+  <joint name="left_outer_knuckle_to_finger" type="fixed">
     <origin rpy="0 0 0" xyz="0.03142 0 -0.00453"/>
-    <parent link="mara1_left_outer_knuckle"/>
-    <child link="mara1_left_outer_finger"/>
+    <parent link="left_outer_knuckle"/>
+    <child link="left_outer_finger"/>
   </joint>
-  <joint name="mara1_right_outer_knuckle_to_finger" type="fixed">
+  <joint name="right_outer_knuckle_to_finger" type="fixed">
     <origin rpy="0 0 0" xyz="-0.03142 0 -0.00453"/>
-    <parent link="mara1_right_outer_knuckle"/>
-    <child link="mara1_right_outer_finger"/>
+    <parent link="right_outer_knuckle"/>
+    <child link="right_outer_finger"/>
   </joint>
-  <joint name="mara1_left_outer_finger_to_inner" type="revolute">
+  <joint name="left_outer_finger_to_inner" type="revolute">
     <origin rpy="0 0 0" xyz="0.03543 0 0.0789"/>
-    <parent link="mara1_left_outer_finger"/>
-    <child link="mara1_left_inner_finger"/>
+    <parent link="left_outer_finger"/>
+    <child link="left_inner_finger"/>
     <axis xyz="0 1 0"/>
     <limit effort="18.65" lower="0" upper="0.78574722925" velocity="3.54"/>
-    <mimic joint="mara1_joint_finger" multiplier="1" offset="0"/>
+    <mimic joint="joint_finger" multiplier="1" offset="0"/>
   </joint>
-  <joint name="mara1_right_outer_finger_to_inner" type="revolute">
+  <joint name="right_outer_finger_to_inner" type="revolute">
     <origin rpy="0 0 0" xyz="-0.03543 0 0.0789"/>
-    <parent link="mara1_right_outer_finger"/>
-    <child link="mara1_right_inner_finger"/>
+    <parent link="right_outer_finger"/>
+    <child link="right_inner_finger"/>
     <axis xyz="0 -1 0"/>
     <limit effort="18.65" lower="0" upper="0.78574722925" velocity="3.54"/>
-    <mimic joint="mara1_joint_finger" multiplier="1" offset="0"/>
+    <mimic joint="joint_finger" multiplier="1" offset="0"/>
   </joint>
   <gazebo>
-    <joint name="mara1_left_inner_knuckle_to_finger" type="revolute">
+    <joint name="left_inner_knuckle_to_finger" type="revolute">
       <pose frame="">-0.0179 0 0.00652 0 0 0</pose>
-      <parent>mara1_left_inner_knuckle</parent>
-      <child>mara1_left_inner_finger</child>
+      <parent>left_inner_knuckle</parent>
+      <child>left_inner_finger</child>
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
@@ -760,10 +760,10 @@
         </limit>
       </axis>
     </joint>
-    <joint name="mara1_right_inner_knuckle_to_finger" type="revolute">
+    <joint name="right_inner_knuckle_to_finger" type="revolute">
       <pose frame="">0.0179 0 0.00652 0 0 0</pose>
-      <parent>mara1_right_inner_knuckle</parent>
-      <child>mara1_right_inner_finger</child>
+      <parent>right_inner_knuckle</parent>
+      <child>right_inner_finger</child>
       <axis>
         <xyz>0 -1 0</xyz>
         <limit>
@@ -778,17 +778,10 @@
       <kp>600</kp>
       <ki>0.1</ki>
       <kd>0.01</kd>
-      <joint>robotiq_arg2f_base_to_mara1_left_inner_knuckle</joint>
-      <joint>robotiq_arg2f_base_to_mara1_left_outer_knuckle</joint>
-      <joint>robotiq_arg2f_base_to_mara1_right_inner_knuckle</joint>
-      <joint>mara1_joint_finger</joint>
-    </plugin>
-    <plugin filename="libgazebo_ros_joint_state_publisher.so" name="mara1_joint_state">
-      <ros>
-        <argument>~/out:=mara1_joint_states</argument>
-      </ros>
-      <update_rate>25</update_rate>
-      <joint_name>mara1_joint_finger</joint_name>
+      <joint>robotiq_arg2f_base_to_left_inner_knuckle</joint>
+      <joint>robotiq_arg2f_base_to_left_outer_knuckle</joint>
+      <joint>robotiq_arg2f_base_to_right_inner_knuckle</joint>
+      <joint>joint_finger</joint>
     </plugin>
   </gazebo>
   <link name="mara2_base_link">
@@ -1567,16 +1560,9 @@
       <joint>robotiq_arg2f_base_to_mara2_right_inner_knuckle</joint>
       <joint>mara2_joint_finger</joint>
     </plugin>
-    <plugin filename="libgazebo_ros_joint_state_publisher.so" name="mara2_joint_state">
-      <ros>
-        <argument>~/out:=mara2_joint_states</argument>
-      </ros>
-      <update_rate>25</update_rate>
-      <joint_name>mara2_joint_finger</joint_name>
-    </plugin>
   </gazebo>
   <link name="world"/>
-  <link name="mara1_gripper_adapter">
+  <link name="gripper_adapter">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
       <mass value="0.13969"/>
@@ -1628,7 +1614,7 @@
     <material>Gazebo/Black</material>
     <selfCollide>True</selfCollide>
   </gazebo>
-  <link name="mara1_robotiq_adapter_link">
+  <link name="robotiq_adapter_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
       <mass value="0.22652"/>
@@ -1683,7 +1669,7 @@
   <joint name="world_to_base1" type="fixed">
     <origin rpy="0 0 0" xyz="0 -0.51 0"/>
     <parent link="world"/>
-    <child link="mara1_base_link"/>
+    <child link="base_link"/>
   </joint>
   <joint name="world_to_base2" type="fixed">
     <origin rpy="0 0 0" xyz="0 0.51 0"/>
@@ -1692,8 +1678,8 @@
   </joint>
   <joint name="motor6_to_gripper_adapter1" type="fixed">
     <origin rpy="0 0 0" xyz=" 0 0 -0.02026"/>
-    <parent link="mara1_motor6_link"/>
-    <child link="mara1_gripper_adapter"/>
+    <parent link="motor6_link"/>
+    <child link="gripper_adapter"/>
   </joint>
   <joint name="motor6_to_gripper_adapter2" type="fixed">
     <origin rpy="0 0 0" xyz=" 0 0 -0.02026"/>
@@ -1702,8 +1688,8 @@
   </joint>
   <joint name="gripper_adapter_to_robotiq_adapter1" type="fixed">
     <origin rpy="0 0 0" xyz=" 0 0 0.05679"/>
-    <parent link="mara1_gripper_adapter"/>
-    <child link="mara1_robotiq_adapter_link"/>
+    <parent link="gripper_adapter"/>
+    <child link="robotiq_adapter_link"/>
   </joint>
   <joint name="gripper_adapter_to_robotiq_adapter2" type="fixed">
     <origin rpy="0 0 0" xyz=" 0 0 0.05679"/>
@@ -1712,8 +1698,8 @@
   </joint>
   <joint name="robotiq_adapter_to_arg2f_base1" type="fixed">
     <origin rpy="0 0 0" xyz=" 0 0 0"/>
-    <parent link="mara1_robotiq_adapter_link"/>
-    <child link="mara1_robotiq_arg2f_base_link"/>
+    <parent link="robotiq_adapter_link"/>
+    <child link="robotiq_arg2f_base_link"/>
   </joint>
   <joint name="robotiq_adapter_to_arg2f_base2" type="fixed">
     <origin rpy="0 0 0" xyz=" 0 0 0"/>

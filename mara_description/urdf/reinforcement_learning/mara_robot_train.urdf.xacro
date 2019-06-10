@@ -7,7 +7,7 @@
   <xacro:include filename="$(find mara_description)/urdf/reinforcement_learning/mara_train.urdf.xacro"/>
 
   <!-- arm -->
-  <xacro:mara_robot_train prefix="" ee_link_distance="0.0"/>
+  <xacro:mara_robot_train prefix="" ee_link_distance="0.0" MAC0="_00000000000"/>
 
   <link name="world"/>
 
@@ -43,7 +43,7 @@
     <parent link="world"/>
     <child link="base_robot"/>
   </joint>
-  
+
   <joint name="motor1" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.06874"/>
     <parent link="base_robot"/>
