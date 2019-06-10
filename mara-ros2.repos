@@ -2,7 +2,7 @@ repositories:
   mara:
     type: git
     url: https://github.com/acutronicrobotics/MARA.git
-    version: dashing
+    version: master
   HRIM:
     type: git
     url: https://github.com/erlerobot/HRIM.git
@@ -15,23 +15,7 @@ repositories:
     type: git
     url: https://github.com/AcutronicRobotics/hans_modular_servomotor.git
     version: master
-  gazebo_ros_pkgs:
-      type: git
-      url: https://github.com/ros-simulation/gazebo_ros_pkgs
-      version: ros2
   control_msgs:
     type: git
     url: https://github.com/erlerobot/control_msgs/
     version: crystal
-  geometry2:
-    type: git
-    url: https://github.com/acutronicrobotics/geometry2/
-    version: ros2
-  image_common:
-    type: git
-    url: https://github.com/ros-perception/image_common
-    version: ros2
-  vision_opencv:
-    type: git
-    url: https://github.com/ros-perception/vision_opencv
-    version: ros2
