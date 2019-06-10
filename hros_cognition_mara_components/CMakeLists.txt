@@ -62,6 +62,7 @@ install(  TARGETS
 install(
   PROGRAMS
   config/motors.yaml
+  config/two_motors.yaml
   DESTINATION share/${PROJECT_NAME}
 )
 

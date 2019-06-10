@@ -9,10 +9,13 @@ from launch_ros.actions import Node
 def generate_launch_description():
 
     args = sys.argv[1:]
+    configFile = "/share/hros_cognition_mara_components/motors.yaml"
     if "--urdf" in args:
         urdfName = args[args.index("--urdf")+1]
-        if ("train" in urdfName) or ("run" in urdfName):
+        if("train" in urdfName) or ("run" in urdfName):
             urdfName = "reinforcement_learning/" + urdfName
+        if("two" in urdfName):
+            configFile = "/share/hros_cognition_mara_components/two_motors.yaml"
     else:
         urdfName = 'mara_robot'
 
@@ -48,6 +51,6 @@ def generate_launch_description():
         ),
         Node(package='robot_state_publisher', node_executable='robot_state_publisher', output='screen', arguments=[urdf]),
         Node(package='mara_utils_scripts', node_executable='spawn_mara.py', arguments=[urdf], output='screen'),
-        Node(package='hros_cognition_mara_components', node_executable='hros_cognition_mara_components', output='screen', arguments=["-motors", install_dir + "/share/hros_cognition_mara_components/motors.yaml", "sim"])
+        Node(package='hros_cognition_mara_components', node_executable='hros_cognition_mara_components', output='screen', arguments=["-motors", install_dir + configFile, "sim"])
     ])
     return ld
