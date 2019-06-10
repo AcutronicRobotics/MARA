@@ -1,6 +1,5 @@
 #include "FollowJointTrajectoryAction.hpp"
 
-
 ros::Publisher pub_joint_state_ros1;
 std::vector<rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr> list_pub_trajectory;
 std::vector<rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr> pub_ros2_lista;
@@ -9,13 +8,12 @@ std::string motor_key;
 
 void motorStateCallback(const control_msgs::msg::JointTrajectoryControllerState::SharedPtr ros2_msg)
 {
-
   sensor_msgs::JointState ros1_joint_state_msg;
   ros1_joint_state_msg.header.stamp = ros::Time::now();
 
   ros1_joint_state_msg.name.resize(ros2_msg->joint_names.size());
   for(unsigned int i = 0; i < ros2_msg->joint_names.size(); i++){
-    ros1_joint_state_msg.name[i] = "motor" + std::to_string(i+1);//ros2_msg->joint_names[i];
+    ros1_joint_state_msg.name[i] = ros2_msg->joint_names[i];
   }
 
   ros1_joint_state_msg.position.resize(ros2_msg->actual.positions.size());
@@ -38,7 +36,6 @@ void motorStateCallback(const control_msgs::msg::JointTrajectoryControllerState:
 
 int main(int argc, char * argv[])
 {
-
   char hostname[150];
   memset(hostname, 0, 150);
   if(gethostname(hostname, 150)==-1){
@@ -108,4 +105,3 @@ int main(int argc, char * argv[])
 
   return 0;
 }
-
