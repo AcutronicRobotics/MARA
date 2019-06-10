@@ -222,8 +222,6 @@ ros2 launch mara_gazebo mara.launch.py --urdf mara_robot_gripper_140
 
 *Available urdfs: `mara_robot_gripper_140`, `mara_robot_gripper_140_no_table`, `mara_robot_gripper_85`, `mara_robot_gripper_hande`, `two_mara_robots` and `two_mara_robots_gripper_140_no_table`*
 
-*In case you use two mara robots, you will need to add extra [simulated_motors](https://github.com/AcutronicRobotics/MARA/blob/master/hros_cognition_mara_components/config/motors.yaml#L8-L13) and [motors](https://github.com/AcutronicRobotics/MARA/blob/master/hros_cognition_mara_components/config/motors.yaml#L30-L35), and compile the ros2 package again (make sure you only source crystal): `cd ~/ros2_mara_ws && colcon build --merge-install --packages-select hros_cognition_mara_components`.*
-
 <br/>
 
 ## RViz
@@ -263,22 +261,26 @@ If you have used a different urdf in the Terminal 1, you will need to use `urdf:
 roslaunch mara_bringup mara_bringup_moveit_actions.launch urdf:=mara_robot_gripper_140
 ```
 
-*In case you have used two mara robots, you will need to add extra [simulated_motors](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml#L8-L13) and compile the ros package again (make sure you only source melodic): `cd ~/catkin_mara_ws && catkin_make_isolated --install --pkg mara_bringup`*
-
 #### Terminal 3 (bridge)
+Source catkin_mara_ws and ros2_mara_ws:
 ```sh
 source ~/catkin_mara_ws/devel_isolated/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
-
+```
+Run the bridge:
+```sh
 ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/motors.yaml sim
+```
+
+If you have launched two mara robots, you will have to run the bridge in the following way:
+```sh
+ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/two_motors.yaml sim
 ```
 
 ### MoveIt! with MARA - Real Robot
 Plan trajectories in a real environment with MoveIt!.
 
 :warning: You will need to change the names of the real motors in [MARA/hros_cognition_mara_components](https://github.com/AcutronicRobotics/MARA/blob/master/hros_cognition_mara_components/config/motors.yaml#L16-L21) and in [MARA_ROS1/mara_bringup](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml#L10-L15) files to match the MACs of your SoMs.
-
-In case you want to control two real robots you will need to add the new real_motors of the new robot in [ros2_mara_ws](https://github.com/AcutronicRobotics/MARA/blob/master/hros_cognition_mara_components/config/motors.yaml#L15) and [catkin_mara_ws](https://github.com/AcutronicRobotics/MARA_ROS1/blob/master/mara_bringup/config/motors.yaml#L15), and add extra [motors](https://github.com/AcutronicRobotics/MARA/blob/master/hros_cognition_mara_components/config/motors.yaml#L30-L35).
 
 :warning: Any change in the yaml files you will have to recompile the ros2 and ros packages (make sure you source only the corresponding ros/ros2):
 ```sh
@@ -327,15 +329,23 @@ roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real urdf:=mara_r
 
 #### Terminal 3 (bridge)
 
+Source catkin_mara_ws nad ros2_mara_ws, and export RMW_IMPLEMENTATION and ROS_DOMAIN_ID:
 ```sh
 source ~/catkin_mara_ws/devel_isolated/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
 # you will need to change the export values according to the SoMs configuration, same as in Terminal 1
 export RMW_IMPLEMENTATION=rmw_opensplice_cpp
 export ROS_DOMAIN_ID=22
-
+```
+Run the bridge:
+```sh
 ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/motors.yaml real
 ```
+If you have two mara robots, you will have to run the bridge in the following way:
+```sh
+ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -motors ~/ros2_mara_ws/src/mara/hros_cognition_mara_components/config/two_motors.yaml real
+```
+
 <br/>
 
 ## Examples
