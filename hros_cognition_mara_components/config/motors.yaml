@@ -19,3 +19,17 @@ real_motors:
   - "/hrim_actuation_servomotor_70B3D521A08A/trajectory_axis2"
   - "/hrim_actuation_servomotor_70B3D521A0A4/trajectory_axis1"
   - "/hrim_actuation_servomotor_70B3D521A0A4/trajectory_axis2"
+
+motors:
+  - "motor1"
+  - "motor2"
+  - "motor3"
+  - "motor4"
+  - "motor5"
+  - "motor6"
+  # - "mara2_motor1"
+  # - "mara2_motor2"
+  # - "mara2_motor3"
+  # - "mara2_motor4"
+  # - "mara2_motor5"
+  # - "mara2_motor6"

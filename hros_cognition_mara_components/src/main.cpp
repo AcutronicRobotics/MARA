@@ -29,8 +29,7 @@ int main(int argc, char * argv[])
 
   rclcpp::executors::MultiThreadedExecutor exe;
 
-  std::shared_ptr<HROSCognitionMaraComponentsNode> lc_node =
-     std::make_shared<HROSCognitionMaraComponentsNode>(node_name, argc, argv);
+  std::shared_ptr<HROSCognitionMaraComponentsNode> lc_node = std::make_shared<HROSCognitionMaraComponentsNode>(node_name, argc, argv);
 
   exe.add_node(lc_node->get_node_base_interface());
 
