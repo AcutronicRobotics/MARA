@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="mara" >
+  <!-- common stuff -->
+  <xacro:include filename="$(find mara_description)/urdf/mara_gazebo.urdf.xacro" />
+  <!-- mara -->
+  <xacro:include filename="$(find mara_description)/urdf/mara.urdf.xacro" />
+  <!-- robotiq 140 gripper -->
+  <xacro:include filename="$(find robotiq_140_gripper_description)/urdf/robotiq_140.urdf.xacro" />
+  <!-- arm1 -->
+  <xacro:mara_robot prefix="" ee_link_distance="0.24497" MAC1="_000000000001" MAC2="_000000000002" MAC3="_000000000003"/>
+  <xacro:robotiq_gripper prefix="" MAC="_000000000004"/>
+  <!-- arm2 -->
+  <xacro:mara_robot prefix="mara2_" ee_link_distance="0.24497" MAC1="_000000000005" MAC2="_000000000006" MAC3="_000000000007"/>
+  <xacro:robotiq_gripper prefix="mara2_" MAC="_000000000008"/>
+
+  <link name="world" />
+
+  <link name="gripper_adapter">
+    <inertial>
+      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+      <mass value="0.13969"/>
+      <inertia ixx="91283.23E-9" ixy="634.87E-9" ixz="-0.02E-9" iyy="97239.94E-9" iyz="93.72E-9" izz="175963.64E-9"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/gripper_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Wood">
+        <color rgba="0. 0. 0. 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/gripper_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="gripper_adapter">
+    <material>Gazebo/Black</material>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+
+  <link name="mara2_gripper_adapter">
+    <inertial>
+      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+      <mass value="0.13969"/>
+      <inertia ixx="91283.23E-9" ixy="634.87E-9" ixz="-0.02E-9" iyy="97239.94E-9" iyz="93.72E-9" izz="175963.64E-9"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/gripper_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Wood">
+        <color rgba="0. 0. 0. 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/gripper_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="gripper_adapter">
+    <material>Gazebo/Black</material>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+
+  <link name="robotiq_adapter_link">
+    <inertial>
+      <origin xyz="8.625E-08 -4.6583E-06 0.03145" rpy="0 0 0" />
+      <mass value="0.22652" />
+      <inertia ixx="0.00020005" ixy="0" ixz="0" iyy="0.00017832" iyz="0" izz="0.00013478" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mara_description/meshes/robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Black">
+        <color rgba="0.0 0.0 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mara_description/meshes/robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="robotiq_adapter_link">
+    <material>Gazebo/Black</material>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+
+  <link name="mara2_robotiq_adapter_link">
+    <inertial>
+      <origin xyz="8.625E-08 -4.6583E-06 0.03145" rpy="0 0 0" />
+      <mass value="0.22652" />
+      <inertia ixx="0.00020005" ixy="0" ixz="0" iyy="0.00017832" iyz="0" izz="0.00013478" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mara_description/meshes/robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Black">
+        <color rgba="0.0 0.0 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mara_description/meshes/robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="robotiq_adapter_link">
+    <material>Gazebo/Black</material>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+
+  <joint name="world_to_base1" type="fixed">
+    <origin rpy="0 0 0" xyz="0 -0.51 0"/>
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+
+  <joint name="world_to_base2" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.51 0"/>
+    <parent link="world"/>
+    <child link="mara2_base_link"/>
+  </joint>
+
+  <joint name="motor6_to_gripper_adapter1" type="fixed">
+    <origin rpy="0 0 0" xyz=" 0 0 -0.02026"/>
+    <parent link="motor6_link"/>
+    <child link="gripper_adapter"/>
+  </joint>
+
+  <joint name="motor6_to_gripper_adapter2" type="fixed">
+    <origin rpy="0 0 0" xyz=" 0 0 -0.02026"/>
+    <parent link="mara2_motor6_link"/>
+    <child link="mara2_gripper_adapter"/>
+  </joint>
+
+  <joint name="gripper_adapter_to_robotiq_adapter1" type="fixed">
+    <origin rpy="0 0 0" xyz=" 0 0 0.05679"/>
+    <parent link="gripper_adapter"/>
+    <child link="robotiq_adapter_link"/>
+  </joint>
+
+  <joint name="gripper_adapter_to_robotiq_adapter2" type="fixed">
+    <origin rpy="0 0 0" xyz=" 0 0 0.05679"/>
+    <parent link="mara2_gripper_adapter"/>
+    <child link="mara2_robotiq_adapter_link"/>
+  </joint>
+
+  <joint name="robotiq_adapter_to_arg2f_base1" type="fixed">
+    <origin rpy="0 0 0" xyz=" 0 0 0"/>
+    <parent link="robotiq_adapter_link"/>
+    <child link="robotiq_arg2f_base_link"/>
+  </joint>
+
+  <joint name="robotiq_adapter_to_arg2f_base2" type="fixed">
+    <origin rpy="0 0 0" xyz=" 0 0 0"/>
+    <parent link="mara2_robotiq_adapter_link"/>
+    <child link="mara2_robotiq_arg2f_base_link"/>
+  </joint>
+</robot>

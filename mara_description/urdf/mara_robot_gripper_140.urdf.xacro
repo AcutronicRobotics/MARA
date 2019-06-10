@@ -12,8 +12,8 @@
   <xacro:include filename="$(find mara_description)/urdf/table.urdf.xacro" />
 
   <!-- arm -->
-  <xacro:mara_robot prefix="" ee_link_distance="0.24497"/>
-  <xacro:robotiq_gripper prefix="mara" />
+  <xacro:mara_robot prefix="" ee_link_distance="0.24497" MAC1="_000000000001" MAC2="_000000000002" MAC3="_000000000003"/>
+  <xacro:robotiq_gripper prefix="" MAC="_000000000004"/>
   <xacro:table prefix="" />
 
   <link name="world" />

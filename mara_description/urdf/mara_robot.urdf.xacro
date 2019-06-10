@@ -9,7 +9,7 @@
   <xacro:include filename="$(find mara_description)/urdf/mara.urdf.xacro" />
 
   <!-- arm -->
-  <xacro:mara_robot prefix="" ee_link_distance="0.0"/>
+  <xacro:mara_robot prefix="" ee_link_distance="0.0" MAC1="_000000000001" MAC2="_000000000002" MAC3="_000000000003"/>
 
   <link name="world" />
 
