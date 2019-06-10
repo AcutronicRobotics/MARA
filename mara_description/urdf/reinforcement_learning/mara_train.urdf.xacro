@@ -4,7 +4,7 @@
   <xacro:include filename="$(find mara_description)/urdf/mara.transmission.xacro" />
   <xacro:include filename="$(find mara_description)/urdf/reinforcement_learning/mara_gazebo_train.urdf.xacro" />
 
-  <xacro:macro name="mara_robot_train"  params="prefix ee_link_distance">
+  <xacro:macro name="mara_robot_train"  params="prefix ee_link_distance MAC0">
 
     <link name="${prefix}motor1_link">
       <inertial>
@@ -328,7 +328,7 @@
     </joint>
 
     <xacro:mara_transmission prefix="${prefix}"/>
-    <xacro:mara_gazebo_train prefix="${prefix}"/>
+    <xacro:mara_gazebo_train prefix="${prefix}" MAC0="${MAC0}"/>
 
   </xacro:macro>
 </robot>

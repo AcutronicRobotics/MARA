@@ -7,15 +7,15 @@
   <!-- robotiq 140 gripper -->
   <xacro:include filename="$(find robotiq_140_gripper_description)/urdf/robotiq_140.urdf.xacro" />
   <!-- arm1 -->
-  <xacro:mara_robot prefix="mara1_" ee_link_distance="0.24497" MAC1="_000000000001" MAC2="_000000000002" MAC3="_000000000003"/>
-  <xacro:robotiq_gripper prefix="mara1_" MAC="_000000000004"/>
+  <xacro:mara_robot prefix="" ee_link_distance="0.24497" MAC1="_000000000001" MAC2="_000000000002" MAC3="_000000000003"/>
+  <xacro:robotiq_gripper prefix="" MAC="_000000000004"/>
   <!-- arm2 -->
   <xacro:mara_robot prefix="mara2_" ee_link_distance="0.24497" MAC1="_000000000005" MAC2="_000000000006" MAC3="_000000000007"/>
   <xacro:robotiq_gripper prefix="mara2_" MAC="_000000000008"/>
 
   <link name="world" />
 
-  <link name="mara1_gripper_adapter">
+  <link name="gripper_adapter">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
       <mass value="0.13969"/>
@@ -69,7 +69,7 @@
     <selfCollide>True</selfCollide>
   </gazebo>
 
-  <link name="mara1_robotiq_adapter_link">
+  <link name="robotiq_adapter_link">
     <inertial>
       <origin xyz="8.625E-08 -4.6583E-06 0.03145" rpy="0 0 0" />
       <mass value="0.22652" />
@@ -126,7 +126,7 @@
   <joint name="world_to_base1" type="fixed">
     <origin rpy="0 0 0" xyz="0 -0.51 0"/>
     <parent link="world"/>
-    <child link="mara1_base_link"/>
+    <child link="base_link"/>
   </joint>
 
   <joint name="world_to_base2" type="fixed">
@@ -137,8 +137,8 @@
 
   <joint name="motor6_to_gripper_adapter1" type="fixed">
     <origin rpy="0 0 0" xyz=" 0 0 -0.02026"/>
-    <parent link="mara1_motor6_link"/>
-    <child link="mara1_gripper_adapter"/>
+    <parent link="motor6_link"/>
+    <child link="gripper_adapter"/>
   </joint>
 
   <joint name="motor6_to_gripper_adapter2" type="fixed">
@@ -149,8 +149,8 @@
 
   <joint name="gripper_adapter_to_robotiq_adapter1" type="fixed">
     <origin rpy="0 0 0" xyz=" 0 0 0.05679"/>
-    <parent link="mara1_gripper_adapter"/>
-    <child link="mara1_robotiq_adapter_link"/>
+    <parent link="gripper_adapter"/>
+    <child link="robotiq_adapter_link"/>
   </joint>
 
   <joint name="gripper_adapter_to_robotiq_adapter2" type="fixed">
@@ -161,8 +161,8 @@
 
   <joint name="robotiq_adapter_to_arg2f_base1" type="fixed">
     <origin rpy="0 0 0" xyz=" 0 0 0"/>
-    <parent link="mara1_robotiq_adapter_link"/>
-    <child link="mara1_robotiq_arg2f_base_link"/>
+    <parent link="robotiq_adapter_link"/>
+    <child link="robotiq_arg2f_base_link"/>
   </joint>
 
   <joint name="robotiq_adapter_to_arg2f_base2" type="fixed">

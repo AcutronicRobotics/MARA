@@ -5,7 +5,7 @@
   <!-- mara -->
   <xacro:include filename="$(find mara_description)/urdf/mara.urdf.xacro" />
   <!-- arm1 -->
-  <xacro:mara_robot prefix="mara1_" ee_link_distance="0.0" MAC1="_000000000001" MAC2="_000000000002" MAC3="_000000000003"/>
+  <xacro:mara_robot prefix="" ee_link_distance="0.0" MAC1="_000000000001" MAC2="_000000000002" MAC3="_000000000003"/>
   <!-- arm2 -->
   <xacro:mara_robot prefix="mara2_" ee_link_distance="0.0" MAC1="_000000000005" MAC2="_000000000006" MAC3="_000000000007"/>
 
@@ -14,7 +14,7 @@
   <joint name="world_to_base1_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 -0.51 0"/>
     <parent link="world"/>
-    <child link="mara1_base_link"/>
+    <child link="base_link"/>
   </joint>
 
   <joint name="world_to_base2_joint" type="fixed">
