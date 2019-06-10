@@ -1,58 +1,114 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://ros.org/wiki/xacro"
-       name="mara" >
-
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="mara">
   <!-- common stuff -->
-  <xacro:include filename="$(find mara_description)/urdf/reinforcement_learning/mara_gazebo_train.urdf.xacro" />
+  <xacro:include filename="$(find mara_description)/urdf/reinforcement_learning/mara_gazebo_train.urdf.xacro"/>
 
   <!-- mara -->
-  <xacro:include filename="$(find mara_description)/urdf/reinforcement_learning/mara_train.urdf.xacro" />
+  <xacro:include filename="$(find mara_description)/urdf/reinforcement_learning/mara_train.urdf.xacro"/>
   <xacro:include filename="$(find mara_description)/urdf/camera_gripper_support.urdf.xacro" />
   <xacro:include filename="$(find mara_description)/urdf/rs_d435.urdf.xacro" />
 
   <!-- robotiq 140 gripper -->
   <xacro:include filename="$(find robotiq_140_gripper_description)/urdf/robotiq_140.urdf.xacro" />
 
-  <xacro:include filename="$(find mara_description)/urdf/table.urdf.xacro" />
-
   <!-- arm -->
-  <xacro:mara_robot_train prefix="" ee_link_distance="0.24"/>
-  <xacro:mara_camera_gripper_support prefix="" />
+  <xacro:mara_robot_train prefix="" ee_link_distance="0.24497"  MAC0="_00000000000"/>
+  <xacro:camera_gripper_support prefix="" />
   <xacro:rs_d435_camera prefix="" />
-  <xacro:robotiq_gripper prefix="mara" />
-  <!-- <xacro:mara_camera_top prefix="" /> -->
-  <xacro:table prefix="" />
+  <xacro:robotiq_gripper prefix="" MAC="_000000000004"/>
 
-  <link name="world" />
+  <link name="world"/>
+
+  <link name="base_robot">
+    <inertial>
+      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+      <mass value="7.033"/>
+      <inertia ixx="0.1478344" ixy="0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/Base.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Black">
+        <color rgba="1. 0. 0. 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/Base.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="base_robot">
+    <material>Gazebo/Black</material>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+
+  <link name="robotiq_adapter_link">
+    <inertial>
+      <origin xyz="0 0 -0.0253" rpy="0 0 0" />
+      <mass value="0.317" />
+      <inertia ixx="298526E-9" ixy="3928E-9" ixz="-926E-9" iyy="354661E-9" iyz="42E-9" izz="415572E-9" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mara_description/meshes/robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Black">
+        <color rgba="0.0 0.0 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mara_description/meshes/robotiq_adapter.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="robotiq_adapter_link">
+    <material>Gazebo/Black</material>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+
+  <joint name="world_to_base_robot" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="world"/>
+    <child link="base_robot"/>
+  </joint>
+
+  <joint name="motor1" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.05122"/>
+    <parent link="base_robot"/>
+    <child link="motor1_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="104.0" lower="-3.1416" upper="3.1416" velocity="1.57"/>
+    <dynamics damping="0" friction="0"/>
+  </joint>
 
   <joint name="motor6_to_gripper_adapter" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.002026"/>
+    <origin rpy="0 0 0" xyz="0 0 -0.02026"/>
     <parent link="motor6_link"/>
-    <child link="mara_gripper_adapter"/>
+    <child link="gripper_adapter"/>
   </joint>
 
   <joint name="gripper_adapter_to_robotiq_adapter" type="fixed">
-    <origin rpy="0 0 1.57" xyz=" 0 0 0"/>
-    <parent link="mara_gripper_adapter"/>
+    <origin rpy="0 0 0" xyz="0 0 0.05679"/>
+    <parent link="gripper_adapter"/>
     <child link="robotiq_adapter_link"/>
   </joint>
 
   <joint name="camera_support2_to_camera" type="fixed">
     <origin rpy="0 0 0" xyz="0 0.018 0.012"/>
-    <parent link="mara_camera_support2_link"/>
+    <parent link="camera_support2_link"/>
     <child link="camera_link"/>
   </joint>
 
-  <joint name="world_to_table_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.02"/>
-    <parent link="world"/>
-    <child link="table"/>
+  <joint name="robotiq_adapter_link_to_robotiq_arg2f_base_link" type="fixed">
+    <origin rpy="0 0 0" xyz=" 0 0 0"/>
+    <parent link="robotiq_adapter_link"/>
+    <child link="robotiq_arg2f_base_link"/>
   </joint>
-
-  <joint name="table_to_base_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.62"/>
-    <parent link="table"/>
-    <child link="base_link"/>
-  </joint>
-
 </robot>

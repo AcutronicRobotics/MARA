@@ -1,21 +1,55 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://ros.org/wiki/xacro"
-       name="mara" >
-
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="mara">
   <!-- common stuff -->
-  <xacro:include filename="$(find mara_description)/urdf/mara_gazebo_run.urdf.xacro" />
+  <xacro:include filename="$(find mara_description)/urdf/reinforcement_learning/mara_gazebo_run.urdf.xacro"/>
 
   <!-- mara -->
-  <xacro:include filename="$(find mara_description)/urdf/mara_run.urdf.xacro" />
+  <xacro:include filename="$(find mara_description)/urdf/reinforcement_learning/mara_run.urdf.xacro"/>
 
   <!-- arm -->
-  <xacro:mara_robot_run prefix="" ee_link_distance="0.0"/>
+  <xacro:mara_robot_run prefix="" ee_link_distance="0.0" MAC1="_000000000001" MAC2="_000000000002" MAC3="_000000000003"/>
 
-  <link name="world" />
+  <link name="world"/>
 
-  <joint name="world_to_base_joint" type="fixed">
+  <link name="base_robot">
+    <inertial>
+      <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
+      <mass value="7.033"/>
+      <inertia ixx="0.1478344" ixy="0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/v8_MARA_Base.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Gazebo/Black">
+        <color rgba="1. 0. 0. 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mara_description/meshes/v8_MARA_Base.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="base_robot">
+    <material>Gazebo/Black</material>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+
+  <joint name="world_to_base_robot" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="world"/>
-    <child link="base_link"/>
+    <child link="base_robot"/>
+  </joint>
+
+  <joint name="motor1" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.06874"/>
+    <parent link="base_robot"/>
+    <child link="motor1_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="104.0" lower="-3.1416" upper="3.1416" velocity="1.57"/>
+    <dynamics damping="0" friction="0"/>
   </joint>
 </robot>
