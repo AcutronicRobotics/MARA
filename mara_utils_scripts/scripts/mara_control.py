@@ -301,7 +301,7 @@ if __name__ == '__main__':
     parser.add_argument('-g', '--gripper', type=str, choices=['None', '140', '85', 'hande'], default='None', help="MARA robot gripper")
     args = parser.parse_args()
 
-    yamlpath = os.path.join(get_package_share_directory('hrim_cognition_mara_components'), 'mara.yaml')
+    yamlpath = os.path.join(get_package_share_directory('hros_cognition_mara_components'), 'motors.yaml')
     yamlOBJ = YAML(yamlpath, args.gripper)
     yamltopics = yamlOBJ.getTopics(yamlOBJ.yamlFile, args.environment, args.rdi)
 
