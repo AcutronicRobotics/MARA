@@ -287,7 +287,7 @@ ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -
 ### MoveIt! with MARA - Real Robot
 Plan trajectories in a real environment with MoveIt!.
 
-:warning: You will need to change the names of the real motors in [MARA/hros_cognition_mara_components](https://github.com/AcutronicRobotics/MARA/blob/crystal/hros_cognition_mara_components/config/motors.yaml#L16-L21) and in [MARA_ROS1/mara_bringup](https://github.com/AcutronicRobotics/MARA_ROS1/blob/crystal/mara_bringup/config/motors.yaml#L10-L15) files to match the MACs of your SoMs.
+:warning: You will need to change the names of the real motors in [MARA/hros_cognition_mara_components](https://github.com/AcutronicRobotics/MARA/blob/crystal/hros_cognition_mara_components/config/motors.yaml#L10-L15) and in [MARA_ROS1/mara_bringup](https://github.com/AcutronicRobotics/MARA_ROS1/blob/crystal/mara_bringup/config/motors.yaml#L10-L15) files to match the MACs of your SoMs.
 
 :warning: Any change in the yaml files you will have to recompile the ros2 and ros packages (make sure you source only the corresponding ros/ros2):
 ```sh
@@ -358,7 +358,7 @@ ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -
 ## Examples
 
  - [Documentation and tutorials](https://acutronicrobotics.com/docs/products/robots/mara)
- - [mara_examples](https://github.com/AcutronicRobotics/mara_examples.git)
+ - [mara_examples](https://github.com/AcutronicRobotics/mara_examples/tree/crystal)
 
 <br/>
 
