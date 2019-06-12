@@ -1,7 +1,7 @@
 # MARA
 
 [![Build
-Status](https://travis-ci.org/AcutronicRobotics/MARA.svg?branch=master)](https://travis-ci.org/AcutronicRobotics/MARA)
+Status](https://travis-ci.org/AcutronicRobotics/MARA.svg?branch=crystal)](https://travis-ci.org/AcutronicRobotics/MARA)
 
 <a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/products/mara/images/xv2_MARA2-11.jpg.pagespeed.ic.QRaRP5N01r.webp" align="left" hspace="8" vspace="2" width="270"></a>
 <br/>
