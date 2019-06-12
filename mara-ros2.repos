@@ -2,7 +2,7 @@ repositories:
   mara:
     type: git
     url: https://github.com/acutronicrobotics/MARA.git
-    version: master
+    version: crystal
   HRIM:
     type: git
     url: https://github.com/erlerobot/HRIM.git
@@ -10,12 +10,12 @@ repositories:
   mara_examples:
     type: git
     url: https://github.com/AcutronicRobotics/mara_examples.git
-    version: master
+    version: crystal
   robotiq_modular_gripper:
     type: git
     url: https://github.com/AcutronicRobotics/robotiq_modular_gripper.git
-    version: master
+    version: crystal
   hans_modular_servomotor:
     type: git
     url: https://github.com/AcutronicRobotics/hans_modular_servomotor.git
-    version: master
+    version: crystal
