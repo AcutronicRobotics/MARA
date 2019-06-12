@@ -118,17 +118,10 @@ In this section we will install all the necessary dependencies in order to be ab
 ```sh
 # ROS 2 extra packages
 sudo apt update && sudo apt install -y \
-ros-crystal-action-msgs \
-ros-crystal-message-filters \
-ros-crystal-yaml-cpp-vendor \
-ros-crystal-urdf \
 ros-crystal-rttest \
-ros-crystal-tf2 \
-ros-crystal-tf2-geometry-msgs \
 ros-crystal-rclcpp-action \
-ros-crystal-cv-bridge \
 ros-crystal-control-msgs \
-ros-crystal-image-transport \
+ros-crystal-yaml-cpp-vendor \
 ros-crystal-gazebo-dev \
 ros-crystal-gazebo-msgs \
 ros-crystal-gazebo-plugins \
@@ -176,14 +169,25 @@ Continue the following steps to complete the MoveIt! installation.
 
 #### ROS and MoveIt!
 ROS and MoveIt! are required if you want to use `ìndividual_trajectories_bridge` to control the MARA, which means using ROS Melodic with MoveIt through bridges.
-- **ROS melodic**: following the official instructions, [source](http://wiki.ros.org/melodic/Installation/Source) or [debian_packages](http://wiki.ros.org/melodic/Installation/Ubuntu).
-- **MoveIt!**: Install the following ROS debian packages.
+- **ROS melodic**: following the official instructions, [source](http://wiki.ros.org/melodic/Installation/Source) or [debian_packages](http://wiki.ros.org/melodic/Installation/Ubuntu). 
+    
+    Dependent tools:
+    ```sh
+    # ROS extra packages
+    sudo apt update && sudo apt install -y \
+    ros-melodic-xacro \
+    ros-melodic-rviz \
+    ros-melodic-control-msgs \
+    ros-melodic-robot-state-publisher \
     ```
+- **MoveIt!**: Install the following ROS debian packages.
+    ```sh
     sudo apt install -y \
-    ros-melodic-moveit \
     ros-melodic-moveit-ros-move-group \
-    ros-melodic-moveit-visual-tools
-    ros-melodic-moveit-simple-controller-manager
+    ros-melodic-moveit-planners-ompl \
+    ros-melodic-moveit-simple-controller-manager \
+    ros-melodic-moveit-visual-tools \
+    ros-melodic-moveit-ros-visualization    
     ```
  #### ROS - ROS 2.0 Bridge
 Compile the trajectory bridge located in the workspace using ROS as source.
@@ -195,11 +199,11 @@ cd ~/ros2_mara_ws && colcon build --merge-install --packages-select individual_t
 sed -i 's#/opt/ros/melodic#/opt/ros/crystal#g' ~/ros2_mara_ws/install/setup.bash
 ```
 #### ROS Workspace
-Compile the MARA_ROS1 packages.
+Compile the MARA_ROS1 packages (make sure you just source melodic).
 ```sh
 mkdir -p ~/catkin_mara_ws/src
 cd ~/catkin_mara_ws/src
-git clone https://github.com/AcutronicRobotics/MARA_ROS1
+git clone https://github.com/AcutronicRobotics/MARA_ROS1 -b crystal
 cd ~/catkin_mara_ws/
 catkin_make_isolated --install
 ```
@@ -261,6 +265,9 @@ If you have used a different urdf in the Terminal 1, you will need to use `urdf:
 roslaunch mara_bringup mara_bringup_moveit_actions.launch urdf:=mara_robot_gripper_140
 ```
 
+*In case you have launched two robots, you will need to add `multiple_robots:=true`*
+
+
 #### Terminal 3 (bridge)
 Source catkin_mara_ws and ros2_mara_ws:
 ```sh
@@ -280,7 +287,7 @@ ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -
 ### MoveIt! with MARA - Real Robot
 Plan trajectories in a real environment with MoveIt!.
 
-:warning: You will need to change the names of the real motors in [MARA/hros_cognition_mara_components](https://github.com/AcutronicRobotics/MARA/blob/crystal/hros_cognition_mara_components/config/motors.yaml#L16-L21) and in [MARA_ROS1/mara_bringup](https://github.com/AcutronicRobotics/MARA_ROS1/blob/crystal/mara_bringup/config/motors.yaml#L10-L15) files to match the MACs of your SoMs.
+:warning: You will need to change the names of the real motors in [MARA/hros_cognition_mara_components](https://github.com/AcutronicRobotics/MARA/blob/crystal/hros_cognition_mara_components/config/motors.yaml#L10-L15) and in [MARA_ROS1/mara_bringup](https://github.com/AcutronicRobotics/MARA_ROS1/blob/crystal/mara_bringup/config/motors.yaml#L10-L15) files to match the MACs of your SoMs.
 
 :warning: Any change in the yaml files you will have to recompile the ros2 and ros packages (make sure you source only the corresponding ros/ros2):
 ```sh
@@ -351,7 +358,7 @@ ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -
 ## Examples
 
  - [Documentation and tutorials](https://acutronicrobotics.com/docs/products/robots/mara)
- - [mara_examples](https://github.com/AcutronicRobotics/mara_examples.git)
+ - [mara_examples](https://github.com/AcutronicRobotics/mara_examples/tree/crystal)
 
 <br/>
 
