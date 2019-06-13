@@ -435,19 +435,19 @@
       <joint_name>motor6</joint_name>
       <joint_name>joint_finger</joint_name>
     </plugin>
-    <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuation_servomotor_000000000001">
+    <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuator_rotaryservo_000000000001">
       <ros/>
       <axis1>motor2</axis1>
       <axis2>motor1</axis2>
       <type>series14</type>
     </plugin>
-    <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuation_servomotor_000000000002">
+    <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuator_rotaryservo_000000000002">
       <ros/>
       <axis1>motor3</axis1>
       <axis2>motor4</axis2>
       <type>series17</type>
     </plugin>
-    <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuation_servomotor_000000000003">
+    <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuator_rotaryservo_000000000003">
       <ros/>
       <axis1>motor5</axis1>
       <axis2>motor6</axis2>
@@ -552,6 +552,8 @@
       <kp>500</kp>
       <ki>3</ki>
       <kd>9</kd>
+      <min_velocity>20</min_velocity>
+      <max_velocity>150</max_velocity>
       <joint>joint_finger</joint>
       <joint>robotiq_hande_base_to_right_finger</joint>
     </plugin>

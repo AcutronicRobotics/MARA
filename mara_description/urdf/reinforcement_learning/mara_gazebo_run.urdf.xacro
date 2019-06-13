@@ -15,19 +15,19 @@
         <joint_name>${prefix}motor6</joint_name>
         <joint_name>${prefix}joint_finger</joint_name>
       </plugin>
-      <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuation_servomotor${MAC1}">
+      <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuator_rotaryservo${MAC1}">
         <ros/>
         <axis1>${prefix}motor2</axis1>
         <axis2>${prefix}motor1</axis2>
         <type>series14</type>
       </plugin>
-      <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuation_servomotor${MAC2}">
+      <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuator_rotaryservo${MAC2}">
         <ros/>
         <axis1>${prefix}motor3</axis1>
         <axis2>${prefix}motor4</axis2>
         <type>series17</type>
       </plugin>
-      <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuation_servomotor${MAC3}">
+      <plugin filename="libmara_gazebo_joint_plugin.so" name="hrim_actuator_rotaryservo${MAC3}">
         <ros/>
         <axis1>${prefix}motor5</axis1>
         <axis2>${prefix}motor6</axis2>

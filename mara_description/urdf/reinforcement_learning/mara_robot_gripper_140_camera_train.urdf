@@ -361,7 +361,7 @@
     </actuator>
   </transmission>
   <gazebo>
-    <plugin filename="libmara_gazebo_joint_training_plugin.so" name="hrim_actuation_servomotor_00000000000">
+    <plugin filename="libmara_gazebo_joint_training_plugin.so" name="hrim_actuator_rotaryservo_00000000000">
       <ros/>
       <axis1>motor2</axis1>
       <axis2>motor1</axis2>
@@ -856,6 +856,9 @@
       <kp>600</kp>
       <ki>0.1</ki>
       <kd>0.01</kd>
+      <min_velocity>30</min_velocity>
+      <max_velocity>250</max_velocity>
+      <radius>156</radius>
       <joint>robotiq_arg2f_base_to_left_inner_knuckle</joint>
       <joint>robotiq_arg2f_base_to_left_outer_knuckle</joint>
       <joint>robotiq_arg2f_base_to_right_inner_knuckle</joint>

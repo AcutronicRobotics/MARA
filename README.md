@@ -127,7 +127,6 @@ ros-dashing-tf2 \
 ros-dashing-tf2-geometry-msgs \
 ros-dashing-rclcpp-action \
 ros-dashing-cv-bridge \
-ros-dashing-control-msgs \
 ros-dashing-image-transport \
 ros-dashing-gazebo-dev \
 ros-dashing-gazebo-msgs \
@@ -136,7 +135,7 @@ ros-dashing-gazebo-ros \
 ros-dashing-gazebo-ros-pkgs
 
 sudo apt install -y \
-python3-vcstool python3-numpy wget python3-pyqt5
+python3-pip python3-vcstool python3-numpy wget python3-pyqt5
 ```
 
 ### Create a ROS 2.0 workspace
@@ -145,7 +144,7 @@ Create the workspace and download source files:
 ```sh
 mkdir -p ~/ros2_mara_ws/src
 cd ~/ros2_mara_ws
-wget https://raw.githubusercontent.com/acutronicrobotics/MARA/dashing/mara-ros2.repos
+wget https://raw.githubusercontent.com/acutronicrobotics/MARA/master/mara-ros2.repos
 vcs import src < mara-ros2.repos
 ```
 
@@ -261,8 +260,10 @@ If you have used a different urdf in the Terminal 1, you will need to use `urdf:
 roslaunch mara_bringup mara_bringup_moveit_actions.launch urdf:=mara_robot_gripper_140
 ```
 
+*In case you have launched two robots, you will need to add `multiple_robots:=true`*
+
 #### Terminal 3 (bridge)
-Source catkin_mara_ws and ros2_mara_ws:
+Source *catkin_mara_ws* and *ros2_mara_ws*:
 ```sh
 source ~/catkin_mara_ws/devel_isolated/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
@@ -329,7 +330,7 @@ roslaunch mara_bringup mara_bringup_moveit_actions.launch env:=real urdf:=mara_r
 
 #### Terminal 3 (bridge)
 
-Source catkin_mara_ws nad ros2_mara_ws, and export RMW_IMPLEMENTATION and ROS_DOMAIN_ID:
+Source *catkin_mara_ws* and *ros2_mara_ws*, and export `RMW_IMPLEMENTATION` and `ROS_DOMAIN_ID`:
 ```sh
 source ~/catkin_mara_ws/devel_isolated/setup.bash
 source ~/ros2_mara_ws/install/setup.bash
