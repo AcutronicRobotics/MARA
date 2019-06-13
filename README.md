@@ -352,7 +352,7 @@ ros2 run individual_trajectories_bridge individual_trajectories_bridge_actions -
 ## Examples
 
  - [Documentation and tutorials](https://acutronicrobotics.com/docs/products/robots/mara)
- - [mara_examples](https://github.com/AcutronicRobotics/mara_examples.git) (_Not ported to dashing yet_)
+ - [mara_examples](https://github.com/AcutronicRobotics/mara_examples.git)
 
 <br/>
 
