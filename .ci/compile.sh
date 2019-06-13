@@ -17,6 +17,6 @@ source /opt/ros/$ROS_DISTRO/setup.bash
 echo "Build MARA_ROS1"
 mkdir -p ~/catkin_mara_ws/src
 cd ~/catkin_mara_ws/src
-git clone https://github.com/AcutronicRobotics/MARA_ROS1
+git clone -b crystal https://github.com/AcutronicRobotics/MARA_ROS1
 cd ~/catkin_mara_ws/
 catkin_make_isolated --install
