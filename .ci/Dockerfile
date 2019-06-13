@@ -34,7 +34,7 @@ RUN \
         ros-$ROS_DISTRO-moveit \
         ros-$ROS_DISTRO-moveit-ros-move-group \
         ros-$ROS_DISTRO-moveit-visual-tools \
-       && wget https://raw.githubusercontent.com/acutronicrobotics/MARA/master/mara-ros2.repos \
+       && wget https://raw.githubusercontent.com/acutronicrobotics/MARA/dashing/mara-ros2.repos \
        && vcs import src < mara-ros2.repos \
        && pip3 install hrim \
        && cd src/HRIM && hrim generate models/actuator/servo/servo.xml && hrim generate models/actuator/gripper/gripper.xml && hrim generate models/sensor/forcetorque/forcetorque.xml

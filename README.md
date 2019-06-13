@@ -285,7 +285,7 @@ Plan trajectories in a real environment with MoveIt!.
 
 :warning: Any change in the yaml files you will have to recompile the ros2 and ros packages (make sure you source only the corresponding ros/ros2):
 ```sh
-source /opt/ros/crystal/setup.bash
+source /opt/ros/dashing/setup.bash
 cd ~/ros2_mara_ws && colcon build --merge-install --packages-select hros_cognition_mara_components
 ```
 ```sh
