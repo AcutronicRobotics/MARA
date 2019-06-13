@@ -118,16 +118,8 @@ In this section we will install all the necessary dependencies in order to be ab
 ```sh
 # ROS 2 extra packages
 sudo apt update && sudo apt install -y \
-ros-dashing-action-msgs \
-ros-dashing-message-filters \
-ros-dashing-yaml-cpp-vendor \
-ros-dashing-urdf \
 ros-dashing-rttest \
-ros-dashing-tf2 \
-ros-dashing-tf2-geometry-msgs \
 ros-dashing-rclcpp-action \
-ros-dashing-cv-bridge \
-ros-dashing-image-transport \
 ros-dashing-gazebo-dev \
 ros-dashing-gazebo-msgs \
 ros-dashing-gazebo-plugins \
@@ -176,8 +168,19 @@ Continue the following steps to complete the MoveIt! installation.
 #### ROS and MoveIt!
 ROS and MoveIt! are required if you want to use `ìndividual_trajectories_bridge` to control the MARA, which means using ROS Melodic with MoveIt through bridges.
 - **ROS melodic**: following the official instructions, [source](http://wiki.ros.org/melodic/Installation/Source) or [debian_packages](http://wiki.ros.org/melodic/Installation/Ubuntu).
-- **MoveIt!**: Install the following ROS debian packages.
+
+    Dependent tools:
+    ```sh
+    # ROS extra packages
+    sudo apt update && sudo apt install -y \
+    ros-melodic-xacro \
+    ros-melodic-rviz \
+    ros-melodic-control-msgs \
+    ros-melodic-robot-state-publisher
     ```
+
+- **MoveIt!**: Install the following ROS debian packages.
+    ```sh
     sudo apt install -y \
     ros-melodic-moveit \
     ros-melodic-moveit-ros-move-group \
@@ -198,7 +201,7 @@ Compile the MARA_ROS1 packages.
 ```sh
 mkdir -p ~/catkin_mara_ws/src
 cd ~/catkin_mara_ws/src
-git clone https://github.com/AcutronicRobotics/MARA_ROS1
+git clone -b dashing https://github.com/AcutronicRobotics/MARA_ROS1
 cd ~/catkin_mara_ws/
 catkin_make_isolated --install
 ```

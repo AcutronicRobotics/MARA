@@ -30,6 +30,13 @@ RUN \
         python3-vcstool \
         wget \
         ros-$ROS2_DISTRO-ros-base \
+        ros-$ROS2_DISTRO-rttest \
+        ros-$ROS2_DISTRO-rclcpp-action \
+        ros-$ROS2_DISTRO-gazebo-dev \
+        ros-$ROS2_DISTRO-gazebo-msgs \
+        ros-$ROS2_DISTRO-gazebo-plugins \
+        ros-$ROS2_DISTRO-gazebo-ros \
+        ros-$ROS2_DISTRO-gazebo-ros-pkgs \
         ros-$ROS_DISTRO-desktop \
         ros-$ROS_DISTRO-moveit \
         ros-$ROS_DISTRO-moveit-ros-move-group \
