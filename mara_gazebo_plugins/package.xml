@@ -24,6 +24,7 @@
   <depend>hrim_generic_srvs</depend>
   <depend>tf2_geometry_msgs</depend>
   <depend>tf2_ros</depend>
+  <depend>rclcpp_action</depend>
 
   <build_depend>rclcpp</build_depend>
   <build_depend>gazebo_dev</build_depend>
