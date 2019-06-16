@@ -1,7 +1,7 @@
 repositories:
   mara:
     type: git
-    url: https://github.com/acutronicrobotics/MARA.git
+    url: https://github.com/AcutronicRobotics/MARA.git
     version: dashing
   HRIM:
     type: git
