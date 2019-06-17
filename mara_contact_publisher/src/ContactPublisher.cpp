@@ -81,9 +81,7 @@ int main(int argc, char ** argv)
     ros_node = gazebo_ros::Node::Get();
   }
 
-  auto qos_state = rmw_qos_profile_sensor_data;
-  qos_state.depth = 1;
-  contacts_pub = ros_node->create_publisher<gazebo_msgs::msg::ContactState>("/gazebo_contacts", qos_state);
+  contacts_pub = ros_node->create_publisher<gazebo_msgs::msg::ContactState>("/gazebo_contacts", rclcpp::SensorDataQoS());
 
   // Gazebo transport
   gz_node = gazebo::transport::NodePtr(new gazebo::transport::Node());
