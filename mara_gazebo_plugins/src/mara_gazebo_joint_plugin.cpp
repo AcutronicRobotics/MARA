@@ -27,7 +27,7 @@ void MARAGazeboPluginRosPrivate::handle_trajectory_axis2_accepted(const std::sha
 {
   printf("Server handle is %sactive and %sexecuting\n", goal_handle->is_active()?"":"not", goal_handle->is_executing()?"":"not ");
 
-  goal_handle_axis1_ = goal_handle;
+  goal_handle_axis2_ = goal_handle;
 
   printf("Trajectory has been accepted!\n");
 
