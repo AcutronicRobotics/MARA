@@ -81,7 +81,7 @@ int main(int argc, char ** argv)
     ros_node = gazebo_ros::Node::Get();
   }
 
-  contacts_pub = ros_node->create_publisher<gazebo_msgs::msg::ContactState>("/gazebo_contacts", rclcpp::SensorDataQoS());
+  contacts_pub = ros_node->create_publisher<gazebo_msgs::msg::ContactState>("/gazebo_contacts", rclcpp::SensorDataQoS(rclcpp::KeepLast(1)));
 
   // Gazebo transport
   gz_node = gazebo::transport::NodePtr(new gazebo::transport::Node());
