@@ -11,8 +11,8 @@
 
   <author email="ahcorde@erlerobotics.com">Alejandro Hernandez</author>
   <maintainer email="ahcorde@erlerobotics.com">Alejandro Hernandez</maintainer>
-  <url type="repository">https://github.com/erlerobot/mara</url>
-  <url type="bugtracker">https://github.com/erlerobot/mara/issues</url>
+  <url type="repository">https://github.com/acutronicrobotics/mara</url>
+  <url type="bugtracker">https://github.com/acutronicrobotics/mara/issues</url>
 
   <author>Alejandro Hernandez</author>
 
@@ -20,6 +20,7 @@
 
   <depend>hrim_actuator_rotaryservo_msgs</depend>
   <depend>hrim_actuator_rotaryservo_srvs</depend>
+  <depend>hrim_actuator_rotaryservo_actions</depend>
   <depend>hrim_generic_msgs</depend>
   <depend>hrim_generic_srvs</depend>
   <depend>tf2_geometry_msgs</depend>
