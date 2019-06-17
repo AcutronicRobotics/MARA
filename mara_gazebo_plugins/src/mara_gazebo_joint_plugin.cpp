@@ -308,11 +308,11 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
   RCUTILS_LOG_INFO_NAMED(impl_->ros_node_->get_name(), "creating service called: %s ", service_name_specs_comm.c_str());
 
   impl_->power_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::Power>(topic_name_power,
-                                            rmw_qos_profile_default);
+                                             rclcpp::QoS(10));
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_power.c_str());
 
   impl_->status_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::Status>(topic_name_status,
-                                            rmw_qos_profile_default);
+                                             rclcpp::QoS(10));
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_status.c_str());
 
   std::function<void( std::shared_ptr<rmw_request_id_t>,
@@ -336,7 +336,7 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
   RCUTILS_LOG_INFO_NAMED(impl_->ros_node_->get_name(), "creating service called: %s ", service_name_specs.c_str());
 
   impl_->state_comm_pub = impl_->ros_node_->create_publisher<hrim_generic_msgs::msg::StateCommunication>(topic_name_state_comm,
-                rmw_qos_profile_default);
+                 rclcpp::QoS(10));
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "creating %s publisher topic", topic_name_state_comm.c_str());
 
 
@@ -489,26 +489,28 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   // Creating motor state topic name
   std::string topic_name_motor_state = std::string(node_name) + "/state_axis1";
   impl_->motor_state_axis1_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(topic_name_motor_state,
-                        rmw_qos_profile_sensor_data);
+                        rclcpp::SensorDataQoS());
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state.c_str() );
 
   std::string topic_name_motor_state_axis2 = std::string(node_name) + "/state_axis2";
   impl_->motor_state_axis2_pub = impl_->ros_node_->create_publisher<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(topic_name_motor_state_axis2,
-                        rmw_qos_profile_sensor_data);
+                        rclcpp::SensorDataQoS());
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_name_motor_state_axis2.c_str() );
 
   // Creating command topic name
   std::string topic_command_state = std::string(node_name) + "/goal_axis1";
   impl_->command_sub_axis1_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state,
-                                std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis1, impl_.get(), std::placeholders::_1),
-                                rmw_qos_profile_sensor_data);
+                                rclcpp::SensorDataQoS(),
+                                std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis1, impl_.get(),
+                                std::placeholders::_1));
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state.c_str() );
 
 
   std::string topic_command_state_axis2 = std::string(node_name) + "/goal_axis2";
   impl_->command_sub_axis2_ = impl_->ros_node_->create_subscription<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(topic_command_state_axis2,
-                                std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis2, impl_.get(), std::placeholders::_1),
-                                rmw_qos_profile_sensor_data);
+                                rclcpp::SensorDataQoS(),
+                                std::bind(&MARAGazeboPluginRosPrivate::commandCallback_axis2, impl_.get(),
+                                std::placeholders::_1));
   RCLCPP_INFO(impl_->ros_node_->get_logger(), "Creating topic %s", topic_command_state.c_str() );
 
   // Update rate
