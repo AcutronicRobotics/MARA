@@ -11,5 +11,10 @@ matrix:
     - docker
   sudo:
     - required
+before_script:
+  - docker pull acutronicrobotics/mara:dashing-ci
 script:
-  - docker run -v $(pwd)/travis.sh:/travis.sh acutronicrobotics/mara:dashing-ci bash /travis.sh
+  - docker run -e MARA_ROS1_BRANCH=dashing -e ROS1_DISTRO=melodic \
+    -e ROS2_DISTRO=dashing -v $(pwd)/travis.sh:/travis.sh \
+    -v $(pwd):/tmp/mara acutronicrobotics/mara:dashing-ci \
+    bash /travis.sh
