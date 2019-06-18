@@ -27,7 +27,7 @@ class HROSCognitionMaraComponentsNode : public rclcpp::Node
      * arguments a regular node.
      */
     explicit HROSCognitionMaraComponentsNode(const std::string & node_name,
-                        int argc, char **argv, bool intra_process_comms = false);
+                        int argc, char **argv);
 
     /// Callback for walltimer in order to publish the message.
     /**

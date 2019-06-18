@@ -1,16 +1,14 @@
 #include "HROSCognitionMaraComponents.hpp"
 
-HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::string & node_name, int argc, char **argv, bool intra_process_comms ): rclcpp::Node(node_name)
+HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::string & node_name, int argc, char **argv): rclcpp::Node(node_name)
 {
   RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsNode::on_configure() is called.");
 
   this->node_name = node_name;
 
-  auto qos_state = rmw_qos_profile_sensor_data;
-  qos_state.depth = 1;
-  common_joints_pub_ = create_publisher<control_msgs::msg::JointTrajectoryControllerState>("/mara_controller/state", qos_state);
+  common_joints_pub_ = create_publisher<control_msgs::msg::JointTrajectoryControllerState>("/mara_controller/state", rclcpp::SensorDataQoS(rclcpp::KeepLast(1)));
 
-  trajectory_sub_ = create_subscription<trajectory_msgs::msg::JointTrajectory>("/mara_controller/command", std::bind(&HROSCognitionMaraComponentsNode::commandCallback, this, _1), rmw_qos_profile_sensor_data);
+  trajectory_sub_ = create_subscription<trajectory_msgs::msg::JointTrajectory>("/mara_controller/command", rclcpp::SensorDataQoS(), std::bind(&HROSCognitionMaraComponentsNode::commandCallback, this, _1));
 
   if (rcutils_cli_option_exist(argv, argv + argc, "-motors")){
     file_motors = std::string(rcutils_cli_get_option(argv, argv + argc, "-motors"));
@@ -58,16 +56,16 @@ HROSCognitionMaraComponentsNode::HROSCognitionMaraComponentsNode(const std::stri
     std::string motor_name = id + "state" + axis;
 
     auto subscriber = this->create_subscription<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(
-                              motor_name,
+                              motor_name, rclcpp::SensorDataQoS(),
                               [this, motor_name](hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo::UniquePtr msg) {
                                 stateCallback(motor_name, msg->velocity, msg->position, msg->effort);
-                              },rmw_qos_profile_sensor_data);
+                              });
     motor_state_subcriptions_.push_back(subscriber);
     std::cout << "Subscribe at " << motor_name << std::endl;
 
     motor_name = id + "goal" + axis;
 
-    auto publisher_command = this->create_publisher<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(motor_name, rmw_qos_profile_sensor_data);
+    auto publisher_command = this->create_publisher<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(motor_name, rclcpp::SensorDataQoS(rclcpp::KeepLast(1)));
     motor_goal_publishers_.push_back(publisher_command);
     std::cout << "New publisher at " << motor_name << std::endl;
   }
