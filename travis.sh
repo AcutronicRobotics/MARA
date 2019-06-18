@@ -15,9 +15,6 @@ export WS="/root/ros2_mara_ws"
 export ROS1_WS="/root/catkin_ws"
 export ROS2_SOURCE="/opt/ros/${ROS2_DISTRO}/"
 export ROS1_SOURCE="/opt/ros/${ROS1_DISTRO}/"
-export BRANCH="dashing"
-export ROS2_DISTRO="dashing"
-export ROS1_DISTRO="melodic"
 
 # Colcon flags
 export COLCON_COMMAND="--merge-install"
@@ -26,10 +23,11 @@ export COLCON_SKIP_PACKAGES="--packages-skip individual_trajectories_bridge"
 
 function prepare_ws()
 {
-  echo -e "${YELLOW}Download dependencies for ${BRANCH}${RESET}"
+  echo -e "${YELLOW}Download dependencies for current branch${RESET}"
   cd ${WS}
   rm -rf mara-ros2.repos
-  wget https://raw.githubusercontent.com/AcutronicRobotics/MARA/${BRANCH}/mara-ros2.repos
+  cp -r /tmp/mara src && cp src/mara/mara-ros2.repos .
+  sed -i '2,5d' mara-ros2.repos
   vcs import src < mara-ros2.repos 
   result=$?
   if [ $result -ne 0 ]; then
@@ -42,7 +40,7 @@ function prepare_ws()
 
 function run_rosdep()
 {
-  echo -e "${YELLOW}Make sure everything is installed${RESET}"
+  echo -e "${YELLOW}Making sure that everything is installed${RESET}"
   cd ${WS}
   apt update -qq && rosdep update
   rosdep install -q -y --from-paths . --ignore-src --rosdistro \
@@ -117,7 +115,7 @@ function ros1_ws()
 {
  mkdir -p ${ROS1_WS}/src
  cd ${ROS1_WS}/src
- git clone -b ${BRANCH} https://github.com/AcutronicRobotics/MARA_ROS1 2>/dev/null
+ git clone -b ${MARA_ROS1_BRANCH} https://github.com/AcutronicRobotics/MARA_ROS1 2>/dev/null
  result=$?
  if [ $result -ne 0 ]; then
    echo -e "${RED}Cannot locate branch for MARA_ROS1${RESET}"
