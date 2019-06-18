@@ -12,9 +12,6 @@ matrix:
   sudo:
     - required
 before_script:
-  - mkdir /tmp/MARA 
-  - mv * /tmp/MARA
-  - cd .ci/ 
+  - docker pull acutronicrobotics/mara:dashing-ci
 script:
-  - docker build -t mara .
-  - docker run -v /tmp/MARA:/tmp/MARA mara
+  - docker run -e MARA_ROS1_BRANCH=crystal -e ROS1_DISTRO=melodic -e ROS2_DISTRO=crystal -v $(pwd)/travis.sh:/travis.sh -v $(pwd):/tmp/mara acutronicrobotics/mara:dashing-ci bash /travis.sh
