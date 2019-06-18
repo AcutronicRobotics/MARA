@@ -44,7 +44,7 @@ function run_rosdep()
   cd ${WS}
   apt update -qq && rosdep update
   rosdep install -q -y --from-paths . --ignore-src --rosdistro \
-                                  ${ROS_DISTRO} --skip-keys \
+                                  ${ROS2_DISTRO} --skip-keys \
                                   "hrim_actuator_rotaryservo_actions \
                                    hrim_actuator_gripper_srvs \
                                    hrim_actuator_rotaryservo_msgs \
