@@ -103,37 +103,37 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  UpdateJointPIDs();
+  //UpdateJointPIDs();
   goal_position_axis1_rad = msg->position;
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  UpdateJointPIDs();
+  //UpdateJointPIDs();
   goal_position_axis2_rad = msg->position;
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis3(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  UpdateJointPIDs();
+  //UpdateJointPIDs();
   goal_position_axis3_rad = msg->position;
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis4(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  UpdateJointPIDs();
+  //UpdateJointPIDs();
   goal_position_axis4_rad = msg->position;
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis5(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  UpdateJointPIDs();
+  //UpdateJointPIDs();
   goal_position_axis5_rad = msg->position;
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis6(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  UpdateJointPIDs();
+  //UpdateJointPIDs();
   goal_position_axis6_rad = msg->position;
 }
 
@@ -278,7 +278,7 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
     std::bind(&MARAGazeboPluginRosPrivate::OnUpdate, impl_.get()));
 
 
-  impl_->UpdateJointPIDs();
+  //impl_->UpdateJointPIDs();
 }
 
 float * MARAGazeboPluginRosPrivate::getPIDValues(std::string joint_name)
@@ -436,22 +436,22 @@ void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
 
 void MARAGazeboPluginRosPrivate::UpdatePIDControl()
 {
-  model_->GetJointController()->SetPositionTarget(
+  model_->SetJointPosition(
     joints_[MARAGazeboPluginRosPrivate::AXIS1]->GetScopedName(), goal_position_axis1_rad);
 
-  model_->GetJointController()->SetPositionTarget(
+  model_->SetJointPosition(
     joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetScopedName(), goal_position_axis2_rad);
 
-  model_->GetJointController()->SetPositionTarget(
+  model_->SetJointPosition(
     joints_[MARAGazeboPluginRosPrivate::AXIS3]->GetScopedName(), goal_position_axis3_rad);
 
-  model_->GetJointController()->SetPositionTarget(
+  model_->SetJointPosition(
     joints_[MARAGazeboPluginRosPrivate::AXIS4]->GetScopedName(), goal_position_axis4_rad);
 
-  model_->GetJointController()->SetPositionTarget(
+  model_->SetJointPosition(
     joints_[MARAGazeboPluginRosPrivate::AXIS5]->GetScopedName(), goal_position_axis5_rad);
 
-  model_->GetJointController()->SetPositionTarget(
+  model_->SetJointPosition(
     joints_[MARAGazeboPluginRosPrivate::AXIS6]->GetScopedName(), goal_position_axis6_rad);
 
 }
