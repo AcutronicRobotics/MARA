@@ -375,69 +375,69 @@ void MARAGazeboPluginRos::createGenericTopics(std::string node_name)
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  if(!executing_axis1){
-    if(msg->velocity!=0.0){
-      trajectories_position_axis1.clear();
-      trajectories_velocities_axis1.clear();
-      std::vector<double> X(2), Y_vel(2), Y_pos(2);
+  new_callback_axis1 = true;
 
-      float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS1]->Position(0);
+  if(msg->velocity!=0.0){
+    trajectories_position_axis1.clear();
+    trajectories_velocities_axis1.clear();
+    std::vector<double> X(2), Y_vel(2), Y_pos(2);
 
-      double start_time = 0;
-      double end_time = fabs(current_pose_rad-msg->position)/msg->velocity;
+    float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS1]->Position(0);
 
-      Y_vel[0] = 0;
-      Y_pos[0] = current_pose_rad;
-      X[0] = start_time;
+    double start_time = 0;
+    double end_time = fabs(current_pose_rad-msg->position)/msg->velocity;
 
-      Y_vel[1] = 0;
-      Y_pos[1] = msg->position;
-      X[1] = end_time;
-      tk::spline interpolation_vel, interpolation_pos;
-      if(!interpolation_vel.set_points(X, Y_vel))
-        return;
-      if(!interpolation_pos.set_points(X, Y_pos))
-        return;
+    Y_vel[0] = 0;
+    Y_pos[0] = current_pose_rad;
+    X[0] = start_time;
 
-      for(double t = start_time; t < end_time; t+= 0.001 ){
-        trajectories_position_axis1.push_back(interpolation_pos(t));
-        trajectories_velocities_axis1.push_back(interpolation_vel(t));
-      }
+    Y_vel[1] = 0;
+    Y_pos[1] = msg->position;
+    X[1] = end_time;
+    tk::spline interpolation_vel, interpolation_pos;
+    if(!interpolation_vel.set_points(X, Y_vel))
+      return;
+    if(!interpolation_pos.set_points(X, Y_pos))
+      return;
+
+    for(double t = start_time; t < end_time; t+= 0.001 ){
+      trajectories_position_axis1.push_back(interpolation_pos(t));
+      trajectories_velocities_axis1.push_back(interpolation_vel(t));
     }
   }
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  if(!executing_axis2){
-    if(msg->velocity!=0.0){
-      trajectories_position_axis2.clear();
-      trajectories_velocities_axis2.clear();
-      std::vector<double> X(2), Y_vel(2), Y_pos(2);
+  new_callback_axis2 = true;
 
-      float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS2]->Position(0);
+  if(msg->velocity!=0.0){
+    trajectories_position_axis2.clear();
+    trajectories_velocities_axis2.clear();
+    std::vector<double> X(2), Y_vel(2), Y_pos(2);
 
-      double start_time = 0;
-      double end_time = fabs(current_pose_rad-msg->position)/msg->velocity;
+    float current_pose_rad = joints_[MARAGazeboPluginRosPrivate::AXIS2]->Position(0);
 
-      Y_vel[0] = 0;
-      Y_pos[0] = current_pose_rad;
-      X[0] = start_time;
+    double start_time = 0;
+    double end_time = fabs(current_pose_rad-msg->position)/msg->velocity;
 
-      Y_vel[1] = 0;
-      Y_pos[1] = msg->position;
-      X[1] = end_time;
+    Y_vel[0] = 0;
+    Y_pos[0] = current_pose_rad;
+    X[0] = start_time;
 
-      tk::spline interpolation_vel, interpolation_pos;
-      if(!interpolation_vel.set_points(X, Y_vel))
-        return;
-      if(!interpolation_pos.set_points(X, Y_pos))
-        return;
+    Y_vel[1] = 0;
+    Y_pos[1] = msg->position;
+    X[1] = end_time;
 
-      for(double t = start_time; t < end_time; t+= 0.001 ){
-        trajectories_position_axis2.push_back(interpolation_pos(t));
-        trajectories_velocities_axis2.push_back(interpolation_vel(t));
-      }
+    tk::spline interpolation_vel, interpolation_pos;
+    if(!interpolation_vel.set_points(X, Y_vel))
+      return;
+    if(!interpolation_pos.set_points(X, Y_pos))
+      return;
+
+    for(double t = start_time; t < end_time; t+= 0.001 ){
+      trajectories_position_axis2.push_back(interpolation_pos(t));
+      trajectories_velocities_axis2.push_back(interpolation_vel(t));
     }
   }
 }
@@ -455,6 +455,8 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   impl_->trajectories_velocities_axis2.clear();
   impl_->executing_axis1 = false;
   impl_->executing_axis2 = false;
+  impl_->new_callback_axis1 = false;
+  impl_->new_callback_axis2 = false;
   impl_->index_trajectory_axis1 = 0;
   impl_->index_trajectory_axis2 = 0;
   impl_->goal_position_axis1_rad = 0;
@@ -538,6 +540,8 @@ void MARAGazeboPluginRos::Reset()
   impl_->trajectories_velocities_axis2.clear();
   impl_->executing_axis1 = false;
   impl_->executing_axis2 = false;
+  impl_->new_callback_axis1 = false;
+  impl_->new_callback_axis2 = false;
   impl_->index_trajectory_axis1 = 0;
   impl_->index_trajectory_axis2 = 0;
   impl_->goal_position_axis1_rad = 0;
@@ -547,9 +551,10 @@ void MARAGazeboPluginRos::Reset()
 void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _info)
 {
 
-  if(!executing_axis1 && trajectories_position_axis1.size()>0){
+  if(new_callback_axis1){
     index_trajectory_axis1 = 0;
     executing_axis1 = true;
+    new_callback_axis1 = false;
   }
 
   if(executing_axis1){
@@ -562,9 +567,10 @@ void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _in
     }
   }
 
-  if(!executing_axis2 && trajectories_position_axis2.size()>0){
+  if(new_callback_axis2){
     index_trajectory_axis2 = 0;
     executing_axis2 = true;
+    new_callback_axis2 = false;
   }
 
   if(executing_axis2){
