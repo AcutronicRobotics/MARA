@@ -551,7 +551,7 @@ void MARAGazeboPluginRos::Reset()
 void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _info)
 {
 
-  if(new_callback_axis1){
+  if(new_callback_axis1 && trajectories_position_axis1.size() > 0){
     index_trajectory_axis1 = 0;
     executing_axis1 = true;
     new_callback_axis1 = false;
@@ -567,7 +567,7 @@ void MARAGazeboPluginRosPrivate::OnUpdate(const gazebo::common::UpdateInfo & _in
     }
   }
 
-  if(new_callback_axis2){
+  if(new_callback_axis2 && trajectories_position_axis2.size() > 0){
     index_trajectory_axis2 = 0;
     executing_axis2 = true;
     new_callback_axis2 = false;
