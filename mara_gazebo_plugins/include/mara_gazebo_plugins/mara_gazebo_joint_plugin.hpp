@@ -203,8 +203,6 @@ namespace gazebo_plugins
     std::vector<float> trajectories_velocities_axis2;
     bool executing_axis1;
     bool executing_axis2;
-    bool new_callback_axis1;  // allows trajectory interruption
-    bool new_callback_axis2;  // allows trajectory interruption
     unsigned int index_trajectory_axis1;
     unsigned int index_trajectory_axis2;
     float goal_position_axis1_rad;
