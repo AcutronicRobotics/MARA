@@ -115,11 +115,25 @@ function ros1_ws()
 {
  mkdir -p ${ROS1_WS}/src
  cd ${ROS1_WS}/src
- git clone -b ${MARA_ROS1_BRANCH} https://github.com/AcutronicRobotics/MARA_ROS1 2>/dev/null
+ # Check if branch exists
+ git ls-remote --heads https://github.com/AcutronicRobotics/MARA_ROS1 | grep ${MARA_ROS1_BRANCH} >/dev/null
  result=$?
- if [ $result -ne 0 ]; then
+ if [ $result -eq 1 ]; then
    echo -e "${RED}Cannot locate branch for MARA_ROS1${RESET}"
    exit $result
+ else
+   # Branch exits try to download It
+   tries=0
+   echo -e "${YELLOW}Downloading MARA_ROS1${RESET}"
+   while [ $(git clone -b ${MARA_ROS1_BRANCH} https://github.com/AcutronicRobotics/MARA_ROS1) ]; do
+     echo -e "${YELLOW}Trying to download MARA_ROS1, try number: ${tries}${RESET}"
+    /bin/sleep 2
+    if [ $tries -eq 3 ]; then
+      echo -e "${RED}Cannot download the MARA_ROS1${RESET}"
+      break
+    else tries=$((tries+1))
+    fi
+   done
  fi
  cd ${ROS1_WS}
  echo -e "${BLUE}Compile MARA_ROS1${RESET}"
