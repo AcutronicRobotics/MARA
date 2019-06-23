@@ -15,3 +15,5 @@ before_script:
   - docker pull acutronicrobotics/mara:dashing-ci
 script:
   - docker build -t acutronicrobotics/mara:dashing --network=host -f .ci/Dockerfile .
+after_success:
+  - docker tag $(docker images | grep 'acutronicrobotics/mara' | head -n 1 | awk '{print $3}') acutronicrobotics/mara:dashing
