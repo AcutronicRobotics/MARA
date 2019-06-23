@@ -10,9 +10,13 @@ export RED="\033[31m"
 export GREEN="\033[32m"
 export YELLOW="\033[33m"
 export BLUE="\033[34m"
+export PURPLE="\e[0;35m"
 export RESET="\e[0m"
 
 # Path and branches
+export ROS2_DISTRO="dashing"
+export ROS1_DISTRO="melodic"
+export MARA_ROS1_BRANCH="dashing"
 export WS="/root/ros2_mara_ws"
 export ROS1_WS="/root/catkin_ws"
 export ROS2_SOURCE="/opt/ros/${ROS2_DISTRO}/"
@@ -20,7 +24,7 @@ export ROS1_SOURCE="/opt/ros/${ROS1_DISTRO}/"
 
 # Colcon flags
 export COLCON_COMMAND_FLAGS="--merge-install"
-export COLCON_SKIP_PACKAGES="individual_trajectories_bridge"
+export COLCON_SELECT_PACKAGE="individual_trajectories_bridge"
 
 
 function prepare_ws()
@@ -83,9 +87,14 @@ function setup_hrim()
 
 function compile_ws()
 {
-  echo -e "${YELLOW}Compile the WS for ROS2${RESET}"
   cd ${WS} || exit
-  colcon build "${COLCON_COMMAND_FLAGS}" --packages-skip "${COLCON_SKIP_PACKAGES}"
+  echo -e "${YELLOW}###### Packages to be compile ######${RESET}"
+  echo -e "${PURPLE}"
+  colcon list --names-only
+  echo -e "${RESET}"
+  echo -e "${YELLOW}Compile the WS for ROS2${RESET}"
+  source "${ROS2_SOURCE}setup.bash"
+  colcon build "${COLCON_COMMAND_FLAGS}" --packages-skip "${COLCON_SELECT_PACKAGE}"
   result=$?
   if [ $result -ne 0 ]; then
     echo -e "${RED}Error compiling the ws${RESET}"
@@ -101,7 +110,7 @@ function compile_ros_bridge()
   unset ROS_DISTRO && unset ROS2_DISTRO
   source "${ROS1_SOURCE}setup.bash"
   cd ${WS} || exit
-  colcon build "${COLCON_COMMAND_FLAGS}" --packages-select "$COLCON_SKIP_PACKAGES"
+  colcon build "${COLCON_COMMAND_FLAGS}" --packages-select "${COLCON_SELECT_PACKAGE}"
   export ROS1_DISTRO=melodic && export ROS2_DISTRO=dashing
   sed -i "s#/opt/ros/${ROS1_DISTRO}#/opt/ros/${ROS2_DISTRO}#g" ${WS}/install/setup.bash
   result=$?
