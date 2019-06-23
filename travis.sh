@@ -88,7 +88,7 @@ function setup_hrim()
 function compile_ws()
 {
   cd ${WS} || exit
-  echo -e "${YELLOW}###### Packages to be compile ######${RESET}"
+  echo -e "${YELLOW}###### Packages to be compiled ######${RESET}"
   echo -e "${PURPLE}"
   colcon list --names-only
   echo -e "${RESET}"
