@@ -7,8 +7,7 @@ if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 14)
 endif()
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  # we dont use add_compile_options with pedantic
-  # in message packages
+  # we dont use add_compile_options with pedantic in message packages
   # because the Python C extensions dont comply with it
   add_compile_options(-Wall -Wextra)
 endif()
@@ -36,8 +35,7 @@ find_ros1_interface_packages(ros1_message_packages)
 find_package(PkgConfig)
 if(NOT PKG_CONFIG_FOUND)
   message(STATUS "Failed to find PkgConfig, skipping...")
-  # call ament_package() to avoid being treated as a plain
-  # CMake package from ament_tools
+  # call ament_package() to avoid being treated as a plain CMake package from ament_tools
   ament_package()
   return()
 endif()
@@ -45,8 +43,7 @@ endif()
 find_ros1_package(roscpp)
 if(NOT ros1_roscpp_FOUND)
   message(STATUS "Failed to find ROS 1 roscpp, skipping...")
-  # call ament_package() to avoid being treated as a plain
-  # CMake package from ament_tools
+  # call ament_package() to avoid being treated as a plain CMake package from ament_tools
   ament_package()
   return()
 endif()
