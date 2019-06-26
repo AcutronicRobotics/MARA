@@ -233,14 +233,14 @@
     </collision>
   </link>
   <link name="ee_link">
-    <visual>
+    <!-- <visual>
       <geometry>
         <sphere radius="0.01"/>
       </geometry>
       <material name="Gazebo/Grey">
         <color rgba="0. 0. 0. 1"/>
       </material>
-    </visual>
+    </visual> -->
   </link>
   <gazebo reference="ee_link">
     <material>Gazebo/Blue</material>
@@ -302,7 +302,7 @@
     <dynamics damping="0" friction="0"/>
   </joint>
   <joint name="ee_link" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.0 0.0"/>
+    <origin rpy="0 0 0" xyz="0 0.0 0.24497"/>
     <parent link="motor6_link"/>
     <child link="ee_link"/>
   </joint>
