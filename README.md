@@ -113,11 +113,14 @@ In this section we will install all the necessary dependencies in order to be ab
 - **ROS 2.0 Dashing**: following the official instructions, [source](https://index.ros.org/doc/ros2/Installation/Dashing/Linux-Development-Setup/) or [debian packages](https://index.ros.org/doc/ros2/Installation/Dashing/Linux-Install-Debians/). Make sure that you have colcon in your machine if you are installing from Debian packages.
 `sudo apt install python3-colcon-common-extensions`
 
-### Dependent tools
-**Note**: We recommend installing **Gazebo 9.9.0** via **ROS Dashing Debian packages** and removing previous gazebo installations to avoid undesired conflicts, e.g. `apt-get remove *gazebo*`. You can also use different versions of the simulator such as Gazebo 10, but you must skip the installation of `ros-dashing-gazebo*` packages.
-
+## Dependent tools
+- **Gazebo 9.9.0**.
+   - Install the latest available version of Gazebo via [one-liner instructions](http://gazebosim.org/tutorials?tut=install_ubuntu#Defaultinstallation:one-liner). Lower versions like **9.0.0 will not work**. Additional information is available [here](https://github.com/AcutronicRobotics/gym-gazebo2/issues/31#issuecomment-501660211).
+     ```sh
+     curl -sSL http://get.gazebosim.org | sh
+     ```
+- ROS 2 extra packages
 ```sh
-# ROS 2 extra packages
 sudo apt update && sudo apt install -y \
 ros-dashing-rttest \
 ros-dashing-rclcpp-action \
