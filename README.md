@@ -131,7 +131,8 @@ ros-dashing-gazebo-ros \
 ros-dashing-gazebo-ros-pkgs
 
 sudo apt install -y \
-python3-pip python3-vcstool python3-numpy wget python3-pyqt5 git
+python3-pip python3-vcstool python3-numpy wget python3-pyqt5 python3-colcon-common-extensions git
+
 ```
 
 ### Create a ROS 2.0 workspace
