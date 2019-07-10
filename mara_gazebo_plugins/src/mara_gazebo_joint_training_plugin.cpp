@@ -103,37 +103,31 @@ void MARAGazeboPluginRosPrivate::timer_motor_state_msgs()
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis1(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  UpdateJointPIDs();
   goal_position_axis1_rad = msg->position;
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis2(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  UpdateJointPIDs();
   goal_position_axis2_rad = msg->position;
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis3(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  UpdateJointPIDs();
   goal_position_axis3_rad = msg->position;
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis4(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  UpdateJointPIDs();
   goal_position_axis4_rad = msg->position;
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis5(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  UpdateJointPIDs();
   goal_position_axis5_rad = msg->position;
 }
 
 void MARAGazeboPluginRosPrivate::commandCallback_axis6(const hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo::SharedPtr msg)
 {
-  UpdateJointPIDs();
   goal_position_axis6_rad = msg->position;
 }
 
@@ -276,65 +270,6 @@ void MARAGazeboPluginRos::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr
   // Listen to the update event (broadcast every simulation iteration)
   impl_->update_connection_ = gazebo::event::Events::ConnectWorldUpdateBegin(
     std::bind(&MARAGazeboPluginRosPrivate::OnUpdate, impl_.get()));
-
-
-  impl_->UpdateJointPIDs();
-}
-
-float * MARAGazeboPluginRosPrivate::getPIDValues(std::string joint_name)
-{
-  static float pid_values[7];
-
-  if (joint_name.compare("motor1")==0){
-    pid_values[0]=5000;  //_p  The proportional gain.
-    pid_values[1]=0.0;  //_i  The integral gain.
-    pid_values[2]=20.0;  //_d  The derivative gain.
-    pid_values[3]=0.0;  //_imax The integral upper limit.
-    pid_values[4]=0.0;  //_imin The integral lower limit.
-    pid_values[5]=-3.1416;  //_cmdMax Output max value.
-    pid_values[6]=3.1416;  //_cmdMin Output min value.
-  }else if (joint_name.compare("motor2")==0){
-    pid_values[0]=10000;  //_p  The proportional gain.
-    pid_values[1]=0.0;  //_i  The integral gain.
-    pid_values[2]=20.0;  //_d  The derivative gain.
-    pid_values[3]=0.0;  //_imax The integral upper limit.
-    pid_values[4]=0.0;  //_imin The integral lower limit.
-    pid_values[5]=-3.1416;  //_cmdMax Output max value.
-    pid_values[6]=3.1416;  //_cmdMin Output min value.
-  }else if (joint_name.compare("motor3")==0){
-    pid_values[0]=15000;  //_p  The proportional gain.
-    pid_values[1]=0.0;  //_i  The integral gain.
-    pid_values[2]=20.0;  //_d  The derivative gain.
-    pid_values[3]=0.0;  //_imax The integral upper limit.
-    pid_values[4]=0.0;  //_imin The integral lower limit.
-    pid_values[5]=-3.1416;  //_cmdMax Output max value.
-    pid_values[6]=3.1416;  //_cmdMin Output min value.
-  }else if (joint_name.compare("motor4")==0){
-    pid_values[0]=500;  //_p  The proportional gain.
-    pid_values[1]=0.0;  //_i  The integral gain.
-    pid_values[2]=10.0;  //_d  The derivative gain.
-    pid_values[3]=0.0;  //_imax The integral upper limit.
-    pid_values[4]=0.0;  //_imin The integral lower limit.
-    pid_values[5]=-3.1416;  //_cmdMax Output max value.
-    pid_values[6]=3.1416;  //_cmdMin Output min value.
-  }else if (joint_name.compare("motor5")==0){
-    pid_values[0]=500;  //_p  The proportional gain.
-    pid_values[1]=0.0;  //_i  The integral gain.
-    pid_values[2]=10.0;  //_d  The derivative gain.
-    pid_values[3]=0.0;  //_imax The integral upper limit.
-    pid_values[4]=0.0;  //_imin The integral lower limit.
-    pid_values[5]=-3.1416;  //_cmdMax Output max value.
-    pid_values[6]=3.1416;  //_cmdMin Output min value.
-  }else if (joint_name.compare("motor6")==0){
-    pid_values[0]=5;  //_p  The proportional gain.
-    pid_values[1]=0.0;  //_i  The integral gain.
-    pid_values[2]=1.0;  //_d  The derivative gain.
-    pid_values[3]=0.0;  //_imax The integral upper limit.
-    pid_values[4]=0.0;  //_imin The integral lower limit.
-    pid_values[5]=-3.1416;  //_cmdMax Output max value.
-    pid_values[6]=3.1416;  //_cmdMin Output min value.
-  }
-  return pid_values;
 }
 
 void MARAGazeboPluginRos::Reset()
@@ -349,111 +284,22 @@ void MARAGazeboPluginRos::Reset()
 
 void MARAGazeboPluginRosPrivate::OnUpdate()
 {
-  UpdatePIDControl();
-  timer_motor_state_msgs();
-}
-
-void MARAGazeboPluginRosPrivate::UpdateJointPIDs(){
-  // AXIS 1
-  float *motor1_pid = getPIDValues(joints_[MARAGazeboPluginRosPrivate::AXIS1]->GetName());
-  float m1_p = *(motor1_pid + 0);
-  float m1_i = *(motor1_pid + 1);
-  float m1_d = *(motor1_pid + 2);
-  float m1_imax = *(motor1_pid + 3);
-  float m1_imin = *(motor1_pid + 4);
-
-
-  model_->GetJointController()->SetPositionPID(
-    joints_[MARAGazeboPluginRosPrivate::AXIS1]->GetScopedName(),
-    gazebo::common::PID(m1_p, m1_i, m1_d, m1_imax, m1_imin, joints_[MARAGazeboPluginRosPrivate::AXIS1]->LowerLimit(0), joints_[MARAGazeboPluginRosPrivate::AXIS1]->UpperLimit(0)));
-
-  // AXIS 2
-  float *motor2_pid = getPIDValues(joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetName());
-  float m2_p = *(motor2_pid + 0);
-  float m2_i = *(motor2_pid + 1);
-  float m2_d = *(motor2_pid + 2);
-  float m2_imax = *(motor2_pid + 3);
-  float m2_imin = *(motor2_pid + 4);
-
-
-  model_->GetJointController()->SetPositionPID(
-    joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetScopedName(),
-    gazebo::common::PID(m2_p, m2_i, m2_d, m2_imax, m2_imin, joints_[MARAGazeboPluginRosPrivate::AXIS2]->LowerLimit(0), joints_[MARAGazeboPluginRosPrivate::AXIS2]->UpperLimit(0)));
-
-  // AXIS 3
-  float *motor3_pid = getPIDValues(joints_[MARAGazeboPluginRosPrivate::AXIS3]->GetName());
-  float m3_p = *(motor3_pid + 0);
-  float m3_i = *(motor3_pid + 1);
-  float m3_d = *(motor3_pid + 2);
-  float m3_imax = *(motor3_pid + 3);
-  float m3_imin = *(motor3_pid + 4);
-
-
-  model_->GetJointController()->SetPositionPID(
-    joints_[MARAGazeboPluginRosPrivate::AXIS3]->GetScopedName(),
-    gazebo::common::PID(m3_p, m3_i, m3_d, m3_imax, m3_imin, joints_[MARAGazeboPluginRosPrivate::AXIS3]->LowerLimit(0), joints_[MARAGazeboPluginRosPrivate::AXIS3]->UpperLimit(0)));
-
-  // AXIS 4
-  float *motor4_pid = getPIDValues(joints_[MARAGazeboPluginRosPrivate::AXIS4]->GetName());
-  float m4_p = *(motor4_pid + 0);
-  float m4_i = *(motor4_pid + 1);
-  float m4_d = *(motor4_pid + 2);
-  float m4_imax = *(motor4_pid + 3);
-  float m4_imin = *(motor4_pid + 4);
-
-
-  model_->GetJointController()->SetPositionPID(
-    joints_[MARAGazeboPluginRosPrivate::AXIS4]->GetScopedName(),
-    gazebo::common::PID(m4_p, m4_i, m4_d, m4_imax, m4_imin, joints_[MARAGazeboPluginRosPrivate::AXIS4]->LowerLimit(0), joints_[MARAGazeboPluginRosPrivate::AXIS4]->UpperLimit(0)));
-
-  // AXIS 5
-  float *motor5_pid = getPIDValues(joints_[MARAGazeboPluginRosPrivate::AXIS5]->GetName());
-  float m5_p = *(motor5_pid + 0);
-  float m5_i = *(motor5_pid + 1);
-  float m5_d = *(motor5_pid + 2);
-  float m5_imax = *(motor5_pid + 3);
-  float m5_imin = *(motor5_pid + 4);
-
-
-  model_->GetJointController()->SetPositionPID(
-    joints_[MARAGazeboPluginRosPrivate::AXIS5]->GetScopedName(),
-    gazebo::common::PID(m5_p, m5_i, m5_d, m5_imax, m5_imin, joints_[MARAGazeboPluginRosPrivate::AXIS5]->LowerLimit(0), joints_[MARAGazeboPluginRosPrivate::AXIS5]->UpperLimit(0)));
-
-  // AXIS 6
-  float *motor6_pid = getPIDValues(joints_[MARAGazeboPluginRosPrivate::AXIS6]->GetName());
-  float m6_p = *(motor6_pid + 0);
-  float m6_i = *(motor6_pid + 1);
-  float m6_d = *(motor6_pid + 2);
-  float m6_imax = *(motor6_pid + 3);
-  float m6_imin = *(motor6_pid + 4);
-
-
-  model_->GetJointController()->SetPositionPID(
-    joints_[MARAGazeboPluginRosPrivate::AXIS6]->GetScopedName(),
-    gazebo::common::PID(m6_p, m6_i, m6_d, m6_imax, m6_imin, joints_[MARAGazeboPluginRosPrivate::AXIS6]->LowerLimit(0), joints_[MARAGazeboPluginRosPrivate::AXIS6]->UpperLimit(0)));
-
-}
-
-void MARAGazeboPluginRosPrivate::UpdatePIDControl()
-{
-  model_->GetJointController()->SetPositionTarget(
+  // Update poses in gazebo
+  model_->SetJointPosition(
     joints_[MARAGazeboPluginRosPrivate::AXIS1]->GetScopedName(), goal_position_axis1_rad);
-
-  model_->GetJointController()->SetPositionTarget(
+  model_->SetJointPosition(
     joints_[MARAGazeboPluginRosPrivate::AXIS2]->GetScopedName(), goal_position_axis2_rad);
-
-  model_->GetJointController()->SetPositionTarget(
+  model_->SetJointPosition(
     joints_[MARAGazeboPluginRosPrivate::AXIS3]->GetScopedName(), goal_position_axis3_rad);
-
-  model_->GetJointController()->SetPositionTarget(
+  model_->SetJointPosition(
     joints_[MARAGazeboPluginRosPrivate::AXIS4]->GetScopedName(), goal_position_axis4_rad);
-
-  model_->GetJointController()->SetPositionTarget(
+  model_->SetJointPosition(
     joints_[MARAGazeboPluginRosPrivate::AXIS5]->GetScopedName(), goal_position_axis5_rad);
-
-  model_->GetJointController()->SetPositionTarget(
+  model_->SetJointPosition(
     joints_[MARAGazeboPluginRosPrivate::AXIS6]->GetScopedName(), goal_position_axis6_rad);
 
+  // Publish states
+  timer_motor_state_msgs();
 }
 
 GZ_REGISTER_MODEL_PLUGIN(MARAGazeboPluginRos)
