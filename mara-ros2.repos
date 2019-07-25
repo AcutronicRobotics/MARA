@@ -14,7 +14,7 @@ repositories:
   hans_modular_servomotor:
     type: git
     url: https://github.com/AcutronicRobotics/hans_modular_servomotor.git
-    version: master
+    version: dashing
   control_msgs:
     type: git
     url: https://github.com/erlerobot/control_msgs/

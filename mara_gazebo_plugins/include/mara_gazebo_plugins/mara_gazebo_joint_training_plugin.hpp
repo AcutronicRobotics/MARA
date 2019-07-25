@@ -88,9 +88,6 @@ namespace gazebo_plugins
     void timer_motor_state_msgs();
     std::shared_ptr<rclcpp::TimerBase> timer_motor_state_;
 
-    void UpdateJointPIDs();
-    void UpdatePIDControl();
-
     /// A pointer to the GazeboROS node.
     gazebo_ros::Node::SharedPtr ros_node_;
 
@@ -143,9 +140,6 @@ namespace gazebo_plugins
     float goal_position_axis4_rad;
     float goal_position_axis5_rad;
     float goal_position_axis6_rad;
-
-    float * getPIDValues(std::string joint_name);
-
   };
 
 /// A plugin for gazebo.
