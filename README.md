@@ -3,25 +3,12 @@
 [![Build
 Status](https://travis-ci.org/AcutronicRobotics/MARA.svg?branch=dashing)](https://travis-ci.org/AcutronicRobotics/MARA)
 
-<a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/products/mara/images/xv2_MARA2-11.jpg.pagespeed.ic.QRaRP5N01r.webp" align="left" hspace="8" vspace="2" width="270"></a>
-<br/>
-<br/>
-<div style="text-align: justify">
-<p>
 This is the official repository of <a href="https://acutronicrobotics.com/products/mara/">MARA</a> modular robot, world's first modular cobot. MARA is the first robot which runs ROS 2.0 on each joint empowering new possibilities and applications in the professional and industrial landscapes of robotics. Built out of individual modules that natively run ROS 2.0, the modular robot arm can be physically extended in a seamless manner. MARA delivers industrial-grade features such as time synchronization or deterministic communication latencies.
 </p>
 <p>
 Among other things, you will find in this repository instructions on how to simulate and control MARA in Gazebo Simulator or on the real robot.
 </p>
 </div>
-<br/>
-<a href="http://www.acutronicrobotics.com"><img src="https://acutronicrobotics.com/assets/images/AcutronicRobotics_logo_no_border.png" align="left" hspace="8" vspace="2" width="200"></a>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
 
 ### Features
 
